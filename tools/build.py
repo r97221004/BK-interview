@@ -26,11 +26,11 @@ BY_NUM = {q["num"]: q for q in Q}
 #    5  rare, but the answer is disproportionately impressive
 IMPORTANCE = {
     1: 10, 2: 10, 11: 10, 16: 10, 21: 10,
-    3: 9, 4: 9, 7: 9, 17: 9, 18: 9, 23: 9, 31: 9, 32: 9,
-    5: 8, 6: 8, 8: 8, 12: 8, 13: 8, 14: 8, 19: 8, 20: 8, 22: 8, 25: 8, 27: 8,
-    36: 8, 51: 8, 61: 8,
-    9: 7, 24: 7, 26: 7, 33: 7, 37: 7, 41: 7, 43: 7, 52: 7, 62: 7, 63: 7,
-    15: 6, 34: 6, 35: 6,
+    4: 9, 7: 9, 17: 9, 18: 9, 23: 9, 31: 9, 32: 9,
+    3: 8, 5: 8, 6: 8, 8: 8, 12: 8, 13: 8, 14: 8, 19: 8, 20: 8, 22: 8, 25: 8,
+    27: 8, 33: 8, 36: 8, 41: 8, 51: 8, 61: 8,
+    9: 7, 24: 7, 26: 7, 35: 7, 37: 7, 43: 7, 52: 7, 62: 7, 63: 7,
+    15: 6, 34: 6,
     42: 5,
 }
 assert set(IMPORTANCE) == set(BY_NUM), "importance must cover every question"
@@ -366,6 +366,8 @@ Some interviewers combine several concepts into one question. These common wordi
 ## The {n} Questions
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
+
+Within a band the order is by question number and means nothing - the bands are the claim, not the sequence inside them. Most questions land in the middle two bands, which is what an honest frequency estimate looks like rather than a problem to spread out.
 
 **Importance** is a 1-10 estimate of how often the question is asked, across junior and senior interviews alike. Frequency is the dominant factor - a fundamental that opens almost every interview scores higher than a subtle question that impresses when it appears but usually does not. It is not a difficulty rating.
 """

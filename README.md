@@ -136,6 +136,8 @@ Some interviewers combine several concepts into one question. These common wordi
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
 
+Within a band the order is by question number and means nothing - the bands are the claim, not the sequence inside them. Most questions land in the middle two bands, which is what an honest frequency estimate looks like rather than a problem to spread out.
+
 **Importance** is a 1-10 estimate of how often the question is asked, across junior and senior interviews alike. Frequency is the dominant factor - a fundamental that opens almost every interview scores higher than a subtle question that impresses when it appears but usually does not. It is not a difficulty rating.
 
 ### Importance 10/10 (5 questions)
@@ -148,11 +150,10 @@ Ordered by importance, highest first. Read top to bottom and you cover the quest
 | [What is a database index, and how do you work out why a query is slow?](docs/databases/q16-indexes-and-slow-queries.md) | Databases | B-tree lookup, what an index costs, and reading a query plan | Draft |
 | [What is the difference between session-based and JWT-based authentication?](docs/security-and-auth/q21-session-vs-jwt-authentication.md) | Security & Auth | Server-side state vs a signed self-contained token | Draft |
 
-### Importance 9/10 (8 questions)
+### Importance 9/10 (7 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
-| [What is an API endpoint?](docs/api-and-http/q03-what-is-an-api-endpoint.md) | API & HTTP | A URL as the entry point to one resource or capability | Draft |
 | [Explain statelessness in HTTP and how it impacts backend services.](docs/api-and-http/q04-http-statelessness.md) | API & HTTP | Independent requests, and where the state has to go instead | Draft |
 | [What measures would you take to secure a newly developed API?](docs/api-and-http/q07-securing-a-new-api.md) | API & HTTP | Authentication, transport security, origin control, and abuse limits | Draft |
 | [Explain database transactions and isolation levels.](docs/databases/q17-transactions-and-isolation-levels.md) | Databases | ACID in practice, the four levels, and the anomalies each prevents | Draft |
@@ -161,10 +162,11 @@ Ordered by importance, highest first. Read top to bottom and you cover the quest
 | [How would you scale a backend application during a traffic surge?](docs/architecture-and-scaling/q31-scaling-during-traffic-surge.md) | Architecture & Scaling | Horizontal scaling, statelessness, caching, and shedding load | Draft |
 | [Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](docs/architecture-and-scaling/q32-python-concurrency-models.md) | Architecture & Scaling | The GIL, and matching the model to I/O-bound or CPU-bound work | Draft |
 
-### Importance 8/10 (14 questions)
+### Importance 8/10 (17 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
+| [What is an API endpoint?](docs/api-and-http/q03-what-is-an-api-endpoint.md) | API & HTTP | A URL as the entry point to one resource or capability | Draft |
 | [What are the benefits and drawbacks of RESTful APIs?](docs/api-and-http/q05-rest-benefits-and-drawbacks.md) | API & HTTP | Scalability and standardization vs over-fetching and versioning cost | Draft |
 | [How do you approach API versioning in your projects?](docs/api-and-http/q06-api-versioning.md) | API & HTTP | URL vs header versioning, and when a version is needed at all | Draft |
 | [What is the difference between a REST API and a WebSocket?](docs/api-and-http/q08-rest-vs-websocket.md) | API & HTTP | Request-response vs a persistent bidirectional connection | Draft |
@@ -176,32 +178,32 @@ Ordered by importance, highest first. Read top to bottom and you cover the quest
 | [What is the difference between a session and a cookie?](docs/security-and-auth/q22-session-vs-cookie.md) | Security & Auth | Client-side storage vs server-side state, and how they connect | Draft |
 | [What is Cross-Site Scripting (XSS)?](docs/security-and-auth/q25-xss.md) | Security & Auth | Injected script running with the trusted site's privileges | Draft |
 | [What is CORS?](docs/security-and-auth/q27-cors.md) | Security & Auth | Same-origin policy, preflight, and what CORS does not protect | Draft |
+| [Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](docs/architecture-and-scaling/q33-python-builtin-data-structures.md) | Architecture & Scaling | Dynamic arrays and hash tables, and the complexity that follows | Draft |
 | [Monolith or microservices - how would you decide?](docs/architecture-and-scaling/q36-monolith-vs-microservices.md) | Architecture & Scaling | Deployment coupling, team boundaries, and the costs you inherit | Draft |
+| [What is containerization, and how does it benefit backend development?](docs/devops-and-deployment/q41-what-is-containerization.md) | DevOps & Deployment | Packaging the runtime with the app, and the boundary of that promise | Draft |
 | [What kind of tests would you write for a new API endpoint?](docs/testing-and-debugging/q51-testing-a-new-api-endpoint.md) | Testing & Debugging | Unit, integration, contract, and load tests, and what each proves | Draft |
 | [How do you choose HTTP status codes and design error responses?](docs/api-design/q61-status-codes-and-error-responses.md) | API Design & Reliability | Status classes, and an error body a client can act on | Draft |
 
-### Importance 7/10 (10 questions)
+### Importance 7/10 (9 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
 | [How would you handle file uploads in a web application?](docs/api-and-http/q09-file-uploads.md) | API & HTTP | Validation, naming, metadata, and keeping bytes out of the app server | Draft |
 | [Describe how session management works in web applications.](docs/security-and-auth/q24-session-management.md) | Security & Auth | Session lifecycle, storage, and scaling it across servers | Draft |
 | [What is Cross-Site Request Forgery (CSRF)?](docs/security-and-auth/q26-csrf.md) | Security & Auth | Riding the victim's ambient credentials, and how tokens stop it | Draft |
-| [Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](docs/architecture-and-scaling/q33-python-builtin-data-structures.md) | Architecture & Scaling | Dynamic arrays and hash tables, and the complexity that follows | Draft |
+| [When would you move work onto a message queue?](docs/architecture-and-scaling/q35-message-queues-and-async-work.md) | Architecture & Scaling | Decoupling, absorbing bursts, and what a queue makes harder | Draft |
 | [How do you stop one slow dependency from taking down your service?](docs/architecture-and-scaling/q37-timeouts-retries-and-failure.md) | Architecture & Scaling | Timeouts, bounded retries with backoff, and circuit breakers | Draft |
-| [What is containerization, and how does it benefit backend development?](docs/devops-and-deployment/q41-what-is-containerization.md) | DevOps & Deployment | Packaging the runtime with the app, and the boundary of that promise | Draft |
 | [How do you deploy a new version without dropping requests?](docs/devops-and-deployment/q43-zero-downtime-deploys.md) | DevOps & Deployment | Rolling, blue-green, and canary, plus health checks and rollback | Draft |
 | [What tools and techniques do you use for debugging a backend application?](docs/testing-and-debugging/q52-debugging-a-backend-application.md) | Testing & Debugging | Reproduce, narrow, then instrument - locally and in production | Draft |
 | [How would you paginate a large collection endpoint?](docs/api-design/q62-pagination.md) | API Design & Reliability | Offset vs cursor pagination, and why deep offsets get slow | Draft |
 | [How do you make an endpoint safe to retry?](docs/api-design/q63-idempotency-and-retries.md) | API Design & Reliability | Idempotent methods, idempotency keys, and exactly-once delivery | Draft |
 
-### Importance 6/10 (3 questions)
+### Importance 6/10 (2 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
 | [What strategies do you have when a database runs out of storage?](docs/databases/q15-database-out-of-storage.md) | Databases | Immediate relief, then reclaiming, growing, and splitting | Draft |
 | [How do you ensure your backend code is maintainable and easy to understand?](docs/architecture-and-scaling/q34-maintainable-backend-code.md) | Architecture & Scaling | Boundaries, conventions, tests, and consistent failure handling | Draft |
-| [When would you move work onto a message queue?](docs/architecture-and-scaling/q35-message-queues-and-async-work.md) | Architecture & Scaling | Decoupling, absorbing bursts, and what a queue makes harder | Draft |
 
 ### Importance 5/10 (1 question)
 

@@ -40,4 +40,4 @@ The third is clarity, since each stage has one obvious purpose - build, test, ru
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q35: When would you move work onto a message queue?](../architecture-and-scaling/q35-message-queues-and-async-work.md) | [All 41 questions](../../README.md) | *(last question)* |
+| [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) | [All 41 questions](../../README.md) | *(last question)* |

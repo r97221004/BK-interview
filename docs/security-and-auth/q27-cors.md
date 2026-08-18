@@ -60,4 +60,4 @@ Access-Control-Allow-Origin: https://shop.com
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 41 questions](../../README.md) | [Q36: Monolith or microservices - how would you decide?](../architecture-and-scaling/q36-monolith-vs-microservices.md) |
+| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 41 questions](../../README.md) | [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) |

@@ -2,7 +2,7 @@
 
 > Tests whether you can derive the performance characteristics from the implementation instead of memorizing a complexity table.
 
-**Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 8/10 | **Status:** Draft
 
 **New to these terms?** [index](../_glossary.md#index), [query plan](../_glossary.md#query-plan)
 
@@ -68,4 +68,4 @@ print(my_dict['a'])     # 1
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q26: What is Cross-Site Request Forgery (CSRF)?](../security-and-auth/q26-csrf.md) | [All 41 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |
+| [Q27: What is CORS?](../security-and-auth/q27-cors.md) | [All 41 questions](../../README.md) | [Q36: Monolith or microservices - how would you decide?](q36-monolith-vs-microservices.md) |

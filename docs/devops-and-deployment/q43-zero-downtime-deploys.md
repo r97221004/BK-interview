@@ -49,4 +49,4 @@ The part worth spending your last sentence on is rollback, because that is what 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q41: What is containerization, and how does it benefit backend development?](q41-what-is-containerization.md) | [All 41 questions](../../README.md) | [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) |
+| [Q37: How do you stop one slow dependency from taking down your service?](../architecture-and-scaling/q37-timeouts-retries-and-failure.md) | [All 41 questions](../../README.md) | [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) |

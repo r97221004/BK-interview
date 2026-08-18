@@ -40,4 +40,4 @@ The signal that it is time to split is usually organisational or operational rat
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q27: What is CORS?](../security-and-auth/q27-cors.md) | [All 41 questions](../../README.md) | [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) |
+| [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](q33-python-builtin-data-structures.md) | [All 41 questions](../../README.md) | [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) |

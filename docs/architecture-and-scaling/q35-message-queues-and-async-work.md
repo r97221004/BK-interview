@@ -2,7 +2,7 @@
 
 > Tests whether you can name work that does not belong in a request cycle, and whether you know a queue introduces retries, ordering, and duplicate delivery.
 
-**Part:** Architecture & Scaling | **Importance:** 6/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Draft
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [idempotent](../_glossary.md#idempotent), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [at-least-once delivery](../_glossary.md#at-least-once-delivery)
 
@@ -40,4 +40,4 @@ The cost is that asynchronous work is harder to get right, and naming those cost
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q34: How do you ensure your backend code is maintainable and easy to understand?](q34-maintainable-backend-code.md) | [All 41 questions](../../README.md) | [Q42: What are the benefits of Docker multi-stage builds?](../devops-and-deployment/q42-docker-multi-stage-builds.md) |
+| [Q26: What is Cross-Site Request Forgery (CSRF)?](../security-and-auth/q26-csrf.md) | [All 41 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |

@@ -2,7 +2,7 @@
 
 > Tests whether you can state what containers actually isolate, and what they do not solve.
 
-**Part:** DevOps & Deployment | **Importance:** 7/10 | **Status:** Draft
+**Part:** DevOps & Deployment | **Importance:** 8/10 | **Status:** Draft
 
 ## In One Sentence
 
@@ -34,4 +34,4 @@ For backend development the benefits follow directly. Dependencies are pinned in
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q37: How do you stop one slow dependency from taking down your service?](../architecture-and-scaling/q37-timeouts-retries-and-failure.md) | [All 41 questions](../../README.md) | [Q43: How do you deploy a new version without dropping requests?](q43-zero-downtime-deploys.md) |
+| [Q36: Monolith or microservices - how would you decide?](../architecture-and-scaling/q36-monolith-vs-microservices.md) | [All 41 questions](../../README.md) | [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) |

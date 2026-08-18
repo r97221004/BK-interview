@@ -50,4 +50,4 @@ In practice most production systems run a hybrid, and saying so is the strongest
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q16: What is a database index, and how do you work out why a query is slow?](../databases/q16-indexes-and-slow-queries.md) | [All 41 questions](../../README.md) | [Q03: What is an API endpoint?](../api-and-http/q03-what-is-an-api-endpoint.md) |
+| [Q16: What is a database index, and how do you work out why a query is slow?](../databases/q16-indexes-and-slow-queries.md) | [All 41 questions](../../README.md) | [Q04: Explain statelessness in HTTP and how it impacts backend services.](../api-and-http/q04-http-statelessness.md) |

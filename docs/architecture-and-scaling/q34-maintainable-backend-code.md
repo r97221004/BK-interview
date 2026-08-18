@@ -36,4 +36,4 @@ The last part is what makes change safe. I write unit tests with pytest so that 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) | [All 41 questions](../../README.md) | [Q35: When would you move work onto a message queue?](q35-message-queues-and-async-work.md) |
+| [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) | [All 41 questions](../../README.md) | [Q42: What are the benefits of Docker multi-stage builds?](../devops-and-deployment/q42-docker-multi-stage-builds.md) |
