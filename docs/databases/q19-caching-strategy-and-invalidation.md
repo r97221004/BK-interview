@@ -18,21 +18,38 @@ Lead with the selection rule, because caching the wrong thing is the more common
 
 ## Full Spoken Answer
 
-The first decision is what deserves a cache at all. Three properties have to hold together: the data is read much more often than it is written, producing it is expensive - a multi-table join, an external API call, a computed aggregate - and the caller can tolerate the data being slightly out of date. If any one of those is missing, caching either buys nothing or introduces a correctness bug. A user's account balance fails the third test; a product catalogue passes all three.
+Anchor it on one page: a product page assembled from a five-table join - price, stock, reviews, images, recommendations - hit a thousand times a second, changed maybe once an hour. The first decision is whether that deserves a cache at all, and three properties have to hold together: read far more than written, expensive to produce, and tolerable if slightly stale. The product page passes all three. A user's account balance fails the third one outright - nobody wants to see their balance from thirty seconds ago - so it stays out of the cache no matter how often it's read.
 
-第一個決策是「什麼東西值得被快取」。三個條件必須同時成立：這份資料讀的次數遠多於寫、產生它的成本很高（多表 join、外部 API 呼叫、計算出來的彙總），而且呼叫端能容忍資料稍微過期。只要少了任何一項，快取要嘛毫無收益，要嘛引入正確性的錯誤。使用者的帳戶餘額過不了第三關，商品目錄則三關全過。
+用一個具體頁面貫穿整題：一個商品頁，要 join 五張表才能拼出來 —— 價格、庫存、評論、圖片、推薦 —— 每秒被讀一千次，大概一小時才變一次。第一個決策是這東西值不值得被快取，三個條件必須同時成立：讀遠多於寫、產生成本高、稍微過期也能接受。商品頁三關全過。使用者的帳戶餘額直接在第三關被刷掉 —— 沒人想看到三十秒前的餘額 —— 所以不管讀得多頻繁，它都不進快取。
 
-Cache-aside is the default pattern and the one to describe first. The application checks the cache, and on a miss it reads the database, writes the value back with a time to live, and returns it. The cache never talks to the database itself, so it is simple and it degrades safely: if the cache is down, every request is a miss and the system is slow rather than broken. Write-through instead writes to the cache and the database together on every write, which keeps the two consistent at the cost of making writes slower and caching data nobody may ever read.
+Cache-aside is the default pattern and the one to describe first. For that product page: the app checks Redis for `product:42`, and on a miss it runs the five-table join, writes the result back with a one-hour TTL, and returns it. The cache never talks to the database itself, so it is simple and it degrades safely: if Redis is down, every request is a miss and the site gets slow, not broken. Write-through instead writes to the cache and the database together on every write, which keeps the two consistent at the cost of making writes slower and caching pages nobody may ever load.
 
-cache-aside 是預設模式，也是該先描述的那一個。應用程式先查快取，未命中時去讀資料庫、把值連同存活時間寫回快取，再回傳。快取本身從不與資料庫對話，所以它很單純而且降級安全：快取掛掉時，每個請求都是未命中，系統會變慢但不會壞。write-through 則是在每次寫入時同時寫進快取和資料庫，讓兩者保持一致，代價是寫入變慢，而且會快取到可能永遠沒人讀的資料。
+cache-aside 是預設模式，也是該先描述的那一個。套進商品頁的例子：應用程式查 Redis 裡的 `product:42`，未命中時才真的去跑那個五表 join、把結果連同一小時的 TTL 寫回快取，再回傳。快取本身從不與資料庫對話，所以它很單純而且降級安全：Redis 掛掉時，每個請求都是未命中，網站會變慢，但不會壞。write-through 則是在每次寫入時同時寫進快取和資料庫，讓兩者保持一致，代價是寫入變慢，而且會快取到可能永遠沒人載入的頁面。
 
-Invalidation is the part that decides whether the design is sound. A time to live is the simplest and most robust answer: every entry expires on its own, so a bug in your invalidation logic costs you staleness for a bounded window rather than forever. Explicit invalidation on write is more precise - delete the key when the underlying row changes - and it is where the hard bugs live, because one piece of data often sits inside several cached shapes and forgetting one of them leaves a permanently wrong entry. The pragmatic combination is to invalidate explicitly on the writes you control and still set a TTL underneath as a backstop.
+Invalidation is the part that decides whether the design is sound. A TTL alone is the simplest and most robust answer: the product page just expires every hour on its own, so a bug in your invalidation logic costs you an hour of staleness, not forever. Explicit invalidation on write is more precise - the moment the price changes, delete `product:42` - and it is where the hard bugs live, because the same product data often sits inside several cached shapes too: `product:42`, `category:5:products`, `search:results:shoes`. Forget to invalidate one of those and it shows the old price forever, TTL or not. The pragmatic combination is to invalidate explicitly on the writes you control and still keep a TTL underneath as a backstop for the ones you missed.
 
-失效是決定這個設計健不健全的一環。存活時間是最簡單也最穩健的答案：每個條目都會自己過期，所以你失效邏輯裡的 bug 只會讓你在一個有界的時間窗內拿到舊資料，而不是永遠。寫入時主動失效更精確 —— 底層資料列改變時就刪掉那個鍵 —— 而困難的 bug 都住在這裡，因為同一份資料常常存在於好幾個不同形狀的快取條目裡，漏掉其中一個就留下一筆永遠錯誤的資料。務實的組合是：對你掌控得到的寫入做主動失效，同時在底下仍然設一個 TTL 當保險。
+失效是決定這個設計健不健全的一環。單靠 TTL 是最簡單也最穩健的答案：商品頁每小時自己過期，所以你失效邏輯裡的 bug 頂多讓你錯一小時，不是永遠。寫入時主動失效更精確 —— 價格一改就立刻刪掉 `product:42` —— 而困難的 bug 都住在這裡，因為同一份商品資料常常也躺在好幾個不同形狀的快取裡：`product:42`、`category:5:products`、`search:results:shoes`。漏掉其中一個沒失效，它就會永遠顯示舊價格，TTL 也救不了它。務實的組合是：對你掌控得到的寫入做主動失效，同時在底下留一個 TTL，接住你漏掉的那些。
 
-Then name the failure modes, because they are what separates experience from theory. A stampede happens when a popular key expires and every concurrent request misses at once and hits the database together; the fixes are a short lock so one request repopulates while the others wait, or staggering expiry with a random jitter so a batch of keys does not expire simultaneously. Memory is finite, so the eviction policy decides what is discarded when it fills, and choosing it deliberately matters. And a cache should never be the only copy of anything: if losing it means losing data rather than losing speed, it is not a cache, it is a database with no durability.
+Then name the failure modes, because they are what separates experience from theory. Say this product goes viral and `product:42` gets hit ten thousand times a second right as its TTL expires - that's a stampede: every one of those requests misses at once and all ten thousand hit the database together, which can take it down. The fixes are a short lock so one request repopulates while the others wait for it, or staggering expiry with random jitter so a batch of keys never expires in the same instant. Memory is finite too, so once Redis fills up, the eviction policy decides what gets thrown out, and choosing it deliberately matters. And a cache should never be the only copy of anything: if losing Redis means losing the product's price rather than just losing speed, it was never a cache, it was a database with no durability. The rule to keep in your head: a cache is allowed to be wrong for a little while, never allowed to be the only copy of the truth.
 
-接著把失敗模式點名，因為那正是經驗與理論的分野。快取雪崩發生在一個熱門的鍵過期時，所有並行請求同時未命中、一起打到資料庫；修法是用一個短暫的鎖讓一個請求去重建、其他請求等待，或是在過期時間上加隨機抖動，讓一批鍵不會同時到期。記憶體是有限的，所以淘汰策略決定了滿了之後丟掉什麼，刻意挑選它很重要。而且快取永遠不該是任何東西的唯一副本：如果弄丟它代表弄丟資料而不是弄丟速度，那它就不是快取，而是一個沒有持久性的資料庫。
+接著把失敗模式點名，因為那正是經驗與理論的分野。假設這個商品爆紅，`product:42` 在 TTL 剛好過期的那一刻被打了每秒一萬次 —— 這就是快取雪崩：那一萬個請求同時未命中，一起打到資料庫，足以把它打垮。修法是用一個短暫的鎖讓一個請求去重建、其他請求等待，或是在過期時間上加隨機抖動，讓一批鍵不會在同一瞬間一起過期。記憶體也是有限的，所以 Redis 滿了之後，淘汰策略決定丟掉什麼，刻意挑選它很重要。而且快取永遠不該是任何東西的唯一副本：如果弄丟 Redis 代表弄丟了商品的價格，而不只是弄丟速度，那它從來就不是快取，而是一個沒有持久性的資料庫。記住這句話：快取可以允許自己錯一陣子，但絕對不能是真相唯一的副本。
+
+## Quick Reference
+
+**Cache the product page, not the account balance: read >> write, expensive to produce, okay if briefly stale.**
+
+| | Cache-aside | Write-through |
+|---|---|---|
+| On a read | Check cache, miss → read DB → write cache → return | Check cache, always current |
+| On a write | Write DB, then delete the key so the next read repopulates it | Write DB and cache together |
+| If the cache is down | Every read is a miss - slow, not broken | Every write is slower |
+| Wastes cache space on | Nothing - only what's actually read gets cached | Data nobody may ever read |
+
+| Failure mode | What happens | Fix |
+|---|---|---|
+| **Stampede** | A hot key expires; every concurrent request misses and hits the DB at once | Short lock so one request repopulates, or jittered expiry so keys don't expire together |
+| **Eviction** | Memory fills; something gets discarded | Choose the eviction policy deliberately, don't leave it to chance |
+| **Cache as system of record** | Losing the cache means losing data, not just speed | It isn't a cache anymore - keep the database as the source of truth |
 
 ---
 
