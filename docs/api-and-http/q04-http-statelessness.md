@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [jwt](../_glossary.md#jwt), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
+**New to these terms?** [cookie](../_glossary.md#cookie), [jwt](../_glossary.md#jwt), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
 
 ## In One Sentence
 
@@ -20,21 +20,42 @@ State the rule first and be precise that it is the protocol that is stateless, n
 
 ## Full Spoken Answer
 
-HTTP is stateless: every request is independent, and the server does not automatically know who the client is or what happened in the previous request. Two requests arriving one second apart from the same browser look, to the protocol, like two unrelated events. That is a property of the protocol, not a claim that applications have no state.
+HTTP is stateless: every request is independent, and the server does not automatically know who the client is or what happened in the previous request. Two requests arriving one second apart from the same browser look, to the protocol, like two unrelated events. That is a property of the protocol, not a claim that applications have no state. Nor is it undone by connection reuse: keeping one TCP connection open for several exchanges is a transport optimisation, and the server still remembers nothing about the user between them.
 
-HTTP 是無狀態的：每個請求彼此獨立，伺服器不會自動知道對方是誰，也不知道上一個請求發生了什麼。同一個瀏覽器相隔一秒送出的兩個請求，在協定眼中就是兩個互不相關的事件。這是協定的性質，並不是說應用程式沒有狀態。
+HTTP 是無狀態的：每個請求彼此獨立，伺服器不會自動知道對方是誰，也不知道上一個請求發生了什麼。同一個瀏覽器相隔一秒送出的兩個請求，在協定眼中就是兩個互不相關的事件。這是協定的性質，並不是說應用程式沒有狀態。它也不會被連線重用推翻：讓同一條 TCP 連線承載多次往返只是傳輸層的最佳化，伺服器在這幾次之間依然不記得使用者任何事。
 
-So if you need login state, a shopping cart, or user preferences, you have to manage that state explicitly. The usual options are a cookie holding a session ID that points at server-side session data, a signed token such as a JWT that carries the claims inside the request itself, or state kept entirely on the client. In every case the request arrives self-describing, because the protocol will not describe it for you.
+So if you need login state, a shopping cart, or user preferences, you have to manage that state explicitly. The usual options are a cookie holding a session ID that points at server-side session data, a signed token such as a JWT that carries the claims inside the request itself, or state kept entirely on the client, which only works if it is signed - anything the client holds unsigned is something the client can rewrite, starting with its own role. In every case the request arrives self-describing, because the protocol will not describe it for you.
 
-因此如果你需要登入狀態、購物車或使用者偏好，就必須自己明確管理狀態。常見做法有三種：用 cookie 存一個指向伺服器端 session 資料的 session ID、用像 JWT 這種簽章 token 把 claims 直接帶在請求裡，或是把狀態完全放在客戶端。無論哪一種，請求抵達時都必須自我描述，因為協定不會替你描述。
+因此如果你需要登入狀態、購物車或使用者偏好，就必須自己明確管理狀態。常見做法有三種：用 cookie 存一個指向伺服器端 session 資料的 session ID、用像 JWT 這種簽章 token 把 claims 直接帶在請求裡，或是把狀態完全放在客戶端——但這只有在簽章過的前提下才成立，客戶端手上任何沒簽章的東西都是它可以改寫的，從自己的角色開始改。無論哪一種，請求抵達時都必須自我描述，因為協定不會替你描述。
 
-The payoff is that any instance can serve any request. Nothing is pinned to the machine that handled the previous call, so you can put ten identical servers behind a load balancer, restart one during a deploy, or add three more during a traffic surge without breaking a single in-flight user. That property is what makes horizontal scaling straightforward, and it is why the constraint is worth accepting.
+The payoff is that any instance can serve any request - provided the state really did leave the process. Put sessions in one server's memory and you have taken it back: that user is now pinned to the machine that happened to serve them, and loses their session the moment it restarts. With the state in a shared store or in the request itself, nothing is pinned to the machine that handled the previous call, so you can put ten identical servers behind a load balancer, restart one during a deploy, or add three more during a traffic surge without breaking a single in-flight user. That property is what makes horizontal scaling straightforward, and it is why the constraint is worth accepting.
 
-它的報酬是：任何一台實例都能服務任何一個請求。沒有東西被綁在處理上一次呼叫的那台機器上，所以你可以在 load balancer 後面放十台一模一樣的伺服器、在部署時重啟其中一台，或在流量暴增時再加三台，而不會影響任何一個進行中的使用者。這個性質讓水平擴充變得直接，也正是這個約束值得接受的原因。
+它的報酬是：任何一台實例都能服務任何一個請求——前提是狀態真的離開了行程。把 session 放進某一台伺服器的記憶體裡，等於把這個報酬收回去了：那位使用者從此被綁在剛好服務到他的那台機器上，而且那台機器一重啟，他的 session 就沒了。當狀態放在共用儲存、或直接放在請求裡時，才真的沒有東西被綁在處理上一次呼叫的那台機器上，所以你可以在 load balancer 後面放十台一模一樣的伺服器、在部署時重啟其中一台，或在流量暴增時再加三台，而不會影響任何一個進行中的使用者。這個性質讓水平擴充變得直接，也正是這個約束值得接受的原因。
 
 The cost is that the context is repaid on every request. Credentials are re-verified, the token or session lookup happens again, and payloads are slightly larger. Cached lookups and short-lived tokens keep that cheap, but it is a real trade: statelessness buys elasticity and pays for it in repeated work per request.
 
 代價是脈絡必須在每個請求上重新償還一次。憑證要重新驗證、token 或 session 查詢要再做一次，payload 也會稍微變大。用快取和短效 token 可以把成本壓低，但這確實是一個取捨：無狀態換來的是彈性，付出的是每個請求都要重做的那些工作。
+
+## Quick Reference
+
+### Where the state goes, and what it costs you
+
+The protocol will not hold it, so every design picks one of these. The column
+that matters is the third: it is the one that decides whether the payoff of
+statelessness actually arrives.
+
+| State lives in | Survives an instance restart | Needs sticky routing | Client can read it | Client can forge it |
+|---|---|---|---|---|
+| The server process's memory | No | **Yes** | No | No |
+| A shared store (Redis, a database) | Yes | No | No | No |
+| A signed token in the request | Yes, nothing to lose | No | Yes - signed, not encrypted | No, while the key holds |
+| An unsigned cookie or field | Yes | No | Yes | **Yes** |
+
+Only the middle two rows give you interchangeable instances without handing
+the user anything they can read. The last row is the one that looks like the
+others and is not: [Q21](../security-and-auth/q21-session-vs-jwt-authentication.md)
+on what a signature does, [Q24](../security-and-auth/q24-session-management.md)
+on why the first row logs people out at random.
 
 ---
 

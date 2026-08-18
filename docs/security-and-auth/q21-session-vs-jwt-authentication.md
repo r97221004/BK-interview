@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 10/10 | **Status:** Draft
 
-**New to these terms?** [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [xss](../_glossary.md#xss), [redis](../_glossary.md#redis), [microservices](../_glossary.md#microservices)
+**New to these terms?** [statelessness](../_glossary.md#statelessness), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [xss](../_glossary.md#xss), [microservices](../_glossary.md#microservices)
 
 ## In One Sentence
 
