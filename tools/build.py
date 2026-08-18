@@ -76,6 +76,7 @@ TERM_RE = {
     "microservices": r"microservices?\b", "timeout": r"\btimeouts?\b",
     "circuit-breaker": r"circuit breakers?", "health-check": r"health checks?|readiness|liveness",
     "blue-green": r"blue-green", "canary": r"\bcanary\b",
+    "idor": r"\bIDOR\b|broken object level", "mass-assignment": r"mass assignment",
 }
 # "denormaliz" has no glossary entry of its own; it points at the normalization
 # neighbourhood, so drop any regex key that is not a real term.

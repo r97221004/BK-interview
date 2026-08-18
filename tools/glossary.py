@@ -143,4 +143,8 @@ TERMS = [
      "Running a complete second environment on the new version and switching all traffic at once. Cutover and rollback are both instant, at the cost of double infrastructure during the switch."),
     ("canary", "Canary deploy", 43,
      "Sending a small, increasing share of real traffic to the new version while comparing its error rate and latency against the old one, so a bad release reaches few users."),
+    ("idor", "IDOR", 7,
+     "Insecure Direct Object Reference, also called broken object level authorization: the caller is authenticated, but the handler trusts the identifier in the request and returns or edits a record belonging to someone else. First in the OWASP API Security Top 10."),
+    ("mass-assignment", "Mass assignment", 7,
+     "Binding a request payload straight onto a model, so a caller can set a field the API never meant to expose - a role or an ownership column. The fix is an explicit input schema, and an explicit output schema so internal fields cannot ride along either."),
 ]

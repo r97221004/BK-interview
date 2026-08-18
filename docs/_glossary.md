@@ -417,3 +417,15 @@ Explained in full: [Q43](devops-and-deployment/q43-zero-downtime-deploys.md).
 Sending a small, increasing share of real traffic to the new version while comparing its error rate and latency against the old one, so a bad release reaches few users.
 
 Explained in full: [Q43](devops-and-deployment/q43-zero-downtime-deploys.md).
+
+### IDOR
+
+Insecure Direct Object Reference, also called broken object level authorization: the caller is authenticated, but the handler trusts the identifier in the request and returns or edits a record belonging to someone else. First in the OWASP API Security Top 10.
+
+Explained in full: [Q07](api-and-http/q07-securing-a-new-api.md).
+
+### Mass assignment
+
+Binding a request payload straight onto a model, so a caller can set a field the API never meant to expose - a role or an ownership column. The fix is an explicit input schema, and an explicit output schema so internal fields cannot ride along either.
+
+Explained in full: [Q07](api-and-http/q07-securing-a-new-api.md).
