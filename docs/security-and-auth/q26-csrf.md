@@ -40,4 +40,4 @@ The classic defense is a CSRF token: the server puts an unpredictable value into
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q24: Describe how session management works in web applications.](q24-session-management.md) | [All 37 questions](../../README.md) | [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) |
+| [Q24: Describe how session management works in web applications.](q24-session-management.md) | [All 41 questions](../../README.md) | [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) |

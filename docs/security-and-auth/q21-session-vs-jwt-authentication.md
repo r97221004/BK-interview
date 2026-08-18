@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 10/10 | **Status:** Draft
 
-**New to these terms?** [statelessness](../_glossary.md#statelessness), [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [samesite](../_glossary.md#samesite), [redis](../_glossary.md#redis)
+**New to these terms?** [statelessness](../_glossary.md#statelessness), [cookie](../_glossary.md#cookie), [samesite](../_glossary.md#samesite), [redis](../_glossary.md#redis), [microservices](../_glossary.md#microservices)
 
 ## In One Sentence
 
@@ -50,4 +50,4 @@ In practice most production systems run a hybrid, and saying so is the strongest
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q16: What is a database index, and how do you work out why a query is slow?](../databases/q16-indexes-and-slow-queries.md) | [All 37 questions](../../README.md) | [Q03: What is an API endpoint?](../api-and-http/q03-what-is-an-api-endpoint.md) |
+| [Q16: What is a database index, and how do you work out why a query is slow?](../databases/q16-indexes-and-slow-queries.md) | [All 41 questions](../../README.md) | [Q03: What is an API endpoint?](../api-and-http/q03-what-is-an-api-endpoint.md) |

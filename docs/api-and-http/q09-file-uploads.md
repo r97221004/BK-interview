@@ -40,4 +40,4 @@ At scale, take the bytes out of the application path entirely. The backend issue
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) | [All 37 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |
+| [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) | [All 41 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |

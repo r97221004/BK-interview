@@ -65,4 +65,4 @@ Multiprocessing runs separate processes, each with its own interpreter, its own 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q31: How would you scale a backend application during a traffic surge?](q31-scaling-during-traffic-surge.md) | [All 37 questions](../../README.md) | [Q05: What are the benefits and drawbacks of RESTful APIs?](../api-and-http/q05-rest-benefits-and-drawbacks.md) |
+| [Q31: How would you scale a backend application during a traffic surge?](q31-scaling-during-traffic-surge.md) | [All 41 questions](../../README.md) | [Q05: What are the benefits and drawbacks of RESTful APIs?](../api-and-http/q05-rest-benefits-and-drawbacks.md) |

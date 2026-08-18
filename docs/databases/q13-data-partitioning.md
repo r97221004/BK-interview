@@ -4,6 +4,8 @@
 
 **Part:** Databases | **Importance:** 8/10 | **Status:** Draft
 
+**New to these terms?** [schema migration](../_glossary.md#schema-migration)
+
 ## In One Sentence
 
 Partitioning is splitting one large table into smaller physical pieces, so a query only has to touch the piece that holds the rows it wants.
@@ -48,4 +50,4 @@ The whole thing lives or dies on the partition key, which has to match how you a
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q12: What is data normalization?](q12-data-normalization.md) | [All 37 questions](../../README.md) | [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) |
+| [Q12: What is data normalization?](q12-data-normalization.md) | [All 41 questions](../../README.md) | [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) |

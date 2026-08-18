@@ -68,4 +68,4 @@ print(my_dict['a'])     # 1
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q26: What is Cross-Site Request Forgery (CSRF)?](../security-and-auth/q26-csrf.md) | [All 37 questions](../../README.md) | [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) |
+| [Q26: What is Cross-Site Request Forgery (CSRF)?](../security-and-auth/q26-csrf.md) | [All 41 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |

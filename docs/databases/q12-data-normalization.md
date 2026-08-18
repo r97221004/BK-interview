@@ -49,4 +49,4 @@ In practice 3NF is where most designs stop, and denormalizing back is a legitima
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q08: What is the difference between a REST API and a WebSocket?](../api-and-http/q08-rest-vs-websocket.md) | [All 37 questions](../../README.md) | [Q13: What is data partitioning?](q13-data-partitioning.md) |
+| [Q08: What is the difference between a REST API and a WebSocket?](../api-and-http/q08-rest-vs-websocket.md) | [All 41 questions](../../README.md) | [Q13: What is data partitioning?](q13-data-partitioning.md) |

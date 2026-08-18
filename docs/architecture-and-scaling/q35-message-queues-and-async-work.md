@@ -40,4 +40,4 @@ The cost is that asynchronous work is harder to get right, and naming those cost
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q34: How do you ensure your backend code is maintainable and easy to understand?](q34-maintainable-backend-code.md) | [All 37 questions](../../README.md) | [Q42: What are the benefits of Docker multi-stage builds?](../devops-and-deployment/q42-docker-multi-stage-builds.md) |
+| [Q34: How do you ensure your backend code is maintainable and easy to understand?](q34-maintainable-backend-code.md) | [All 41 questions](../../README.md) | [Q42: What are the benefits of Docker multi-stage builds?](../devops-and-deployment/q42-docker-multi-stage-builds.md) |

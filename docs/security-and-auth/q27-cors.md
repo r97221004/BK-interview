@@ -60,4 +60,4 @@ Access-Control-Allow-Origin: https://shop.com
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 37 questions](../../README.md) | [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) |
+| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 41 questions](../../README.md) | [Q36: Monolith or microservices - how would you decide?](../architecture-and-scaling/q36-monolith-vs-microservices.md) |

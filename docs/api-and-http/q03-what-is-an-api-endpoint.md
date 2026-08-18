@@ -36,4 +36,4 @@ The distinction worth stating is that an endpoint is not the API. The API is the
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) | [All 37 questions](../../README.md) | [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) |
+| [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) | [All 41 questions](../../README.md) | [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) |

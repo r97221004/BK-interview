@@ -1,0 +1,59 @@
+# Q20: How do you change a database schema without downtime?
+
+> Tests whether you know a migration runs while the old code is still serving traffic, and whether you have been bitten by a lock on a large table.
+
+**Part:** Databases | **Importance:** 8/10 | **Status:** Draft
+
+**New to these terms?** [index](../_glossary.md#index), [query plan](../_glossary.md#query-plan), [message queue](../_glossary.md#message-queue), [timeout](../_glossary.md#timeout)
+
+## In One Sentence
+
+You never change a column in one step - you add the new shape, get the code writing to both, backfill the old rows, switch reads over, and only then remove what is left.
+
+你永遠不會一步改掉一個欄位 —— 而是先加上新的形狀、讓程式碼同時寫入新舊兩邊、把舊資料回填、把讀取切過去，最後才移除剩下的東西。
+
+## Answer Shape
+
+Start from the constraint that makes this hard: during a deploy the old code and the new code are both running against one database, so every migration has to be compatible with both. That single sentence explains the whole pattern. Then walk expand-and-contract with a rename as the example, and finish with the locking problem, because that is what actually causes the outage.
+
+從讓這件事變難的那個限制講起：部署期間舊版和新版程式碼會同時對著同一個資料庫運行，所以每次遷移都必須同時相容於兩者。光是這一句就能解釋整套模式。接著用「改欄位名稱」當例子走一遍 expand-and-contract，最後收在鎖的問題，因為真正造成停機的是它。
+
+## Full Spoken Answer
+
+The constraint that shapes everything is that a deploy is not atomic. While instances are being replaced, the old version and the new version are both serving traffic against the same database, so the schema has to satisfy both at once. Any migration that is only valid for the new code will break every request still being handled by the old code, and any rollback puts you back in the same situation from the other direction.
+
+決定一切的限制是：部署不是原子操作。當實例正在被替換時，舊版與新版會同時對著同一個資料庫提供服務，所以 schema 必須同時滿足兩者。任何只對新版程式碼有效的遷移，都會弄壞仍由舊版處理的每一個請求；而 rollback 則會從反方向讓你陷入同樣的處境。
+
+That is why the pattern is expand and contract, in separate deploys. Renaming a column is the standard example, and it is never one statement. First expand: add the new column, which is additive and safe for the old code because it simply ignores it. Then deploy code that writes to both columns and still reads the old one. Then backfill the existing rows in batches. Then deploy code that reads the new column. Only once nothing references the old column - and you have left it long enough that a rollback would not need it - do you contract by dropping it. Four or five deploys to rename a column feels excessive until the first time you do it in one and take the site down.
+
+這正是為什麼模式叫做 expand and contract，而且要分成好幾次部署。改欄位名稱是標準例子，而它從來不是一個敘述句能完成的。先 expand：新增新欄位，這是累加式的，對舊版程式碼很安全，因為它會直接忽略。接著部署「同時寫入兩個欄位、但仍讀舊欄位」的程式碼。然後分批回填既有資料列。再部署「讀新欄位」的程式碼。只有在確認沒有任何東西還參照舊欄位、而且已經等得夠久到 rollback 也不需要它之後，才 contract 把它移除。為了改一個欄位名稱要跑四到五次部署，聽起來很誇張 —— 直到你第一次一步做完並把網站弄掛為止。
+
+The other half is locking, and it is what turns a migration into an incident. Some operations rewrite the whole table or take an exclusive lock while they run, and on a large table that means every query behind it queues until it finishes. Adding a nullable column without a default is cheap on modern PostgreSQL and MySQL; adding one with a default, changing a type, or adding a constraint can be expensive. Build indexes concurrently where the engine supports it, set a short lock timeout so a migration fails fast instead of blocking production behind it, and backfill in batches with a pause rather than one enormous UPDATE that holds a transaction open for an hour.
+
+另一半是鎖，而它正是把一次遷移變成一場事故的原因。有些操作會重寫整張表，或在執行期間取得排他鎖，在大表上這代表後面的每一個查詢都得排隊等它做完。在現代的 PostgreSQL 和 MySQL 上，新增一個可為 null 且沒有預設值的欄位很便宜；但新增帶預設值的欄位、改變型別，或加上約束條件都可能很昂貴。在引擎支援時用並行方式建立索引、設定一個短的鎖逾時讓遷移快速失敗而不是把正式環境卡在它後面，並且分批回填、中間留間隔，而不是用一個巨大的 UPDATE 把交易開著一小時。
+
+Operationally, migrations live in version control alongside the code, run through a tool that tracks which ones have been applied - Alembic or Django's migration framework - and are reviewed like any other change. Two habits are worth stating: every migration should be tested against a copy of production-sized data, because a statement that is instant on ten rows can lock a table for ten minutes on ten million, and destructive steps should be separated from the deploy that stops using the data, so that rolling back the code does not mean the data is already gone.
+
+在維運上，遷移檔案與程式碼一起進版本控制，透過會追蹤「哪些已經套用」的工具執行 —— Alembic 或 Django 的 migration 框架 —— 並且像其他變更一樣經過審查。有兩個習慣值得說出來：每個遷移都應該對著與正式環境同等資料量的副本測試過，因為一個在十列上瞬間完成的敘述句，在一千萬列上可能鎖表十分鐘；而破壞性的步驟應該和「停止使用該資料」的那次部署分開，這樣 rollback 程式碼時才不會發現資料已經沒了。
+
+## Quick Reference
+
+### Expand and contract, for renaming a column
+
+| Step | Deploy | Old code still works? |
+|---|---|---|
+| 1. Expand | Add the new column, nullable | Yes - it ignores the new column |
+| 2. Dual write | Code writes both columns, reads the old one | Yes |
+| 3. Backfill | Copy existing rows in batches | Yes |
+| 4. Switch reads | Code reads the new column, still writes both | Yes |
+| 5. Stop writing | Code writes and reads only the new column | No - rollback boundary is here |
+| 6. Contract | Drop the old column | n/a |
+
+Steps 5 and 6 belong in separate deploys: once the old column is dropped, a
+rollback to step 4 has nothing to read.
+
+---
+
+| ⬅ Previous | Home | Next ➡ |
+|---|---|---|
+| [Q19: How do you decide what to cache, and how do you invalidate it?](q19-caching-strategy-and-invalidation.md) | [All 41 questions](../../README.md) | [Q22: What is the difference between a session and a cookie?](../security-and-auth/q22-session-vs-cookie.md) |

@@ -38,4 +38,4 @@ The most useful thing to know is why an index exists and still goes unused. Wrap
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q11: Can you explain the difference between SQL and NoSQL databases?](q11-sql-vs-nosql.md) | [All 37 questions](../../README.md) | [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) |
+| [Q11: Can you explain the difference between SQL and NoSQL databases?](q11-sql-vs-nosql.md) | [All 41 questions](../../README.md) | [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) |

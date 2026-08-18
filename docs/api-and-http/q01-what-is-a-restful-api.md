@@ -40,4 +40,4 @@ In practice most APIs called RESTful break at least one constraint, and the hone
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| *(first question)* | [All 37 questions](../../README.md) | [Q02: Can you describe a typical HTTP request/response cycle?](q02-http-request-response-cycle.md) |
+| *(first question)* | [All 41 questions](../../README.md) | [Q02: Can you describe a typical HTTP request/response cycle?](q02-http-request-response-cycle.md) |

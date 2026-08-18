@@ -57,4 +57,4 @@ Two mistakes are worth naming because they show up constantly. Returning 200 wit
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) | [All 37 questions](../../README.md) | [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) |
+| [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) | [All 41 questions](../../README.md) | [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) |

@@ -50,4 +50,4 @@ Submitted into any field that is later rendered without escaping:
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q22: What is the difference between a session and a cookie?](q22-session-vs-cookie.md) | [All 37 questions](../../README.md) | [Q27: What is CORS?](q27-cors.md) |
+| [Q22: What is the difference between a session and a cookie?](q22-session-vs-cookie.md) | [All 41 questions](../../README.md) | [Q27: What is CORS?](q27-cors.md) |

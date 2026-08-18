@@ -59,4 +59,4 @@ user = User.objects.get(username=username, password=password)
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q18: What is the N+1 query problem, and how do you fix it?](../databases/q18-n-plus-one-queries.md) | [All 37 questions](../../README.md) | [Q31: How would you scale a backend application during a traffic surge?](../architecture-and-scaling/q31-scaling-during-traffic-surge.md) |
+| [Q18: What is the N+1 query problem, and how do you fix it?](../databases/q18-n-plus-one-queries.md) | [All 41 questions](../../README.md) | [Q31: How would you scale a backend application during a traffic surge?](../architecture-and-scaling/q31-scaling-during-traffic-surge.md) |

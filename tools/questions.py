@@ -124,6 +124,11 @@ q(19, "databases", "caching-strategy-and-invalidation",
   "Cache-aside vs write-through, TTLs, stampedes, and staleness",
   "Tests whether you treat caching as a design with failure modes rather than as a switch, and whether you can say what happens on a miss.")
 
+q(20, "databases", "schema-migrations",
+  "How do you change a database schema without downtime?",
+  "Expand and contract, backwards-compatible steps, and long locks",
+  "Tests whether you know a migration runs while the old code is still serving traffic, and whether you have been bitten by a lock on a large table.")
+
 # ------------------------------------------------------------- Security & Auth
 q(21, "security-and-auth", "session-vs-jwt-authentication",
   "What is the difference between session-based and JWT-based authentication?",
@@ -186,6 +191,16 @@ q(35, "architecture-and-scaling", "message-queues-and-async-work",
   "Decoupling, absorbing bursts, and what a queue makes harder",
   "Tests whether you can name work that does not belong in a request cycle, and whether you know a queue introduces retries, ordering, and duplicate delivery.")
 
+q(36, "architecture-and-scaling", "monolith-vs-microservices",
+  "Monolith or microservices - how would you decide?",
+  "Deployment coupling, team boundaries, and the costs you inherit",
+  "Tests whether you can argue for the boring choice. Reciting the benefits of microservices without naming the operational cost is the failure mode.")
+
+q(37, "architecture-and-scaling", "timeouts-retries-and-failure",
+  "How do you stop one slow dependency from taking down your service?",
+  "Timeouts, bounded retries with backoff, and circuit breakers",
+  "Tests whether you treat a network call as something that fails, and whether you know a naive retry turns a blip into an outage.")
+
 # ---------------------------------------------------- DevOps & Deployment
 q(41, "devops-and-deployment", "what-is-containerization",
   "What is containerization, and how does it benefit backend development?",
@@ -196,6 +211,11 @@ q(42, "devops-and-deployment", "docker-multi-stage-builds",
   "What are the benefits of Docker multi-stage builds?",
   "Separating build toolchain from the runtime image",
   "Tests whether you can explain why deleting build tools in a later layer does not shrink the image.")
+
+q(43, "devops-and-deployment", "zero-downtime-deploys",
+  "How do you deploy a new version without dropping requests?",
+  "Rolling, blue-green, and canary, plus health checks and rollback",
+  "Tests whether you have shipped to production. The revealing part is what you do when the new version is bad, not how you get it out.")
 
 # ---------------------------------------------------- Testing & Debugging
 q(51, "testing-and-debugging", "testing-a-new-api-endpoint",

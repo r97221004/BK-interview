@@ -4,7 +4,7 @@
 
 **Part:** Testing & Debugging | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [idempotent](../_glossary.md#idempotent), [breaking change](../_glossary.md#breaking-change), [idempotency key](../_glossary.md#idempotency-key)
+**New to these terms?** [endpoint](../_glossary.md#endpoint), [idempotent](../_glossary.md#idempotent), [breaking change](../_glossary.md#breaking-change), [idempotency key](../_glossary.md#idempotency-key), [schema migration](../_glossary.md#schema-migration)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ Beyond those two layers, I add others when the endpoint justifies it. A load tes
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q27: What is CORS?](../security-and-auth/q27-cors.md) | [All 37 questions](../../README.md) | [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) |
+| [Q36: Monolith or microservices - how would you decide?](../architecture-and-scaling/q36-monolith-vs-microservices.md) | [All 41 questions](../../README.md) | [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) |

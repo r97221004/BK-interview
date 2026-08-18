@@ -1,9 +1,9 @@
 # Python Backend Interview Questions
 
-> A focused set of 37 high-frequency backend interview questions, answered bilingually and from the mechanism up.
+> A focused set of 41 high-frequency backend interview questions, answered bilingually and from the mechanism up.
 
 ![Python](https://img.shields.io/badge/Python-Backend%20Interviews-3776AB)
-![Questions](https://img.shields.io/badge/Questions-37-2563EB)
+![Questions](https://img.shields.io/badge/Questions-41-2563EB)
 ![Format](https://img.shields.io/badge/Format-Q%26A-5D3FD3)
 ![Language](https://img.shields.io/badge/Language-EN%20%2B%20%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-D97706)
 
@@ -96,8 +96,8 @@ flowchart LR
 
 | | | |
 |---|---|---|
-| **1.** [API & HTTP](docs/api-and-http/) · 9 questions | **2.** [API Design & Reliability](docs/api-design/) · 3 questions | **3.** [Databases](docs/databases/) · 9 questions |
-| **4.** [Security & Auth](docs/security-and-auth/) · 7 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 5 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 2 questions |
+| **1.** [API & HTTP](docs/api-and-http/) · 9 questions | **2.** [API Design & Reliability](docs/api-design/) · 3 questions | **3.** [Databases](docs/databases/) · 10 questions |
+| **4.** [Security & Auth](docs/security-and-auth/) · 7 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 7 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 3 questions |
 | **7.** [Testing & Debugging](docs/testing-and-debugging/) · 2 questions |  |  |
 
 ## What Each Question Covers
@@ -132,7 +132,7 @@ Some interviewers combine several concepts into one question. These common wordi
 - **"What happens if the client retries?"** [Q63](docs/api-design/q63-idempotency-and-retries.md) is the direct answer, and it is the same property a queue consumer needs in [Q35](docs/architecture-and-scaling/q35-message-queues-and-async-work.md).
 - **"XSS or CSRF?"** they are frequently asked back to back and confused: [Q25](docs/security-and-auth/q25-xss.md) is about your output, [Q26](docs/security-and-auth/q26-csrf.md) is about the browser's credentials.
 
-## The 37 Questions
+## The 41 Questions
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
 
@@ -161,7 +161,7 @@ Ordered by importance, highest first. Read top to bottom and you cover the quest
 | [How would you scale a backend application during a traffic surge?](docs/architecture-and-scaling/q31-scaling-during-traffic-surge.md) | Architecture & Scaling | Horizontal scaling, statelessness, caching, and shedding load | Draft |
 | [Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](docs/architecture-and-scaling/q32-python-concurrency-models.md) | Architecture & Scaling | The GIL, and matching the model to I/O-bound or CPU-bound work | Draft |
 
-### Importance 8/10 (12 questions)
+### Importance 8/10 (14 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
@@ -172,13 +172,15 @@ Ordered by importance, highest first. Read top to bottom and you cover the quest
 | [What is data partitioning?](docs/databases/q13-data-partitioning.md) | Databases | Horizontal, vertical, range, hash, and list partitioning | Draft |
 | [What are the common application scenarios for Redis?](docs/databases/q14-redis-use-cases.md) | Databases | Cache, session store, rate limiter, queue, and leaderboard | Draft |
 | [How do you decide what to cache, and how do you invalidate it?](docs/databases/q19-caching-strategy-and-invalidation.md) | Databases | Cache-aside vs write-through, TTLs, stampedes, and staleness | Draft |
+| [How do you change a database schema without downtime?](docs/databases/q20-schema-migrations.md) | Databases | Expand and contract, backwards-compatible steps, and long locks | Draft |
 | [What is the difference between a session and a cookie?](docs/security-and-auth/q22-session-vs-cookie.md) | Security & Auth | Client-side storage vs server-side state, and how they connect | Draft |
 | [What is Cross-Site Scripting (XSS)?](docs/security-and-auth/q25-xss.md) | Security & Auth | Injected script running with the trusted site's privileges | Draft |
 | [What is CORS?](docs/security-and-auth/q27-cors.md) | Security & Auth | Same-origin policy, preflight, and what CORS does not protect | Draft |
+| [Monolith or microservices - how would you decide?](docs/architecture-and-scaling/q36-monolith-vs-microservices.md) | Architecture & Scaling | Deployment coupling, team boundaries, and the costs you inherit | Draft |
 | [What kind of tests would you write for a new API endpoint?](docs/testing-and-debugging/q51-testing-a-new-api-endpoint.md) | Testing & Debugging | Unit, integration, contract, and load tests, and what each proves | Draft |
 | [How do you choose HTTP status codes and design error responses?](docs/api-design/q61-status-codes-and-error-responses.md) | API Design & Reliability | Status classes, and an error body a client can act on | Draft |
 
-### Importance 7/10 (8 questions)
+### Importance 7/10 (10 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
@@ -186,7 +188,9 @@ Ordered by importance, highest first. Read top to bottom and you cover the quest
 | [Describe how session management works in web applications.](docs/security-and-auth/q24-session-management.md) | Security & Auth | Session lifecycle, storage, and scaling it across servers | Draft |
 | [What is Cross-Site Request Forgery (CSRF)?](docs/security-and-auth/q26-csrf.md) | Security & Auth | Riding the victim's ambient credentials, and how tokens stop it | Draft |
 | [Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](docs/architecture-and-scaling/q33-python-builtin-data-structures.md) | Architecture & Scaling | Dynamic arrays and hash tables, and the complexity that follows | Draft |
+| [How do you stop one slow dependency from taking down your service?](docs/architecture-and-scaling/q37-timeouts-retries-and-failure.md) | Architecture & Scaling | Timeouts, bounded retries with backoff, and circuit breakers | Draft |
 | [What is containerization, and how does it benefit backend development?](docs/devops-and-deployment/q41-what-is-containerization.md) | DevOps & Deployment | Packaging the runtime with the app, and the boundary of that promise | Draft |
+| [How do you deploy a new version without dropping requests?](docs/devops-and-deployment/q43-zero-downtime-deploys.md) | DevOps & Deployment | Rolling, blue-green, and canary, plus health checks and rollback | Draft |
 | [What tools and techniques do you use for debugging a backend application?](docs/testing-and-debugging/q52-debugging-a-backend-application.md) | Testing & Debugging | Reproduce, narrow, then instrument - locally and in production | Draft |
 | [How would you paginate a large collection endpoint?](docs/api-design/q62-pagination.md) | API Design & Reliability | Offset vs cursor pagination, and why deep offsets get slow | Draft |
 | [How do you make an endpoint safe to retry?](docs/api-design/q63-idempotency-and-retries.md) | API Design & Reliability | Idempotent methods, idempotency keys, and exactly-once delivery | Draft |

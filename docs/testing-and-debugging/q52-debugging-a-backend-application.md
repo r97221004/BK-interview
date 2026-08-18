@@ -40,4 +40,4 @@ For database-related problems the approach is more specific. I look at the actua
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) | [All 37 questions](../../README.md) | [Q62: How would you paginate a large collection endpoint?](../api-design/q62-pagination.md) |
+| [Q43: How do you deploy a new version without dropping requests?](../devops-and-deployment/q43-zero-downtime-deploys.md) | [All 41 questions](../../README.md) | [Q62: How would you paginate a large collection endpoint?](../api-design/q62-pagination.md) |

@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [status code](../_glossary.md#status-code)
+**New to these terms?** [endpoint](../_glossary.md#endpoint), [status code](../_glossary.md#status-code), [microservices](../_glossary.md#microservices)
 
 ## In One Sentence
 
@@ -53,4 +53,4 @@ The part that actually decides whether versioning works is operational. Version 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q05: What are the benefits and drawbacks of RESTful APIs?](q05-rest-benefits-and-drawbacks.md) | [All 37 questions](../../README.md) | [Q08: What is the difference between a REST API and a WebSocket?](q08-rest-vs-websocket.md) |
+| [Q05: What are the benefits and drawbacks of RESTful APIs?](q05-rest-benefits-and-drawbacks.md) | [All 41 questions](../../README.md) | [Q08: What is the difference between a REST API and a WebSocket?](q08-rest-vs-websocket.md) |

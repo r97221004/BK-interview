@@ -27,9 +27,9 @@ BY_NUM = {q["num"]: q for q in Q}
 IMPORTANCE = {
     1: 10, 2: 10, 11: 10, 16: 10, 21: 10,
     3: 9, 4: 9, 7: 9, 17: 9, 18: 9, 23: 9, 31: 9, 32: 9,
-    5: 8, 6: 8, 8: 8, 12: 8, 13: 8, 14: 8, 19: 8, 22: 8, 25: 8, 27: 8,
-    51: 8, 61: 8,
-    9: 7, 24: 7, 26: 7, 33: 7, 41: 7, 52: 7, 62: 7, 63: 7,
+    5: 8, 6: 8, 8: 8, 12: 8, 13: 8, 14: 8, 19: 8, 20: 8, 22: 8, 25: 8, 27: 8,
+    36: 8, 51: 8, 61: 8,
+    9: 7, 24: 7, 26: 7, 33: 7, 37: 7, 41: 7, 43: 7, 52: 7, 62: 7, 63: 7,
     15: 6, 34: 6, 35: 6,
     42: 5,
 }
@@ -69,6 +69,10 @@ TERM_RE = {
     "cache-stampede": r"stampede", "cursor-pagination": r"cursor pagination|\bcursors?\b",
     "idempotency-key": r"idempotency keys?", "at-least-once": r"at-least-once|at least once",
     "message-queue": r"message queues?|\bqueues?\b", "dead-letter-queue": r"dead-letter",
+    "schema-migration": r"\bmigrations?\b", "expand-contract": r"expand and contract",
+    "microservices": r"microservices?\b", "timeout": r"\btimeouts?\b",
+    "circuit-breaker": r"circuit breakers?", "health-check": r"health checks?|readiness|liveness",
+    "blue-green": r"blue-green", "canary": r"\bcanary\b",
 }
 # "denormaliz" has no glossary entry of its own; it points at the normalization
 # neighbourhood, so drop any regex key that is not a real term.

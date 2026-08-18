@@ -360,7 +360,7 @@ Explained in full: [Q63](api-design/q63-idempotency-and-retries.md).
 
 ### Message queue
 
-A buffer between a producer and a worker, so slow work leaves the request cycle and a traffic spike becomes a backlog that drains instead of a wall of timeouts.
+A buffer between a producer and a worker, so slow work leaves the request cycle and a traffic spike becomes a backlog that drains instead of a wall of [timeouts](#timeout).
 
 Explained in full: [Q35](architecture-and-scaling/q35-message-queues-and-async-work.md).
 
@@ -369,3 +369,51 @@ Explained in full: [Q35](architecture-and-scaling/q35-message-queues-and-async-w
 Where a job goes after it has failed its retries, so it stops blocking the [queue](#message-queue) and can be inspected instead of silently disappearing.
 
 Explained in full: [Q35](architecture-and-scaling/q35-message-queues-and-async-work.md).
+
+### Schema migration
+
+A versioned, reviewed change to the database structure, applied by a tool that tracks what has already run. It executes while the previous version of the application is still serving traffic.
+
+Explained in full: [Q20](databases/q20-schema-migrations.md).
+
+### Expand and contract
+
+Making a schema change in additive steps first - add, dual-write, backfill, switch reads - and only removing the old shape in a later deploy, so old and new code are both valid at every point.
+
+Explained in full: [Q20](databases/q20-schema-migrations.md).
+
+### Microservices
+
+An architecture of many independently deployable services. It buys independent release and scaling, and charges for it by turning every internal call into a network call that can fail.
+
+Explained in full: [Q36](architecture-and-scaling/q36-monolith-vs-microservices.md).
+
+### Timeout
+
+A deadline on an outbound call. Without one, a slow dependency does not fail - it holds your worker until the pool is empty, which is how one slow service takes down another.
+
+Explained in full: [Q37](architecture-and-scaling/q37-timeouts-retries-and-failure.md).
+
+### Circuit breaker
+
+A guard that watches the failure rate of a dependency and, past a threshold, fails calls immediately without attempting them. It frees your workers and gives the failing service room to recover.
+
+Explained in full: [Q37](architecture-and-scaling/q37-timeouts-retries-and-failure.md).
+
+### Health check
+
+The [endpoint](#endpoint) a [load balancer](#load-balancer) or orchestrator polls to decide whether an instance should receive traffic. Liveness means the process is alive; readiness means it can actually serve.
+
+Explained in full: [Q43](devops-and-deployment/q43-zero-downtime-deploys.md).
+
+### Blue-green deploy
+
+Running a complete second environment on the new version and switching all traffic at once. Cutover and rollback are both instant, at the cost of double infrastructure during the switch.
+
+Explained in full: [Q43](devops-and-deployment/q43-zero-downtime-deploys.md).
+
+### Canary deploy
+
+Sending a small, increasing share of real traffic to the new version while comparing its error rate and latency against the old one, so a bad release reaches few users.
+
+Explained in full: [Q43](devops-and-deployment/q43-zero-downtime-deploys.md).

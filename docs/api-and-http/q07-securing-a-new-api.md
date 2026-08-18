@@ -40,4 +40,4 @@ Finally, limit and observe. Rate limiting per key or per user contains credentia
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) | [All 37 questions](../../README.md) | [Q17: Explain database transactions and isolation levels.](../databases/q17-transactions-and-isolation-levels.md) |
+| [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) | [All 41 questions](../../README.md) | [Q17: Explain database transactions and isolation levels.](../databases/q17-transactions-and-isolation-levels.md) |

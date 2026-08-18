@@ -36,4 +36,4 @@ That split is what makes the security properties differ. Session data never leav
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q19: How do you decide what to cache, and how do you invalidate it?](../databases/q19-caching-strategy-and-invalidation.md) | [All 37 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |
+| [Q20: How do you change a database schema without downtime?](../databases/q20-schema-migrations.md) | [All 41 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |

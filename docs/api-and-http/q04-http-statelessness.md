@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [cookie](../_glossary.md#cookie), [jwt](../_glossary.md#jwt), [cache](../_glossary.md#cache), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
+**New to these terms?** [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [jwt](../_glossary.md#jwt), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ The cost is that the context is repaid on every request. Credentials are re-veri
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q03: What is an API endpoint?](q03-what-is-an-api-endpoint.md) | [All 37 questions](../../README.md) | [Q07: What measures would you take to secure a newly developed API?](q07-securing-a-new-api.md) |
+| [Q03: What is an API endpoint?](q03-what-is-an-api-endpoint.md) | [All 41 questions](../../README.md) | [Q07: What measures would you take to secure a newly developed API?](q07-securing-a-new-api.md) |

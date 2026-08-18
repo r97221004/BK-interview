@@ -38,4 +38,4 @@ Then name the failure modes, because they are what separates experience from the
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) | [All 37 questions](../../README.md) | [Q22: What is the difference between a session and a cookie?](../security-and-auth/q22-session-vs-cookie.md) |
+| [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) | [All 41 questions](../../README.md) | [Q20: How do you change a database schema without downtime?](q20-schema-migrations.md) |
