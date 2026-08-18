@@ -1,0 +1,177 @@
+"""Question data for the backend interview question set.
+
+Numbering leaves a gap between parts (1-9, 11-19, 21-29, ...) so a new question
+can be added to a part later without renumbering everything after it. Numbers
+are permanent: links and bookmarks must keep pointing at the same question.
+
+Each entry: num, dir, slug, title, focus, tests.
+  focus - the one-line "Focus" cell in the README table
+  tests - the blockquote under the title: what the interviewer is really asking
+"""
+
+PARTS = [
+    ("api-and-http", "API & HTTP"),
+    ("databases", "Databases"),
+    ("security-and-auth", "Security & Auth"),
+    ("architecture-and-scaling", "Architecture & Scaling"),
+    ("devops-and-deployment", "DevOps & Deployment"),
+    ("testing-and-debugging", "Testing & Debugging"),
+]
+
+Q = []
+
+
+def q(num, d, slug, title, focus, tests):
+    Q.append(dict(num=num, dir=d, slug=slug, title=title, focus=focus, tests=tests))
+
+
+# ------------------------------------------------------------- API & HTTP
+q(1, "api-and-http", "what-is-a-restful-api",
+  "What is a RESTful API, and what are its core principles?",
+  "The six constraints, and which ones actually change your design",
+  "Tests whether you can name REST's constraints and explain what each one buys you, instead of equating REST with 'JSON over HTTP'.")
+
+q(2, "api-and-http", "http-request-response-cycle",
+  "Can you describe a typical HTTP request/response cycle?",
+  "Connection, request, processing, response, and connection reuse",
+  "Tests whether you can follow a request end to end, including the TCP connection underneath and what persistent connections changed.")
+
+q(3, "api-and-http", "what-is-an-api-endpoint",
+  "What is an API endpoint?",
+  "A URL as the entry point to one resource or capability",
+  "Usually an opener. Tests whether you can define the term precisely and connect it to how a server routes work.")
+
+q(4, "api-and-http", "http-statelessness",
+  "Explain statelessness in HTTP and how it impacts backend services.",
+  "Independent requests, and where the state has to go instead",
+  "Tests whether you understand that statelessness is a protocol property that pushes state management into your design, not a claim that applications have no state.")
+
+q(5, "api-and-http", "rest-benefits-and-drawbacks",
+  "What are the benefits and drawbacks of RESTful APIs?",
+  "Scalability and standardization vs over-fetching and versioning cost",
+  "Tests whether you can criticize the style you use daily, and name the cases where REST is the wrong tool.")
+
+q(6, "api-and-http", "api-versioning",
+  "How do you approach API versioning in your projects?",
+  "URL vs header versioning, and when a version is needed at all",
+  "Tests whether you can change a live API without breaking clients, and whether you know versioning is a cost to be avoided when possible.")
+
+q(7, "api-and-http", "securing-a-new-api",
+  "What measures would you take to secure a newly developed API?",
+  "Authentication, transport security, origin control, and abuse limits",
+  "Tests whether you have a layered checklist rather than one favorite mechanism, and whether you can say what each layer does not cover.")
+
+q(8, "api-and-http", "rest-vs-websocket",
+  "What is the difference between a REST API and a WebSocket?",
+  "Request-response vs a persistent bidirectional connection",
+  "Tests whether you can name the cases that actually need server push, and what a long-lived connection costs the backend.")
+
+q(9, "api-and-http", "file-uploads",
+  "How would you handle file uploads in a web application?",
+  "Validation, naming, metadata, and keeping bytes out of the app server",
+  "Tests whether you treat uploads as untrusted input and whether you know the scaling problem hidden in the naive implementation.")
+
+# ------------------------------------------------------------- Databases
+q(11, "databases", "sql-vs-nosql",
+  "Can you explain the difference between SQL and NoSQL databases?",
+  "Relational schema and ACID vs flexible models and horizontal scale",
+  "Tests whether you can choose between them for a stated workload, rather than reciting 'SQL is structured, NoSQL is flexible'.")
+
+q(12, "databases", "data-normalization",
+  "What is data normalization?",
+  "1NF to BCNF, the anomalies each form removes, and when to stop",
+  "Tests whether you can explain the normal forms in terms of the update anomalies they prevent, and whether you know when denormalizing is correct.")
+
+q(13, "databases", "data-partitioning",
+  "What is data partitioning?",
+  "Horizontal, vertical, range, hash, and list partitioning",
+  "Tests whether you can pick a partition key for a stated access pattern, and whether you know what partitioning makes harder.")
+
+q(14, "databases", "redis-use-cases",
+  "What are the common application scenarios for Redis?",
+  "Cache, session store, rate limiter, queue, and leaderboard",
+  "Tests whether you know why an in-memory store is used for these jobs, and what you lose by putting data there.")
+
+q(15, "databases", "database-out-of-storage",
+  "What strategies do you have when a database runs out of storage?",
+  "Immediate relief, then reclaiming, growing, and splitting",
+  "Tests whether you can separate the emergency response from the structural fix, and whether you monitor for this before it happens.")
+
+# ------------------------------------------------------------- Security & Auth
+q(21, "security-and-auth", "session-vs-jwt-authentication",
+  "What is the difference between session-based and JWT-based authentication?",
+  "Server-side state vs a signed self-contained token",
+  "Tests whether you can trade revocation against statelessness, instead of declaring one of them modern and the other legacy.")
+
+q(22, "security-and-auth", "session-vs-cookie",
+  "What is the difference between a session and a cookie?",
+  "Client-side storage vs server-side state, and how they connect",
+  "Tests whether you can separate the transport mechanism from the state it points at - a common confusion in interviews.")
+
+q(23, "security-and-auth", "sql-injection",
+  "How do you protect a server from SQL injection attacks?",
+  "Parameterized queries, ORMs, and defense in depth",
+  "Tests whether you know that the fix is separating code from data, not filtering bad characters.")
+
+q(24, "security-and-auth", "session-management",
+  "Describe how session management works in web applications.",
+  "Session lifecycle, storage, and scaling it across servers",
+  "Tests whether you can walk the full lifecycle and explain what breaks when a second application server appears.")
+
+q(25, "security-and-auth", "xss",
+  "What is Cross-Site Scripting (XSS)?",
+  "Injected script running with the trusted site's privileges",
+  "Tests whether you know that the fix is context-correct output encoding, and whether you can name the three XSS variants.")
+
+q(26, "security-and-auth", "csrf",
+  "What is Cross-Site Request Forgery (CSRF)?",
+  "Riding the victim's ambient credentials, and how tokens stop it",
+  "Tests whether you can explain why the browser sends the cookie at all, and how CSRF differs from XSS.")
+
+q(27, "security-and-auth", "cors",
+  "What is CORS?",
+  "Same-origin policy, preflight, and what CORS does not protect",
+  "Tests whether you know CORS is a browser rule that relaxes a restriction, not a server-side security control.")
+
+# ------------------------------------------------- Architecture & Scaling
+q(31, "architecture-and-scaling", "scaling-during-traffic-surge",
+  "How would you scale a backend application during a traffic surge?",
+  "Horizontal scaling, statelessness, caching, and shedding load",
+  "Tests whether you can name the bottleneck before the remedy, and whether you know the database is usually the real limit.")
+
+q(32, "architecture-and-scaling", "python-concurrency-models",
+  "Discuss multiprocessing, multithreading, and asynchronous I/O in Python.",
+  "The GIL, and matching the model to I/O-bound or CPU-bound work",
+  "Tests whether you can pick a concurrency model from the workload, and whether you understand what the GIL does and does not block.")
+
+q(33, "architecture-and-scaling", "python-builtin-data-structures",
+  "Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.",
+  "Dynamic arrays and hash tables, and the complexity that follows",
+  "Tests whether you can derive the performance characteristics from the implementation instead of memorizing a complexity table.")
+
+q(34, "architecture-and-scaling", "maintainable-backend-code",
+  "How do you ensure your backend code is maintainable and easy to understand?",
+  "Boundaries, conventions, tests, and consistent failure handling",
+  "Tests whether you have habits that survive a growing team, rather than a list of style rules.")
+
+# ---------------------------------------------------- DevOps & Deployment
+q(41, "devops-and-deployment", "what-is-containerization",
+  "What is containerization, and how does it benefit backend development?",
+  "Packaging the runtime with the app, and the boundary of that promise",
+  "Tests whether you can state what containers actually isolate, and what they do not solve.")
+
+q(42, "devops-and-deployment", "docker-multi-stage-builds",
+  "What are the benefits of Docker multi-stage builds?",
+  "Separating build toolchain from the runtime image",
+  "Tests whether you can explain why deleting build tools in a later layer does not shrink the image.")
+
+# ---------------------------------------------------- Testing & Debugging
+q(51, "testing-and-debugging", "testing-a-new-api-endpoint",
+  "What kind of tests would you write for a new API endpoint?",
+  "Unit, integration, contract, and load tests, and what each proves",
+  "Tests whether you can say what each layer is responsible for, instead of listing test types.")
+
+q(52, "testing-and-debugging", "debugging-a-backend-application",
+  "What tools and techniques do you use for debugging a backend application?",
+  "Reproduce, narrow, then instrument - locally and in production",
+  "Tests whether you have a method rather than a tool list, and whether you can debug something you cannot attach a debugger to.")

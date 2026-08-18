@@ -1,0 +1,39 @@
+# Q03: What is an API endpoint?
+
+> Usually an opener. Tests whether you can define the term precisely and connect it to how a server routes work.
+
+**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
+
+**New to these terms?** [resource](../_glossary.md#resource)
+
+## In One Sentence
+
+An API endpoint is one URL the server exposes, together with the HTTP methods it accepts, and it is the entry point through which a client reaches one particular resource or capability.
+
+API endpoint 是伺服器對外開放的一個 URL，加上它接受的 HTTP 方法；它是客戶端用來存取某一個特定資源或功能的入口。
+
+## Answer Shape
+
+Give the definition in one line, then make it concrete by showing what the server does with it: a router maps the method and path to a handler function. Add a real example URL, and close by distinguishing an endpoint from the API as a whole, because that distinction is the actual point of the question.
+
+先用一句話給出定義，接著用伺服器實際做的事把它具體化：router 會把方法加路徑對應到一個處理函式。補上一個真實的 URL 例子，最後區分「一個 endpoint」和「整個 API」，因為這個區分才是這題真正要問的。
+
+## Full Spoken Answer
+
+An endpoint is a specific URL where an API receives requests and returns responses. It represents an entry point to one function or resource on the server, and it is defined by the path together with the methods it accepts, so the same path answering GET and POST is really two operations behind one address.
+
+endpoint 是 API 接收請求並回傳回應的一個特定 URL。它代表伺服器上某一個功能或資源的入口，並且由「路徑」加上「它接受的方法」共同定義，所以同一個路徑同時接受 GET 和 POST，實際上是同一個位址背後的兩個操作。
+
+Inside the server, the framework's router is what makes an endpoint real: it matches the incoming method and path against a table and calls the handler registered for that pair. Path segments can be variable, so a route such as a users path with an identifier segment defines one endpoint that serves every user, with the identifier extracted and passed to the handler as an argument.
+
+在伺服器內部，讓 endpoint 真正存在的是框架的 router：它把進來的方法與路徑比對一張路由表，再呼叫註冊在那組配對上的處理函式。路徑片段可以是變數，所以像是「users 路徑加上一個 ID 片段」這樣的路由，定義的是一個服務所有使用者的 endpoint，ID 會被取出來當成參數傳給處理函式。
+
+The distinction worth stating is that an endpoint is not the API. The API is the whole contract: every endpoint, the shapes of the payloads, the error format, the authentication scheme, and the guarantees around them. One endpoint is a single address inside that contract, which is why a well-designed one maps to a single clear capability rather than becoming a general-purpose route that branches on a field in the body.
+
+值得特別講清楚的是：一個 endpoint 不等於這個 API。API 是整份契約：所有 endpoint、payload 的格式、錯誤格式、認證機制，以及圍繞它們的保證。一個 endpoint 只是這份契約裡的單一位址，因此設計良好的 endpoint 會對應到一個清楚的功能，而不是變成一個依 body 裡某個欄位分支的萬用路由。
+
+---
+
+| ⬅ Previous | Home | Next ➡ |
+|---|---|---|
+| [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) | [All 29 questions](../../README.md) | [Q05: What are the benefits and drawbacks of RESTful APIs?](q05-rest-benefits-and-drawbacks.md) |
