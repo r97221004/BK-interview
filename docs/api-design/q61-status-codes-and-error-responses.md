@@ -32,9 +32,9 @@ The body is a separate job with a separate audience. The status code is for the 
 
 body 是另一份工作，面向的是另一批讀者。狀態碼是給機器看的，body 是給正在除錯這個串接的人看的。好的錯誤 body 在每個 endpoint 上形狀一致，並帶有一個穩定的、機器可讀的錯誤代碼讓客戶端可以據此分支（而不是去比對訊息字串）、一則人類看得懂的訊息，以及在驗證失敗時逐欄位的細節，讓呼叫端能標示出正確的輸入欄位。它還應該帶上一個與你日誌相符的 request ID，這樣收到失敗回報時就能直接追查，不必先問使用者是幾點發生的。
 
-Two mistakes are worth naming because they show up constantly. Returning 200 with an error inside the body breaks everything downstream that reads only the status line - proxies cache it, monitoring reports a healthy service, and every client has to parse the body to find out whether it worked. And returning 500 for something the caller did wrong turns a client bug into a page for your on-call, which is why validation failures must be 4xx. One security note: 404 and 403 leak different information, so for a resource the caller is not allowed to know exists, 404 is the safer answer.
+Two mistakes are worth naming because they show up constantly. Returning 200 with an error inside the body breaks everything downstream that reads only the status line - proxies cache it, monitoring reports a healthy service, and every client has to parse the body to find out whether it worked. And returning 500 for something the caller did wrong turns a client bug into a page for your on-call, which is why validation failures must be 4xx. One security note: 404 and 403 leak different information, so for a resource the caller is not allowed to know exists, 404 is the safer answer. Plainly: the status code answers "whose fault is this and should I try again," and the body answers "what exactly, so I can fix it" - mixing those two jobs is where most bad APIs go wrong.
 
-有兩個錯誤值得點名，因為它們一再出現。回傳 200 卻把錯誤塞在 body 裡，會弄壞所有只看狀態列的下游 —— proxy 會把它快取起來、監控會回報服務健康，而每個客戶端都得解析 body 才知道到底成功了沒。而把呼叫端的錯誤回成 500，會把客戶端的 bug 變成你的 on-call 告警，這正是為什麼驗證失敗必須是 4xx。一個安全性補充：404 和 403 洩漏的資訊不同，所以對於「呼叫端無權知道其是否存在」的資源，回 404 是比較安全的答案。
+有兩個錯誤值得點名，因為它們一再出現。回傳 200 卻把錯誤塞在 body 裡，會弄壞所有只看狀態列的下游 —— proxy 會把它快取起來、監控會回報服務健康，而每個客戶端都得解析 body 才知道到底成功了沒。而把呼叫端的錯誤回成 500，會把客戶端的 bug 變成你的 on-call 告警，這正是為什麼驗證失敗必須是 4xx。一個安全性補充：404 和 403 洩漏的資訊不同，所以對於「呼叫端無權知道其是否存在」的資源，回 404 是比較安全的答案。說白了：狀態碼回答的是「這是誰的錯、我該不該重試」，body 回答的是「具體是什麼、我要怎麼修」——把這兩份工作混在一起，正是大多數爛 API 出錯的地方。
 
 ## Quick Reference
 

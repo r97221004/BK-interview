@@ -32,9 +32,9 @@ If the data is legitimate and simply larger than the disk, grow. Adding disk spa
 
 如果資料是正當的，只是單純比磁碟大，那就擴大。替現有伺服器加磁碟是最簡單的一步，而大多數託管資料庫（例如 RDS 或 Azure SQL）都支援不停機擴充儲存，有些還能自動擴充。這只是爭取時間、並沒有真正解決問題，所以應該同時決定「在下一次觸及門檻之前要改變什麼」。
 
-The structural fixes are partitioning and storage efficiency. Partitioning by time turns deleting last year's data into dropping a partition, which is instant and returns the space immediately; sharding spreads rows across servers when one machine can no longer hold them. Alongside that, choose smaller data types where the range allows it, enable row or page compression if the engine supports it, and set an explicit retention policy per table. Finally, none of this should be discovered at a hundred percent: alert at seventy and eighty percent of capacity, track the growth rate rather than only the level so you can see the wall coming, and apply quotas so one table or one tenant cannot consume everything.
+The structural fixes are partitioning and storage efficiency. Partitioning by time turns deleting last year's data into dropping a partition, which is instant and returns the space immediately; sharding spreads rows across servers when one machine can no longer hold them. Alongside that, choose smaller data types where the range allows it, enable row or page compression if the engine supports it, and set an explicit retention policy per table. Finally, none of this should be discovered at a hundred percent: alert at seventy and eighty percent of capacity, track the growth rate rather than only the level so you can see the wall coming, and apply quotas so one table or one tenant cannot consume everything. The order to remember, plainly: find it, free it, buy time, fix it - and set up alarms so you're never doing this at 100% again.
 
-結構性的修正是分割與儲存效率。用時間分割能把「刪除去年資料」變成「卸除一個分割」，瞬間完成而且立刻把空間還回來；當一台機器再也裝不下時，用分片把資料列分散到多台伺服器。除此之外，在範圍允許的情況下選用較小的資料型別、在引擎支援時啟用列或頁壓縮，並為每張表設定明確的保留政策。最後，這一切都不該是在百分之百時才發現：在容量的百分之七十和八十就告警、追蹤成長「速率」而不只是水位，好讓你能看見那面牆正在接近，並設定配額，讓單一資料表或單一租戶無法把空間吃光。
+結構性的修正是分割與儲存效率。用時間分割能把「刪除去年資料」變成「卸除一個分割」，瞬間完成而且立刻把空間還回來；當一台機器再也裝不下時，用分片把資料列分散到多台伺服器。除此之外，在範圍允許的情況下選用較小的資料型別、在引擎支援時啟用列或頁壓縮，並為每張表設定明確的保留政策。最後，這一切都不該是在百分之百時才發現：在容量的百分之七十和八十就告警、追蹤成長「速率」而不只是水位，好讓你能看見那面牆正在接近，並設定配額，讓單一資料表或單一租戶無法把空間吃光。說白了記住這個順序：先找出來、再騰空間、再爭取時間、最後才修根本，並且設好告警，讓自己再也不會在百分之百的時候才發現。
 
 ---
 

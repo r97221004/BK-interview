@@ -20,9 +20,9 @@ Give the selection rule first, then two or three examples that obviously qualify
 
 ## Full Spoken Answer
 
-The test is whether the caller needs the result in order to get an answer. Sending a welcome email, generating a thumbnail, rebuilding a search index, exporting a report, calling a slow third-party API - in all of these the user only needs to know the request was accepted. So the endpoint validates the input, writes a job to the queue, and returns 202 immediately, while a worker process picks the job up and does the work out of band.
+The test is whether the caller needs the result in order to get an answer. Sending a welcome email, generating a thumbnail, rebuilding a search index, exporting a report, calling a slow third-party API - in all of these the user only needs to know the request was accepted. So the endpoint validates the input, writes a job to the queue, and returns 202 immediately, while a worker process picks the job up and does the work out of band. Plainly: if the answer to "does the user need to see this finish?" is no, it doesn't belong in the request.
 
-判斷標準是：呼叫端是否需要這個結果才能得到答案。寄送歡迎信、產生縮圖、重建搜尋索引、匯出報表、呼叫緩慢的第三方 API —— 這些情況下使用者只需要知道請求被接受了。所以 endpoint 驗證輸入、把一個工作寫進佇列，然後立刻回傳 202，而由一個 worker 行程把工作取走、在請求之外完成它。
+判斷標準是：呼叫端是否需要這個結果才能得到答案。寄送歡迎信、產生縮圖、重建搜尋索引、匯出報表、呼叫緩慢的第三方 API —— 這些情況下使用者只需要知道請求被接受了。所以 endpoint 驗證輸入、把一個工作寫進佇列，然後立刻回傳 202，而由一個 worker 行程把工作取走、在請求之外完成它。說白了：如果「使用者需要親眼看到這件事做完嗎」的答案是不需要，它就不該待在請求裡。
 
 The second reason is absorbing bursts. A queue turns a spike into a backlog: if traffic triples for ten minutes, the queue grows and drains afterwards instead of every request timing out at once. That decouples the rate at which work arrives from the rate at which you can do it, and it lets you scale the workers independently of the web tier, which matters because the two usually need different amounts of CPU and memory. It also decouples services - the producer does not need the consumer to be up at the moment it publishes.
 

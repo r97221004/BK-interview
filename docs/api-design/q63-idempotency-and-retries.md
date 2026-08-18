@@ -32,9 +32,9 @@ For POST, the standard mechanism is an idempotency key. The client generates a u
 
 對於 POST，標準機制是 idempotency key。客戶端產生一個唯一值（通常是 UUID）並放在標頭送出；這個值必須為「一次邏輯操作」產生一次，並在各次重試間重複使用，而不是每次嘗試都重新產生。伺服器在動手之前先記下這把鑰匙，之後若看到一把已經完成過的鑰匙，就回傳先前存下的原始回應，而不是再做一次。有兩個細節決定它是「真的正確」還是「大致正確」：鑰匙與結果必須和操作本身寫在同一個交易裡，否則兩者之間當機就會重新打開那個洞；以及並行的重試需要對鑰匙加上唯一性約束或鎖，讓第二個請求等待或被拒絕，而不是與第一個並排衝過去。鑰匙會在一段時間後過期，通常是二十四小時。
 
-The honest framing is that you are converting at-least-once delivery into effectively-once processing. You cannot get exactly-once delivery over an unreliable network - the client will always be able to send the request twice - so the guarantee has to live in the handler, not in the transport. That is the same reason every queue consumer needs to be idempotent, since queues also deliver at least once. A useful way to close is that this is a property you design in per endpoint, and the ones that need it most are exactly the ones where a duplicate is expensive: payments, order creation, and sending anything to a customer.
+The honest framing is that you are converting at-least-once delivery into effectively-once processing. You cannot get exactly-once delivery over an unreliable network - the client will always be able to send the request twice - so the guarantee has to live in the handler, not in the transport. That is the same reason every queue consumer needs to be idempotent, since queues also deliver at least once. A useful way to close is that this is a property you design in per endpoint, and the ones that need it most are exactly the ones where a duplicate is expensive: payments, order creation, and sending anything to a customer. In one line: the client can never promise to ask only once, so the server has to promise that asking twice only counts once.
 
-誠實的說法是：你是在把「至少一次交付」轉換成「效果上只發生一次的處理」。在不可靠的網路上你拿不到「剛好一次交付」—— 客戶端永遠有能力把請求送兩次 —— 所以這個保證必須住在處理函式裡，而不是傳輸層裡。這也是為什麼每個佇列消費者都需要具備冪等性，因為佇列同樣是至少一次交付。一個好的收尾是：這是你逐一為每個 endpoint 設計進去的性質，而最需要它的，正是那些「重複一次就很貴」的操作：付款、建立訂單，以及任何會發送給客戶的東西。
+誠實的說法是：你是在把「至少一次交付」轉換成「效果上只發生一次的處理」。在不可靠的網路上你拿不到「剛好一次交付」—— 客戶端永遠有能力把請求送兩次 —— 所以這個保證必須住在處理函式裡，而不是傳輸層裡。這也是為什麼每個佇列消費者都需要具備冪等性，因為佇列同樣是至少一次交付。一個好的收尾是：這是你逐一為每個 endpoint 設計進去的性質，而最需要它的，正是那些「重複一次就很貴」的操作：付款、建立訂單，以及任何會發送給客戶的東西。濃縮成一句：客戶端永遠沒辦法保證只問一次，所以伺服器得保證「問兩次也只算一次」。
 
 ---
 

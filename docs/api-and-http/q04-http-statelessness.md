@@ -20,9 +20,9 @@ State the rule first and be precise that it is the protocol that is stateless, n
 
 ## Full Spoken Answer
 
-HTTP is stateless: every request is independent, and the server does not automatically know who the client is or what happened in the previous request. Two requests arriving one second apart from the same browser look, to the protocol, like two unrelated events. That is a property of the protocol, not a claim that applications have no state. Nor is it undone by connection reuse: keeping one TCP connection open for several exchanges is a transport optimisation, and the server still remembers nothing about the user between them.
+HTTP is stateless: every request is independent, and the server does not automatically know who the client is or what happened in the previous request. Two requests arriving one second apart from the same browser look, to the protocol, like two unrelated strangers. That is a property of the protocol, not a claim that applications have no state - plainly, it's not that your app has no memory, it's that HTTP refuses to be the one holding it, so someone else has to. Nor is it undone by connection reuse: keeping one TCP connection open for several exchanges is a transport optimisation, and the server still remembers nothing about the user between them.
 
-HTTP 是無狀態的：每個請求彼此獨立，伺服器不會自動知道對方是誰，也不知道上一個請求發生了什麼。同一個瀏覽器相隔一秒送出的兩個請求，在協定眼中就是兩個互不相關的事件。這是協定的性質，並不是說應用程式沒有狀態。它也不會被連線重用推翻：讓同一條 TCP 連線承載多次往返只是傳輸層的最佳化，伺服器在這幾次之間依然不記得使用者任何事。
+HTTP 是無狀態的：每個請求彼此獨立，伺服器不會自動知道對方是誰，也不知道上一個請求發生了什麼。同一個瀏覽器相隔一秒送出的兩個請求，在協定眼中就像兩個素不相識的陌生人。這是協定的性質，並不是說應用程式沒有狀態 —— 說白了，不是你的應用沒有記憶，是 HTTP 拒絕當那個記事本，所以狀態得換個地方放。它也不會被連線重用推翻：讓同一條 TCP 連線承載多次往返只是傳輸層的最佳化，伺服器在這幾次之間依然不記得使用者任何事。
 
 So if you need login state, a shopping cart, or user preferences, you have to manage that state explicitly. The usual options are a cookie holding a session ID that points at server-side session data, a signed token such as a JWT that carries the claims inside the request itself, or state kept entirely on the client, which only works if it is signed - anything the client holds unsigned is something the client can rewrite, starting with its own role. In every case the request arrives self-describing, because the protocol will not describe it for you.
 

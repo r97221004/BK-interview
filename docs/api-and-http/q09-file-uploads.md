@@ -28,9 +28,9 @@ Validate on the server, always, and never trust what the client says the file is
 
 一定要在伺服器端驗證，而且永遠不要相信客戶端宣稱這個檔案是什麼。在 proxy 和處理函式兩邊都設定大小上限，讓過大的 body 在被緩衝之前就被拒絕。用檢查檔案 magic bytes 的方式判斷真正的內容型別，而不是相信副檔名或宣告的 content type，並且採用白名單放行而不是黑名單阻擋。上傳的檔案要存放在網頁伺服器不會直接執行或提供的目錄之外。這裡值得引用的參考是 OWASP File Upload Cheat Sheet。
 
-Never store the file under the name the user supplied. Generate your own identifier, such as a UUID, and use that as the stored object key. This removes path-traversal tricks and collisions between two users uploading the same filename in one step. Keep the original filename, size, content type, owner, and upload timestamp as a row in the database alongside that key, so you can show users a sensible name on download and clean up orphaned objects later.
+The rule of thumb underneath all of this: never trust anything about the file the user controls - not its name, not its declared type, not its claimed size. Never store the file under the name the user supplied. Generate your own identifier, such as a UUID, and use that as the stored object key. This removes path-traversal tricks and collisions between two users uploading the same filename in one step. Keep the original filename, size, content type, owner, and upload timestamp as a row in the database alongside that key, so you can show users a sensible name on download and clean up orphaned objects later.
 
-永遠不要用使用者提供的名稱來存檔。自己產生一個識別碼，例如 UUID，用它當作儲存的物件鍵值。這一步同時消除了路徑穿越的手法，以及兩個使用者上傳同名檔案時的碰撞。把原始檔名、大小、內容型別、擁有者和上傳時間記成資料庫裡的一列，和那個鍵值放在一起，這樣下載時可以顯示合理的名稱，之後也能清理掉沒有主人的物件。
+貫穿這整套做法的一句話是：使用者能控制的任何東西都不能信 —— 檔名不能信、宣稱的型別不能信、宣稱的大小也不能信。永遠不要用使用者提供的名稱來存檔。自己產生一個識別碼，例如 UUID，用它當作儲存的物件鍵值。這一步同時消除了路徑穿越的手法，以及兩個使用者上傳同名檔案時的碰撞。把原始檔名、大小、內容型別、擁有者和上傳時間記成資料庫裡的一列，和那個鍵值放在一起，這樣下載時可以顯示合理的名稱，之後也能清理掉沒有主人的物件。
 
 At scale, take the bytes out of the application path entirely. The backend issues a short-lived presigned URL and the client uploads straight to object storage such as S3, then calls back with the key so the server records the metadata. The application never buffers the file, so upload size stops being a scaling problem. Layer on the rest as the product needs it: virus scanning before the file is marked usable, per-user quotas, and a queue for anything expensive such as thumbnailing or transcoding.
 

@@ -32,9 +32,9 @@ A circuit breaker is what stops you retrying into a wall. It watches the failure
 
 熔斷器的作用是阻止你一直往牆上重試。它監看某個相依服務的失敗率，一旦超過門檻就「打開」：後續呼叫立刻失敗、完全不碰網路，這會釋放你的 worker，也給那個故障的服務喘息空間復原。冷卻一段時間後它會放一個試探請求過去，如果成功就重新「關閉」。它的價值在於「快速失敗優於緩慢失敗」—— 它把一個會佔住 worker 三十秒的逾時，換成一個你能在一毫秒內處理掉的錯誤。
 
-Then decide what the user sees, because the point of all this is to stay partly up rather than fully down. Not every dependency is critical: if the recommendation service is unavailable, serve the page without recommendations; if a cache is down, go to the database and be slower. Isolating each dependency behind its own connection pool or worker limit - the bulkhead idea - keeps one slow integration from consuming all your capacity. And make the degradation visible: log it, count it, and alert on the circuit breaker opening, because a system that silently drops a feature is a system where nobody notices for a week.
+Then decide what the user sees, because the point of all this is to stay partly up rather than fully down. Not every dependency is critical: if the recommendation service is unavailable, serve the page without recommendations; if a cache is down, go to the database and be slower. Isolating each dependency behind its own connection pool or worker limit - the bulkhead idea - keeps one slow integration from consuming all your capacity. And make the degradation visible: log it, count it, and alert on the circuit breaker opening, because a system that silently drops a feature is a system where nobody notices for a week. The four in order, as a memory hook: timeout stops one call from hanging forever, retry-with-backoff handles a blip, the breaker stops you hammering a wall, and degradation keeps the site up while one room in it is closed.
 
-接著決定使用者看到什麼，因為做這一切的目的是「部分還活著」而不是「整個倒下」。不是每個相依服務都是關鍵的：如果推薦服務不可用，就提供沒有推薦區塊的頁面；如果快取掛了，就去讀資料庫、慢一點。把每個相依服務隔離在自己的連線池或 worker 上限之內 —— 也就是艙壁的概念 —— 可以避免單一個慢速串接吃光你所有的容量。並且讓降級是可見的：把它記錄下來、計數，並在熔斷器打開時告警，因為一個會靜默關掉某個功能的系統，就是那種一整週都沒人發現的系統。
+接著決定使用者看到什麼，因為做這一切的目的是「部分還活著」而不是「整個倒下」。不是每個相依服務都是關鍵的：如果推薦服務不可用，就提供沒有推薦區塊的頁面；如果快取掛了，就去讀資料庫、慢一點。把每個相依服務隔離在自己的連線池或 worker 上限之內 —— 也就是艙壁的概念 —— 可以避免單一個慢速串接吃光你所有的容量。並且讓降級是可見的：把它記錄下來、計數，並在熔斷器打開時告警，因為一個會靜默關掉某個功能的系統，就是那種一整週都沒人發現的系統。四個步驟濃縮成記憶口訣：逾時避免一次呼叫卡到天荒地老、帶退避的重試處理短暫的抖動、熔斷器阻止你一直往牆上撞、降級則讓網站在某個房間關燈時其餘地方還亮著。
 
 ---
 
