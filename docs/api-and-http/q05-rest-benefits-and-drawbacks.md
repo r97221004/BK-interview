@@ -28,9 +28,9 @@ Two more benefits follow from being ordinary HTTP. Responses can be marked cache
 
 另外兩個好處來自「它就是普通的 HTTP」。回應可以被標記為可快取，因此 CDN 或反向 proxy 會在重複的讀取抵達你的應用程式之前就先吸收掉。而且任何能發出 HTTP 請求的客戶端都能使用這個 API，代表兩端不需要共用執行環境、不需要產生 stub，也沒有語言上的耦合。
 
-The drawbacks are just as concrete. Over-fetching and under-fetching are the common ones: a resource-shaped endpoint returns a fixed payload, so a mobile screen either downloads fields it will never show or has to make three round trips to assemble one view. There is also no standard error format, only the status code, so every team invents its own error body and clients cannot handle failures generically.
+The drawbacks are just as concrete. Over-fetching and under-fetching are the common ones: `GET /users/42` always returns the full user object - name, address, billing history, everything - even when the mobile screen only needs to show the name, so it downloaded forty fields to use one. Go the other way and a screen that needs a user plus their last five orders has to make two separate round trips, because REST has no built-in way to say "and also fetch this related thing." There is also no standard error format, only the status code, so every team invents its own error body and clients cannot handle failures generically.
 
-缺點同樣具體。過度取得與取得不足是最常見的：以資源為形狀的 endpoint 會回傳固定的 payload，所以一個手機畫面不是下載了永遠不會顯示的欄位，就是得往返三次才能拼出一個畫面。此外沒有標準的錯誤格式，只有狀態碼，於是每個團隊都自己發明錯誤 body，客戶端無法用通用的方式處理失敗。
+缺點同樣具體。過度取得與取得不足是最常見的：`GET /users/42` 永遠回傳完整的 user 物件 —— 名字、地址、帳單記錄，全部都在 —— 即使手機畫面只需要顯示名字，也是下載了四十個欄位卻只用了一個。反過來，如果一個畫面需要使用者資料加上他最近五筆訂單，就得分兩次來回，因為 REST 沒有內建的方式說「順便也把這個關聯的東西撈回來」。此外沒有標準的錯誤格式，只有狀態碼，於是每個團隊都自己發明錯誤 body，客戶端無法用通用的方式處理失敗。
 
 The rest are costs of evolution and of HTTP's own shape. Changing a contract means running two versions for a deprecation window, which is real maintenance. Operations that are not create, read, update, or delete, such as a multi-step transaction or a bulk job, are awkward to model as resources. And statelessness means every request repeats its authentication and context. When a client needs to choose its own payload shape, GraphQL fits better; when two services need low-latency streaming, gRPC or a WebSocket does.
 
