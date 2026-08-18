@@ -155,7 +155,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | Question | Part | Focus | Status |
 |---|---|---|---|
 | [Explain statelessness in HTTP and how it impacts backend services.](docs/api-and-http/q04-http-statelessness.md) | API & HTTP | Independent requests, and where the state has to go instead | Draft |
-| [What measures would you take to secure a newly developed API?](docs/api-and-http/q07-securing-a-new-api.md) | API & HTTP | Authentication, transport security, origin control, and abuse limits | Draft |
+| [What measures would you take to secure a newly developed API?](docs/api-and-http/q07-securing-a-new-api.md) | API & HTTP | Identity, permission, input, protection, monitoring - as five layers | Draft |
 | [Explain database transactions and isolation levels.](docs/databases/q17-transactions-and-isolation-levels.md) | Databases | ACID in practice, the four levels, and the anomalies each prevents | Draft |
 | [What is the N+1 query problem, and how do you fix it?](docs/databases/q18-n-plus-one-queries.md) | Databases | One query per row, why an ORM hides it, and eager loading | Draft |
 | [How do you protect a server from SQL injection attacks?](docs/security-and-auth/q23-sql-injection.md) | Security & Auth | Parameterized queries, ORMs, and defense in depth | Draft |

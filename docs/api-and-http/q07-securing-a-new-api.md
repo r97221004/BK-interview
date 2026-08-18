@@ -4,37 +4,54 @@
 
 **Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [jwt](../_glossary.md#jwt), [cors](../_glossary.md#cors), [prepared statement](../_glossary.md#prepared-statement)
+**New to these terms?** [endpoint](../_glossary.md#endpoint), [resource](../_glossary.md#resource), [jwt](../_glossary.md#jwt), [prepared statement](../_glossary.md#prepared-statement)
 
 ## In One Sentence
 
-Securing an API means layering several controls: prove who the caller is, check what they are allowed to touch, encrypt the connection, validate everything they send, and cap how much they can send.
+I think about API security in five layers - who you are, what you are allowed to touch, whether what you sent is safe, how the API resists abuse, and whether I would notice an attack - and the second layer is the one people skip.
 
-保護一個 API 是把多層防護疊起來：確認呼叫者是誰、檢查他能碰哪些資源、加密連線、驗證他送來的所有東西，並限制他能送多少。
+我會把 API 安全拆成五層來想 —— 你是誰、你能碰什麼、你送來的東西安不安全、這個 API 怎麼抵抗濫用、以及出事我看不看得到 —— 而第二層正是最多人漏掉的那一層。
 
 ## Answer Shape
 
-Answer as an ordered checklist rather than a favorite technique, because breadth is what is being scored here. Separate authentication from authorization explicitly, since conflating them is the most common miss. Then cover transport, input, and abuse limits, and finish with the operational layer that tells you when a control has already failed.
+Lead with the skeleton, not the keywords: identity, permission, input, protection, monitoring. Then spend most of your time on the first two, because authentication is the layer everyone remembers and authorization is the layer that actually gets breached - give the concrete example there rather than a definition. Move through the remaining three quickly, in one sentence each. Listing nine security terms in a row sounds like reciting a checklist; five layers with one real example sounds like someone who has built it, and it gives the interviewer somewhere obvious to dig.
 
-用一份有順序的檢查清單回答，而不是講你最喜歡的那一招，因為這題評的是廣度。務必明確區分認證與授權，因為把兩者混為一談是最常見的漏洞。接著涵蓋傳輸、輸入與濫用限制，最後補上維運層 —— 那是在某道防線已經被突破時告訴你的東西。
+開場給骨架，不要給關鍵字：身分、權限、輸入、防護、監控。接著把大部分時間花在前兩層，因為認證是人人都記得的那層，授權才是真正會被打穿的那層 —— 在這裡給具體例子，而不是給定義。剩下三層各用一句話快速帶過。一口氣列九個安全名詞聽起來像在背清單；五層搭配一個真實例子，聽起來像真的做過，而且讓面試官有明顯的地方可以往下追問。
 
 ## Full Spoken Answer
 
-Start by separating the two questions that get merged. Authentication answers who the caller is, using a session cookie, an API key, or a signed token such as a JWT. OAuth 2.0 belongs on the other side of that line - it is a delegation framework for letting a third party act on a user's behalf, so it answers authorization; OpenID Connect is the identity layer built on top of it that actually authenticates. Authorization answers what a caller may do, and it has to be checked per object, not just per route. An endpoint that verifies the token and then returns any record whose identifier is in the path is authenticated and still completely broken - that is broken object level authorization, or IDOR, and it is number one in the OWASP API Security Top 10 for a reason.
+I do not think of API security as one feature, I think of it in layers. The first is identity - who you are. Every protected endpoint has to verify the caller, typically with a JWT, or with OAuth 2.0 and OpenID Connect when a third party is acting on a user's behalf.
 
-先把兩個常被混在一起的問題分開。認證回答的是「呼叫者是誰」，做法有 session cookie、API key，或像 JWT 這樣的簽章 token。OAuth 2.0 屬於這條線的另一邊 —— 它是讓第三方代表使用者行動的委任框架，回答的是授權；真正負責認證的是架在它之上的身分層 OpenID Connect。授權回答的是「這個呼叫者可以做什麼」，而且必須逐一物件檢查，不能只檢查路由。一個驗證了 token、卻把路徑上任何 ID 對應的資料都回傳出去的 endpoint，是通過認證但完全失守的 —— 這叫 broken object level authorization，也就是 IDOR，它高居 OWASP API Security Top 10 第一名不是沒有原因的。
+我不會把 API 安全當成某一個功能，而是分層來想。第一層是身分 —— 你是誰。每個受保護的 endpoint 都必須驗證呼叫者，通常用 JWT，或在第三方代表使用者行動時用 OAuth 2.0 搭配 OpenID Connect。
 
-Then secure the transport. Serve everything over HTTPS, redirect plain HTTP to it, and send HSTS so the browser refuses to downgrade. TLS stops an attacker on the network from reading or modifying traffic, including the token in the authorization header, which is why it is not optional even for an internal service. It says nothing about who the caller is, so it never substitutes for authentication.
+The second layer is permission, and this is the one that matters more. A valid token does not mean you may touch this particular record. Take GET /users/123/orders - your JWT can be perfectly valid and still not entitle you to user 123's orders, so the handler has to check ownership of that specific resource, not just that someone is logged in. Skipping this is broken object level authorization, or IDOR, and it is first in the OWASP API Security Top 10 precisely because the endpoint looks correct in review.
 
-接著保護傳輸層。全部走 HTTPS，把純 HTTP 轉導過去，並送出 HSTS 讓瀏覽器拒絕降級。TLS 阻止網路上的攻擊者讀取或竄改流量，包括 authorization 標頭裡的 token，這也是為什麼即使是內部服務也不能省略。但它完全不說明呼叫者是誰，所以永遠不能拿來取代認證。
+第二層是權限，而且這層更重要。token 有效不代表你可以碰這一筆資料。以 GET /users/123/orders 為例 —— 你的 JWT 可以完全合法，卻仍然沒有資格看 user 123 的訂單，所以處理函式必須檢查這筆特定資源的歸屬，而不是只確認「有人登入了」。漏掉這一層就是 broken object level authorization，也就是 IDOR，它排在 OWASP API Security Top 10 第一名，正是因為這種 endpoint 在程式碼審查時看起來完全正常。
 
-Next, treat every incoming value as hostile, and every outgoing one as a decision. Validate types, lengths, ranges, and allowed values at the boundary and reject rather than coerce. Use parameterized queries so input can never become part of a SQL command, and encode output for the context it is rendered into. Bind requests to an explicit schema rather than handing the payload to your model, or a caller sets a field you never meant to expose - mass assignment. Serialize responses from an explicit schema too, so a password hash or an internal flag cannot ride along in a model dump. If a browser calls the API from another origin, configure CORS with an explicit allowlist rather than a wildcard, and remember it constrains browsers only.
+The third layer is input. I validate everything at the boundary and bind it to an explicit schema rather than handing the payload to my model, so a caller cannot set a field I never meant to expose, and I use parameterized queries so input can never become part of a SQL command. The fourth is protection: HTTPS only, secrets like database passwords and API keys injected from the environment or a secret manager instead of being hard-coded, and rate limiting so the API survives abuse or an unexpected spike.
 
-再來，把每一個進來的值都當成有敵意的，也把每一個出去的值都當成一個決定。在邊界驗證型別、長度、範圍和允許值，並且選擇拒絕而不是自動轉換。使用參數化查詢，讓輸入永遠不可能變成 SQL 命令的一部分，並依照輸出所在的情境做編碼。請把請求綁定到一份明確的 schema，而不是把整包 payload 交給你的 model，否則呼叫端就能設定一個你從沒打算開放的欄位 —— 這就是 mass assignment。回應也要從明確的 schema 序列化，這樣密碼雜湊或內部旗標才不會跟著整個 model 一起被傾印出去。如果瀏覽器會從其他來源呼叫這個 API，就用明確的白名單設定 CORS，不要用萬用字元，同時記得它只約束瀏覽器。
+第三層是輸入。我會在邊界驗證所有東西，並把它綁定到一份明確的 schema，而不是把整包 payload 交給 model，這樣呼叫端就無法設定我從沒打算開放的欄位；同時使用參數化查詢，讓輸入永遠不可能變成 SQL 命令的一部分。第四層是防護：只走 HTTPS；資料庫密碼、API key 這類密鑰從環境變數或 secret manager 注入，而不是寫死在程式裡；再加上速率限制，讓 API 撐得住濫用或非預期的流量尖峰。
 
-Finally, limit and observe. Rate limiting per key or per user contains credential stuffing, scraping, and accidental retry storms, and it is the cheapest control on this list. Keep secrets out of the code and out of the image, rotate them, and log authentication failures, authorization denials, and rate-limit hits with enough structure to alert on. Those logs are how you find out a control failed while you still have time to respond.
+The last layer is monitoring, because every control above it can fail quietly. I log authentication failures, authorization denials, and rate-limit hits with enough structure to alert on, so repeated failures or an unusual access pattern surface while there is still time to respond. So the shape I keep in my head is: who you are, what you can access, whether the input is safe, how abuse is contained, and whether abnormal behaviour would be noticed.
 
-最後是限制與觀察。以金鑰或使用者為單位的速率限制可以遏止憑證填充、爬取和意外的重試風暴，而且是這份清單上最便宜的一道防護。把密鑰留在程式碼與映像檔之外、定期輪替，並把認證失敗、授權拒絕和觸發速率限制的事件記錄成有結構的日誌以便告警。這些日誌是你在還來得及反應時，發現某道防護已經失效的方式。
+最後一層是監控，因為上面每一道防護都可能靜默失效。我會把認證失敗、授權拒絕和觸發速率限制的事件記成有結構的日誌以便告警，讓連續失敗或異常存取模式在還來得及反應時就浮現出來。所以我腦子裡記的骨架是：你是誰、你能存取什麼、輸入安不安全、濫用怎麼被擋住，以及異常行為會不會被發現。
+
+## Quick Reference
+
+### The skeleton to memorise
+
+**Identity → Permission → Input → Protection → Monitoring**
+
+| Layer | The question it answers | What you say |
+|---|---|---|
+| **Identity** | Who are you? | JWT, or OAuth with OpenID Connect for third-party access |
+| **Permission** | Are you allowed to touch *this*? | `GET /users/123/orders` - a valid token is not entitlement to user 123's data. Check ownership per object (IDOR / BOLA) |
+| **Input** | Is what you sent safe? | Validate at the boundary, bind to an explicit schema (stops mass assignment), parameterized queries |
+| **Protection** | How does the API resist abuse? | HTTPS only, secrets from a secret manager, rate limiting |
+| **Monitoring** | Would I notice an attack? | Log auth failures, authz denials, rate-limit hits - and alert on them |
+
+Spend your time on the first two. Identity is the layer everyone remembers;
+permission is the layer that actually gets breached.
 
 ---
 

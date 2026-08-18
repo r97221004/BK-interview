@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [resource](../_glossary.md#resource), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting)
+**New to these terms?** [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting)
 
 ## In One Sentence
 

@@ -65,8 +65,8 @@ q(6, "api-and-http", "api-versioning",
 
 q(7, "api-and-http", "securing-a-new-api",
   "What measures would you take to secure a newly developed API?",
-  "Authentication, transport security, origin control, and abuse limits",
-  "Tests whether you have a layered checklist rather than one favorite mechanism, and whether you can say what each layer does not cover.")
+  "Identity, permission, input, protection, monitoring - as five layers",
+  "Tests whether you can give a structure an interviewer can dig into, rather than reciting security keywords. Authorization is the layer that separates the two.")
 
 q(8, "api-and-http", "rest-vs-websocket",
   "What is the difference between a REST API and a WebSocket?",
