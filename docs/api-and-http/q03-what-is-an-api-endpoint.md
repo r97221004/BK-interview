@@ -24,13 +24,13 @@ An endpoint is a specific URL where an API receives requests and returns respons
 
 endpoint 是 API 接收請求並回傳回應的一個特定 URL。它代表伺服器上某一個功能或資源的入口，並且由「路徑」加上「它接受的方法」共同定義，所以同一個路徑同時接受 GET 和 POST，實際上是同一個位址背後的兩個操作。
 
-Inside the server, the framework's router is what makes an endpoint real: it matches the incoming method and path against a table and calls the handler registered for that pair. Path segments can be variable, so a route such as a users path with an identifier segment defines one endpoint that serves every user, with the identifier extracted and passed to the handler as an argument.
+Inside the server, the framework's router is what makes an endpoint real: it matches the incoming method and path against a table and calls the handler registered for that pair. Path segments can be variable, so `GET /users/{id}` is one endpoint that serves every user - request `/users/42`, and 42 is pulled out and handed to the handler as an argument.
 
-在伺服器內部，讓 endpoint 真正存在的是框架的 router：它把進來的方法與路徑比對一張路由表，再呼叫註冊在那組配對上的處理函式。路徑片段可以是變數，所以像是「users 路徑加上一個 ID 片段」這樣的路由，定義的是一個服務所有使用者的 endpoint，ID 會被取出來當成參數傳給處理函式。
+在伺服器內部，讓 endpoint 真正存在的是框架的 router：它把進來的方法與路徑比對一張路由表，再呼叫註冊在那組配對上的處理函式。路徑片段可以是變數，所以 `GET /users/{id}` 是一個服務所有使用者的 endpoint —— 請求 `/users/42`，42 就會被取出來當成參數傳給處理函式。
 
-The distinction worth stating is that an endpoint is not the API. The API is the whole contract: every endpoint, the shapes of the payloads, the error format, the authentication scheme, and the guarantees around them. One endpoint is a single address inside that contract, which is why a well-designed one maps to a single clear capability rather than becoming a general-purpose route that branches on a field in the body.
+Plainly: one endpoint is one door, the API is the whole building. The API is the full contract - every endpoint, the shape of every payload, the error format, the auth scheme, and the guarantees around all of it. `GET /users/{id}` is a single door in that building, which is why a well-designed endpoint opens onto one clear capability instead of becoming a single door that branches into ten different rooms depending on a field in the request body.
 
-值得特別講清楚的是：一個 endpoint 不等於這個 API。API 是整份契約：所有 endpoint、payload 的格式、錯誤格式、認證機制，以及圍繞它們的保證。一個 endpoint 只是這份契約裡的單一位址，因此設計良好的 endpoint 會對應到一個清楚的功能，而不是變成一個依 body 裡某個欄位分支的萬用路由。
+說白了：一個 endpoint 是一扇門，API 是整棟建築。API 是整份契約 —— 所有 endpoint、每個 payload 的格式、錯誤格式、認證機制，以及圍繞它們的所有保證。`GET /users/{id}` 只是這棟建築裡的一扇門，這也是為什麼設計良好的 endpoint 會通往一個清楚的功能，而不是變成一扇門、裡面卻依 body 裡某個欄位分岔成十個不同房間。
 
 ---
 
