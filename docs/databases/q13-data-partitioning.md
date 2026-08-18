@@ -48,4 +48,4 @@ The whole thing lives or dies on the partition key, which has to match how you a
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q08: What is the difference between a REST API and a WebSocket?](../api-and-http/q08-rest-vs-websocket.md) | [All 29 questions](../../README.md) | [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) |
+| [Q12: What is data normalization?](q12-data-normalization.md) | [All 37 questions](../../README.md) | [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) |

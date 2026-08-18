@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [resource](../_glossary.md#resource), [status code](../_glossary.md#status-code), [websocket](../_glossary.md#websocket), [horizontal scaling](../_glossary.md#horizontal-scaling), [cdn](../_glossary.md#cdn)
+**New to these terms?** [rest](../_glossary.md#rest), [status code](../_glossary.md#status-code), [websocket](../_glossary.md#websocket), [horizontal scaling](../_glossary.md#horizontal-scaling), [cdn](../_glossary.md#cdn)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ The rest are costs of evolution and of HTTP's own shape. Changing a contract mea
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q03: What is an API endpoint?](q03-what-is-an-api-endpoint.md) | [All 29 questions](../../README.md) | [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) |
+| [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](../architecture-and-scaling/q32-python-concurrency-models.md) | [All 37 questions](../../README.md) | [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) |

@@ -2,9 +2,9 @@
 
 > Tests whether you can follow a request end to end, including the TCP connection underneath and what persistent connections changed.
 
-**Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 10/10 | **Status:** Draft
 
-**New to these terms?** [resource](../_glossary.md#resource), [cache](../_glossary.md#cache), [tls](../_glossary.md#tls)
+**New to these terms?** [resource](../_glossary.md#resource), [status code](../_glossary.md#status-code), [cache](../_glossary.md#cache), [tls](../_glossary.md#tls)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ Finally the connection is either closed or kept open. Since HTTP/1.1 persistent 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) | [All 29 questions](../../README.md) | [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) |
+| [Q01: What is a RESTful API, and what are its core principles?](q01-what-is-a-restful-api.md) | [All 37 questions](../../README.md) | [Q11: Can you explain the difference between SQL and NoSQL databases?](../databases/q11-sql-vs-nosql.md) |

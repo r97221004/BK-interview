@@ -2,9 +2,9 @@
 
 > Tests whether you can explain why the browser sends the cookie at all, and how CSRF differs from XSS.
 
-**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 7/10 | **Status:** Draft
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [xss](../_glossary.md#xss)
+**New to these terms?** [endpoint](../_glossary.md#endpoint), [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [xss](../_glossary.md#xss), [query plan](../_glossary.md#query-plan)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ The classic defense is a CSRF token: the server puts an unpredictable value into
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q24: Describe how session management works in web applications.](q24-session-management.md) | [All 29 questions](../../README.md) | [Q27: What is CORS?](q27-cors.md) |
+| [Q24: Describe how session management works in web applications.](q24-session-management.md) | [All 37 questions](../../README.md) | [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) |

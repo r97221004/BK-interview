@@ -2,9 +2,9 @@
 
 > Tests whether you have habits that survive a growing team, rather than a list of style rules.
 
-**Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 6/10 | **Status:** Draft
 
-**New to these terms?** [rest](../_glossary.md#rest), [unit test](../_glossary.md#unit-test)
+**New to these terms?** [rest](../_glossary.md#rest), [unit test](../_glossary.md#unit-test), [query plan](../_glossary.md#query-plan)
 
 ## In One Sentence
 
@@ -36,4 +36,4 @@ The last part is what makes change safe. I write unit tests with pytest so that 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) | [All 29 questions](../../README.md) | [Q42: What are the benefits of Docker multi-stage builds?](../devops-and-deployment/q42-docker-multi-stage-builds.md) |
+| [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) | [All 37 questions](../../README.md) | [Q35: When would you move work onto a message queue?](q35-message-queues-and-async-work.md) |

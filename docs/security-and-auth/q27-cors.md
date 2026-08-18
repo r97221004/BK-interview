@@ -60,4 +60,4 @@ Access-Control-Allow-Origin: https://shop.com
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) | [All 29 questions](../../README.md) | [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) |
+| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 37 questions](../../README.md) | [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) |

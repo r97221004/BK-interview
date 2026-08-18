@@ -2,7 +2,7 @@
 
 > Tests whether you know that the fix is context-correct output encoding, and whether you can name the three XSS variants.
 
-**Part:** Security & Auth | **Importance:** 9/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
 
 **New to these terms?** [cookie](../_glossary.md#cookie), [jwt](../_glossary.md#jwt)
 
@@ -50,4 +50,4 @@ Submitted into any field that is later rendered without escaping:
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q23: How do you protect a server from SQL injection attacks?](q23-sql-injection.md) | [All 29 questions](../../README.md) | [Q31: How would you scale a backend application during a traffic surge?](../architecture-and-scaling/q31-scaling-during-traffic-surge.md) |
+| [Q22: What is the difference between a session and a cookie?](q22-session-vs-cookie.md) | [All 37 questions](../../README.md) | [Q27: What is CORS?](q27-cors.md) |

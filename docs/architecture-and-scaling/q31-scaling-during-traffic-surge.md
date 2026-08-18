@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [rest](../_glossary.md#rest), [statelessness](../_glossary.md#statelessness), [cache](../_glossary.md#cache), [redis](../_glossary.md#redis), [rate limiting](../_glossary.md#rate-limiting)
+**New to these terms?** [rest](../_glossary.md#rest), [statelessness](../_glossary.md#statelessness), [redis](../_glossary.md#redis), [rate limiting](../_glossary.md#rate-limiting), [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ Finally, decide what to do when demand still exceeds capacity, because scaling i
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q25: What is Cross-Site Scripting (XSS)?](../security-and-auth/q25-xss.md) | [All 29 questions](../../README.md) | [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](q32-python-concurrency-models.md) |
+| [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) | [All 37 questions](../../README.md) | [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](q32-python-concurrency-models.md) |

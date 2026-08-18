@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [websocket](../_glossary.md#websocket)
+**New to these terms?** [websocket](../_glossary.md#websocket), [query plan](../_glossary.md#query-plan), [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 
@@ -65,4 +65,4 @@ Multiprocessing runs separate processes, each with its own interpreter, its own 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q31: How would you scale a backend application during a traffic surge?](q31-scaling-during-traffic-surge.md) | [All 29 questions](../../README.md) | [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) |
+| [Q31: How would you scale a backend application during a traffic surge?](q31-scaling-during-traffic-surge.md) | [All 37 questions](../../README.md) | [Q05: What are the benefits and drawbacks of RESTful APIs?](../api-and-http/q05-rest-benefits-and-drawbacks.md) |

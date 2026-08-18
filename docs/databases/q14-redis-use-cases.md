@@ -4,7 +4,7 @@
 
 **Part:** Databases | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [session](../_glossary.md#session), [rate limiting](../_glossary.md#rate-limiting)
+**New to these terms?** [cache](../_glossary.md#cache), [rate limiting](../_glossary.md#rate-limiting), [cache-aside](../_glossary.md#cache-aside), [cache stampede](../_glossary.md#cache-stampede), [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ The constraint is that memory is the budget. Your working set has to fit in RAM,
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q13: What is data partitioning?](q13-data-partitioning.md) | [All 29 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |
+| [Q13: What is data partitioning?](q13-data-partitioning.md) | [All 37 questions](../../README.md) | [Q19: How do you decide what to cache, and how do you invalidate it?](q19-caching-strategy-and-invalidation.md) |

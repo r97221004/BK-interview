@@ -190,6 +190,23 @@ for i, path in enumerate(order):
         bad_nav.append("%s footer is not %s" % (path, want))
 check("prev/next footers chain in README order", bad_nav)
 
+# A term's home question is advertised in the glossary as the place it is
+# explained in full, so the term has to actually appear there. Without this,
+# a promise can rot silently: the anchor still resolves and the wording is
+# fine, but the reader who follows the link never meets the word again.
+sys.path.insert(0, os.path.join(ROOT, "tools"))
+from build import TERM_RE, HOME, path_of, DISPLAY  # noqa: E402
+
+homeless = []
+for anchor, rx in TERM_RE.items():
+    home = HOME[anchor]
+    prose = NAV.split(open(path_of(home)).read())[0]
+    prose = re.sub(r"\*\*New to these terms\?\*\* .*\n", "", prose)
+    if not re.search(rx, prose, re.I):
+        homeless.append((anchor, home))
+check("every glossary term appears in the question it is homed to", homeless,
+      lambda x: "%s is homed at Q%02d but never appears there" % (DISPLAY[x[0]], x[1]))
+
 # Glossary anchors referenced by questions must exist.
 anchors = set(re.findall(r"^### (.+)$", open("docs/_glossary.md").read(), re.M))
 slugs = {re.sub(r"[^a-z0-9]+", "-", a.lower()).strip("-") for a in anchors}

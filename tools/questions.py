@@ -1,16 +1,23 @@
 """Question data for the backend interview question set.
 
-Numbering leaves a gap between parts (1-9, 11-19, 21-29, ...) so a new question
-can be added to a part later without renumbering everything after it. Numbers
-are permanent: links and bookmarks must keep pointing at the same question.
+Each part owns a block of numbers (1-9, 11-19, 21-29, ...) so a new question can
+be added to a part without renumbering everything after it. Numbers are
+permanent: links and bookmarks must keep pointing at the same question, which is
+why a part that fills its block takes a fresh one rather than pushing its
+neighbours along - see "API Design & Reliability" at 61.
 
 Each entry: num, dir, slug, title, focus, tests.
   focus - the one-line "Focus" cell in the README table
   tests - the blockquote under the title: what the interviewer is really asking
 """
 
+# Display order. A part's number block is its permanent identity and has nothing
+# to do with where it appears here, which is why "API Design & Reliability" reads
+# second but numbers from 61: it was added after the 1-9 block was already full,
+# and renumbering the questions above it would have broken every existing link.
 PARTS = [
     ("api-and-http", "API & HTTP"),
+    ("api-design", "API Design & Reliability"),
     ("databases", "Databases"),
     ("security-and-auth", "Security & Auth"),
     ("architecture-and-scaling", "Architecture & Scaling"),
@@ -97,6 +104,26 @@ q(15, "databases", "database-out-of-storage",
   "Immediate relief, then reclaiming, growing, and splitting",
   "Tests whether you can separate the emergency response from the structural fix, and whether you monitor for this before it happens.")
 
+q(16, "databases", "indexes-and-slow-queries",
+  "What is a database index, and how do you work out why a query is slow?",
+  "B-tree lookup, what an index costs, and reading a query plan",
+  "The highest-value database question there is. Tests whether you can reason from the access path rather than guess, and whether you know an index is not free.")
+
+q(17, "databases", "transactions-and-isolation-levels",
+  "Explain database transactions and isolation levels.",
+  "ACID in practice, the four levels, and the anomalies each prevents",
+  "Tests whether you know what your default isolation level actually allows, and whether you can recognise a deadlock and say what causes one.")
+
+q(18, "databases", "n-plus-one-queries",
+  "What is the N+1 query problem, and how do you fix it?",
+  "One query per row, why an ORM hides it, and eager loading",
+  "Tests whether you can spot the most common performance bug in ORM-backed code, and whether you would have noticed it before production did.")
+
+q(19, "databases", "caching-strategy-and-invalidation",
+  "How do you decide what to cache, and how do you invalidate it?",
+  "Cache-aside vs write-through, TTLs, stampedes, and staleness",
+  "Tests whether you treat caching as a design with failure modes rather than as a switch, and whether you can say what happens on a miss.")
+
 # ------------------------------------------------------------- Security & Auth
 q(21, "security-and-auth", "session-vs-jwt-authentication",
   "What is the difference between session-based and JWT-based authentication?",
@@ -154,6 +181,11 @@ q(34, "architecture-and-scaling", "maintainable-backend-code",
   "Boundaries, conventions, tests, and consistent failure handling",
   "Tests whether you have habits that survive a growing team, rather than a list of style rules.")
 
+q(35, "architecture-and-scaling", "message-queues-and-async-work",
+  "When would you move work onto a message queue?",
+  "Decoupling, absorbing bursts, and what a queue makes harder",
+  "Tests whether you can name work that does not belong in a request cycle, and whether you know a queue introduces retries, ordering, and duplicate delivery.")
+
 # ---------------------------------------------------- DevOps & Deployment
 q(41, "devops-and-deployment", "what-is-containerization",
   "What is containerization, and how does it benefit backend development?",
@@ -175,3 +207,20 @@ q(52, "testing-and-debugging", "debugging-a-backend-application",
   "What tools and techniques do you use for debugging a backend application?",
   "Reproduce, narrow, then instrument - locally and in production",
   "Tests whether you have a method rather than a tool list, and whether you can debug something you cannot attach a debugger to.")
+
+
+# --------------------------------------------- API Design & Reliability
+q(61, "api-design", "status-codes-and-error-responses",
+  "How do you choose HTTP status codes and design error responses?",
+  "Status classes, and an error body a client can act on",
+  "Tests whether you design errors for the caller rather than for yourself, and whether you know why returning 200 with an error body breaks clients and proxies.")
+
+q(62, "api-design", "pagination",
+  "How would you paginate a large collection endpoint?",
+  "Offset vs cursor pagination, and why deep offsets get slow",
+  "Tests whether you know offset pagination degrades on large tables and skips rows when the data shifts underneath the reader.")
+
+q(63, "api-design", "idempotency-and-retries",
+  "How do you make an endpoint safe to retry?",
+  "Idempotent methods, idempotency keys, and exactly-once delivery",
+  "Tests whether you have thought about what happens when a client times out and retries a payment - the classic double-charge.")

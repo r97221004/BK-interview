@@ -2,7 +2,7 @@
 
 > Usually an opener. Tests whether you can define the term precisely and connect it to how a server routes work.
 
-**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
 
 **New to these terms?** [resource](../_glossary.md#resource)
 
@@ -36,4 +36,4 @@ The distinction worth stating is that an endpoint is not the API. The API is the
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) | [All 29 questions](../../README.md) | [Q05: What are the benefits and drawbacks of RESTful APIs?](q05-rest-benefits-and-drawbacks.md) |
+| [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) | [All 37 questions](../../README.md) | [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) |

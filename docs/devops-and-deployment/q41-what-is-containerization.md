@@ -2,7 +2,7 @@
 
 > Tests whether you can state what containers actually isolate, and what they do not solve.
 
-**Part:** DevOps & Deployment | **Importance:** 9/10 | **Status:** Draft
+**Part:** DevOps & Deployment | **Importance:** 7/10 | **Status:** Draft
 
 ## In One Sentence
 
@@ -34,4 +34,4 @@ For backend development the benefits follow directly. Dependencies are pinned in
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](../architecture-and-scaling/q32-python-concurrency-models.md) | [All 29 questions](../../README.md) | [Q03: What is an API endpoint?](../api-and-http/q03-what-is-an-api-endpoint.md) |
+| [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) | [All 37 questions](../../README.md) | [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) |

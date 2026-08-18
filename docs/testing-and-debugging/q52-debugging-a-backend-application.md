@@ -2,9 +2,9 @@
 
 > Tests whether you have a method rather than a tool list, and whether you can debug something you cannot attach a debugger to.
 
-**Part:** Testing & Debugging | **Importance:** 8/10 | **Status:** Draft
+**Part:** Testing & Debugging | **Importance:** 7/10 | **Status:** Draft
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [orm](../_glossary.md#orm)
+**New to these terms?** [endpoint](../_glossary.md#endpoint), [orm](../_glossary.md#orm), [index](../_glossary.md#index), [query plan](../_glossary.md#query-plan), [n+1 query](../_glossary.md#n-1-query)
 
 ## In One Sentence
 
@@ -28,9 +28,9 @@ Locally I use the debugger built into the editor, setting breakpoints, inspectin
 
 在本機我使用編輯器內建的除錯器，設中斷點、檢視變數、逐步走過有問題的路徑 —— 這幾乎總是比加一堆 print 再重跑要快。Postman 適合用來以修改過的輸入重放 API 請求，以隔離出是哪個欄位觸發了失敗；而 Swagger 或 OpenAPI 規格則是我用來確認 endpoint 是否照規格運作、或規格本身是否有誤的地方。
 
-In staging and production a debugger is not an option, so the answer is instrumentation. Structured logging is the foundation, and the single thing that makes it work is a request or correlation ID attached to every line and propagated across services, so one user's failing request can be followed end to end instead of guessed at from interleaved output. On top of that, metrics and dashboards in Prometheus and Grafana show error rates, latency percentiles, and saturation, which is how you tell a single broken request apart from a system-wide degradation. Distributed tracing is the natural next step once several services are involved.
+In staging and production a debugger is not an option, so the answer is observability - being able to ask new questions of a running system without shipping code to answer them. Structured logging is the foundation, and the single thing that makes it work is a request or correlation ID attached to every line and propagated across services, so one user's failing request can be followed end to end instead of guessed at from interleaved output. On top of that, metrics and dashboards in Prometheus and Grafana show error rates, latency percentiles, and saturation, which is how you tell a single broken request apart from a system-wide degradation. Distributed tracing is the natural next step once several services are involved.
 
-在測試與正式環境沒有除錯器可用，所以答案是觀測性儀器。結構化日誌是基礎，而讓它真正發揮作用的關鍵只有一件事：在每一行都附上並跨服務傳遞的 request ID 或 correlation ID，讓某個使用者失敗的請求能被從頭追到尾，而不是從交錯的輸出裡用猜的。在此之上，Prometheus 與 Grafana 中的指標與儀表板顯示錯誤率、延遲百分位和飽和度，這是你用來分辨「單一壞掉的請求」和「全系統劣化」的方式。當牽涉到多個服務時，分散式追蹤是自然的下一步。
+在測試與正式環境沒有除錯器可用，所以答案是 observability（可觀測性）—— 也就是不必為了回答問題而重新部署，就能對運行中的系統提出新問題的能力。結構化日誌是基礎，而讓它真正發揮作用的關鍵只有一件事：在每一行都附上並跨服務傳遞的 request ID 或 correlation ID，讓某個使用者失敗的請求能被從頭追到尾，而不是從交錯的輸出裡用猜的。在此之上，Prometheus 與 Grafana 中的指標與儀表板顯示錯誤率、延遲百分位和飽和度，這是你用來分辨「單一壞掉的請求」和「全系統劣化」的方式。當牽涉到多個服務時，分散式追蹤是自然的下一步。
 
 For database-related problems the approach is more specific. I look at the actual SQL being issued, which for an ORM often means logging the generated queries, because the N+1 problem is invisible in the application code and obvious in the query log. Then I run EXPLAIN on the slow query to see whether it is using an index or scanning the table, and check the database's own slow-query log to find which statements are actually costing time rather than the ones I assumed were. Once the cause is found, the last step is a test that reproduces it, so the fix is verified and the regression cannot return unnoticed.
 
@@ -40,4 +40,4 @@ For database-related problems the approach is more specific. I look at the actua
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q51: What kind of tests would you write for a new API endpoint?](q51-testing-a-new-api-endpoint.md) | [All 29 questions](../../README.md) | [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) |
+| [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) | [All 37 questions](../../README.md) | [Q62: How would you paginate a large collection endpoint?](../api-design/q62-pagination.md) |

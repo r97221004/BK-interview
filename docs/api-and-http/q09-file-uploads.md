@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 7/10 | **Status:** Draft
 
-**New to these terms?** [rest](../_glossary.md#rest), [tls](../_glossary.md#tls)
+**New to these terms?** [rest](../_glossary.md#rest), [tls](../_glossary.md#tls), [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ At scale, take the bytes out of the application path entirely. The backend issue
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) | [All 29 questions](../../README.md) | [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) |
+| [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) | [All 37 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |

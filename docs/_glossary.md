@@ -26,7 +26,7 @@ Explained in full: [Q01](api-and-http/q01-what-is-a-restful-api.md).
 
 A method is idempotent when repeating the same request has the same effect as sending it once. GET, PUT, and DELETE are idempotent; POST is not, which is why retrying a failed POST can double-charge a customer.
 
-Explained in full: [Q01](api-and-http/q01-what-is-a-restful-api.md).
+Explained in full: [Q63](api-design/q63-idempotency-and-retries.md).
 
 ### Statelessness
 
@@ -38,7 +38,7 @@ Explained in full: [Q04](api-and-http/q04-http-statelessness.md).
 
 The three-digit result on an HTTP response: 2xx success, 3xx redirect, 4xx the client's fault, 5xx the server's fault. Clients and proxies both branch on this, so returning 200 with an error body breaks them.
 
-Explained in full: [Q02](api-and-http/q02-http-request-response-cycle.md).
+Explained in full: [Q61](api-design/q61-status-codes-and-error-responses.md).
 
 ### Persistent connection
 
@@ -164,7 +164,7 @@ Explained in full: [Q23](security-and-auth/q23-sql-injection.md).
 
 Atomicity, Consistency, Isolation, Durability: the transactional guarantees relational databases provide. They are what let you move money between two rows without inventing or losing any.
 
-Explained in full: [Q11](databases/q11-sql-vs-nosql.md).
+Explained in full: [Q17](databases/q17-transactions-and-isolation-levels.md).
 
 ### Normalization
 
@@ -194,17 +194,17 @@ Explained in full: [Q13](databases/q13-data-partitioning.md).
 
 A secondary structure, usually a B-tree, that lets the database find rows without scanning the table. Each index speeds up reads and slows down every write to that table, and consumes disk.
 
-Explained in full: [Q15](databases/q15-database-out-of-storage.md).
+Explained in full: [Q16](databases/q16-indexes-and-slow-queries.md).
 
 ### Cache
 
 A fast store holding a copy of data that is expensive to recompute or refetch. Every cache needs an answer for how entries expire and what happens on a miss.
 
-Explained in full: [Q14](databases/q14-redis-use-cases.md).
+Explained in full: [Q19](databases/q19-caching-strategy-and-invalidation.md).
 
 ### Redis
 
-An in-memory data-structure store used as a [cache](#cache), [session](#session) store, [rate limit](#rate-limiting)er, and queue. Its speed comes from keeping data in RAM, which is also why capacity and durability need explicit thought.
+An in-memory data-structure store used as a [cache](#cache), [session](#session) store, [rate limit](#rate-limiting)er, and [queue](#message-queue). Its speed comes from keeping data in RAM, which is also why capacity and durability need explicit thought.
 
 Explained in full: [Q14](databases/q14-redis-use-cases.md).
 
@@ -228,7 +228,7 @@ Explained in full: [Q31](architecture-and-scaling/q31-scaling-during-traffic-sur
 
 ### Backpressure
 
-Deliberately rejecting or queueing work when the system is saturated, so it degrades instead of collapsing. [Rate limits](#rate-limiting), queue bounds, and load shedding are all forms of it.
+Deliberately rejecting or queueing work when the system is saturated, so it degrades instead of collapsing. [Rate limits](#rate-limiting), [queue](#message-queue) bounds, and load shedding are all forms of it.
 
 Explained in full: [Q31](architecture-and-scaling/q31-scaling-during-traffic-surge.md).
 
@@ -246,7 +246,7 @@ Explained in full: [Q32](architecture-and-scaling/q32-python-concurrency-models.
 
 ### Hash table
 
-The structure behind `dict` and `set`: a key is hashed to an index into an array of slots, giving average O(1) lookup. Collisions are resolved by probing, and the table resizes as it fills.
+The structure behind `dict` and `set`: a key is hashed to an [index](#index) into an array of slots, giving average O(1) lookup. Collisions are resolved by probing, and the table resizes as it fills.
 
 Explained in full: [Q33](architecture-and-scaling/q33-python-builtin-data-structures.md).
 
@@ -309,3 +309,63 @@ Explained in full: [Q07](api-and-http/q07-securing-a-new-api.md).
 A delegation framework that lets a third party act on a user's behalf without receiving their password. It is authorization, not authentication - that is what OpenID Connect adds.
 
 Explained in full: [Q07](api-and-http/q07-securing-a-new-api.md).
+
+### Query plan
+
+What the database decided to do with your query - which [index](#index), which join order, in what sequence. `EXPLAIN` prints it, and `EXPLAIN ANALYZE` adds the timings and the row counts it actually saw.
+
+Explained in full: [Q16](databases/q16-indexes-and-slow-queries.md).
+
+### Deadlock
+
+Two transactions each holding a lock the other needs, so neither can move. The database detects the cycle and aborts one of them, which reaches your application as an error on a statement that was correct.
+
+Explained in full: [Q17](databases/q17-transactions-and-isolation-levels.md).
+
+### N+1 query
+
+One query to fetch a list, then one more per item in it. The application code shows no query at all, because the [ORM](#orm) issues it lazily behind an attribute access.
+
+Explained in full: [Q18](databases/q18-n-plus-one-queries.md).
+
+### Cache-aside
+
+The usual [caching](#cache) pattern: check the cache, and on a miss read the source, write the value back with an expiry, and return it. The cache never talks to the database itself, so losing it costs speed rather than correctness.
+
+Explained in full: [Q19](databases/q19-caching-strategy-and-invalidation.md).
+
+### Cache stampede
+
+A popular key expires and every concurrent request misses at once, so the whole load arrives at the database together. Prevented with a short lock on repopulation, or by adding random jitter to expiry times.
+
+Explained in full: [Q19](databases/q19-caching-strategy-and-invalidation.md).
+
+### Cursor pagination
+
+Paging by sending a pointer to the last row seen rather than a page number, so the query seeks the [index](#index) directly. Constant cost at any depth, and immune to rows shifting under the reader.
+
+Explained in full: [Q62](api-design/q62-pagination.md).
+
+### Idempotency key
+
+A unique value the client generates once per logical operation and reuses across retries. The server records it with the result, so a repeat returns the original response instead of doing the work twice.
+
+Explained in full: [Q63](api-design/q63-idempotency-and-retries.md).
+
+### At-least-once delivery
+
+The guarantee you actually get over an unreliable network or from a [queue](#message-queue): a message may arrive more than once, never fewer. Exactly-once processing is achieved in the handler, not in the transport.
+
+Explained in full: [Q63](api-design/q63-idempotency-and-retries.md).
+
+### Message queue
+
+A buffer between a producer and a worker, so slow work leaves the request cycle and a traffic spike becomes a backlog that drains instead of a wall of timeouts.
+
+Explained in full: [Q35](architecture-and-scaling/q35-message-queues-and-async-work.md).
+
+### Dead-letter queue
+
+Where a job goes after it has failed its retries, so it stops blocking the [queue](#message-queue) and can be inspected instead of silently disappearing.
+
+Explained in full: [Q35](architecture-and-scaling/q35-message-queues-and-async-work.md).

@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 10/10 | **Status:** Draft
 
-**New to these terms?** [statelessness](../_glossary.md#statelessness), [load balancer](../_glossary.md#load-balancer), [cdn](../_glossary.md#cdn)
+**New to these terms?** [idempotent](../_glossary.md#idempotent), [statelessness](../_glossary.md#statelessness), [load balancer](../_glossary.md#load-balancer), [cdn](../_glossary.md#cdn), [query plan](../_glossary.md#query-plan)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ In practice most APIs called RESTful break at least one constraint, and the hone
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| *(first question)* | [All 29 questions](../../README.md) | [Q11: Can you explain the difference between SQL and NoSQL databases?](../databases/q11-sql-vs-nosql.md) |
+| *(first question)* | [All 37 questions](../../README.md) | [Q02: Can you describe a typical HTTP request/response cycle?](q02-http-request-response-cycle.md) |

@@ -13,15 +13,25 @@ PART_NAME = dict(PARTS)
 
 BY_NUM = {q["num"]: q for q in Q}
 
-# Importance 1-10, frequency-first: how often the question is actually asked,
-# not how hard it is. A fundamental that opens most interviews outranks a
-# subtle question that impresses on the rare occasion it appears.
+# Importance 1-10: how often the question is actually asked, not how hard it is.
+# The scale is used across its range on purpose. An earlier pass put 75% of the
+# set at 8 or 9, which made the ordering claim in the README meaningless - if
+# almost everything is a 9, "read top to bottom" is just "read in file order".
+#
+#   10  asked in almost every backend interview, at every level
+#    9  asked in most interviews
+#    8  common; expect it in any round focused on that topic
+#    7  situational; comes up when the role or your own story invites it
+#    6  occasional; a good depth signal when it appears
+#    5  rare, but the answer is disproportionately impressive
 IMPORTANCE = {
-    1: 10, 11: 10, 21: 10,
-    2: 9, 4: 9, 7: 9, 12: 9, 22: 9, 23: 9, 25: 9, 31: 9, 32: 9, 41: 9,
-    3: 8, 5: 8, 6: 8, 8: 8, 13: 8, 14: 8, 24: 8, 26: 8, 27: 8, 33: 8,
-    51: 8, 52: 8,
-    9: 7, 15: 7, 34: 7, 42: 7,
+    1: 10, 2: 10, 11: 10, 16: 10, 21: 10,
+    3: 9, 4: 9, 7: 9, 17: 9, 18: 9, 23: 9, 31: 9, 32: 9,
+    5: 8, 6: 8, 8: 8, 12: 8, 13: 8, 14: 8, 19: 8, 22: 8, 25: 8, 27: 8,
+    51: 8, 61: 8,
+    9: 7, 24: 7, 26: 7, 33: 7, 41: 7, 52: 7, 62: 7, 63: 7,
+    15: 6, 34: 6, 35: 6,
+    42: 5,
 }
 assert set(IMPORTANCE) == set(BY_NUM), "importance must cover every question"
 
@@ -43,7 +53,7 @@ TERM_RE = {
     "orm": r"\bORMs?\b", "least-privilege": r"least privilege",
     "acid": r"\bACID\b", "normalization": r"normaliz(ation|ed|e)\b",
     "denormaliz": r"denormaliz", "partitioning": r"partition(ing|s|ed)?\b",
-    "sharding": r"shard(ing|s|ed)?\b", "index": r"\bindexe?s\b",
+    "sharding": r"shard(ing|s|ed)?\b", "index": r"\bindex(es)?\b",
     "cache": r"\bcach(e|es|ing|ed)\b", "redis": r"\bRedis\b",
     "horizontal-scaling": r"horizontal(ly)? scal", "load-balancer": r"load balancers?",
     "cdn": r"\bCDN\b", "backpressure": r"backpressure|load shedding",
@@ -54,6 +64,11 @@ TERM_RE = {
     "integration-test": r"integration tests?", "structured-logging": r"structured logging",
     "observability": r"observability", "tls": r"\bTLS\b|\bHTTPS\b",
     "rate-limiting": r"rate limit(ing|s|ed)?", "oauth2": r"OAuth ?2(\.0)?",
+    "query-plan": r"query plan|EXPLAIN", "deadlock": r"deadlocks?",
+    "n-plus-one": r"N\+1", "cache-aside": r"cache-aside",
+    "cache-stampede": r"stampede", "cursor-pagination": r"cursor pagination|\bcursors?\b",
+    "idempotency-key": r"idempotency keys?", "at-least-once": r"at-least-once|at least once",
+    "message-queue": r"message queues?|\bqueues?\b", "dead-letter-queue": r"dead-letter",
 }
 # "denormaliz" has no glossary entry of its own; it points at the normalization
 # neighbourhood, so drop any regex key that is not a real term.
@@ -214,20 +229,20 @@ def glossary_md():
     return "\n".join(out)
 
 
-BADGES = """![Backend](https://img.shields.io/badge/Backend-Interview%20Prep-0F766E)
-![Questions](https://img.shields.io/badge/Questions-29-2563EB)
+BADGES = """![Python](https://img.shields.io/badge/Python-Backend%20Interviews-3776AB)
+![Questions](https://img.shields.io/badge/Questions-{n}-2563EB)
 ![Format](https://img.shields.io/badge/Format-Q%26A-5D3FD3)
 ![Language](https://img.shields.io/badge/Language-EN%20%2B%20%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-D97706)"""
 
-README_HEAD = """# Backend Engineering Interview Questions
+README_HEAD = """# Python Backend Interview Questions
 
-> A focused set of 29 high-frequency backend interview questions, answered bilingually and from the mechanism up.
+> A focused set of {n} high-frequency backend interview questions, answered bilingually and from the mechanism up.
 
 %s
 
 Backend interview questions are easy to answer badly. Most have a one-line answer that sounds right and reveals nothing, and the interviewer is listening for the layer underneath: what the protocol actually guarantees, where the state really lives, and what breaks first under load.
 
-This repository is not a backend tutorial and not a framework reference. It is a set of questions selected for backend-engineering interviews. Each question carries a plain-language definition, a short speaking outline, and a complete spoken answer for follow-up - every paragraph in English and Traditional Chinese, because the interview may be in either.
+This repository is not a backend tutorial and not a framework reference. It is a set of questions selected for backend-engineering interviews, with Python as the assumed language: the concurrency, data-structure, and tooling answers are Python-specific, and everything else - HTTP, databases, security, scaling - transfers to any backend stack. Each question carries a plain-language definition, a short speaking outline, and a complete spoken answer for follow-up, every paragraph in English and Traditional Chinese, because the interview may be in either.
 
 ## Why This Guide
 
@@ -340,10 +355,11 @@ Some interviewers combine several concepts into one question. These common wordi
 
 - **"How do you handle authentication?"** start with [Q21](docs/security-and-auth/q21-session-vs-jwt-authentication.md) for the trade-off, then use [Q24](docs/security-and-auth/q24-session-management.md) for the lifecycle and [Q22](docs/security-and-auth/q22-session-vs-cookie.md) if they ask what the cookie is actually carrying.
 - **"What happens when I type a URL and hit enter?"** follow the request through [Q02](docs/api-and-http/q02-http-request-response-cycle.md), add routing from [Q03](docs/api-and-http/q03-what-is-an-api-endpoint.md), identity from [Q21](docs/security-and-auth/q21-session-vs-jwt-authentication.md), and the instance fan-out from [Q31](docs/architecture-and-scaling/q31-scaling-during-traffic-surge.md).
-- **"Why is this endpoint slow?"** combine the diagnostic method in [Q52](docs/testing-and-debugging/q52-debugging-a-backend-application.md) with caching in [Q14](docs/databases/q14-redis-use-cases.md) and indexing in [Q15](docs/databases/q15-database-out-of-storage.md).
+- **"Why is this endpoint slow?"** the most common follow-up in the whole set. Start with indexes and the query plan in [Q16](docs/databases/q16-indexes-and-slow-queries.md), rule out an [N+1](docs/databases/q18-n-plus-one-queries.md), then reach for caching in [Q19](docs/databases/q19-caching-strategy-and-invalidation.md) - and use the diagnostic method in [Q52](docs/testing-and-debugging/q52-debugging-a-backend-application.md) to decide which of the three it is.
+- **"What happens if the client retries?"** [Q63](docs/api-design/q63-idempotency-and-retries.md) is the direct answer, and it is the same property a queue consumer needs in [Q35](docs/architecture-and-scaling/q35-message-queues-and-async-work.md).
 - **"XSS or CSRF?"** they are frequently asked back to back and confused: [Q25](docs/security-and-auth/q25-xss.md) is about your output, [Q26](docs/security-and-auth/q26-csrf.md) is about the browser's credentials.
 
-## The 29 Questions
+## The {n} Questions
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
 
@@ -369,7 +385,7 @@ README_TAIL = """
 
 ## Prerequisites
 
-Comfort with one backend language and the shell. You should know what a function, a process, and an environment variable are. The Python-specific questions assume you have written Python, but the concepts behind them transfer.
+Comfort with Python and the shell. You should know what a function, a process, and an environment variable are, and have written enough Python to recognise a decorator and a context manager. SQL is assumed at the level of writing a join. No specific web framework is required; examples use Django and SQLAlchemy where an ORM is unavoidable.
 
 Everything else is explained here or in the [glossary](docs/_glossary.md).
 
@@ -411,7 +427,10 @@ def topic_nav():
         ns = [q["num"] for q in Q if q["dir"] == d]
         links.append("**%d.** [%s](docs/%s/) · %d question%s"
                      % (i, name, d, len(ns), "" if len(ns) == 1 else "s"))
-    rows = ["| %s | %s | %s |" % tuple(links[i:i + 3]) for i in range(0, len(links), 3)]
+    # Pad the final row: the grid is three wide and the part count is not
+    # required to be a multiple of three.
+    rows = ["| %s | %s | %s |" % tuple((links[i:i + 3] + ["", ""])[:3])
+            for i in range(0, len(links), 3)]
     return "\n".join(["**Open a topic:**", "", "| | | |", "|---|---|---|"] + rows)
 
 
@@ -430,7 +449,7 @@ def readme():
                           q["focus"], status_of(q["num"])))
         out.append("")
     out.append(README_TAIL)
-    return "\n".join(out).rstrip() + "\n"
+    return "\n".join(out).rstrip().replace("{n}", str(TOTAL)) + "\n"
 
 
 def written(num):
@@ -470,6 +489,13 @@ def main():
                 r"---\n\n\| ⬅ Previous \| Home \| Next ➡ \|\n"
                 r"\|---\|---\|---\|\n\|.*\|\s*$",
                 nav_footer(n), current, flags=re.S)
+            # Part and importance are generated too; only Status is authored in
+            # the file. Leaving them frozen at whatever the stub said means a
+            # recalibration silently disagrees with the README it generated.
+            current = re.sub(
+                r"\*\*Part:\*\* [^|]+ \| \*\*Importance:\*\* \d+/10 \|",
+                "**Part:** %s | **Importance:** %d/10 |" % (PART_NAME[q["dir"]], IMPORTANCE[n]),
+                current, count=1)
             # The terms line is generated metadata, not prose: which terms are
             # rare enough to be worth linking only becomes known once every
             # answer is written, so it is recomputed on each build rather than

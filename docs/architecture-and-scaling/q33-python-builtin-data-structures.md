@@ -2,7 +2,9 @@
 
 > Tests whether you can derive the performance characteristics from the implementation instead of memorizing a complexity table.
 
-**Part:** Architecture & Scaling | **Importance:** 8/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Draft
+
+**New to these terms?** [index](../_glossary.md#index), [query plan](../_glossary.md#query-plan)
 
 ## In One Sentence
 
@@ -66,4 +68,4 @@ print(my_dict['a'])     # 1
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q27: What is CORS?](../security-and-auth/q27-cors.md) | [All 29 questions](../../README.md) | [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) |
+| [Q26: What is Cross-Site Request Forgery (CSRF)?](../security-and-auth/q26-csrf.md) | [All 37 questions](../../README.md) | [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) |

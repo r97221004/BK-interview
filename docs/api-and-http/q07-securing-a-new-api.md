@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [cookie](../_glossary.md#cookie), [jwt](../_glossary.md#jwt), [cors](../_glossary.md#cors), [prepared statement](../_glossary.md#prepared-statement)
+**New to these terms?** [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [jwt](../_glossary.md#jwt), [cors](../_glossary.md#cors), [prepared statement](../_glossary.md#prepared-statement)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ Finally, limit and observe. Rate limiting per key or per user contains credentia
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) | [All 29 questions](../../README.md) | [Q12: What is data normalization?](../databases/q12-data-normalization.md) |
+| [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) | [All 37 questions](../../README.md) | [Q17: Explain database transactions and isolation levels.](../databases/q17-transactions-and-isolation-levels.md) |

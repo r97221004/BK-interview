@@ -4,6 +4,8 @@
 
 **Part:** Security & Auth | **Importance:** 9/10 | **Status:** Draft
 
+**New to these terms?** [query plan](../_glossary.md#query-plan), [cursor pagination](../_glossary.md#cursor-pagination)
+
 ## In One Sentence
 
 SQL injection happens when user input becomes part of the SQL command instead of staying data, and the fix is to send the query and the values to the database separately rather than to filter the input.
@@ -57,4 +59,4 @@ user = User.objects.get(username=username, password=password)
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q22: What is the difference between a session and a cookie?](q22-session-vs-cookie.md) | [All 29 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |
+| [Q18: What is the N+1 query problem, and how do you fix it?](../databases/q18-n-plus-one-queries.md) | [All 37 questions](../../README.md) | [Q31: How would you scale a backend application during a traffic surge?](../architecture-and-scaling/q31-scaling-during-traffic-surge.md) |

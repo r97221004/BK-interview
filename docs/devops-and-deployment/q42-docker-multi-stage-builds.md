@@ -2,9 +2,9 @@
 
 > Tests whether you can explain why deleting build tools in a later layer does not shrink the image.
 
-**Part:** DevOps & Deployment | **Importance:** 7/10 | **Status:** Draft
+**Part:** DevOps & Deployment | **Importance:** 5/10 | **Status:** Draft
 
-**New to these terms?** [cache](../_glossary.md#cache), [containerization](../_glossary.md#containerization)
+**New to these terms?** [cache](../_glossary.md#cache), [containerization](../_glossary.md#containerization), [query plan](../_glossary.md#query-plan)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ The third is clarity, since each stage has one obvious purpose - build, test, ru
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) | [All 29 questions](../../README.md) | *(last question)* |
+| [Q35: When would you move work onto a message queue?](../architecture-and-scaling/q35-message-queues-and-async-work.md) | [All 37 questions](../../README.md) | *(last question)* |

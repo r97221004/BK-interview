@@ -2,9 +2,9 @@
 
 > Tests whether you can separate the emergency response from the structural fix, and whether you monitor for this before it happens.
 
-**Part:** Databases | **Importance:** 7/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 6/10 | **Status:** Draft
 
-**New to these terms?** [session](../_glossary.md#session), [partitioning](../_glossary.md#partitioning), [sharding](../_glossary.md#sharding)
+**New to these terms?** [session](../_glossary.md#session), [partitioning](../_glossary.md#partitioning), [sharding](../_glossary.md#sharding), [index](../_glossary.md#index)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ The structural fixes are partitioning and storage efficiency. Partitioning by ti
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) | [All 29 questions](../../README.md) | [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) |
+| [Q63: How do you make an endpoint safe to retry?](../api-design/q63-idempotency-and-retries.md) | [All 37 questions](../../README.md) | [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) |

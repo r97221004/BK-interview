@@ -2,7 +2,7 @@
 
 > Tests whether you can walk the full lifecycle and explain what breaks when a second application server appears.
 
-**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 7/10 | **Status:** Draft
 
 **New to these terms?** [jwt](../_glossary.md#jwt), [samesite](../_glossary.md#samesite), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer), [tls](../_glossary.md#tls)
 
@@ -40,4 +40,4 @@ In RESTful APIs the usual choice is a token instead, because REST is meant to be
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q14: What are the common application scenarios for Redis?](../databases/q14-redis-use-cases.md) | [All 29 questions](../../README.md) | [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) |
+| [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) | [All 37 questions](../../README.md) | [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) |

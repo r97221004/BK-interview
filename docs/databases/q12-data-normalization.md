@@ -2,7 +2,9 @@
 
 > Tests whether you can explain the normal forms in terms of the update anomalies they prevent, and whether you know when denormalizing is correct.
 
-**Part:** Databases | **Importance:** 9/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 8/10 | **Status:** Draft
+
+**New to these terms?** [query plan](../_glossary.md#query-plan)
 
 ## In One Sentence
 
@@ -47,4 +49,4 @@ In practice 3NF is where most designs stop, and denormalizing back is a legitima
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q07: What measures would you take to secure a newly developed API?](../api-and-http/q07-securing-a-new-api.md) | [All 29 questions](../../README.md) | [Q22: What is the difference between a session and a cookie?](../security-and-auth/q22-session-vs-cookie.md) |
+| [Q08: What is the difference between a REST API and a WebSocket?](../api-and-http/q08-rest-vs-websocket.md) | [All 37 questions](../../README.md) | [Q13: What is data partitioning?](q13-data-partitioning.md) |

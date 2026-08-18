@@ -50,4 +50,4 @@ In practice most production systems run a hybrid, and saying so is the strongest
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q11: Can you explain the difference between SQL and NoSQL databases?](../databases/q11-sql-vs-nosql.md) | [All 29 questions](../../README.md) | [Q02: Can you describe a typical HTTP request/response cycle?](../api-and-http/q02-http-request-response-cycle.md) |
+| [Q16: What is a database index, and how do you work out why a query is slow?](../databases/q16-indexes-and-slow-queries.md) | [All 37 questions](../../README.md) | [Q03: What is an API endpoint?](../api-and-http/q03-what-is-an-api-endpoint.md) |

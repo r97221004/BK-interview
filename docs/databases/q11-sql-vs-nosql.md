@@ -4,7 +4,7 @@
 
 **Part:** Databases | **Importance:** 10/10 | **Status:** Draft
 
-**New to these terms?** [index](../_glossary.md#index), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling)
+**New to these terms?** [acid](../_glossary.md#acid), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling), [query plan](../_glossary.md#query-plan)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ It is worth admitting that the line has blurred. PostgreSQL stores and indexes J
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q01: What is a RESTful API, and what are its core principles?](../api-and-http/q01-what-is-a-restful-api.md) | [All 29 questions](../../README.md) | [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) |
+| [Q02: Can you describe a typical HTTP request/response cycle?](../api-and-http/q02-http-request-response-cycle.md) | [All 37 questions](../../README.md) | [Q16: What is a database index, and how do you work out why a query is slow?](q16-indexes-and-slow-queries.md) |

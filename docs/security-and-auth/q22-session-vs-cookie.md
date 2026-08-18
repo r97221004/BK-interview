@@ -2,7 +2,7 @@
 
 > Tests whether you can separate the transport mechanism from the state it points at - a common confusion in interviews.
 
-**Part:** Security & Auth | **Importance:** 9/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
 
 **New to these terms?** [statelessness](../_glossary.md#statelessness), [session](../_glossary.md#session), [jwt](../_glossary.md#jwt)
 
@@ -36,4 +36,4 @@ That split is what makes the security properties differ. Session data never leav
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q12: What is data normalization?](../databases/q12-data-normalization.md) | [All 29 questions](../../README.md) | [Q23: How do you protect a server from SQL injection attacks?](q23-sql-injection.md) |
+| [Q19: How do you decide what to cache, and how do you invalidate it?](../databases/q19-caching-strategy-and-invalidation.md) | [All 37 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |

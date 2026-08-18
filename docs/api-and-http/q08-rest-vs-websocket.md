@@ -46,4 +46,4 @@ In practice you use both, and an e-commerce site is the clearest illustration: R
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) | [All 29 questions](../../README.md) | [Q13: What is data partitioning?](../databases/q13-data-partitioning.md) |
+| [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) | [All 37 questions](../../README.md) | [Q12: What is data normalization?](../databases/q12-data-normalization.md) |

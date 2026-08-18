@@ -4,7 +4,7 @@
 
 **Part:** Testing & Debugging | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [idempotent](../_glossary.md#idempotent), [breaking change](../_glossary.md#breaking-change)
+**New to these terms?** [endpoint](../_glossary.md#endpoint), [idempotent](../_glossary.md#idempotent), [breaking change](../_glossary.md#breaking-change), [idempotency key](../_glossary.md#idempotency-key)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ Beyond those two layers, I add others when the endpoint justifies it. A load tes
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) | [All 29 questions](../../README.md) | [Q52: What tools and techniques do you use for debugging a backend application?](q52-debugging-a-backend-application.md) |
+| [Q27: What is CORS?](../security-and-auth/q27-cors.md) | [All 37 questions](../../README.md) | [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) |

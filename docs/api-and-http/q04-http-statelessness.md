@@ -40,4 +40,4 @@ The cost is that the context is repaid on every request. Credentials are re-veri
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q02: Can you describe a typical HTTP request/response cycle?](q02-http-request-response-cycle.md) | [All 29 questions](../../README.md) | [Q07: What measures would you take to secure a newly developed API?](q07-securing-a-new-api.md) |
+| [Q03: What is an API endpoint?](q03-what-is-an-api-endpoint.md) | [All 37 questions](../../README.md) | [Q07: What measures would you take to secure a newly developed API?](q07-securing-a-new-api.md) |
