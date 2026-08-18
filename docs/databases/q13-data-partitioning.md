@@ -38,14 +38,13 @@ The whole thing lives or dies on the partition key, which has to match how you a
 
 ## Quick Reference
 
-| Type | How It Works | Example | Best For |
-|---|---|---|---|
-| **Horizontal Partitioning** | Split rows into multiple pieces, same schema, still on one server. | Orders 1–1M in `partition_0`, 1M–2M in `partition_1` | Large single-server tables; query performance and maintenance |
-| **Sharding** | Horizontal partitioning taken across separate database servers. | Users 1–1M on `db1`, users 1M–2M on `db2` | Write volume that has outgrown a single machine |
-| **Vertical Partitioning** | Split columns into different tables to reduce row size. | `user_profile` vs `user_credentials` | Tables with many columns accessed separately |
-| **Range Partitioning** | Split data based on value ranges. | Orders from Jan–Mar in partition_1, Apr–Jun in partition_2 | Time-series or range-based queries |
-| **Hash Partitioning** | Apply a hash function to decide the partition. | `hash(user_id) % 4 → partition_0..3` | Evenly distributing load when keys are random |
-| **List Partitioning** | Split data based on discrete values. | Partition by region: Asia, Europe, America | Categorized datasets |
+| Splits | Type | How It Works | Example | Best For |
+|---|---|---|---|---|
+| **Vertical** | Vertical Partitioning | Split columns into different tables to reduce row size. | `user_profile` vs `user_credentials` | Tables with many columns accessed separately |
+| **Horizontal** | Range Partitioning | Split rows on value ranges, still on one server. | Orders from Jan–Mar in `partition_0`, Apr–Jun in `partition_1` | Time-series or range-based queries |
+| **Horizontal** | Hash Partitioning | Apply a hash function to decide the partition. | `hash(user_id) % 4 → partition_0..3` | Evenly distributing load when keys are random |
+| **Horizontal** | List Partitioning | Split rows on discrete values. | Partition by region: Asia, Europe, America | Categorized datasets |
+| **Horizontal, across servers** | Sharding | Horizontal partitioning taken across separate database servers instead of within one. | Users 1–1M on `db1`, users 1M–2M on `db2` | Write volume that has outgrown a single machine |
 
 ---
 
