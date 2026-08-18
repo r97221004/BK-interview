@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [resource](../_glossary.md#resource), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [cache](../_glossary.md#cache), [rate limiting](../_glossary.md#rate-limiting)
+**New to these terms?** [resource](../_glossary.md#resource), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting)
 
 ## In One Sentence
 
@@ -35,6 +35,26 @@ A concrete example makes it stick. If a front end at one subdomain calls an API 
 The point that matters most is what CORS is not. It is enforced by the browser, so it protects your users from other websites - it does not protect your server from anything. A script, a mobile app, or a command-line client ignores CORS entirely and can call your API however it likes, and even in a browser the request usually reaches your server before the response is blocked. So server-side controls have to stand on their own: authentication and authorization on every endpoint, CSRF tokens and SameSite cookies for browser sessions, Origin checks as an extra signal, rate limiting, and request signing for machine clients. If browsers stopped enforcing CORS tomorrow, a correctly built API would still be safe.
 
 最重要的一點是「CORS 不是什麼」。它由瀏覽器執行，所以它保護的是你的使用者不被其他網站利用 —— 它完全不保護你的伺服器。腳本、行動 App 或命令列客戶端會完全忽略 CORS，想怎麼呼叫你的 API 就怎麼呼叫；而且即使在瀏覽器裡，請求通常也已經抵達你的伺服器，只是回應被擋下來而已。因此伺服器端的控制必須能夠獨立成立：每個 endpoint 都做認證與授權、瀏覽器 session 用 CSRF token 與 SameSite cookie、把 Origin 檢查當成額外訊號、加上速率限制，並對機器客戶端使用請求簽章。如果瀏覽器明天起不再執行 CORS，一個正確建構的 API 仍然是安全的。
+
+## Quick Reference
+
+### The preflight exchange
+
+The browser asks, in effect, whether origin X may access the resource - then the
+server answers with headers:
+
+```http
+Access-Control-Allow-Origin: https://frontend.com
+Access-Control-Allow-Methods: GET, POST
+Access-Control-Allow-Headers: Content-Type, Authorization
+```
+
+For a front end at `https://shop.com` calling an API at `https://api.shop.com`,
+the header that makes the browser hand over the response is:
+
+```http
+Access-Control-Allow-Origin: https://shop.com
+```
 
 ---
 

@@ -36,6 +36,16 @@ The fix is output encoding at the point of rendering, and it has to match the co
 
 修法是在「渲染的當下」做輸出編碼，而且必須符合情境：HTML 內文、HTML 屬性、JavaScript 字面值、URL 這四種的跳脫規則各不相同，這正是為什麼在輸入端做一次全域消毒並不足夠。實務上這代表使用預設就會跳脫的樣板引擎或框架 —— React 和 Jinja2 都是 —— 並且對那些會關掉跳脫的特定逃生口（例如渲染原始 HTML）保持警覺。同時也要驗證與消毒輸入；當你真的必須接受富文字時，使用經過驗證的函式庫而不是自己寫的正規表達式。接著加上 Content Security Policy 來限制哪些腳本來源可以執行，避免 eval 和行內 JavaScript 好讓政策真的能設嚴，並且把它當成「你漏掉的那次注入」的損害控制，而不是主要防線。
 
+## Quick Reference
+
+### What an injected payload looks like
+
+Submitted into any field that is later rendered without escaping:
+
+```html
+<script>alert('hacked')</script>
+```
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

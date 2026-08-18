@@ -34,6 +34,16 @@ The whole thing lives or dies on the partition key, which has to match how you a
 
 整件事的成敗全繫於分割鍵，而它必須符合你實際的查詢方式。用日期分割訂單，那麼一個月的報表只讀一個分割；改用客戶分割，同一份報表就要讀遍所有分割。分布偏斜的鍵會產生熱點分割，讓大部分流量都打在同一片上，好處完全被抵銷。同時也要誠實面對代價：跨分割的查詢會變慢、跨所有分割的唯一性限制很難甚至做不到、跨分片的 join 與交易可能根本不存在，而事後要重新分割是一次資料遷移，不是改個設定。
 
+## Quick Reference
+
+| Type | How It Works | Example | Best For |
+|---|---|---|---|
+| **Horizontal Partitioning (Sharding)** | Split rows into multiple tables or databases, all having the same schema. | Users 1–1M on `db1`, users 1M–2M on `db2` | Massive datasets with evenly distributed keys |
+| **Vertical Partitioning** | Split columns into different tables to reduce row size. | `user_profile` vs `user_credentials` | Tables with many columns accessed separately |
+| **Range Partitioning** | Split data based on value ranges. | Orders from Jan–Mar in partition_1, Apr–Jun in partition_2 | Time-series or range-based queries |
+| **Hash Partitioning** | Apply a hash function to decide the partition. | `hash(user_id) % 4 → partition_0..3` | Evenly distributing load when keys are random |
+| **List Partitioning** | Split data based on discrete values. | Partition by region: Asia, Europe, America | Categorized datasets |
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

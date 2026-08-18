@@ -36,6 +36,16 @@ In practice most production systems run a hybrid, and saying so is the strongest
 
 實務上多數正式系統採用混合做法，能講出這一點就是這題最強的答案。你簽發一個短效的 access token —— 以分鐘而非天為單位 —— 讓撤銷的空窗期夠小；再搭配一個存在伺服器端、可以被撤銷的長效 refresh token。兩者都放在標記 HttpOnly、Secure、SameSite 的 cookie 裡，而不是 local storage。這樣你在熱路徑上享有 token 的無狀態驗證，同時在真正需要的地方保有 session 的撤銷能力。
 
+## Quick Reference
+
+| Feature | Session-Based | JWT-Based |
+|---|---|---|
+| Storage | On the server | On the client |
+| Scalability | Harder (server must store sessions) | Easier (stateless) |
+| Revocation | Easy | Harder (until token expires) |
+| Security | Safer (data stays server-side) | Requires careful handling |
+| Typical Use | Web apps with centralized servers | APIs, mobile apps, microservices |
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

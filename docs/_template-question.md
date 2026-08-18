@@ -24,6 +24,10 @@ The spoken version, complete and correct on its own. Use three or four short Eng
 
 完整且可以獨立成立的口述回答。使用三到四個簡短英文段落，每段後面接自然的繁體中文對照。優先使用後端工程師常見的情境，不主動展開冷門的實作細節。內容維持散文形式，因為 check.py 會計算段落數，表格與程式碼區塊不適合單獨放在這裡。
 
+## Quick Reference
+
+Optional, and only when there is genuinely something to look up: a comparison table, a code sample, a set of headers. It sits after the spoken answer because a table is not something you say out loud, and it is exempt from the bilingual paragraph rules - `check.py` requires only that it contains a table or a fenced code block. Leave the section out entirely when the answer has nothing to tabulate.
+
 ---
 
 <!-- Navigation footer - tools/build.py generates this in README importance order,

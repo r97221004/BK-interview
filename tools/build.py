@@ -319,7 +319,8 @@ Each question file follows the same structure:
 1. **In One Sentence** - the plain-language answer, for when you are meeting the topic for the first time.
 2. **Answer Shape** - a short speaking order that moves from the direct answer to an example and a practical consequence.
 3. **Full Spoken Answer** - the complete follow-up answer and a bank of details to select from, not a script to deliver in full.
-4. **Previous / Home / Next** - navigation through the interview-priority reading order.
+4. **Quick Reference** - on some questions only: the comparison table or code sample worth revising from, kept out of the spoken sections because a table is not something you say out loud.
+5. **Previous / Home / Next** - navigation through the interview-priority reading order.
 
 ### Which Layer to Answer With
 

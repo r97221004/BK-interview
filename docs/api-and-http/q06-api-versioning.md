@@ -36,6 +36,19 @@ The part that actually decides whether versioning works is operational. Version 
 
 真正決定版本控制成不成功的是維運面。把整份契約當成一個版本，而不是每個 endpoint 各自編版本，否則客戶端最後要追蹤一個版本矩陣。公布帶有日期的棄用期，並在回應標頭裡宣告，讓客戶端團隊在自己的日誌就能看到；同時追蹤各版本的流量，這樣你才能在移除之前證明舊版已經沒人使用。少了最後這一步，你永遠不會真的下線任何東西，每個版本都會永遠活著。
 
+## Quick Reference
+
+| Feature | URL-based Versioning | Header-based Versioning |
+|---|---|---|
+| **How version is specified** | In the URL path (e.g., `/api/v1/users`) or query param (`/api/users?v=1`) | In a custom HTTP header (e.g., `api-version: 1`) |
+| **Visibility** | Version is visible to developers and easy to debug | Version is hidden in headers, less visible |
+| **Routing** | Easy to route requests to different backend versions automatically | Requires logic in the backend to read the header and route requests |
+| **Code duplication risk** | Higher — each version often needs a separate handler | Lower — can handle multiple versions in one endpoint with conditional logic |
+| **Client-side management** | Slightly harder if many endpoints need updates | Easier — update header once for multiple requests |
+| **Best use case** | Public APIs, external clients | Internal APIs, microservices |
+| **Pros** | Clear, simple, easy to test/debug | Clean URLs, easier to evolve versions internally |
+| **Cons** | Can lead to many routes and code duplication | Less visible, requires backend logic for version handling |
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

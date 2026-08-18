@@ -32,6 +32,16 @@ In practice you use both, and an e-commerce site is the clearest illustration: R
 
 實務上兩者會並用，電商網站就是最清楚的例子：使用者管理、商品目錄和建立訂單走 REST，而不需重新整理就會更新的即時訂單追蹤面板走 WebSocket。代價是「一條開啟的連線就是狀態」。已連線的客戶端被綁在某一台實例上，所以要水平擴充就需要黏著式路由，或是像 Redis 這樣的共用 pub/sub 中介層把訊息擴散到各實例；而且每一條閒置連線仍然佔用一個 file descriptor 和記憶體。如果你只需要普通程度的即時性，server-sent events 或單純的輪詢會更便宜、也好維運得多。
 
+## Quick Reference
+
+| Feature | REST API | WebSocket |
+|---|---|---|
+| Communication | Client → Server | Client ↔ Server |
+| Connection | New connection per request | Persistent connection |
+| Protocol | HTTP | WS / WSS (after HTTP handshake) |
+| Use Case | CRUD operations, simple data fetching | Real-time updates, live data streams |
+| Example | `GET /users/1` → returns user data | Chat message instantly pushed to browser |
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

@@ -34,6 +34,15 @@ In practice 3NF is where most designs stop, and denormalizing back is a legitima
 
 實務上大多數設計停在 3NF，而往回反正規化是一個正當的決策，不是失敗。一個每次載入都要 join 六張表的讀取密集儀表板，可能用一列預先算好的資料會更好；分析用的表通常也是刻意做得又寬又平。原則是：先正規化讓模型正確，再針對你已經量測過成本的特定路徑做反正規化，並且清楚知道你從此接下了「讓副本保持同步」這份工作。
 
+## Quick Reference
+
+| **Normal Form** | **Definition** | **Example / Purpose** |
+|---|---|---|
+| **1NF (First Normal Form)** | Every column holds **atomic values**, meaning each field contains only one piece of information — no lists or repeating groups. | A student’s courses shouldn’t be stored as “Math, English” in one cell. Each course should have its own row. |
+| **2NF (Second Normal Form)** | Must satisfy 1NF, and **all non-key attributes** must depend on the **entire primary key**, not just part of it. | If you have a composite key like (StudentID, CourseID), attributes like StudentName should not depend only on StudentID. |
+| **3NF (Third Normal Form)** | Must satisfy 2NF, and **non-key attributes** should **not depend on other non-key attributes** (no transitive dependency). | For example, if `City → ZipCode`, remove ZipCode to a separate table. |
+| **BCNF (Boyce–Codd Normal Form)** | A stronger version of 3NF — every **determinant** (attribute that determines another) must be a **candidate key**. | Used to handle rare edge cases not covered by 3NF. |
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

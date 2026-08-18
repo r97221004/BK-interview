@@ -34,6 +34,34 @@ The follow-up is usually what hashing actually means. Python applies a hash func
 
 接下來的追問通常是「雜湊到底是什麼意思」。Python 對鍵套用雜湊函式把它轉成一個整數，再用那個整數決定要存到哪個槽、或去哪個槽找 —— 常數時間的行為就是從這裡來的。有時兩個不同的鍵會算到同一個槽，這叫雜湊碰撞，CPython 用開放定址法處理：如果槽被佔用，就依照一個確定的序列往下探測，而查找時會沿著同樣的序列找到正確的鍵。這也是為什麼鍵必須是不可變的。如果你能在插入之後修改鍵，它的雜湊值就變了，而它會待在一個表再也不會為它探測的槽裡。
 
+## Quick Reference
+
+| Type | Ordered | Mutable | Duplicates | Underlying Structure | Average Complexity | Typical Use Case |
+|---|---|---|---|---|---|---|
+| **List** | ✅ | ✅ | ✅ | Dynamic array | Index O(1), Append O(1), Insert/Delete O(n) | Maintain ordered, modifiable collection |
+| **Tuple** | ✅ | ❌ | ✅ | Static array | Index O(1) | Immutable collection, hashable for dict/set |
+| **Set** | ❌ | ✅ | ❌ | Hash table | Insert/Delete/Lookup O(1) | Unique items, fast membership test |
+| **Dict** | ✅ (3.7+) | ✅ | Keys ❌ | Hash table | Insert/Delete/Lookup O(1) | Key-value mappings, fast lookup |
+
+### The four in code
+
+```python
+my_list = [1, 2, 3]
+my_list.append(4)
+my_list[0] = 10
+
+my_tuple = (1, 2, 3)
+# my_tuple[0] = 10  -> Error, immutable
+
+my_set = {1, 2, 3}
+my_set.add(4)
+print(2 in my_set)      # True
+
+my_dict = {'a': 1, 'b': 2}
+my_dict['c'] = 3
+print(my_dict['a'])     # 1
+```
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

@@ -34,6 +34,25 @@ Then assume one will slip through anyway and limit what it can do. Give the appl
 
 接著假設仍然會有一次漏網，並限制它能做的事。給應用程式的資料庫帳號最小必要權限，一個不能 drop 資料表、不能讀其他 schema 的帳號能把爆炸半徑壓住。在邊界驗證輸入的格式、長度與允許值，這是有用的防禦，但永遠不能取代參數化。只有在 stored procedure 內部本身也是參數化的情況下才使用它。並且刻意去測試，在流程中加入 sqlmap 或 OWASP ZAP 這類工具，讓退步是被建置流程抓到，而不是被攻擊者抓到。
 
+## Quick Reference
+
+### The fix, in two forms
+
+A prepared statement - the query and the values travel separately:
+
+```python
+cursor.execute(
+    "SELECT * FROM users WHERE username = %s AND password = %s",
+    (username, password),
+)
+```
+
+An ORM - the same protection, obtained without writing SQL:
+
+```python
+user = User.objects.get(username=username, password=password)
+```
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

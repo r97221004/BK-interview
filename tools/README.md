@@ -26,3 +26,17 @@ protects it automatically - there is no list to remember to update.
    until every question has one.
 3. Run `python3 tools/build.py` to write the stub and regenerate the README.
 4. Write the answer, set `**Status:** Draft`, then run `python3 tools/check.py`.
+
+## Sections
+
+`check.py` enforces the section list and its order: **In One Sentence**,
+**Answer Shape**, **Full Spoken Answer**, and optionally **Quick Reference**.
+
+The first three are bilingual prose and are checked paragraph by paragraph -
+one English paragraph, then its Traditional Chinese counterpart, with three or
+four pairs in the spoken answer. Keep tables and code out of them, because the
+paragraph count is what verifies the pairing.
+
+**Quick Reference** is where that material goes instead. It is optional, always
+last, exempt from the language rules, and must contain a table or a fenced code
+block - if it is prose, it belongs in the answer.

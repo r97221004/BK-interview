@@ -11,8 +11,28 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 
-SECTIONS = ["## In One Sentence", "## Answer Shape", "## Full Spoken Answer"]
+SECTIONS = ["In One Sentence", "Answer Shape", "Full Spoken Answer"]
+# Optional, and always last: the lookup material - comparison tables, code
+# samples - that would otherwise be read aloud badly. It is deliberately exempt
+# from the bilingual paragraph rules, which only govern the spoken sections.
+OPTIONAL_LAST = "Quick Reference"
 STATUSES = ["Outline", "Draft", "Review", "Complete"]
+
+NAV = re.compile(r"^---\n\n\| ⬅ Previous", re.M)
+
+
+def sections(text):
+    """Level-two sections of a question file, in order, minus the generated footer."""
+    out = []
+    for part in re.split(r"^## ", NAV.split(text)[0], flags=re.M)[1:]:
+        name, _, rest = part.partition("\n")
+        out.append((name.strip(), rest))
+    return out
+
+
+def paragraphs(text):
+    """Non-empty Markdown paragraphs, which is how the bilingual pairs are counted."""
+    return [p.strip() for p in re.split(r"\n\s*\n", text) if p.strip()]
 
 failures = []
 
@@ -47,24 +67,25 @@ for f in ["README.md"] + files + ["docs/_template-question.md", "docs/_glossary.
             bad_links.append("%s -> %s" % (f, t))
 check("all links resolve (files and directories)", bad_links)
 
+sec = {n: sections(body[n]) for n in nums}
+names = {n: [s for s, _ in sec[n]] for n in nums}
+
 check("all required sections present",
-      [(n, s) for n in nums for s in SECTIONS if s not in body[n]],
+      [(n, s) for n in nums for s in SECTIONS if s not in names[n]],
       lambda x: "Q%02d missing %s" % x)
+check("sections appear in the expected order",
+      [n for n in nums if names[n] not in (SECTIONS, SECTIONS + [OPTIONAL_LAST])],
+      lambda n: "Q%02d has %s" % (n, " / ".join(names[n])))
+check("Quick Reference carries a table or a code block",
+      [n for n in nums if OPTIONAL_LAST in names[n] and
+       not re.search(r"^\|---|^```", dict(sec[n])[OPTIONAL_LAST], re.M)],
+      lambda n: "Q%02d Quick Reference is prose; fold it into the answer" % n)
 
 check("status is one of the four progress values",
       [n for n in nums
        if (re.search(r"\*\*Status:\*\* (\w+)", body[n]) or [None]) and
        re.search(r"\*\*Status:\*\* (\w+)", body[n]).group(1) not in STATUSES],
       lambda n: "Q%02d" % n)
-
-
-def section_paragraphs(text, heading, next_heading):
-    """Return non-empty Markdown paragraphs between two level-two headings."""
-    match = re.search(r"^%s\n(.*?)^%s" % (re.escape(heading), re.escape(next_heading)),
-                      text, re.M | re.S)
-    if not match:
-        return []
-    return [p.strip() for p in re.split(r"\n\s*\n", match.group(1)) if p.strip()]
 
 
 def has_cjk(text):
@@ -79,11 +100,10 @@ bad_answer_shape = []
 bad_spoken_shape = []
 bad_language_order = []
 for n in nums:
-    one = section_paragraphs(body[n], "## In One Sentence", "## Answer Shape")
-    shape = section_paragraphs(body[n], "## Answer Shape", "## Full Spoken Answer")
-    spoken_match = re.search(r"^## Full Spoken Answer\n(.*?)^---$", body[n], re.M | re.S)
-    spoken = ([p.strip() for p in re.split(r"\n\s*\n", spoken_match.group(1)) if p.strip()]
-              if spoken_match else [])
+    text = dict(sec[n])
+    one = paragraphs(text.get("In One Sentence", ""))
+    shape = paragraphs(text.get("Answer Shape", ""))
+    spoken = paragraphs(text.get("Full Spoken Answer", ""))
 
     if len(one) != 2:
         bad_one_sentence_shape.append((n, len(one)))
@@ -92,10 +112,10 @@ for n in nums:
     if len(spoken) not in (6, 8):
         bad_spoken_shape.append((n, len(spoken)))
 
-    for section_name, paragraphs in (("In One Sentence", one),
-                                     ("Answer Shape", shape),
-                                     ("Full Spoken Answer", spoken)):
-        for i, paragraph in enumerate(paragraphs):
+    for section_name, section_paras in (("In One Sentence", one),
+                                        ("Answer Shape", shape),
+                                        ("Full Spoken Answer", spoken)):
+        for i, paragraph in enumerate(section_paras):
             expected_cjk = i % 2 == 1
             if has_cjk(paragraph) != expected_cjk:
                 bad_language_order.append((n, section_name, i + 1))

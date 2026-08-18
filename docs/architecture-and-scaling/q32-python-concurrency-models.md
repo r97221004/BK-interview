@@ -4,6 +4,8 @@
 
 **Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Draft
 
+**New to these terms?** [websocket](../_glossary.md#websocket)
+
 ## In One Sentence
 
 Use threads for I/O-bound work, processes for CPU-bound work, and asyncio when you need very high I/O concurrency in one thread - the GIL is what forces that split.
@@ -33,6 +35,31 @@ asyncio 在單一執行緒上以事件迴圈排程協程，任務用 await 明�
 Multiprocessing runs separate processes, each with its own interpreter, its own memory, and its own GIL, so it delivers true parallelism across CPU cores. That makes it the right choice for computation, image processing, and machine-learning workloads. The costs are that each process has a much larger memory footprint, startup is slow, and anything shared must be serialized across a pipe, so passing large objects can cost more than the work saved. Stated as failure modes: too many threads degrade into context-switching overhead, a forgotten await or a blocking call stalls the event loop, and multiprocessing loses its advantage when the data transfer dominates.
 
 多行程跑的是各自獨立的行程，每個都有自己的直譯器、自己的記憶體和自己的 GIL，因此能在多個 CPU 核心上達成真正的平行。這使它成為運算、影像處理和機器學習工作負載的正確選擇。代價是每個行程的記憶體佔用大得多、啟動慢，而且任何要共享的東西都必須序列化後透過管線傳遞，所以傳大型物件的成本可能超過省下來的工作。用失敗模式來說：執行緒太多會退化成上下文切換的開銷、漏掉一個 await 或有阻塞呼叫會卡住事件迴圈，而當資料傳輸成為主導時多行程就失去了優勢。
+
+## Quick Reference
+
+| **Aspect** | **Multi-threading** | **Asyncio (Asynchronous I/O)** | **Multiprocessing** |
+|---|---|---|---|
+| **Core Concept** | Uses multiple **OS threads** within one process. Each thread runs part of your code “in parallel.” | Uses a **single thread** with an **event loop** that schedules and runs asynchronous tasks cooperatively. | Multiple **processes**, each with its own Python interpreter and memory space. |
+| **Concurrency Type** | **Preemptive concurrency(搶占式多工)** — the OS decides when to switch between threads. | **Cooperative concurrency(協作式多工)** — tasks explicitly yield control using `await`. | **True parallelism** (processes run in parallel on multiple CPU cores). |
+| **Parallel Execution** | Limited by the **Global Interpreter Lock (GIL)** — only one thread runs Python code at a time. | Runs on a **single thread**, so no true parallelism, but achieves *concurrency* through async scheduling. | True parallelism across cores - each process holds its own GIL. |
+| **True Parallelism (CPU-bound)** | ❌ Not possible due to GIL (unless you use native C extensions). | ❌ Not possible — still single-threaded. | ✅ Yes (each process has its own GIL). |
+| **Best for** | **I/O-bound** tasks with moderate concurrency (e.g., 10–100 simultaneous operations). | **High-concurrency I/O-bound** workloads (e.g., 10,000+ simultaneous connections). | **CPU-bound** tasks (e.g., computation, image processing). |
+| **Performance** | OS handles thread scheduling — can become inefficient with many threads due to context-switching overhead. | Very lightweight — event loop switches tasks without OS intervention, minimal overhead. | Fully utilizes all CPU cores for heavy computation. |
+| **Scalability** | Limited — each thread consumes memory (~1MB stack) and causes CPU overhead for context switching. | Highly scalable — a single thread can manage thousands of concurrent async tasks. | Scales across CPU cores, but each process has separate memory. |
+| **Memory Usage** | Higher — each thread has its own stack and metadata. | Lower — all tasks share one event loop and one stack. | High (each process has its own memory space) |
+| **Context Switching** | Done by the OS kernel; expensive. | Done in user space; very cheap. | Done by OS — heavier than threads. |
+| **Code Complexity** | Easier to write and understand — looks like normal synchronous code. | Requires async/await syntax and async-compatible libraries; can be harder to debug. | Straightforward per process, but anything shared must be passed explicitly. |
+| **Blocking Behavior** | A blocking operation in one thread affects only that thread. | A blocking operation blocks the entire event loop — you must use non-blocking APIs. | A blocking call affects only that process. |
+| **Error Handling** | Standard try/except per thread; can be tricky with shared data. | Exceptions propagate through async tasks; easier to aggregate with `asyncio.gather()`. | Exceptions are raised in the child and re-raised on the parent when the result is collected. |
+| **Synchronization** | Requires locks, semaphores, or queues to manage shared data safely (risk of race conditions). | Usually no shared state — each async task works independently (simpler concurrency model). | No shared memory by default; sharing needs `Queue`, `Pipe`, or `shared_memory`. |
+| **Use of GIL** | GIL prevents multiple threads from executing Python bytecode simultaneously. | GIL not a bottleneck since tasks release control explicitly using `await`. | Each process has its own interpreter and its own GIL, so the GIL is not a limit. |
+| **Third-party Library Support** | Works with any normal blocking library (e.g., `requests`, `psycopg2`). | Must use **async-compatible** libraries (e.g., `aiohttp`, `asyncpg`, `aiomysql`). |   |
+| **Debugging Tools** | Easier — you can use standard debugging and logging tools. | Harder — stack traces are split across coroutines; requires `asyncio`-aware debuggers. |   |
+| **Setup Complexity** | Simple — just create threads using `threading.Thread`. | Slightly complex — need to define `async` functions and run them inside an event loop. |   |
+| **Example Frameworks** | `threading`, `concurrent.futures.ThreadPoolExecutor` | `asyncio`, `aiohttp`, `FastAPI`, `Quart` | `multiprocessing`, `concurrent.futures.ProcessPoolExecutor`, `joblib` |
+| **Ideal Use Cases** | - Handling a few concurrent I/O tasks (e.g., calling multiple APIs)   - Background file operations  - Network servers with moderate load | - High-concurrency servers (e.g., chat, websocket, game servers)  - Web crawlers  - Realtime dashboards  - Async web frameworks (e.g., FastAPI, Sanic) | - Image or data processing- Machine learning workloads- Any CPU-heavy computation |
+| **Example of Failure Mode** | Too many threads → high memory use and context switching → degraded performance. | Forgetting `await` or using blocking I/O → event loop freezes → no concurrency. | Serializing large objects between processes costs more than the parallelism saves. |
 
 ---
 
