@@ -4,7 +4,7 @@
 
 **Part:** Databases | **Importance:** 10/10 | **Status:** Draft
 
-**New to these terms?** [acid](../_glossary.md#acid), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling)
+**New to these terms?** [acid](../_glossary.md#acid), [partitioning](../_glossary.md#partitioning), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling)
 
 ## In One Sentence
 
@@ -24,17 +24,31 @@ SQL databases, also called relational databases, store data in tables with a pre
 
 SQL 資料庫又稱關聯式資料庫，把資料存在具有預先定義結構描述的資料表中，表與表之間有明確的關聯。它們遵守 ACID —— 不可分割性、一致性、隔離性、持久性 —— 這正是讓你能在兩個帳戶之間轉帳，並且確定「兩列都改了」或「兩列都沒改」的原因。它們同時提供帶 join 的宣告式查詢語言，所以即使是設計當下沒預料到的問題，也不必改變資料的儲存方式就能查得出來。
 
-NoSQL is not one thing; it is at least four families with different shapes. Document stores such as MongoDB keep nested records and suit data that is naturally read as one object. Key-value stores such as Redis give you the fastest possible lookup by key and nothing else. Wide-column stores such as Cassandra are built for enormous write volume across many nodes. Graph databases such as Neo4j make relationship traversal the cheap operation. What they share is a flexible or absent schema and a design that assumes scaling out rather than up.
+NoSQL is not one thing; it is at least four families with different shapes. Document stores such as MongoDB keep nested records and suit data that is naturally read as one object. Key-value stores such as Redis reach every value through its key, which is what makes the lookup as fast as it gets, though the values themselves can still be rich data structures. Wide-column stores such as Cassandra are built for enormous write volume across many nodes. Graph databases such as Neo4j make relationship traversal the cheap operation. What they share is a flexible or absent schema and a design that assumes scaling out rather than up, and the way they buy that scale is by giving up the two things that are expensive to coordinate across machines: joins, and transactions spanning several records.
 
-NoSQL 並不是單一種東西，它至少是四個形狀不同的家族。文件資料庫（例如 MongoDB）保存巢狀的紀錄，適合天生就會被當成一個物件讀取的資料。鍵值資料庫（例如 Redis）提供以鍵取值的最快查找，除此之外什麼都不提供。寬欄位資料庫（例如 Cassandra）是為跨多節點的龐大寫入量而設計。圖形資料庫（例如 Neo4j）讓關聯的走訪變成便宜的操作。它們的共通點是結構描述彈性或不存在，而且設計上假設的是向外擴充而非向上擴充。
+NoSQL 並不是單一種東西，它至少是四個形狀不同的家族。文件資料庫（例如 MongoDB）保存巢狀的紀錄，適合天生就會被當成一個物件讀取的資料。鍵值資料庫（例如 Redis）一律透過鍵取得資料，這正是它查找能快到極限的原因，不過值本身仍然可以是豐富的資料結構。寬欄位資料庫（例如 Cassandra）是為跨多節點的龐大寫入量而設計。圖形資料庫（例如 Neo4j）讓關聯的走訪變成便宜的操作。它們的共通點是結構描述彈性或不存在，而且設計上假設的是向外擴充而非向上擴充；而它們換到這種擴充性的方式，就是捨棄跨機器協調成本最高的兩件事：join，以及橫跨多筆紀錄的交易。
 
-The choice comes from the workload, not from preference. If the data is relational, the access patterns are varied or not yet known, and correctness across multiple rows matters - orders, payments, inventory - a relational database is the right default. If you have one dominant, well-understood access pattern, a very high write rate, or records that are always read whole, a document or wide-column store fits better. The question to ask out loud is what queries this will serve and what has to be true after a write, and then pick from that.
+The choice comes from the workload, not from preference. If the data is relational, the access patterns are varied or not yet known, and correctness across multiple rows matters - orders, payments, inventory - a relational database is the right default. If you have one dominant, well-understood access pattern, a very high write rate, or records that are always read whole, a document or wide-column store fits better. The trade-off to name out loud is consistency. Once copies of the data live on several nodes, a network partition - the machines are all up but cannot reach each other - forces a choice between refusing the request and answering from a replica that may be stale, which is what the CAP theorem describes; eventual consistency is what that feels like in practice, when you write, read back from a different replica, and briefly do not see your own write. So the question to ask is what queries this will serve and what has to be true immediately after a write, and then pick from that.
 
-選擇來自工作負載，而不是偏好。如果資料本身是關聯性的、存取模式多樣或還不確定，而且跨多列的正確性很重要 —— 訂單、金流、庫存 —— 那麼關聯式資料庫是正確的預設。如果你有一個主導性且清楚的存取模式、非常高的寫入速率，或紀錄總是被整筆讀取，那麼文件或寬欄位資料庫更合適。要當場問出口的問題是：這份資料要服務哪些查詢、寫入之後有什麼必須成立；然後據此決定。
+選擇來自工作負載，而不是偏好。如果資料本身是關聯性的、存取模式多樣或還不確定，而且跨多列的正確性很重要 —— 訂單、金流、庫存 —— 那麼關聯式資料庫是正確的預設。如果你有一個主導性且清楚的存取模式、非常高的寫入速率，或紀錄總是被整筆讀取，那麼文件或寬欄位資料庫更合適。應該當場講出來的取捨是一致性。一旦資料的副本分散在多個節點上，網路分區（機器都活著，但彼此連不上）就會逼你在「拒絕這個請求」和「用一份可能過期的副本回答」之間二選一，這就是 CAP 定理在講的事；而最終一致性就是它在實務上的樣子——你寫入之後從另一個副本讀取，會有一小段時間看不到自己剛剛寫的東西。所以要問的問題是：這份資料要服務哪些查詢、寫入之後有什麼必須「立刻」成立；然後據此決定。
 
 It is worth admitting that the line has blurred. PostgreSQL stores and indexes JSON well enough to cover many document use cases, and MongoDB has supported multi-document transactions for years. So the honest framing is that this is a spectrum of trade-offs between schema rigidity, transactional guarantees, and horizontal scale, and that a relational database is the safer default until a specific requirement pushes you off it.
 
 值得坦白承認的是，界線已經模糊了。PostgreSQL 對 JSON 的儲存與索引好到足以涵蓋許多文件型的使用情境，而 MongoDB 支援跨文件交易也已經好幾年。所以比較誠實的說法是：這是一條在結構描述嚴謹度、交易保證與水平擴充之間取捨的光譜，而在有具體需求把你推開之前，關聯式資料庫是比較安全的預設。
+
+## Quick Reference
+
+### The five families, side by side
+
+| Family | Example | What one record is | Best at | Falls down when |
+|---|---|---|---|---|
+| **Relational** | PostgreSQL, MySQL | A row in a table with a fixed schema, joined to others by key | Varied or unforeseen queries; correctness across several rows | You need linear write scale across many nodes |
+| **Document** | MongoDB | One nested, self-contained object | Records that are always read whole; a schema still moving | The same data must be queried several unrelated ways |
+| **Key-value** | Redis | A value reached only through its key | Sub-millisecond lookup: sessions, counters, leaderboards | You need to query by anything other than the key |
+| **Wide-column** | Cassandra | A row grouped under a partition key, columns varying per row | Enormous write volume spread across many nodes | The access pattern was not designed into the key up front |
+| **Graph** | Neo4j | A node, plus the edges connecting it to others | Traversing relationships many hops deep | The work is bulk aggregation rather than traversal |
+
+The rows are ordered the way the answer is spoken, with relational first because it is the default you have to be pushed off, not one option among five.
 
 ---
 
