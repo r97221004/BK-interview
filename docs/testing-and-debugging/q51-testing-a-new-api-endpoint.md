@@ -14,9 +14,9 @@ You write unit tests for the logic, integration tests that call the real endpoin
 
 ## Answer Shape
 
-Name the three layers and, for each, say what it proves and what it deliberately does not cover, because the question is testing whether you understand responsibility rather than whether you can list test types. Then add the cases you would actually write for one endpoint, since the happy path is the easy half and the interviewer is listening for the other one.
+Name the layers and, for each, say what it proves and what it deliberately does not cover, because the question is testing whether you understand responsibility rather than whether you can list test types. The skeleton is unit, integration, contract, load - narrowing from your logic outward to the whole system under stress. Then get concrete about one endpoint: the happy path is the easy half and the interviewer is listening for the other one, so name the auth, permission, and boundary cases you would write. Finish with the habit that a bug gets a failing test first.
 
-把三個層次點名，並針對每一層說出它證明了什麼、又刻意不涵蓋什麼，因為這題考的是你懂不懂職責劃分，而不是你會不會列出測試種類。接著補上你實際會為某個 endpoint 寫的案例，因為順利路徑只是簡單的那一半，面試官在聽的是另一半。
+把層次點名，並針對每一層說出它證明了什麼、又刻意不涵蓋什麼，因為這題考的是你懂不懂職責劃分，而不是你會不會列測試種類。骨架是單元、整合、契約、負載 —— 從你自己的邏輯往外收斂到壓力下的整個系統。接著針對一個 endpoint 講具體：順利路徑只是簡單的那一半，面試官在聽的是另一半，所以要把認證、權限和邊界案例點出來。最後收在那個習慣：發現 bug 先補一個會失敗的測試。
 
 ## Full Spoken Answer
 
@@ -35,6 +35,35 @@ The cases matter more than the count. For one endpoint I would cover the happy p
 Beyond those two layers, I add others when the endpoint justifies it. A load test tells you how it behaves under sustained traffic and where it breaks, which is worth running before anything customer-facing goes live. A contract test is valuable when other teams consume the endpoint, because it catches a breaking change at build time rather than in their production. And when a bug is found, the first step is a failing test that reproduces it, so the fix is proven and the same regression cannot come back quietly.
 
 在這兩層之外，當 endpoint 值得時我會再加上其他測試。負載測試告訴你它在持續流量下的行為，以及它會在哪裡崩潰，任何面向客戶的東西上線前都值得跑一次。當這個 endpoint 有其他團隊在使用時，契約測試很有價值，因為它能在建置階段就抓到破壞性變更，而不是在對方的正式環境才發現。而當發現一個 bug 時，第一步是寫一個能重現它的失敗測試，這樣修復才是被證明過的，同樣的退步也不會再悄悄回來。
+
+## Quick Reference
+
+### The skeleton to memorise
+
+**Unit → Integration → Contract → Load**
+
+Each layer catches what the one before it cannot see.
+
+| Layer | Proves | Cannot catch | Cost |
+|---|---|---|---|
+| **Unit** | The business logic is correct | Whether any of it is wired up | Milliseconds |
+| **Integration** | Real HTTP, real routing, real database - the wiring works | Whether another team's client still parses your response | Seconds |
+| **Contract** | You have not broken a consumer | Behaviour under load | Seconds, in their CI |
+| **Load** | It survives sustained traffic, and where it breaks | Logic bugs | Minutes, and a real environment |
+
+### The cases for one endpoint
+
+Happy path is the easy half. The revealing half:
+
+- Validation failure - malformed body, wrong type
+- No credentials, and expired credentials
+- **Valid user requesting someone else's record** - the authorization case
+- Identifier that does not exist
+- Boundaries: empty list, maximum page size
+- **Duplicate submission** - does a retry create two? That question is a design
+  finding, not just a test case
+
+And when a bug is found, the first step is a failing test that reproduces it.
 
 ---
 

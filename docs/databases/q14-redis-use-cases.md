@@ -4,7 +4,7 @@
 
 **Part:** Databases | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [session](../_glossary.md#session), [rate limiting](../_glossary.md#rate-limiting), [cache-aside](../_glossary.md#cache-aside), [cache stampede](../_glossary.md#cache-stampede), [message queue](../_glossary.md#message-queue)
+**New to these terms?** [idempotent](../_glossary.md#idempotent), [rate limiting](../_glossary.md#rate-limiting), [cache-aside](../_glossary.md#cache-aside), [cache stampede](../_glossary.md#cache-stampede), [at-least-once delivery](../_glossary.md#at-least-once-delivery)
 
 ## In One Sentence
 
@@ -14,9 +14,9 @@ Redis 是一個記憶體內的資料結構儲存系統，因此凡是需要遠�
 
 ## Answer Shape
 
-Say what Redis actually is first - not just a cache, but a set of data structures held in memory - because that single framing explains every use case that follows. Then give the two everyone expects, caching and sessions, and two that show more range, such as rate limiting and queues. Close with the constraint, since knowing that RAM is the budget and Redis is not your system of record is what distinguishes a real answer.
+Lead with what Redis is, because the framing explains every use case that follows: it is a set of data structures held in memory, so each job is really just the right structure plus the right expiry. Then walk the skeleton - cache, session, counter, queue, ranking - and pick two to go deep on rather than listing all five evenly. Caching is the one they expect; a rate limiter built from an atomic increment plus an expiry is the one that shows you have actually used it. Finish with the constraint, because knowing that memory is the budget and Redis is not your source of truth is what separates a real answer.
 
-先說清楚 Redis 究竟是什麼 —— 不只是快取，而是一組放在記憶體裡的資料結構 —— 因為光是這個定位就能解釋接下來所有的使用情境。接著給出大家預期的兩個：快取與 session；再給兩個展現廣度的：速率限制與佇列。最後收在限制上，因為知道「記憶體就是預算」以及「Redis 不是你的權威資料來源」，才是真正答案與背誦的差別。
+開場先講 Redis 是什麼，因為這個定位能解釋後面所有的使用情境：它是一組放在記憶體裡的資料結構，所以每個用途其實就是「選對結構」加上「設對過期時間」。接著走一遍骨架 —— 快取、session、計數器、佇列、排行榜 —— 並挑兩個深入講，而不是五個平均分配。快取是他們預期會聽到的；用原子遞增加過期時間做出一個限流器，才是顯示你真的用過的那個。最後收在限制上，因為知道「記憶體就是預算」以及「Redis 不是你的真相來源」，才是真正答案與背誦的差別。
 
 ## Full Spoken Answer
 
@@ -35,6 +35,31 @@ Session storage is the second. Putting session data in Redis instead of in one s
 The constraint is that memory is the budget. Your working set has to fit in RAM, and when it does not, the eviction policy decides what is thrown away, so choosing it deliberately matters. Persistence is available through snapshots and an append-only log, but both trade durability against performance, and neither makes Redis a safe system of record for data you cannot rebuild. The healthy default is to treat Redis as fast, disposable state in front of a database that holds the truth.
 
 它的限制是「記憶體就是預算」。你的工作集必須放得進 RAM，放不下時就由淘汰策略決定丟掉什麼，所以刻意挑選那個策略很重要。持久化可以透過快照和 append-only 日誌達成，但兩者都是在耐久性與效能之間取捨，而且都不會讓 Redis 變成一個能安全存放「無法重建之資料」的權威來源。健康的預設是把 Redis 當成擺在資料庫前面的快速、可拋棄狀態，真相仍然存放在資料庫裡。
+
+## Quick Reference
+
+### The skeleton to memorise
+
+**Cache → Session → Counter → Queue → Ranking**
+
+Every one of them is the same trick: pick the structure, then decide how it expires.
+
+| Job | Redis structure | Why it fits | The catch |
+|---|---|---|---|
+| **Cache** | String or Hash + TTL | Serves a computed result in microseconds | Needs an expiry policy and a miss path |
+| **Session** | Hash + TTL | Shared across instances, so any server can serve any request | It is now a dependency on your critical path |
+| **Counter** / rate limit | `INCR` + `EXPIRE` | Atomic, so concurrent requests cannot both pass the limit | Window resets sharply unless you use a sliding one |
+| **Queue** | List or Stream | Hands slow work to a worker | At-least-once, so the consumer must be idempotent |
+| **Ranking** | Sorted Set | Ordered on write, so a leaderboard is a range read | Memory grows with every member |
+
+A complete rate limiter is two commands:
+
+```
+INCR  ratelimit:user:42     -> 1
+EXPIRE ratelimit:user:42 60 -> the window
+```
+
+If the reply exceeds your limit, reject. Nothing else is needed.
 
 ---
 

@@ -14,9 +14,9 @@ Debugging is a method before it is a toolset: reproduce the problem, narrow it t
 
 ## Answer Shape
 
-Lead with the method rather than the tool list, because tools are easy to name and the interviewer wants to know how you think. Then split by environment, since the honest and interesting half is production, where you cannot attach a debugger. Give one specific technique per environment so it stays concrete rather than abstract advice.
+Lead with the method rather than the tool list, because tools are easy to name and the interviewer wants to know how you think. The skeleton is reproduce, narrow, instrument, prove - and it is the same four steps whether you can attach a debugger or not. Then split by environment, since the honest and interesting half is production, where a debugger is not an option and the answer becomes what you instrumented in advance. Give one specific technique per environment so it stays concrete, and finish by closing the loop with a test that reproduces the bug.
 
-先講方法而不是工具清單，因為工具誰都說得出來，面試官想知道的是你怎麼思考。接著依環境切分，因為誠實而且有趣的那一半是正式環境 —— 在那裡你沒辦法接上除錯器。每個環境各給一個具體技術，讓它保持具體而不是抽象建議。
+先講方法而不是工具清單，因為工具誰都說得出來，面試官想知道的是你怎麼思考。骨架是重現、縮小、觀測、驗證 —— 不論你能不能接上除錯器，都是同樣這四步。接著依環境切分，因為誠實而且有趣的那一半是正式環境：那裡沒有除錯器可用，答案變成「你事先埋了什麼觀測」。每個環境各給一個具體技術讓它保持具體，最後用一個能重現該 bug 的測試把迴圈收起來。
 
 ## Full Spoken Answer
 
@@ -35,6 +35,28 @@ In staging and production a debugger is not an option, so the answer is observab
 For database-related problems the approach is more specific. I look at the actual SQL being issued, which for an ORM often means logging the generated queries, because the N+1 problem is invisible in the application code and obvious in the query log. Then I run EXPLAIN on the slow query to see whether it is using an index or scanning the table, and check the database's own slow-query log to find which statements are actually costing time rather than the ones I assumed were. Once the cause is found, the last step is a test that reproduces it, so the fix is verified and the regression cannot return unnoticed.
 
 面對資料庫相關的問題，做法更具體。我會去看實際送出的 SQL，對 ORM 而言通常意味著把產生的查詢記錄下來，因為 N+1 問題在應用程式碼裡看不見，在查詢日誌裡卻一目了然。接著我對慢查詢跑 EXPLAIN，看它是走索引還是掃全表，並查看資料庫本身的慢查詢日誌，找出真正在耗時的敘述句，而不是我以為在耗時的那些。找到原因之後，最後一步是寫一個能重現它的測試，讓修復被驗證過，也讓這個退步不會在沒人注意時回來。
+
+## Quick Reference
+
+### The skeleton to memorise
+
+**Reproduce → Narrow → Instrument → Prove**
+
+The same four steps in both environments. Only the tools change.
+
+| Step | Locally | In production |
+|---|---|---|
+| **Reproduce** | Replay the request in Postman with modified inputs to isolate the field that triggers it | Find the failing request by its request ID in the logs |
+| **Narrow** | Breakpoints; step through the path in question | Which service, which endpoint, which dependency - and *what changed recently*: a deploy, a config flip, or a data change explains most sudden failures |
+| **Instrument** | The debugger; inspect variables in place | Structured logs with a correlation ID propagated across services; Prometheus and Grafana for error rate, latency percentiles, saturation; tracing once several services are involved |
+| **Prove** | A failing test that reproduces it, then the fix | Same - the regression must not be able to return unnoticed |
+
+### For a slow query specifically
+
+Log the SQL your ORM actually generates - an N+1 is invisible in the application
+code and obvious in the query log. Then `EXPLAIN` the slow one to see whether it
+uses an index or scans, and check the database's own slow-query log to find what
+is really costing time rather than what you assumed was.
 
 ---
 

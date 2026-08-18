@@ -14,9 +14,9 @@ You start the new version alongside the old one, wait for it to pass a health ch
 
 ## Answer Shape
 
-Describe the mechanism that makes any of the strategies work first - health checks and connection draining - because without those, all three strategies drop requests. Then give rolling, blue-green, and canary with what each one costs. Finish with rollback, since that is where the real signal is: getting a good version out is easy, getting a bad one back out under pressure is not.
+Describe the mechanism before the strategies, because without health checks and connection draining all three strategies drop requests. The skeleton is ready, shift, watch, roll back. Give rolling, blue-green, and canary as three answers to the middle step, with what each one costs, and say that canary is the only one that limits how many users meet a bad release. Then spend your last sentence on rollback, because that is what the question is really testing: getting a good version out is easy, getting a bad one back out under pressure is not.
 
-先描述讓這些策略之所以有效的機制 —— 健康檢查與連線排空 —— 因為少了它們，三種策略都會掉請求。接著給出 rolling、blue-green、canary 以及各自的代價。最後收在 rollback，因為真正的鑑別度在那裡：把好的版本推出去很容易，在壓力下把壞的版本收回來才難。
+先描述機制再講策略，因為少了健康檢查與連線排空，三種策略都會掉請求。骨架是就緒、切換、觀察、回滾。把 rolling、blue-green、canary 當成中間那一步的三種答案，各自附上代價，並說明 canary 是唯一能限制「多少使用者碰到壞版本」的做法。最後把一句話留給 rollback，因為這才是這題真正在考的：把好版本推出去很容易，在壓力下把壞版本收回來才難。
 
 ## Full Spoken Answer
 
@@ -38,12 +38,30 @@ The part worth spending your last sentence on is rollback, because that is what 
 
 ## Quick Reference
 
+### The skeleton to memorise
+
+**Ready → Shift → Watch → Roll back**
+
+| Step | What has to be true |
+|---|---|
+| **Ready** | The load balancer only sends traffic to an instance that passes its readiness check, and an instance being removed is drained first so in-flight requests finish. Liveness means the process is alive; readiness means it can actually serve |
+| **Shift** | Pick a strategy below. Whichever you pick, both versions run at once, so the schema must be compatible with both - see [Q20](../databases/q20-schema-migrations.md) |
+| **Watch** | Error rate, latency, and saturation for a while afterwards. Failures usually appear minutes later under real load, not at the moment of the switch |
+| **Roll back** | The previous image, one command away, with a rollback time you actually know |
+
+### The three ways to shift
+
 | Strategy | How traffic moves | Extra capacity | Blast radius of a bad release | Rollback |
 |---|---|---|---|---|
 | **Rolling** | A few instances at a time | ~1 instance | Grows as the rollout proceeds | Roll forward or roll back through the same process |
 | **Blue-green** | All at once, at the switch | 2x during cutover | Everyone, immediately | Instant - switch back to blue |
 | **Canary** | 1% → 5% → 20% → 100%, watched | 1 instance upward | Limited to the slice, by design | Abort and drop the canary |
 | **Feature flag** | Deploy dark, enable per user | none | Whoever the flag is on for | Turn the flag off - no deploy |
+
+Rollback is almost never hard because of the code - it is hard because of state:
+a migration that already dropped a column, a queue full of messages only the new
+version understands, a cache in a new format. That is why destructive schema
+changes ship separately from the deploy that stops using the data.
 
 ---
 

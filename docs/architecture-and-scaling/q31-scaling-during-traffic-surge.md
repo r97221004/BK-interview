@@ -14,9 +14,9 @@ You add more identical instances behind a load balancer, keep them interchangeab
 
 ## Answer Shape
 
-Name the bottleneck before the remedy, because adding servers to a database-bound system makes it worse, and saying so is the strongest sentence in this answer. Then give horizontal scaling and the statelessness it requires, then caching and the CDN, and finish with shedding load, since a system that degrades gracefully beats one that falls over.
+Name the bottleneck before the remedy, because adding servers to a database-bound system makes it worse and saying so is the strongest sentence in this answer. Then follow the skeleton - measure, reduce, scale out, shed - which is deliberately in cost order: finding the bottleneck is free, caching is cheap, machines cost money, and shedding load costs you users. Spend your time on the middle two and mention the statelessness that scaling out requires. Finish with shedding, because a system that degrades on purpose beats one that falls over.
 
-先指出瓶頸再談對策，因為對一個受限於資料庫的系統加開伺服器只會讓情況更糟，而能說出這一點就是這題最強的一句話。接著講水平擴充以及它所要求的無狀態，再講快取與 CDN，最後收在卸載流量上，因為能優雅降級的系統勝過直接倒下的系統。
+先指出瓶頸再談對策，因為對一個受限於資料庫的系統加開伺服器只會更糟，而能說出這一點就是這題最強的一句話。接著照骨架走 —— 量測、減量、擴充、卸載 —— 這個順序是刻意按成本排的：找瓶頸不用錢、快取很便宜、開機器要花錢、卸載流量則是拿使用者去換。把時間花在中間兩項，並提到擴充所要求的無狀態。最後收在卸載，因為刻意降級的系統勝過直接倒下的系統。
 
 ## Full Spoken Answer
 
@@ -35,6 +35,21 @@ Then reduce the work that reaches the origin at all. A CDN serves static assets 
 Finally, decide what to do when demand still exceeds capacity, because scaling is never instant. Move work that does not have to be synchronous onto a queue such as RabbitMQ or Kafka, so a burst becomes a backlog that drains instead of a wall of timeouts. Apply rate limiting and load shedding so the system rejects some requests deliberately and keeps serving the rest, and degrade non-essential features first - recommendations off, checkout up. A system that gets slower in a controlled way survives a surge; one that tries to serve everything falls over completely.
 
 最後，決定在需求仍然超過容量時該怎麼辦，因為擴充從來不是瞬間完成的。把不必同步處理的工作丟到像 RabbitMQ 或 Kafka 這樣的佇列上，讓突發變成會慢慢消化的積壓，而不是一整面逾時的牆。套用速率限制與負載卸除，讓系統刻意拒絕一部分請求以維持服務其餘的請求，並優先降級非必要功能 —— 關掉推薦、保住結帳。以受控方式變慢的系統能撐過流量高峰；試圖服務所有請求的系統則會徹底倒下。
+
+## Quick Reference
+
+### The skeleton to memorise
+
+**Measure → Reduce → Scale out → Shed**
+
+Deliberately in cost order. Do not skip to step three, which is what most answers do.
+
+| Step | What you do | Why it comes here |
+|---|---|---|
+| **Measure** | Find the actual bottleneck: app CPU, database, or a downstream call | Free. And if the database is the limit, step three makes it worse |
+| **Reduce** | CDN for static assets, cache in front of the database, read replicas, connection pooling | Cheapest real win - work that never reaches the origin costs nothing to serve |
+| **Scale out** | More instances behind a load balancer, auto-scaling on CPU or request metrics | Costs money, and only works if the app is stateless - sessions and caches must live in Redis, not in process |
+| **Shed** | Queue what can be async, rate limit, degrade non-essential features first | Capacity is finite; recommendations off, checkout up |
 
 ---
 
