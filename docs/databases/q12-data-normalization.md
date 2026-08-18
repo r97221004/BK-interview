@@ -18,9 +18,9 @@ Define it by the problem it solves - the update anomalies caused by duplicated d
 
 ## Full Spoken Answer
 
-Normalization is the process of organizing a database to reduce redundancy and improve consistency, by splitting large tables into smaller related ones connected with foreign keys. The reason it matters is anomalies. If a customer's address is copied into every one of their orders, then updating the address means updating every row, and any row you miss now contradicts the others. Store each fact once and that entire class of bug disappears.
+Normalization is the process of organizing a database to reduce redundancy and improve consistency, by splitting large tables into smaller related ones connected with foreign keys. The reason it matters is anomalies. If a customer's address is copied into every one of their orders, then updating the address means updating every row, and any row you miss now contradicts the others. Store each fact once and that entire class of bug disappears. Plainly: normalization is just "don't write the same fact down twice," because two copies of one fact are two chances to disagree.
 
-正規化是把資料庫整理成減少冗餘、提升一致性的過程，做法是把大表拆成較小的關聯表，再用外鍵連起來。它之所以重要是因為「異常」。如果把客戶的地址複製到他每一筆訂單裡，那麼更新地址就意味著要更新每一列，而任何一列漏掉，它就和其他列互相矛盾了。讓每個事實只存一次，這一整類的錯誤就消失了。
+正規化是把資料庫整理成減少冗餘、提升一致性的過程，做法是把大表拆成較小的關聯表，再用外鍵連起來。它之所以重要是因為「異常」。如果把客戶的地址複製到他每一筆訂單裡，那麼更新地址就意味著要更新每一列，而任何一列漏掉，它就和其他列互相矛盾了。讓每個事實只存一次，這一整類的錯誤就消失了。說白了：正規化就是「同一個事實不要寫兩次」，因為一個事實有兩份副本，就有兩次互相對不上的機會。
 
 First normal form requires every column to hold an atomic value - one piece of information, with no lists and no repeating groups. Storing a student's courses as the single string Math, English breaks it; each course belongs in its own row. Second normal form builds on that and requires every non-key attribute to depend on the whole primary key. With a composite key of student and course, a student's name depends only on the student half, so it belongs in a separate students table.
 
