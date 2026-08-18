@@ -28,9 +28,9 @@ A WebSocket is stateful and bidirectional. It begins as an HTTP request carrying
 
 WebSocket 是有狀態且雙向的。它一開始是一個帶著 upgrade 標頭的 HTTP 請求，交握成功後，同一條連線就被轉用成一條保持開啟的全雙工通道。從那時起，伺服器可以在事情一發生的當下就把訊息推出去，不需要被詢問。這使它適合聊天室、即時儀表板、協作編輯和多人遊戲 —— 這些場景裡有意義的事件都源自伺服器端。
 
-In practice you use both, and an e-commerce site is the clearest illustration: REST for user management, the product catalog, and order creation, and a WebSocket for the live order-tracking panel where the status changes without a refresh. The cost is that an open connection is state. A connected client is tied to one instance, so scaling out needs either sticky routing or a shared pub/sub backplane such as Redis to fan messages across instances, and every idle connection still consumes a file descriptor and memory. If you only need modest freshness, server-sent events or plain polling is cheaper and much simpler to operate.
+Plainly: REST is you calling the server and asking a question; a WebSocket is leaving the line open so the server can call you back whenever it has news. In practice you use both, and an e-commerce site is the clearest illustration: REST for user management, the product catalog, and order creation, and a WebSocket for the live order-tracking panel where the status changes without a refresh. The cost is that an open connection is state. A connected client is tied to one instance, so scaling out needs either sticky routing or a shared pub/sub backplane such as Redis to fan messages across instances, and every idle connection still consumes a file descriptor and memory. If you only need modest freshness, server-sent events or plain polling is cheaper and much simpler to operate.
 
-實務上兩者會並用，電商網站就是最清楚的例子：使用者管理、商品目錄和建立訂單走 REST，而不需重新整理就會更新的即時訂單追蹤面板走 WebSocket。代價是「一條開啟的連線就是狀態」。已連線的客戶端被綁在某一台實例上，所以要水平擴充就需要黏著式路由，或是像 Redis 這樣的共用 pub/sub 中介層把訊息擴散到各實例；而且每一條閒置連線仍然佔用一個 file descriptor 和記憶體。如果你只需要普通程度的即時性，server-sent events 或單純的輪詢會更便宜、也好維運得多。
+說白了：REST 是你打電話去問伺服器一個問題；WebSocket 是把電話線一直開著，讓伺服器有消息隨時能回撥給你。實務上兩者會並用，電商網站就是最清楚的例子：使用者管理、商品目錄和建立訂單走 REST，而不需重新整理就會更新的即時訂單追蹤面板走 WebSocket。代價是「一條開啟的連線就是狀態」。已連線的客戶端被綁在某一台實例上，所以要水平擴充就需要黏著式路由，或是像 Redis 這樣的共用 pub/sub 中介層把訊息擴散到各實例；而且每一條閒置連線仍然佔用一個 file descriptor 和記憶體。如果你只需要普通程度的即時性，server-sent events 或單純的輪詢會更便宜、也好維運得多。
 
 ## Quick Reference
 
