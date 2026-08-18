@@ -24,13 +24,13 @@ Versioning is about changing an API without breaking existing clients. The first
 
 版本控制的目的是在不弄壞既有客戶端的前提下修改 API。第一個要問的永遠是「真的需要新版本嗎」，因為新增選擇性欄位、新增 endpoint、或接受一個新的值都是向後相容的，什麼都不需要做。版本是為破壞性變更而存在的：刪除或重新命名欄位、加嚴驗證，或改變某個狀態碼的意義。
 
-The first mechanism puts the version in the URL, as a path segment such as a v1 prefix or occasionally a query parameter. It is completely visible: you can see the version in a log line, a browser address bar, and a support ticket, and the gateway can route each version to a different backend without reading the body. The cost is route sprawl and duplicated handlers, and it is the right default for public APIs with clients you do not control.
+The first mechanism puts the version in the URL: `/api/v1/users` today, `/api/v2/users` once you need to break the contract. It is completely visible: you can see the version in a log line, a browser address bar, and a support ticket, and the gateway can route each version to a different backend without reading the body. The cost is route sprawl and duplicated handlers, and it is the right default for public APIs with clients you do not control.
 
-第一種機制把版本放在 URL 裡，作為路徑片段（例如 v1 前綴），偶爾也用 query 參數。它完全可見：在日誌、瀏覽器網址列、客服工單上都看得到版本，而且 gateway 不需要讀 body 就能把不同版本路由到不同後端。代價是路由數量膨脹、處理函式重複，它適合作為公開 API 的預設做法，因為那些客戶端不在你掌控之中。
+第一種機制把版本放在 URL 裡：現在是 `/api/v1/users`，需要打破契約時就變成 `/api/v2/users`。它完全可見：在日誌、瀏覽器網址列、客服工單上都看得到版本，而且 gateway 不需要讀 body 就能把不同版本路由到不同後端。代價是路由數量膨脹、處理函式重複，它適合作為公開 API 的預設做法，因為那些客戶端不在你掌控之中。
 
-The second puts the version in a custom request header, so the URL stays clean and one handler can branch internally on the requested version. It is easier to evolve because a client sets the header once in its shared HTTP layer instead of updating every path. The cost is that the version becomes invisible during debugging, and a client that forgets the header silently gets the default. That trade is usually acceptable inside a system where you own both sides.
+The second puts the version in a custom request header instead, like `api-version: 2`, so the URL stays clean (`/api/users` either way) and one handler can branch internally on the requested version. It is easier to evolve because a client sets the header once in its shared HTTP layer instead of updating every path. The cost is that the version becomes invisible during debugging, and a client that forgets the header silently gets the default. That trade is usually acceptable inside a system where you own both sides. In one line: URL versioning is what you show a stranger; header versioning is what you agree with a teammate.
 
-第二種把版本放在自訂的請求標頭裡，URL 保持乾淨，而且同一個處理函式可以在內部依照被要求的版本分支。它比較好演進，因為客戶端只要在共用的 HTTP 層設定一次標頭，而不必逐一更新每條路徑。代價是除錯時看不到版本，而且忘了帶標頭的客戶端會靜默地拿到預設版本。在兩端都由你掌控的系統內部，這個取捨通常是可以接受的。
+第二種把版本放在自訂的請求標頭裡，例如 `api-version: 2`，URL 保持乾淨（不管哪個版本都是 `/api/users`），而且同一個處理函式可以在內部依照被要求的版本分支。它比較好演進，因為客戶端只要在共用的 HTTP 層設定一次標頭，而不必逐一更新每條路徑。代價是除錯時看不到版本，而且忘了帶標頭的客戶端會靜默地拿到預設版本。在兩端都由你掌控的系統內部，這個取捨通常是可以接受的。濃縮成一句：URL 版本是你給陌生人看的，標頭版本是你跟隊友之間的默契。
 
 The part that actually decides whether versioning works is operational. Version the contract as a whole rather than each endpoint separately, or clients end up tracking a matrix. Publish a deprecation window with a date, announce it in a response header so client teams see it in their own logs, and track per-version traffic so you can prove the old one is unused before you remove it. Without that last step you never retire anything and every version lives forever.
 
