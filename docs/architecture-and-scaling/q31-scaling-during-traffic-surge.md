@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [rest](../_glossary.md#rest), [statelessness](../_glossary.md#statelessness), [redis](../_glossary.md#redis), [rate limiting](../_glossary.md#rate-limiting), [timeout](../_glossary.md#timeout)
+**New to these terms?** [statelessness](../_glossary.md#statelessness), [redis](../_glossary.md#redis), [rate limiting](../_glossary.md#rate-limiting), [message queue](../_glossary.md#message-queue), [timeout](../_glossary.md#timeout)
 
 ## In One Sentence
 

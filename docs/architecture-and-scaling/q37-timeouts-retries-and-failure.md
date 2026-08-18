@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Draft
 
-**New to these terms?** [idempotent](../_glossary.md#idempotent), [cache](../_glossary.md#cache), [query plan](../_glossary.md#query-plan)
+**New to these terms?** [idempotent](../_glossary.md#idempotent), [cache](../_glossary.md#cache)
 
 ## In One Sentence
 

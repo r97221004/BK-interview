@@ -38,8 +38,11 @@ assert set(IMPORTANCE) == set(BY_NUM), "importance must cover every question"
 TOTAL = len(Q)
 
 # How each glossary term is spelled in prose, for the "New to these terms?" line.
+# Matching is case-insensitive, so an acronym that is also an ordinary English
+# word has to opt out with (?-i:...) or it fires on the prose: "EXPLAIN" would
+# claim every "explain", and "REST" every "the rest of".
 TERM_RE = {
-    "endpoint": r"\bendpoints?\b", "rest": r"\bREST(ful)?\b", "resource": r"\bresources?\b",
+    "endpoint": r"\bendpoints?\b", "rest": r"(?-i:\bREST(ful)?\b)", "resource": r"\bresources?\b",
     "idempotent": r"\bidempotenc?[ty]\b", "statelessness": r"stateless(ness)?",
     "status-code": r"status codes?", "persistent-connection": r"persistent connections?|keep-alive",
     "websocket": r"\bWebSockets?\b", "api-versioning": r"\bversioning\b",
@@ -64,7 +67,7 @@ TERM_RE = {
     "integration-test": r"integration tests?", "structured-logging": r"structured logging",
     "observability": r"observability", "tls": r"\bTLS\b|\bHTTPS\b",
     "rate-limiting": r"rate limit(ing|s|ed)?", "oauth2": r"OAuth ?2(\.0)?",
-    "query-plan": r"query plan|EXPLAIN", "deadlock": r"deadlocks?",
+    "query-plan": r"query plan|(?-i:EXPLAIN)", "deadlock": r"deadlocks?",
     "n-plus-one": r"N\+1", "cache-aside": r"cache-aside",
     "cache-stampede": r"stampede", "cursor-pagination": r"cursor pagination|\bcursors?\b",
     "idempotency-key": r"idempotency keys?", "at-least-once": r"at-least-once|at least once",

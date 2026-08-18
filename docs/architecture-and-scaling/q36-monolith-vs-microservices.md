@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [rest](../_glossary.md#rest), [timeout](../_glossary.md#timeout), [health check](../_glossary.md#health-check)
+**New to these terms?** [timeout](../_glossary.md#timeout), [health check](../_glossary.md#health-check)
 
 ## In One Sentence
 

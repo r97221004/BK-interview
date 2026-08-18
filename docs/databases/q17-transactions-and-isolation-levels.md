@@ -4,8 +4,6 @@
 
 **Part:** Databases | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [query plan](../_glossary.md#query-plan)
-
 ## In One Sentence
 
 A transaction groups several statements so they either all take effect or none do, and the isolation level decides how much of other in-flight transactions your transaction is allowed to see.

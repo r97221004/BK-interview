@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [websocket](../_glossary.md#websocket), [query plan](../_glossary.md#query-plan), [message queue](../_glossary.md#message-queue)
+**New to these terms?** [websocket](../_glossary.md#websocket), [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 

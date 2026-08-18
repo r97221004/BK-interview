@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [query plan](../_glossary.md#query-plan), [cursor pagination](../_glossary.md#cursor-pagination)
+**New to these terms?** [cursor pagination](../_glossary.md#cursor-pagination)
 
 ## In One Sentence
 

@@ -4,7 +4,7 @@
 
 **Part:** Databases | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [index](../_glossary.md#index), [query plan](../_glossary.md#query-plan), [message queue](../_glossary.md#message-queue), [timeout](../_glossary.md#timeout)
+**New to these terms?** [index](../_glossary.md#index), [message queue](../_glossary.md#message-queue), [timeout](../_glossary.md#timeout)
 
 ## In One Sentence
 

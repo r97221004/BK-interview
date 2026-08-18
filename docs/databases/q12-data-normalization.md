@@ -4,8 +4,6 @@
 
 **Part:** Databases | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [query plan](../_glossary.md#query-plan)
-
 ## In One Sentence
 
 Normalization is organizing tables so that each fact is stored in exactly one place, which stops the data from contradicting itself when you insert, update, or delete.

@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 6/10 | **Status:** Draft
 
-**New to these terms?** [rest](../_glossary.md#rest), [unit test](../_glossary.md#unit-test), [query plan](../_glossary.md#query-plan)
+**New to these terms?** [unit test](../_glossary.md#unit-test)
 
 ## In One Sentence
 

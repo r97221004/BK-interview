@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 7/10 | **Status:** Draft
 
-**New to these terms?** [rest](../_glossary.md#rest), [tls](../_glossary.md#tls), [message queue](../_glossary.md#message-queue)
+**New to these terms?** [tls](../_glossary.md#tls), [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 

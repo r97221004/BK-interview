@@ -4,7 +4,7 @@
 
 **Part:** DevOps & Deployment | **Importance:** 5/10 | **Status:** Draft
 
-**New to these terms?** [cache](../_glossary.md#cache), [containerization](../_glossary.md#containerization), [query plan](../_glossary.md#query-plan)
+**New to these terms?** [cache](../_glossary.md#cache), [containerization](../_glossary.md#containerization)
 
 ## In One Sentence
 

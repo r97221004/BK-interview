@@ -4,7 +4,7 @@
 
 **Part:** Databases | **Importance:** 10/10 | **Status:** Draft
 
-**New to these terms?** [acid](../_glossary.md#acid), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling), [query plan](../_glossary.md#query-plan)
+**New to these terms?** [acid](../_glossary.md#acid), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling)
 
 ## In One Sentence
 

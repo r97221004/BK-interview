@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 7/10 | **Status:** Draft
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [xss](../_glossary.md#xss), [query plan](../_glossary.md#query-plan)
+**New to these terms?** [endpoint](../_glossary.md#endpoint), [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [xss](../_glossary.md#xss)
 
 ## In One Sentence
 
