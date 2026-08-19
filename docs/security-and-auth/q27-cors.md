@@ -4,44 +4,67 @@
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting)
+**New to these terms?** [cors](../_glossary.md#cors), [same-origin policy](../_glossary.md#same-origin-policy), [preflight request](../_glossary.md#preflight-request), [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite)
 
 ## In One Sentence
 
-CORS is a set of response headers by which a server tells the browser which other origins are allowed to read its responses, relaxing the same-origin policy in a controlled way.
+CORS is a browser mechanism that controls whether a page from one origin may read a response from another, and the server opts specific origins in with headers such as `Access-Control-Allow-Origin`.
 
-CORS 是一組回應標頭，伺服器用它告訴瀏覽器有哪些其他來源可以讀取它的回應，以受控的方式放寬同源政策。
+CORS 是瀏覽器的機制，用來控制某個來源的頁面能不能讀取另一個來源的回應；伺服器則用 `Access-Control-Allow-Origin` 這類標頭，把特定來源放進允許名單。
 
 ## Answer Shape
 
-Explain the restriction before the mechanism: the browser blocks cross-origin reads by default, and CORS is how a server opts out of that for specific origins. Walk the preflight so it is concrete. Then land the point that decides whether you actually understand it - CORS is enforced by the browser and protects the user, not your server - because that is what the interviewer is checking.
+Explain the restriction before the mechanism: the browser blocks cross-origin reads by default, and CORS is how a server opts out of that for specific origins. Define origin precisely, since that is a likely follow-up. Then land the point that decides whether you actually understand it - CORS is enforced by the browser and protects the user, not your server - and prove it with `curl`.
 
-先解釋限制、再解釋機制：瀏覽器預設會擋掉跨來源的讀取，而 CORS 是伺服器針對特定來源解除該限制的方式。把 preflight 走一遍讓它具體。接著落在真正決定你是否理解的那一點 —— CORS 由瀏覽器執行、保護的是使用者而不是你的伺服器 —— 因為那正是面試官在確認的。
+先解釋限制、再解釋機制：瀏覽器預設會擋掉跨來源的讀取，而 CORS 是伺服器針對特定來源解除該限制的方式。把 origin 定義清楚，因為那很可能是追問。接著落在真正決定你是否理解的那一點 —— CORS 由瀏覽器執行、保護的是使用者而不是你的伺服器 —— 並用 `curl` 來證明它。
 
 ## Full Spoken Answer
 
-CORS stands for Cross-Origin Resource Sharing, and it is a browser security mechanism. It exists because browsers enforce the same-origin policy: JavaScript on one origin - the combination of scheme, host, and port - cannot read a response from a different origin. Without that rule, any page you visited could quietly call your bank's API in the background using your cookies and read the result. CORS is the controlled way for a server to say which origins are exempt.
+CORS stands for Cross-Origin Resource Sharing, and the thing to say first is that it is a browser mechanism, not a server one. Browsers enforce the same-origin policy: JavaScript running on one origin cannot read a response from a different origin. Without that rule, any page you happened to open could quietly call `https://mybank.com/account` in the background with your cookies attached and read the result. So the default is no. CORS is how a server says "these particular origins are fine" - the same-origin policy is the locked door, and CORS is the guest list the server hands to the browser.
 
-CORS 的全稱是 Cross-Origin Resource Sharing，它是一個瀏覽器的安全機制。它存在是因為瀏覽器會執行同源政策：某個來源（協定、主機、port 三者的組合）上的 JavaScript 不能讀取另一個來源的回應。若沒有這條規則，你造訪的任何頁面都能在背景悄悄用你的 cookie 呼叫你銀行的 API 並讀走結果。CORS 就是伺服器用來聲明「哪些來源可以豁免」的受控方式。
+CORS 的全稱是 Cross-Origin Resource Sharing，而第一句該說的是：它是瀏覽器的機制，不是伺服器的機制。瀏覽器會執行同源政策：在某個來源上執行的 JavaScript，不能讀取另一個來源的回應。若沒有這條規則，你隨手打開的任何頁面都能在背景帶著你的 cookie 呼叫 `https://mybank.com/account` 並讀走結果。所以預設是「不行」。CORS 就是伺服器說「這幾個來源沒問題」的方式 —— 同源政策是那道上鎖的門，CORS 是伺服器交給瀏覽器的那份訪客名單。
 
-The mechanism is headers. For a request that is not simple - anything using a method beyond GET, HEAD, or POST, or carrying a custom header such as authorization - the browser first sends an automatic OPTIONS request called a preflight, which asks the server whether the real request is permitted. The server answers with headers naming the allowed origin, methods, and headers, and optionally a max-age so the answer can be cached. If the reply is satisfactory the browser sends the real request; if not, it blocks the response and the console shows a CORS error.
+An origin is scheme plus host plus port, all three, and if any one differs it is cross-origin. `https://example.com` and `http://example.com` are different origins because the scheme differs. `https://example.com` and `https://api.example.com` are different because the host differs - a subdomain is a different origin, which surprises people. And `http://localhost:3000` and `http://localhost:8080` are different because the port differs, which is why almost everyone meets CORS for the first time while running a React dev server against a local API.
 
-它的機制是標頭。對於「非簡單」的請求 —— 使用 GET、HEAD、POST 以外的方法，或帶有像 authorization 這樣的自訂標頭 —— 瀏覽器會先送出一個自動的 OPTIONS 請求，稱為 preflight，用來詢問伺服器是否允許真正的請求。伺服器以標頭回答，指明允許的來源、方法與標頭，並可選擇性地加上 max-age 讓這個答案能被快取。如果回覆令人滿意，瀏覽器就送出真正的請求；如果不滿意，它會擋下回應，主控台則顯示 CORS 錯誤。
+一個 origin 是 scheme 加 host 加 port，三者缺一不可，只要其中任何一個不同就是跨來源。`https://example.com` 和 `http://example.com` 是不同來源，因為 scheme 不同。`https://example.com` 和 `https://api.example.com` 是不同來源，因為 host 不同 —— 子網域算是不同來源，這點常讓人意外。而 `http://localhost:3000` 和 `http://localhost:8080` 是不同來源，因為 port 不同 —— 這也正是幾乎所有人第一次遇到 CORS，都是在用 React 開發伺服器打本機 API 的時候。
 
-A concrete example makes it stick. If a front end at one subdomain calls an API at another, the API must return an allow-origin header naming the front end's exact origin for the browser to hand the response to the page. Two practical notes: the wildcard is convenient in development but should never reach production, and it cannot be combined with credentialed requests at all, so as soon as cookies are involved you must name the origin explicitly and set the allow-credentials header.
+Concretely: a front end at `https://frontend.com` runs `fetch("https://api.backend.com/users")`. The browser sees two different origins, sends the request, and then checks the response for permission. If the API answers with `Access-Control-Allow-Origin: https://frontend.com`, the browser hands the response to the JavaScript. If that header is missing or names a different origin, the browser blocks the page from reading it and the console shows the "blocked by CORS policy" message. For requests that are not simple - anything beyond GET, HEAD, or a basic POST, or carrying a custom header such as `Authorization` - the browser first sends an automatic `OPTIONS` preflight asking whether the real request is allowed, and only sends the real one if the answer is satisfactory.
 
-一個具體例子能讓它記得住。如果某個子網域上的前端呼叫另一個子網域上的 API，API 必須回傳一個 allow-origin 標頭並指明前端的確切來源，瀏覽器才會把回應交給頁面。兩點實務提醒：萬用字元在開發時很方便，但絕不該進到正式環境，而且它完全不能與帶憑證的請求併用，所以一旦牽涉到 cookie，你就必須明確指名來源並設定 allow-credentials 標頭。
+具體來說：位在 `https://frontend.com` 的前端執行 `fetch("https://api.backend.com/users")`。瀏覽器看到兩個不同的來源，把請求送出去，然後檢查回應裡有沒有許可。如果 API 回覆 `Access-Control-Allow-Origin: https://frontend.com`，瀏覽器就把回應交給 JavaScript。如果那個標頭不存在、或指名的是別的來源，瀏覽器就會擋住頁面去讀它，主控台則出現「blocked by CORS policy」。至於「非簡單」的請求 —— GET、HEAD、基本 POST 以外的，或帶著像 `Authorization` 這種自訂標頭的 —— 瀏覽器會先自動送一個 `OPTIONS` preflight 去問真正的請求是否被允許，答案滿意才送出真正的那一個。
 
-The point that matters most is what CORS is not. It is enforced by the browser, so it protects your users from other websites - it does not protect your server from anything. A script, a mobile app, or a command-line client ignores CORS entirely and can call your API however it likes, and even in a browser the request usually reaches your server before the response is blocked. So server-side controls have to stand on their own: authentication and authorization on every endpoint, CSRF tokens and SameSite cookies for browser sessions, Origin checks as an extra signal, rate limiting, and request signing for machine clients. If browsers stopped enforcing CORS tomorrow, a correctly built API would still be safe.
+Two practical notes. The wildcard `*` is convenient in development but should never reach production, and it cannot be combined with credentialed requests at all - so the moment cookies are involved you must name the exact origin and add `Access-Control-Allow-Credentials: true`. And notice the sequence above: the browser usually sends the request and your server usually runs it, then the response gets blocked on the way back. What CORS withholds is the reading of the response, not the arrival of the request.
 
-最重要的一點是「CORS 不是什麼」。它由瀏覽器執行，所以它保護的是你的使用者不被其他網站利用 —— 它完全不保護你的伺服器。腳本、行動 App 或命令列客戶端會完全忽略 CORS，想怎麼呼叫你的 API 就怎麼呼叫；而且即使在瀏覽器裡，請求通常也已經抵達你的伺服器，只是回應被擋下來而已。因此伺服器端的控制必須能夠獨立成立：每個 endpoint 都做認證與授權、瀏覽器 session 用 CSRF token 與 SameSite cookie、把 Origin 檢查當成額外訊號、加上速率限制，並對機器客戶端使用請求簽章。如果瀏覽器明天起不再執行 CORS，一個正確建構的 API 仍然是安全的。
+兩點實務提醒。萬用字元 `*` 在開發時很方便，但絕不該進到正式環境，而且它完全不能與帶憑證的請求併用 —— 所以一旦牽涉到 cookie，你就必須指名確切的來源，並加上 `Access-Control-Allow-Credentials: true`。另外注意上面那個順序：瀏覽器通常已經把請求送出去、你的伺服器通常也已經執行了，然後回應才在回程被擋下。CORS 扣住的是「讀取回應」，不是「請求的抵達」。
+
+That leads to the point that matters most, and the fastest way to prove it is `curl`. Call the same API from `curl` or Postman and it just works - no CORS error, ever - because there is no browser in the loop to enforce anything. A mobile app, a script, a scraper: same story. So CORS protects your users from other websites reading their data; it does not protect your server from anyone. Server-side controls have to stand on their own - authentication and authorization on every endpoint, CSRF tokens and `SameSite` cookies for browser sessions, rate limiting. If browsers stopped enforcing CORS tomorrow, a correctly built API would still be safe. One line to remember: CORS is a guest list the server gives the browser, and the bouncer only stands at the browser's door.
+
+這就帶到最重要的那一點，而證明它最快的方法就是 `curl`。用 `curl` 或 Postman 去打同一個 API，它就是會成功 —— 永遠不會有 CORS 錯誤 —— 因為這中間根本沒有瀏覽器來執行任何限制。行動 App、腳本、爬蟲，也都一樣。所以 CORS 保護的是你的使用者不被其他網站讀走資料；它完全不保護你的伺服器。伺服器端的控制必須能夠獨立成立 —— 每個 endpoint 都做認證與授權、瀏覽器 session 用 CSRF token 與 `SameSite` cookie、加上速率限制。如果瀏覽器明天起不再執行 CORS，一個正確建構的 API 仍然是安全的。記住一句：CORS 是伺服器交給瀏覽器的一份訪客名單，而保鏢只站在瀏覽器那道門口。
 
 ## Quick Reference
 
-### The preflight exchange
+### Same origin, or not? Scheme + host + port, all three must match
 
-The browser asks, in effect, whether origin X may access the resource - then the
-server answers with headers:
+| Compared with `https://example.com` | Same origin? | Why |
+|---|---|---|
+| `https://example.com/about` | Yes | Path is not part of the origin |
+| `http://example.com` | No | Scheme differs |
+| `https://api.example.com` | No | Host differs - a subdomain counts |
+| `https://example.com:8443` | No | Port differs - 443 is implied above |
+
+Same rule off `example.com`: `http://localhost:3000` and `http://localhost:8080`
+are different origins too, which is why a React dev server calling a local API is
+where most people meet CORS for the first time.
+
+### The headers you should be able to name
+
+| Header | Sent by | What it says |
+|---|---|---|
+| `Origin` | Browser | Who is asking - set automatically, cannot be forged by page JS |
+| `Access-Control-Allow-Origin` | Server | Which origin may read the response - one origin, or `*` |
+| `Access-Control-Allow-Methods` | Server | Which methods the real request may use (preflight answer) |
+| `Access-Control-Allow-Headers` | Server | Which custom headers are permitted (preflight answer) |
+| `Access-Control-Allow-Credentials` | Server | Cookies are allowed - and then `*` is forbidden |
+| `Access-Control-Max-Age` | Server | How long the browser may cache the preflight answer |
 
 ```http
 Access-Control-Allow-Origin: https://frontend.com
@@ -49,12 +72,19 @@ Access-Control-Allow-Methods: GET, POST
 Access-Control-Allow-Headers: Content-Type, Authorization
 ```
 
-For a front end at `https://shop.com` calling an API at `https://api.shop.com`,
-the header that makes the browser hand over the response is:
+### What CORS does and does not stop
 
-```http
-Access-Control-Allow-Origin: https://shop.com
-```
+| Caller | Blocked by CORS? | Why |
+|---|---|---|
+| Page JS at another origin, no allow header | Yes | The browser withholds the response from the page |
+| Page JS at an allowed origin | No | The server put it on the guest list |
+| `curl` / Postman | No | No browser, no enforcement |
+| Mobile app, backend service, scraper | No | Same - CORS is a browser rule only |
+
+Note what "blocked" means in row one: for a simple request the browser still sends
+it and your server still runs it - only the reading of the response is withheld.
+
+The line to remember: CORS protects your users from other sites, never your server from attackers.
 
 ---
 
