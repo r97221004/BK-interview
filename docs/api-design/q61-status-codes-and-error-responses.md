@@ -14,13 +14,13 @@ The status code tells the client which category of thing happened so it can deci
 
 ## Answer Shape
 
-Start by sorting outcomes into kinds - bad request, authentication, authorisation, resource state, server failure - and pick the code from the kind, rather than reaching for 200 every time. Spend your detail on the pairs that actually get asked: 401 versus 403, and 400 versus 422 versus 409. Then give the error body its own job: a stable machine-readable code, never a leaked stack trace. Finish with the two mistakes that come up constantly.
+Start by sorting outcomes into kinds - bad request, authentication, authorization, resource state, server failure - and pick the code from the kind, rather than reaching for 200 every time. Spend your detail on the pairs that actually get asked: 401 versus 403, and 400 versus 422 versus 409. Then give the error body its own job: a stable machine-readable code, never a leaked stack trace. Finish with the two mistakes that come up constantly.
 
 先把結果分類 —— 請求本身有問題、認證、授權、資源狀態、伺服器故障 —— 再從分類挑代碼，而不是每次都伸手拿 200。把細節花在真的會被追問的那幾組：401 對 403，以及 400 對 422 對 409。接著給錯誤 body 一份自己的職責：一個穩定的、機器可讀的代碼，而且絕不外洩堆疊追蹤。最後收在兩個一再出現的錯誤。
 
 ## Full Spoken Answer
 
-I would not return 200 for everything and put the outcome in the body. I sort what happened into kinds first - is the request itself malformed, is this an authentication problem, an authorisation problem, a conflict with the current state of the resource, or did my server break - and the kind picks the class. 2xx means it worked. 3xx means it lives elsewhere, follow it. 4xx means the request was wrong, so retrying it unchanged will fail again and the caller has to change something. 5xx means the server failed, so the same request might well succeed on a retry. That last split is the one that actually drives client behaviour: a well-built client retries 5xx with backoff and does not retry 4xx at all.
+I would not return 200 for everything and put the outcome in the body. I sort what happened into kinds first - is the request itself malformed, is this an authentication problem, an authorization problem, a conflict with the current state of the resource, or did my server break - and the kind picks the class. 2xx means it worked. 3xx means it lives elsewhere, follow it. 4xx means the request was wrong, so retrying it unchanged will fail again and the caller has to change something. 5xx means the server failed, so the same request might well succeed on a retry. That last split is the one that actually drives client behaviour: a well-built client retries 5xx with backoff and does not retry 4xx at all.
 
 我不會什麼都回 200、再把結果塞在 body 裡。我會先把發生的事分類 —— 是請求本身格式錯誤、是認證問題、是授權問題、是與資源目前狀態衝突，還是我的伺服器爆了 —— 由分類決定 class。2xx 代表成功。3xx 代表東西在別的地方，跟過去。4xx 代表請求本身有問題，原封不動重試還是會失敗，呼叫端必須改點什麼。5xx 代表伺服器出錯，所以同一個請求重試很可能會成功。最後這個切分才是真正驅動客戶端行為的：一個寫得好的客戶端會對 5xx 帶退避重試，對 4xx 則完全不重試。
 
