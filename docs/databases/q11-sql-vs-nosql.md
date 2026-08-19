@@ -54,4 +54,4 @@ The rows are ordered the way the answer is spoken, with relational first because
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q02: Can you describe a typical HTTP request/response cycle?](../api-and-http/q02-http-request-response-cycle.md) | [All 41 questions](../../README.md) | [Q16: What is a database index, and how do you work out why a query is slow?](q16-indexes-and-slow-queries.md) |
+| [Q02: Can you describe a typical HTTP request/response cycle?](../api-and-http/q02-http-request-response-cycle.md) | [All 40 questions](../../README.md) | [Q16: What is a database index, and how do you work out why a query is slow?](q16-indexes-and-slow-queries.md) |

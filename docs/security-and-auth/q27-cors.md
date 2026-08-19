@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [cors](../_glossary.md#cors), [same-origin policy](../_glossary.md#same-origin-policy), [preflight request](../_glossary.md#preflight-request), [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite)
+**New to these terms?** [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting)
 
 ## In One Sentence
 
@@ -90,4 +90,4 @@ The line to remember: CORS protects your users from other sites, never your serv
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 41 questions](../../README.md) | [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) |
+| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 40 questions](../../README.md) | [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) |

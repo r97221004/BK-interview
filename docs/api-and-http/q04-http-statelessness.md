@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [cookie](../_glossary.md#cookie), [jwt](../_glossary.md#jwt), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
+**New to these terms?** [cookie](../_glossary.md#cookie), [jwt](../_glossary.md#jwt), [cache](../_glossary.md#cache), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
 
 ## In One Sentence
 
@@ -61,4 +61,4 @@ on why the first row logs people out at random.
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) | [All 41 questions](../../README.md) | [Q07: What measures would you take to secure a newly developed API?](q07-securing-a-new-api.md) |
+| [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) | [All 40 questions](../../README.md) | [Q07: What measures would you take to secure a newly developed API?](q07-securing-a-new-api.md) |

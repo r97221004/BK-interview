@@ -99,4 +99,4 @@ The line to remember: CSRF tricks your browser into spending your login state on
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q24: Describe how session management works in web applications.](q24-session-management.md) | [All 41 questions](../../README.md) | [Q35: When would you move work onto a message queue?](../architecture-and-scaling/q35-message-queues-and-async-work.md) |
+| [Q24: Describe how session management works in web applications.](q24-session-management.md) | [All 40 questions](../../README.md) | [Q35: When would you move work onto a message queue?](../architecture-and-scaling/q35-message-queues-and-async-work.md) |

@@ -78,4 +78,4 @@ Three things to read, in this order:
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q11: Can you explain the difference between SQL and NoSQL databases?](q11-sql-vs-nosql.md) | [All 41 questions](../../README.md) | [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) |
+| [Q11: Can you explain the difference between SQL and NoSQL databases?](q11-sql-vs-nosql.md) | [All 40 questions](../../README.md) | [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) |

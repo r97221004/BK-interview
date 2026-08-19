@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 7/10 | **Status:** Draft
 
-**New to these terms?** [rest](../_glossary.md#rest), [samesite](../_glossary.md#samesite), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer), [tls](../_glossary.md#tls)
+**New to these terms?** [rest](../_glossary.md#rest), [samesite](../_glossary.md#samesite), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer), [timeout](../_glossary.md#timeout)
 
 ## In One Sentence
 
@@ -40,4 +40,4 @@ In RESTful APIs the usual choice is a token instead, because REST is meant to be
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) | [All 41 questions](../../README.md) | [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) |
+| [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) | [All 40 questions](../../README.md) | [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) |

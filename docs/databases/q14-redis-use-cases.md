@@ -65,4 +65,4 @@ If the reply exceeds your limit, reject. Nothing else is needed.
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q13: What is data partitioning?](q13-data-partitioning.md) | [All 41 questions](../../README.md) | [Q19: How do you decide what to cache, and how do you invalidate it?](q19-caching-strategy-and-invalidation.md) |
+| [Q13: What is data partitioning?](q13-data-partitioning.md) | [All 40 questions](../../README.md) | [Q19: How do you decide what to cache, and how do you invalidate it?](q19-caching-strategy-and-invalidation.md) |

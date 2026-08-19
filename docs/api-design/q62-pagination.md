@@ -48,4 +48,4 @@ cursor 分頁把兩個問題都修好了。客戶端送的不是位置，而是�
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) | [All 41 questions](../../README.md) | [Q63: How do you make an endpoint safe to retry?](q63-idempotency-and-retries.md) |
+| [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) | [All 40 questions](../../README.md) | [Q63: How do you make an endpoint safe to retry?](q63-idempotency-and-retries.md) |

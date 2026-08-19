@@ -79,4 +79,4 @@ The middle three rows are the whole argument for connection pooling: open a conn
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q01: What is a RESTful API, and what are its core principles?](q01-what-is-a-restful-api.md) | [All 41 questions](../../README.md) | [Q11: Can you explain the difference between SQL and NoSQL databases?](../databases/q11-sql-vs-nosql.md) |
+| [Q01: What is a RESTful API, and what are its core principles?](q01-what-is-a-restful-api.md) | [All 40 questions](../../README.md) | [Q11: Can you explain the difference between SQL and NoSQL databases?](../databases/q11-sql-vs-nosql.md) |

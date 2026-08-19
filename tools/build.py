@@ -31,7 +31,6 @@ IMPORTANCE = {
     27: 8, 33: 8, 36: 8, 41: 8, 51: 8, 61: 8,
     9: 7, 24: 7, 26: 7, 35: 7, 37: 7, 43: 7, 52: 7, 62: 7, 63: 7,
     15: 6, 34: 6,
-    42: 5,
 }
 assert set(IMPORTANCE) == set(BY_NUM), "importance must cover every question"
 
@@ -63,7 +62,7 @@ TERM_RE = {
     "gil": r"\bGIL\b|Global Interpreter Lock", "event-loop": r"event loop",
     "hash-table": r"hash tables?", "dynamic-array": r"dynamic arrays?",
     "containerization": r"container(ization|s|ized)?\b",
-    "multi-stage-build": r"multi-stage", "unit-test": r"unit tests?",
+    "unit-test": r"unit tests?",
     "integration-test": r"integration tests?", "structured-logging": r"structured logging",
     "observability": r"observability", "tls": r"\bTLS\b|\bHTTPS\b",
     "rate-limiting": r"rate limit(ing|s|ed)?", "oauth2": r"OAuth ?2(\.0)?",

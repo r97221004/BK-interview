@@ -34,4 +34,4 @@ For backend development the benefits follow directly. Dependencies are pinned in
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q36: Monolith or microservices - how would you decide?](../architecture-and-scaling/q36-monolith-vs-microservices.md) | [All 41 questions](../../README.md) | [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) |
+| [Q36: Monolith or microservices - how would you decide?](../architecture-and-scaling/q36-monolith-vs-microservices.md) | [All 40 questions](../../README.md) | [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) |

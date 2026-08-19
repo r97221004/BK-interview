@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [statelessness](../_glossary.md#statelessness), [jwt](../_glossary.md#jwt), [samesite](../_glossary.md#samesite), [xss](../_glossary.md#xss)
+**New to these terms?** [jwt](../_glossary.md#jwt), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [xss](../_glossary.md#xss), [tls](../_glossary.md#tls)
 
 ## In One Sentence
 
@@ -85,4 +85,4 @@ The one-line link: the session is the state, the cookie is how its ID gets carri
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q20: How do you change a database schema without downtime?](../databases/q20-schema-migrations.md) | [All 41 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |
+| [Q20: How do you change a database schema without downtime?](../databases/q20-schema-migrations.md) | [All 40 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |

@@ -91,8 +91,6 @@ TERMS = [
      "The structure behind `list`: a contiguous block of references that is over-allocated and copied to a larger block when it fills, giving amortized O(1) append and O(n) insertion in the middle."),
     ("containerization", "Containerization", 41,
      "Packaging an application with its runtime, libraries, and configuration into an image that runs the same everywhere, isolated by kernel namespaces and cgroups rather than by a hypervisor."),
-    ("multi-stage-build", "Multi-stage build", 42,
-     "A Dockerfile with several `FROM` stages where the final stage copies only the built artifacts from earlier ones, so compilers and source never reach the shipped image."),
     ("unit-test", "Unit test", 51,
      "A test of one unit of behavior through its public interface, with no database, network, or filesystem. Fast and precise about where the failure is."),
     ("integration-test", "Integration test", 51,

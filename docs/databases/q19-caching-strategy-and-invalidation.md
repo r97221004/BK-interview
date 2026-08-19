@@ -4,6 +4,8 @@
 
 **Part:** Databases | **Importance:** 8/10 | **Status:** Draft
 
+**New to these terms?** [redis](../_glossary.md#redis)
+
 ## In One Sentence
 
 You cache data that is read far more often than it changes and expensive to produce, and you decide up front how a stale entry gets removed - by expiry, by explicit invalidation on write, or both.
@@ -55,4 +57,4 @@ Then name the failure modes, because they are what separates experience from the
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) | [All 41 questions](../../README.md) | [Q20: How do you change a database schema without downtime?](q20-schema-migrations.md) |
+| [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) | [All 40 questions](../../README.md) | [Q20: How do you change a database schema without downtime?](q20-schema-migrations.md) |

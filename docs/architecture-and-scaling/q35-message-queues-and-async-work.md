@@ -40,4 +40,4 @@ The cost is that asynchronous work is harder to get right, and naming those cost
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q26: What is Cross-Site Request Forgery (CSRF)?](../security-and-auth/q26-csrf.md) | [All 41 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |
+| [Q26: What is Cross-Site Request Forgery (CSRF)?](../security-and-auth/q26-csrf.md) | [All 40 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |

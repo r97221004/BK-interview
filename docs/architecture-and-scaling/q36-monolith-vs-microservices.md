@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [microservices](../_glossary.md#microservices), [timeout](../_glossary.md#timeout), [health check](../_glossary.md#health-check), [idempotent](../_glossary.md#idempotent)
+**New to these terms?** [idempotent](../_glossary.md#idempotent), [api versioning](../_glossary.md#api-versioning), [idempotency key](../_glossary.md#idempotency-key), [timeout](../_glossary.md#timeout), [health check](../_glossary.md#health-check)
 
 ## In One Sentence
 
@@ -90,4 +90,4 @@ Not: day one → twenty services → no traffic.
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](q33-python-builtin-data-structures.md) | [All 41 questions](../../README.md) | [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) |
+| [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](q33-python-builtin-data-structures.md) | [All 40 questions](../../README.md) | [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) |

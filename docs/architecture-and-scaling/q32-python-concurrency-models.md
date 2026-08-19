@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Draft
 
-**New to these terms?** [websocket](../_glossary.md#websocket), [message queue](../_glossary.md#message-queue)
+**New to these terms?** [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 
@@ -51,4 +51,4 @@ Now the compression half: neither threads nor asyncio actually speeds that up, b
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q31: How would you scale a backend application during a traffic surge?](q31-scaling-during-traffic-surge.md) | [All 41 questions](../../README.md) | [Q03: What is an API endpoint?](../api-and-http/q03-what-is-an-api-endpoint.md) |
+| [Q31: How would you scale a backend application during a traffic surge?](q31-scaling-during-traffic-surge.md) | [All 40 questions](../../README.md) | [Q03: What is an API endpoint?](../api-and-http/q03-what-is-an-api-endpoint.md) |

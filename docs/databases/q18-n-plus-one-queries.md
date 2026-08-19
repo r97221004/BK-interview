@@ -36,4 +36,4 @@ The fix, in plain terms, is to tell the ORM up front "I'll need the author too,"
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q17: Explain database transactions and isolation levels.](q17-transactions-and-isolation-levels.md) | [All 41 questions](../../README.md) | [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) |
+| [Q17: Explain database transactions and isolation levels.](q17-transactions-and-isolation-levels.md) | [All 40 questions](../../README.md) | [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) |

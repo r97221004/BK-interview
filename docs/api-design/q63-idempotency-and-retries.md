@@ -40,4 +40,4 @@ The honest framing is that you are converting at-least-once delivery into effect
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q62: How would you paginate a large collection endpoint?](q62-pagination.md) | [All 41 questions](../../README.md) | [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) |
+| [Q62: How would you paginate a large collection endpoint?](q62-pagination.md) | [All 40 questions](../../README.md) | [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) |

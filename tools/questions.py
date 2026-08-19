@@ -207,11 +207,6 @@ q(41, "devops-and-deployment", "what-is-containerization",
   "Packaging the runtime with the app, and the boundary of that promise",
   "Tests whether you can state what containers actually isolate, and what they do not solve.")
 
-q(42, "devops-and-deployment", "docker-multi-stage-builds",
-  "What are the benefits of Docker multi-stage builds?",
-  "Separating build toolchain from the runtime image",
-  "Tests whether you can explain why deleting build tools in a later layer does not shrink the image.")
-
 q(43, "devops-and-deployment", "zero-downtime-deploys",
   "How do you deploy a new version without dropping requests?",
   "Rolling, blue-green, and canary, plus health checks and rollback",

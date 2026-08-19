@@ -40,4 +40,4 @@ Then decide what the user sees, because the point of all this is to stay partly 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q35: When would you move work onto a message queue?](q35-message-queues-and-async-work.md) | [All 41 questions](../../README.md) | [Q43: How do you deploy a new version without dropping requests?](../devops-and-deployment/q43-zero-downtime-deploys.md) |
+| [Q35: When would you move work onto a message queue?](q35-message-queues-and-async-work.md) | [All 40 questions](../../README.md) | [Q43: How do you deploy a new version without dropping requests?](../devops-and-deployment/q43-zero-downtime-deploys.md) |

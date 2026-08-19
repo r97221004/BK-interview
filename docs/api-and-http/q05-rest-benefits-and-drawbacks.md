@@ -40,4 +40,4 @@ The rest are costs of evolution and of HTTP's own shape. Changing a contract mea
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q03: What is an API endpoint?](q03-what-is-an-api-endpoint.md) | [All 41 questions](../../README.md) | [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) |
+| [Q03: What is an API endpoint?](q03-what-is-an-api-endpoint.md) | [All 40 questions](../../README.md) | [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) |

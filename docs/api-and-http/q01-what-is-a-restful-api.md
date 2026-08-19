@@ -75,4 +75,4 @@ Richardson's maturity model, the usual follow-up:
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| *(first question)* | [All 41 questions](../../README.md) | [Q02: Can you describe a typical HTTP request/response cycle?](q02-http-request-response-cycle.md) |
+| *(first question)* | [All 40 questions](../../README.md) | [Q02: Can you describe a typical HTTP request/response cycle?](q02-http-request-response-cycle.md) |

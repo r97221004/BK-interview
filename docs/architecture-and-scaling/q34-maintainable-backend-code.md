@@ -54,4 +54,4 @@ six months from now, with no memory of the context - change it confidently?
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) | [All 41 questions](../../README.md) | [Q42: What are the benefits of Docker multi-stage builds?](../devops-and-deployment/q42-docker-multi-stage-builds.md) |
+| [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) | [All 40 questions](../../README.md) | *(last question)* |

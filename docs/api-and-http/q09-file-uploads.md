@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 7/10 | **Status:** Draft
 
-**New to these terms?** [presigned url](../_glossary.md#presigned-url), [tls](../_glossary.md#tls), [cdn](../_glossary.md#cdn), [message queue](../_glossary.md#message-queue)
+**New to these terms?** [cdn](../_glossary.md#cdn), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting), [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 
@@ -103,4 +103,4 @@ Object storage · presigned URL · server-side validation · size limit · gener
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) | [All 41 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |
+| [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) | [All 40 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |

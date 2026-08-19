@@ -68,4 +68,4 @@ print(my_dict['a'])     # 1
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q27: What is CORS?](../security-and-auth/q27-cors.md) | [All 41 questions](../../README.md) | [Q36: Monolith or microservices - how would you decide?](q36-monolith-vs-microservices.md) |
+| [Q27: What is CORS?](../security-and-auth/q27-cors.md) | [All 40 questions](../../README.md) | [Q36: Monolith or microservices - how would you decide?](q36-monolith-vs-microservices.md) |

@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
 
-**New to these terms?** [xss](../_glossary.md#xss), [cookie](../_glossary.md#cookie), [jwt](../_glossary.md#jwt), [content security policy](../_glossary.md#content-security-policy)
+**New to these terms?** [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [jwt](../_glossary.md#jwt)
 
 ## In One Sentence
 
@@ -73,4 +73,4 @@ Memory hook: stored sits in your database, reflected bounces off your server, DO
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q22: What is the difference between a session and a cookie?](q22-session-vs-cookie.md) | [All 41 questions](../../README.md) | [Q27: What is CORS?](q27-cors.md) |
+| [Q22: What is the difference between a session and a cookie?](q22-session-vs-cookie.md) | [All 40 questions](../../README.md) | [Q27: What is CORS?](q27-cors.md) |

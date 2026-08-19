@@ -1,9 +1,9 @@
 # Python Backend Interview Questions
 
-> A focused set of 41 high-frequency backend interview questions, answered bilingually and from the mechanism up.
+> A focused set of 40 high-frequency backend interview questions, answered bilingually and from the mechanism up.
 
 ![Python](https://img.shields.io/badge/Python-Backend%20Interviews-3776AB)
-![Questions](https://img.shields.io/badge/Questions-41-2563EB)
+![Questions](https://img.shields.io/badge/Questions-40-2563EB)
 ![Format](https://img.shields.io/badge/Format-Q%26A-5D3FD3)
 ![Language](https://img.shields.io/badge/Language-EN%20%2B%20%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-D97706)
 
@@ -97,7 +97,7 @@ flowchart LR
 | | | |
 |---|---|---|
 | **1.** [API & HTTP](docs/api-and-http/) · 9 questions | **2.** [API Design & Reliability](docs/api-design/) · 3 questions | **3.** [Databases](docs/databases/) · 10 questions |
-| **4.** [Security & Auth](docs/security-and-auth/) · 7 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 7 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 3 questions |
+| **4.** [Security & Auth](docs/security-and-auth/) · 7 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 7 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 2 questions |
 | **7.** [Testing & Debugging](docs/testing-and-debugging/) · 2 questions |  |  |
 
 ## What Each Question Covers
@@ -132,7 +132,7 @@ Some interviewers combine several concepts into one question. These common wordi
 - **"What happens if the client retries?"** [Q63](docs/api-design/q63-idempotency-and-retries.md) is the direct answer, and it is the same property a queue consumer needs in [Q35](docs/architecture-and-scaling/q35-message-queues-and-async-work.md).
 - **"XSS or CSRF?"** they are frequently asked back to back and confused: [Q25](docs/security-and-auth/q25-xss.md) is about your output, [Q26](docs/security-and-auth/q26-csrf.md) is about the browser's credentials.
 
-## The 41 Questions
+## The 40 Questions
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
 
@@ -204,12 +204,6 @@ Within a band the order is by question number and means nothing - the bands are 
 |---|---|---|---|
 | [What strategies do you have when a database runs out of storage?](docs/databases/q15-database-out-of-storage.md) | Databases | Immediate relief, then reclaiming, growing, and splitting | Draft |
 | [How do you ensure your backend code is maintainable and easy to understand?](docs/architecture-and-scaling/q34-maintainable-backend-code.md) | Architecture & Scaling | Boundaries, conventions, tests, and consistent failure handling | Draft |
-
-### Importance 5/10 (1 question)
-
-| Question | Part | Focus | Status |
-|---|---|---|---|
-| [What are the benefits of Docker multi-stage builds?](docs/devops-and-deployment/q42-docker-multi-stage-builds.md) | DevOps & Deployment | Separating build toolchain from the runtime image | Draft |
 
 
 ## Progress Model

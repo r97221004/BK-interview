@@ -262,12 +262,6 @@ Packaging an application with its runtime, libraries, and configuration into an 
 
 Explained in full: [Q41](devops-and-deployment/q41-what-is-containerization.md).
 
-### Multi-stage build
-
-A Dockerfile with several `FROM` stages where the final stage copies only the built artifacts from earlier ones, so compilers and source never reach the shipped image.
-
-Explained in full: [Q42](devops-and-deployment/q42-docker-multi-stage-builds.md).
-
 ### Unit test
 
 A test of one unit of behavior through its public interface, with no database, network, or filesystem. Fast and precise about where the failure is.

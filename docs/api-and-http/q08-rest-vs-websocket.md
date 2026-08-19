@@ -46,4 +46,4 @@ Plainly: REST is you calling the server and asking a question; a WebSocket is le
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) | [All 41 questions](../../README.md) | [Q12: What is data normalization?](../databases/q12-data-normalization.md) |
+| [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) | [All 40 questions](../../README.md) | [Q12: What is data normalization?](../databases/q12-data-normalization.md) |
