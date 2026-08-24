@@ -53,6 +53,16 @@ Then name the failure modes, because they are what separates experience from the
 | **Eviction** | Memory fills; something gets discarded | Choose the eviction policy deliberately, don't leave it to chance |
 | **Cache as system of record** | Losing the cache means losing data, not just speed | It isn't a cache anymore - keep the database as the source of truth |
 
+## Interview Version
+
+> I would anchor it on one page: a product page assembled from a five-table join, hit a thousand times a second, changed maybe once an hour. Three properties have to hold together before anything deserves a cache - read far more than written, expensive to produce, and tolerable if slightly stale. The product page passes all three; a user's account balance fails the third outright, because nobody wants to see their balance from thirty seconds ago, so it stays out no matter how often it is read. Cache-aside is the default pattern: the app checks Redis for product:42, and on a miss runs the join, writes the result back with a one-hour TTL, and returns it. The cache never talks to the database itself, so it degrades safely - if Redis is down every request is a miss and the site gets slow, not broken. Invalidation is what decides whether the design is sound. A TTL alone is the simplest and most robust answer, because a bug in your invalidation logic then costs you an hour of staleness rather than forever. Explicit invalidation on write is more precise, but it is where the hard bugs live, because the same product data often sits inside several cached shapes - product:42, category:5:products, search:results:shoes - and forgetting one shows the old price forever. So the pragmatic combination is to invalidate explicitly on the writes you control, with a TTL underneath as a backstop. Then the failure modes: if that product goes viral and everything misses the instant the TTL expires, ten thousand requests hit the database together - a stampede, fixed with a short lock so one request repopulates while the others wait, or random jitter so a batch of keys never expires at the same instant.
+
+面試時可回答：我會把它固定在一個頁面上：一個由五張表 join 組出來的商品頁，每秒被打一千次，大概每小時才變一次。任何東西值得被快取之前，三個性質必須同時成立 —— 讀遠多於寫、產生代價昂貴、稍微過期一點還能接受。商品頁三個都通過；使用者的帳戶餘額則直接卡在第三個，因為沒有人想看到三十秒前的餘額，所以無論它被讀得多頻繁，都不放進快取。cache-aside 是預設模式：應用程式去 Redis 查 product:42，沒中就跑那個 join、把結果寫回去並設一小時 TTL，然後回傳。快取本身從不跟資料庫講話，所以它的降級是安全的 —— 如果 Redis 掛了，每個請求都是 miss，網站會變慢，但不會壞掉。真正決定這個設計健不健全的是失效機制。單靠 TTL 是最簡單也最穩健的答案，因為這樣一來，你失效邏輯裡的 bug 頂多讓你過期一小時，而不是永遠。在寫入時明確失效比較精準，但困難的 bug 都住在那裡，因為同一份商品資料往往同時待在好幾種快取形狀裡 —— product:42、category:5:products、search:results:shoes —— 漏掉其中一個，它就會永遠顯示舊價格。所以務實的組合是：對你掌控得到的寫入做明確失效，底下再墊一層 TTL 當作漏網之魚的保險。接著是失效模式：如果這個商品爆紅，而所有東西都在 TTL 到期的那一瞬間同時 miss，一萬個請求會一起打到資料庫 —— 這是快取雪崩，解法是用一個短鎖讓一個請求去重建、其他人等它，或是加上隨機抖動讓一批鍵不會在同一瞬間過期。
+
+The sentence to remember is: **A cache is allowed to be wrong for a little while, and never allowed to be the only copy of the truth.**
+
+最值得記：**快取可以錯一小段時間，但永遠不可以是真相的唯一一份副本。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

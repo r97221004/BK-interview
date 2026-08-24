@@ -69,6 +69,16 @@ Memory hook: stored sits in your database, reflected bounces off your server, DO
 | 3. A sanitizer | DOMPurify, allowlist-based | Lets you accept real HTML safely |
 | 4. Content Security Policy | Restrict script sources, ban inline and `eval` | Damage limitation for the one you missed |
 
+## Interview Version
+
+> XSS happens when an application takes user input and puts it into a page without escaping it, so the browser parses it as markup instead of displaying it as text. Say a site has a comment box: I type Hello Matt and the server renders a div containing Hello Matt, which is fine. An attacker types a script tag containing alert('XSS'), the server renders it the same way, and now the browser sees a real script tag and runs it. Nothing was broken into - the site simply let a string that was meant to be data become code. The alert is just the proof. Because that code runs inside your site's origin, the browser cannot tell it apart from your own scripts: it can read anything on the page, read a token from local storage, send requests as the logged-in user, or rewrite the login form to steal a password. An HttpOnly cookie keeps the script from reading the session ID, but the browser still attaches that cookie to requests the script makes - so HttpOnly stops the key being copied, not the door being used. There are three variants, and the only difference is where the payload waits before it runs. Stored XSS is saved in your database and fires for everyone who opens the page. Reflected XSS rides in on the URL and is echoed back, so the victim has to click a crafted link. DOM-based XSS never reaches the server at all - front-end JavaScript takes something from the URL and assigns it to innerHTML. The main fix is output encoding at render time, and it must be context-aware, which is also why encoding belongs at output rather than input: when the data arrives you do not yet know where it will end up.
+
+面試時可回答：XSS 發生在應用程式取用使用者輸入後，沒有做跳脫就放進頁面，於是瀏覽器把它解析成標記，而不是當成文字顯示。假設網站有個留言框：我輸入 Hello Matt，伺服器渲染出一個含有 Hello Matt 的 div，沒問題。攻擊者輸入一個裝著 alert('XSS') 的 script 標籤，伺服器一樣照放，這下瀏覽器看到的是一個真的 script 標籤，就把它執行了。沒有任何東西被闖入 —— 網站只是讓一段本該是 data 的字串變成了 code。alert 只是概念驗證。因為那段程式碼是在你網站的來源內執行，瀏覽器無法把它跟你自己的腳本分辨開來：它可以讀取頁面上的任何東西、讀 local storage 裡的 token、以已登入使用者的身分發送請求，或改寫登入表單來竊取密碼。標記 HttpOnly 的 cookie 能讓腳本讀不到 session ID，但腳本發出的請求，瀏覽器照樣會附上那個 cookie —— 所以 HttpOnly 擋的是鑰匙被複製，不是門被使用。它有三種類型，差別只在 payload 執行前待在哪裡。儲存型存在你的資料庫裡，對每個打開頁面的人都會觸發。反射型搭著網址進來又被回顯，所以受害者必須點一條精心構造的連結。DOM 型則完全不經過伺服器 —— 前端 JavaScript 從網址取值，然後指派給 innerHTML。主要修法是在渲染當下做輸出編碼，而且必須依情境而定；這也正是編碼屬於輸出端而非輸入端的原因：資料剛進來時，你還不知道它最後會去哪裡。
+
+The sentence to remember is: **XSS is user input that should have stayed data being executed as code, inside your own origin.**
+
+最值得記：**XSS 就是本該當 data 的使用者輸入，在你自己的來源裡被當成 code 執行了。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

@@ -64,6 +64,16 @@ my_dict['c'] = 3
 print(my_dict['a'])     # 1
 ```
 
+## Interview Version
+
+> A list is ordered, mutable, and allows duplicates, and underneath it is a dynamic array - a contiguous block of memory holding references. Indexing is O(1) because the address is computed directly. Appending is amortised O(1): when the block fills, Python allocates a larger one and copies everything over, deliberately over-allocating so resizes are rare. Inserting or deleting in the middle is O(n) because every later reference shifts. A tuple is essentially a static array: the size is fixed at creation so no resizing logic is needed, making it slightly faster to iterate and smaller in memory. The immutability is not a style choice - it is what allows a tuple to be hashable and therefore usable as a dict key or set element, which a list can never be. A set holds unique items and a dict maps unique keys to values, and both are hash tables: the key is hashed to pick a slot in an internal array, giving average O(1) insert, delete, and lookup, with the table resizing once it gets too full to keep collisions rare. Worst case is O(n) when collisions pile up. That is why membership testing in a set is dramatically faster than in a list. The follow-up is usually what hashing means: Python turns the key into an integer and uses it to decide which slot to store or look in, and when two keys land on the same slot CPython resolves it with open addressing, probing for the next slot in a deterministic sequence. This is also why keys must be immutable - mutate a key after inserting it and its hash changes, leaving it in a slot the table would never probe again.
+
+面試時可回答：list 是有序、可變、允許重複的，底層是一個動態陣列 —— 一塊連續的記憶體，裝著指向元素的參考。索引是 O(1)，因為位址是直接算出來的。附加是攤銷 O(1)：當那塊空間填滿時，Python 會配置一塊更大的並把所有東西複製過去，而且它刻意多配一些，讓重新配置很少發生。在中間插入或刪除是 O(n)，因為後面每一個參考都得位移。tuple 本質上是一個靜態陣列：大小在建立時就固定，所以不需要任何調整大小的邏輯，這讓它走訪起來稍快、記憶體也更小。不可變性不是風格選擇 —— 它正是讓 tuple 可雜湊、因而能當 dict 的鍵或 set 的元素的原因，而 list 永遠做不到這件事。set 保存不重複的項目，dict 把不重複的鍵對應到值，兩者都是雜湊表：鍵被雜湊後用來挑選內部陣列裡的一個槽，於是插入、刪除、查找的平均複雜度都是 O(1)，而當表太滿時會重新調整大小以維持碰撞罕見。最壞情況在碰撞堆積時是 O(n)。這正是為什麼在 set 裡做成員測試遠比在 list 裡快。接下來的追問通常是「雜湊到底是什麼意思」：Python 把鍵轉成一個整數，並用那個整數決定要存進哪個槽或去哪個槽找；當兩個鍵落在同一個槽，CPython 用開放定址法處理，依一個確定的序列往下探測。這也正是為什麼鍵必須不可變 —— 插入後再改動一個鍵，它的雜湊值就變了，於是它會留在一個表永遠不會再去探測的槽裡。
+
+The sentence to remember is: **Do not memorise the complexity table - know the three structures underneath, and every O() falls out on its own.**
+
+最值得記：**不要背複雜度表 —— 記住底下那三種結構，每一個 O() 都會自己推導出來。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

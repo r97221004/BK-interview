@@ -42,6 +42,16 @@ Plainly: REST is you calling the server and asking a question; a WebSocket is le
 | Use Case | CRUD operations, simple data fetching | Real-time updates, live data streams |
 | Example | `GET /users/1` → returns user data | Chat message instantly pushed to browser |
 
+## Interview Version
+
+> A REST API is stateless and one-directional. The client always starts the exchange: it sends a request, the server answers, and that interaction is finished. The underlying TCP connection may be reused, but the server has no way to speak first, so anything the client wants to know it must ask for - which fits ordinary operations perfectly, like fetching a record or creating an order. A WebSocket is stateful and bidirectional. It begins as an HTTP request carrying an upgrade header, and once the handshake succeeds the same connection is repurposed into a full-duplex channel that stays open, so from then on the server can push a message the instant something happens, without being asked. That is what makes it right for chat, live dashboards, collaborative editing, and multiplayer games, where the interesting events originate on the server. Plainly: REST is you calling the server to ask a question, a WebSocket is leaving the line open so the server can call you back whenever it has news. In practice you use both - an e-commerce site is the clearest illustration, with REST for user management, the catalogue, and order creation, and a WebSocket for the live order-tracking panel where the status changes without a refresh. The cost is that an open connection is state: a connected client is tied to one instance, so scaling out needs sticky routing or a shared pub/sub backplane such as Redis, and every idle connection still holds a file descriptor and memory. If you only need modest freshness, server-sent events or plain polling is cheaper and much simpler to operate.
+
+面試時可回答：REST API 是無狀態且單向的。交換永遠由客戶端發起：它送出請求、伺服器回答，這個互動就結束了。底層的 TCP 連線可能被重用，但伺服器沒有辦法先開口，所以客戶端想知道什麼都得自己問 —— 這對一般操作完全適用，例如取一筆紀錄或建立一張訂單。WebSocket 則是有狀態且雙向的。它一開始是一個帶著 upgrade 標頭的 HTTP 請求，握手成功之後，同一條連線就被改造成一個持續開著的全雙工通道；從那一刻起，只要有事情發生，伺服器可以不必被詢問就立刻推一則訊息過去。這正是它適合聊天、即時儀表板、協作編輯和多人遊戲的原因 —— 在這些場景裡，值得關注的事件是從伺服器那端發生的。說白了：REST 是你打電話去問伺服器一個問題，WebSocket 是把線路留著不掛，讓伺服器一有消息就能回撥給你。實務上兩者都會用 —— 電商網站是最清楚的例子：REST 負責使用者管理、商品目錄和建立訂單，WebSocket 負責那個不用重新整理就會變狀態的即時訂單追蹤面板。代價是「開著的連線就是狀態」：一個已連線的客戶端被綁在某一台實例上，所以要水平擴展就需要黏著式路由，或是像 Redis 這樣的共用 pub/sub backplane；而且每一條閒置連線仍然佔著一個 file descriptor 和記憶體。如果你只需要中等程度的即時性，server-sent events 或單純的輪詢更便宜、也好維運得多。
+
+The sentence to remember is: **REST is you calling the server; a WebSocket is leaving the line open so it can call you back.**
+
+最值得記：**REST 是你打電話去問伺服器；WebSocket 是把線路留著不掛，好讓它能回撥給你。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

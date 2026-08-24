@@ -73,6 +73,16 @@ claims = jwt.decode(token, key, algorithms=[header["alg"]])
 claims = jwt.decode(token, key, algorithms=["RS256"])
 ```
 
+## Interview Version
+
+> With session-based authentication the server creates a session at login and stores the user's information - ID, roles, expiry - in memory, a database, or a shared store such as Redis. It returns a session ID, normally in a cookie; on every later request the browser sends it back and the server looks the session up. The server is tracking sessions, so it is stateful. With JWT-based authentication the server instead creates a token containing the claims and signs it, the client sends it with each request, and the server verifies the signature and reads the claims straight out of the token with no lookup at all - stateless. Worth saying plainly: a JWT is signed, not encrypted, so anyone holding it can read it; and the signature is only worth what the verification is, because the token's own header names the algorithm, so a library that trusts that header lets an attacker set it to none - pin the algorithm on the server instead. The consequences follow. Sessions are easy to revoke, delete the record and the next request fails, and sensitive data stays server-side; the cost is that the store must be reachable from every instance and becomes a dependency on your critical path. Tokens invert both: any instance verifies one alone, which suits distributed systems, but you cannot take a token back before it expires, and one in local storage is readable by any injected script. In practice most production systems run a hybrid, and saying so is the strongest version of this answer: a short-lived access token so the revocation window stays small, plus a long-lived refresh token stored server-side that can be revoked, both in cookies marked HttpOnly, Secure, and SameSite.
+
+面試時可回答：在 session 認證中，伺服器在登入時建立一個 session，把使用者的資訊 —— ID、角色、到期時間 —— 存在記憶體、資料庫，或像 Redis 這樣的共用儲存裡。它回傳一個 session ID，通常放在 cookie 裡；之後每個請求瀏覽器都會把它送回來，伺服器再據此查出那個 session。伺服器在追蹤 session，所以它是有狀態的。在 JWT 認證中，伺服器改為建立一個裝著 claim 的 token 並簽章，客戶端每個請求都帶著它，伺服器驗證簽章、直接從 token 裡讀出 claim，完全不需要查詢 —— 這是無狀態的。有一點要明講：JWT 是「簽章」不是「加密」，所以任何拿到它的人都讀得懂它；而簽章的價值完全取決於驗證的品質，因為 token 自己的標頭寫著使用哪個演算法，所以一個信任那個標頭的函式庫，會讓攻擊者把它設成 none —— 正確做法是在伺服器端把演算法釘死，而不是從 token 裡讀。後果由此推導。session 容易撤銷，刪掉紀錄下一個請求就失敗，而且敏感資料留在伺服器端；代價是那個儲存必須讓每台實例都連得到，並且變成你關鍵路徑上的一個依賴。token 則把兩者反過來：任何實例都能自己驗證一個 token，適合分散式系統；但你沒辦法在 token 過期前把它收回，而放在 local storage 裡的 token，任何被注入的腳本都讀得到。實務上大多數正式系統跑的是混合方案，把這點講出來是這題最強的版本：一個短效的 access token 讓撤銷窗口保持很小，加上一個存在伺服器端、可以撤銷的長效 refresh token，兩者都放在標記了 HttpOnly、Secure、SameSite 的 cookie 裡。
+
+The sentence to remember is: **Sessions are a phone number you can cancel; tokens are a signed letter you cannot un-send.**
+
+最值得記：**session 是一組你可以停用的電話號碼；token 是一封你寄出去就收不回來的簽章信件。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

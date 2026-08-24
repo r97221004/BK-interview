@@ -74,6 +74,16 @@ Three things to read, in this order:
 | `WHERE date = $1` on an index over `(customer, date)` | `date` is not the leftmost column | Reorder the columns, or add an index led by `date` |
 | Returns a large share of the table | Nothing is wrong: a scan really is cheaper than millions of lookups plus row fetches | Return less data - filter harder or paginate; another index will not help |
 
+## Interview Version
+
+> An index is a secondary structure, almost always a B-tree, holding the indexed columns in sorted order along with a pointer to the row. Without one the database performs a sequential scan - it reads every row and discards the ones that do not match - so cost grows linearly with the table. With one it descends the tree, which is logarithmic, so a lookup in a ten-million-row table takes a handful of page reads instead of ten million. Indexes are not free, and saying so is half the answer: every index is extra disk, and every insert, delete, and update touching an indexed column has to maintain it, so write throughput falls as index count rises. The useful question is never whether to add an index but which queries justify which indexes. For composite indexes the column order matters - an index on customer then date serves a filter on customer alone and on customer plus date, but not on date alone, which is the leftmost prefix rule. The same structure gives the other half of the trick: if the index also carries the selected columns, the database answers from the index alone and never touches the table. For the slow query itself the method is to look rather than guess: run EXPLAIN ANALYZE and read the access path, watching for a sequential scan on a large table and for a large gap between estimated and actual row counts, which means the planner's statistics are stale. The most useful thing to know is why an index exists and still goes unused - wrapping the column in a function defeats it, a leading wildcard in LIKE cannot use a B-tree, a type mismatch forces a cast and therefore a scan, and when a query returns a large fraction of the table the planner correctly prefers a scan, in which case the fix is to return less data, not to add another index.
+
+面試時可回答：索引是一個次要結構，幾乎總是 B-tree，它以排序好的順序保存被索引的欄位，並附帶指向該列的指標。沒有索引時，資料庫會做循序掃描 —— 讀過每一列，再把不符合的丟掉 —— 所以成本隨表格大小線性成長。有索引時，它沿著樹往下走，那是對數的，所以在一張一千萬列的表裡查一筆，只需要少數幾次分頁讀取，而不是讀完一千萬列。索引不是免費的，而把這件事說出口就答對了一半：每個索引都是額外的磁碟，而每一次 insert、delete，以及每一次觸及被索引欄位的 update，都必須維護它，所以索引數量上升，寫入吞吐量就下降。有用的問題從來不是「要不要加索引」，而是「哪些查詢值得哪些索引」。對複合索引來說欄位順序很重要 —— 一個先 customer 後 date 的索引，可以服務「只篩 customer」和「篩 customer 加 date」，但無法服務「只篩 date」，這就是最左前綴規則。同一個結構也給了你另一半的訣竅：如果索引本身也帶著被選取的欄位，資料庫就能只靠索引回答、完全不必碰那張表。至於那個慢查詢本身，方法是「去看」而不是「用猜的」：跑 EXPLAIN ANALYZE 並讀出存取路徑，留意大表上的循序掃描，以及預估列數與實際列數之間的巨大落差 —— 那代表查詢規劃器的統計資訊過期了。最有用的知識，是理解「索引明明存在卻沒被用到」的原因：把欄位包在函式裡會讓它失效、LIKE 的前置萬用字元用不了 B-tree、欄位與參數型別不符會強制轉型因而變成掃描；而當一個查詢會回傳表格中很大一部分時，規劃器正確地判斷掃描比較便宜 —— 這時候的解法是「回傳更少資料」，不是再加一個索引。
+
+The sentence to remember is: **The question is never whether to index, but which queries justify which index - and an unused index still slows every write.**
+
+最值得記：**問題從來不是「要不要加索引」，而是「哪些查詢值得哪個索引」—— 而一個沒人用的索引，照樣拖慢每一次寫入。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

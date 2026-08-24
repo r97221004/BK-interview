@@ -44,6 +44,16 @@ cursor 分頁把兩個問題都修好了。客戶端送的不是位置，而是�
 | **Total count** | Cheap to show | Expensive or omitted |
 | **Best for** | Admin tables, small or stable datasets | Feeds, infinite scroll, large or busy tables |
 
+## Interview Version
+
+> Offset pagination is the obvious implementation: the client asks for a page number and a size, and the query uses LIMIT and OFFSET. It is easy to build, it lets the user jump straight to page fifty, and it makes a total count natural to display - for a small or slowly-changing dataset it is completely fine, and reaching for anything cleverer would be premature. It breaks in two ways as the table grows. The first is performance: OFFSET does not let the database skip work, it makes the database produce and discard those rows, so page one thousand reads twenty thousand rows to return twenty. The cost grows linearly with the page number, which is why deep pages time out while the first page is instant. The second is correctness under concurrency: if a new row is inserted at the top while the user is reading, every subsequent page shifts by one, so they see a row twice - and a deletion makes them miss one entirely. On an infinite-scroll feed that is a visible bug. Cursor pagination fixes both. Instead of a position, the client sends a pointer to the last row it saw, and the query becomes a filter on that value with a LIMIT - give me the twenty rows after this one. That uses the index directly and reads only what it returns, so page one thousand costs the same as page one, and inserts elsewhere cannot shift the window. The cursor must be built on a stable, unique, indexed ordering, usually a timestamp plus the primary key as a tiebreaker, and is normally opaque-encoded so clients do not depend on its internals. The trade is losing arbitrary page jumps and a cheap total count.
+
+面試時可回答：offset 分頁是最直覺的實作：客戶端要求一個頁碼和一個頁面大小，查詢用 LIMIT 和 OFFSET。它很好做，讓使用者可以直接跳到第五十頁，也讓總筆數自然地可以顯示 —— 對小型或變動緩慢的資料集，它完全沒問題，去找更聰明的做法反而是過早最佳化。隨著表格變大，它會從兩個方向壞掉。第一個是效能：OFFSET 並不讓資料庫「跳過」工作，它是讓資料庫把那些列產生出來再丟掉，所以第一千頁要讀兩萬列才能回傳二十列。成本隨頁碼線性成長，這正是為什麼深頁會逾時、而第一頁卻是瞬間的。第二個是並行下的正確性：如果使用者正在閱讀時有一筆新資料插到最上面，之後的每一頁都會位移一列，於是他會看到某一列兩次 —— 而一次刪除則會讓他完全漏掉一列。在無限捲動的動態牆上，那是一個看得見的 bug。cursor 分頁把兩者都修好。客戶端送的不是「位置」，而是一個指向它看到的最後一列的指標，查詢因而變成「對那個值做篩選再加上 LIMIT」—— 給我這一列之後的二十列。這直接使用索引，而且只讀它要回傳的東西，所以第一千頁和第一頁一樣便宜，而在表格別處的插入也無法讓視窗位移。cursor 必須建立在一個穩定、唯一、有索引的排序上，通常是時間戳加上主鍵當決勝欄位，而且一般會做不透明編碼，讓客戶端不去依賴它的內部結構。代價是失去任意跳頁和便宜的總筆數。
+
+The sentence to remember is: **OFFSET does not skip work - it makes the database build those rows and throw them away, so cursor pagination for feeds, offset for admin tables.**
+
+最值得記：**OFFSET 並不會跳過工作 —— 它是讓資料庫把那些列做出來再丟掉；所以動態牆用 cursor，後台管理表用 offset。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

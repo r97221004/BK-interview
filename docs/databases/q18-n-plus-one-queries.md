@@ -32,6 +32,16 @@ The fix, in plain terms, is to tell the ORM up front "I'll need the author too,"
 
 修法說白了就是先告訴 ORM「我等一下也會要作者的資料」，讓它一次或兩次查詢就把東西都撈回來，而不是一筆資料查一次。在 Django 裡，正向外鍵用 `select_related`（會變成 JOIN）；反向或多對多用 `prefetch_related`（多發一次查詢，再由 Python 把結果拼起來）。SQLAlchemy 對應同一種二分法：`joinedload` 和 `selectinload`。想在正式環境爆掉之前就抓到它：開發環境把產生的 SQL 印出來看、對會回傳一整批資料的 endpoint 在測試裡斷言查詢次數、在正式環境把「每個請求的查詢數」當成指標監看 —— 只要這個數字會隨回應筆數一起往上爬，就是這個 bug。
 
+## Interview Version
+
+> The name describes the shape: one query fetches N parent rows, then the code touches a related object on each of them and each touch issues its own query, so the total is N+1. Fetching fifty blog posts and then printing each author's name runs one query for the posts and fifty more for the authors. Each query is individually fast, which is exactly why it hides - nothing in the slow-query log looks wrong, the page is simply slow. It is so common because the ORM hides the query behind normal-looking code: post.author.name inside a loop reads exactly like touching a plain field, so there is no query to spot by eye. And the bug's size tracks the data rather than the code - ten seed rows in a test means ten extra queries and nobody notices; ten thousand real rows is the same one line, just suddenly slow. The rule I keep in my head is that every time a loop touches a relationship field rather than a plain field, that touch is a hidden query, one per row. The fix is to tell the ORM up front that you will need the author too, so it fetches everything in one or two queries instead of one per row - in Django that is select_related for a forward foreign key, which becomes a JOIN, and prefetch_related for reverse or many-to-many, which is a second query stitched together in Python; SQLAlchemy has the same split as joinedload and selectinload. To catch it before production does: log the generated SQL in development, assert on query counts in tests for any endpoint returning a collection, and watch queries-per-request as a production metric, because a number that climbs with response size is this exact bug.
+
+面試時可回答：這個名字描述的就是它的形狀：一個查詢抓回 N 筆父層資料，接著程式碼在每一筆上碰觸一個關聯物件，而每一次碰觸都發出自己的查詢，所以總數是 N+1。抓五十篇文章然後印出每位作者的名字，會跑一個查詢抓文章、再跑五十個查詢抓作者。每一個查詢單獨看都很快，這正是它藏得住的原因 —— 慢查詢日誌裡什麼都不奇怪，頁面就只是慢。它之所以這麼常見，是因為 ORM 把查詢藏在看起來很正常的程式碼後面：迴圈裡的 post.author.name 讀起來就跟碰一個普通欄位一模一樣，你用眼睛根本抓不到那裡有查詢。而且這個 bug 的大小跟著資料走，不是跟著程式碼走 —— 測試裡十筆種子資料就是多十個查詢，沒人會注意；一萬筆真實資料是同樣那一行程式碼，只是突然變慢了。我記住的規則是：迴圈裡每一次碰觸的是「關聯欄位」而不是普通欄位，那一次碰觸就是一個隱藏查詢，每列一個。解法是事先告訴 ORM「我也會需要作者」，讓它用一到兩個查詢把所有東西抓齊，而不是每列一個 —— 在 Django 裡，正向外鍵用 select_related（會變成 JOIN），反向或多對多用 prefetch_related（第二個查詢，在 Python 裡縫起來）；SQLAlchemy 有同樣的兩分法，叫 joinedload 和 selectinload。要在正式環境之前抓到它：在開發環境把產生的 SQL 記錄下來、對任何回傳集合的 endpoint 在測試裡斷言查詢次數，並把「每個請求的查詢數」當成正式環境的指標來看 —— 一個會隨回應大小往上爬的數字，就是這個 bug。
+
+The sentence to remember is: **Every time a loop touches a relationship field instead of a plain field, that touch is a hidden query - one per row.**
+
+最值得記：**迴圈裡每一次碰的是「關聯欄位」而不是普通欄位，那一下就是一個隱藏查詢 —— 每列一個。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

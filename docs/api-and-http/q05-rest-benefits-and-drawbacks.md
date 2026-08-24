@@ -36,6 +36,16 @@ The rest are costs of evolution and of HTTP's own shape. Changing a contract mea
 
 其餘的缺點來自演進成本和 HTTP 本身的形狀。改變契約意味著在棄用期內同時維護兩個版本，這是真實的維護負擔。不屬於新增、讀取、更新、刪除的操作 —— 例如多步驟交易或批次工作 —— 用資源來建模會很彆扭。而無狀態則代表每個請求都要重複做認證和脈絡建立。當客戶端需要自己決定 payload 形狀時，GraphQL 更適合；當兩個服務之間需要低延遲串流時，gRPC 或 WebSocket 更適合。
 
+## Interview Version
+
+> The benefits come from three constraints. Statelessness means the server stores nothing between requests, so instances are interchangeable and horizontal scaling is straightforward. The uniform interface means standard methods and status codes, so proxies, caches, and monitoring understand your traffic without knowing anything about your domain. Client-server separation means the two sides evolve independently as long as the contract holds. Two more follow from being ordinary HTTP: responses can be marked cacheable, so a CDN absorbs repeated reads before they reach your application, and any client that can make an HTTP request can consume the API - no shared runtime, no generated stubs, no language coupling. The drawbacks are just as concrete. Over-fetching and under-fetching are the common ones: GET /users/42 returns the full user object even when the screen only needs the name, so you downloaded forty fields to use one; go the other way and a screen needing a user plus their last five orders makes two round trips, because REST has no way to say "and also fetch this related thing". There is no standard error format either, only the status code, so every team invents its own error body. Then there are the costs of evolution: changing a contract means running two versions for a deprecation window, operations that are not CRUD are awkward to model as resources, and every request repeats its authentication. When a client needs to choose its own payload shape, GraphQL fits better; when two services need low-latency streaming, gRPC or a WebSocket does.
+
+面試時可回答：好處來自三個 constraint。statelessness 代表伺服器在請求之間什麼都不存，所以實例可以互換、水平擴展很直接。uniform interface 代表標準的方法與狀態碼，所以 proxy、快取和監控完全不需要知道你的領域知識就能理解你的流量。client-server 分離代表只要合約還在，兩邊就能各自演進。另外兩個好處來自「它就是普通的 HTTP」：回應可以被標記為可快取，於是 CDN 在重複讀取抵達你的應用之前就把它們吸收掉；而任何能發出 HTTP 請求的客戶端都能使用這個 API —— 不需要共用執行環境、不需要產生的 stub、兩邊沒有語言上的耦合。缺點同樣具體。over-fetching 和 under-fetching 是最常見的：GET /users/42 會回傳完整的 user 物件，即使畫面只需要顯示名字，於是你下載了四十個欄位只為了用一個；反過來，一個需要使用者外加他最近五筆訂單的畫面得跑兩趟，因為 REST 沒有內建方式可以說「順便把這個關聯的東西也抓來」。錯誤格式也沒有標準，只有狀態碼，所以每個團隊都自己發明一套錯誤 body。接著是演進的成本：改合約意味著要在一段淘汰期內同時跑兩個版本；不屬於 CRUD 的操作很難用 resource 模型表達；而每個請求都要重做一次認證。當客戶端需要自己決定 payload 的形狀時，GraphQL 更合適；當兩個服務之間需要低延遲串流時，gRPC 或 WebSocket 更合適。
+
+The sentence to remember is: **REST buys you every HTTP tool for free, and charges you in round trips and old contracts you have to keep alive.**
+
+最值得記：**REST 讓你免費得到整套 HTTP 工具，收的錢是多跑的來回，和你得繼續養著的舊合約。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

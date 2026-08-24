@@ -32,6 +32,16 @@ Plainly: one endpoint is one door, the API is the whole building. The API is the
 
 說白了：一個 endpoint 是一扇門，API 是整棟建築。API 是整份契約 —— 所有 endpoint、每個 payload 的格式、錯誤格式、認證機制，以及圍繞它們的所有保證。`GET /users/{id}` 只是這棟建築裡的一扇門，這也是為什麼設計良好的 endpoint 會通往一個清楚的功能，而不是變成一扇門、裡面卻依 body 裡某個欄位分岔成十個不同房間。
 
+## Interview Version
+
+> An endpoint is a specific URL where an API receives requests and returns responses. It is an entry point to one function or resource on the server, and it is defined by the path together with the methods it accepts - so the same path answering GET and POST is really two operations behind one address. Inside the server, the framework's router is what makes an endpoint real: it matches the incoming method and path against a table and calls the handler registered for that pair. Path segments can be variable, so GET /users/{id} is one endpoint that serves every user - request /users/42 and 42 is pulled out and handed to the handler as an argument. The distinction I would draw is between an endpoint and the API: one endpoint is one door, and the API is the whole building. The API is the full contract - every endpoint, the shape of every payload, the error format, the auth scheme, and the guarantees around all of it. That is also the design test: a well-designed endpoint opens onto one clear capability, rather than becoming a single door that branches into ten different rooms depending on a field in the request body.
+
+面試時可回答：endpoint 是一個具體的 URL，API 在那裡接收請求並回傳回應。它是通往伺服器上某一個功能或 resource 的入口，由「路徑」加上「它接受的方法」共同定義 —— 所以同一個路徑同時回應 GET 和 POST，其實是同一個位址背後的兩個操作。在伺服器內部，是框架的 router 讓 endpoint 成真：它拿進來的方法與路徑去比對一張表，然後呼叫為那一組所註冊的 handler。路徑片段可以是變數，所以 GET /users/{id} 是一個服務所有使用者的 endpoint —— 請求 /users/42，42 就會被取出來當成參數交給 handler。我會做的區分是 endpoint 和 API 的差別：一個 endpoint 是一扇門，而 API 是整棟建築。API 是完整的合約 —— 每一個 endpoint、每一份 payload 的形狀、錯誤格式、認證機制，以及圍繞這一切的保證。這也正是設計上的檢驗標準：一個設計良好的 endpoint 通往一個清楚的能力，而不是變成一扇會依 request body 裡某個欄位分岔到十個不同房間的門。
+
+The sentence to remember is: **One endpoint is one door; the API is the whole building - and a good door opens onto exactly one room.**
+
+最值得記：**一個 endpoint 是一扇門，API 是整棟建築 —— 而一扇好的門，只通往一個房間。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

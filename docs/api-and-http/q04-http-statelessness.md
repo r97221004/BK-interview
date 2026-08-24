@@ -57,6 +57,16 @@ others and is not: [Q21](../security-and-auth/q21-session-vs-jwt-authentication.
 on what a signature does, [Q24](../security-and-auth/q24-session-management.md)
 on why the first row logs people out at random.
 
+## Interview Version
+
+> HTTP is stateless: every request is independent, and the server does not automatically know who the client is or what happened in the previous request. Two requests arriving a second apart from the same browser look, to the protocol, like two unrelated strangers. That is a property of the protocol, not a claim that applications have no state - it is not that your app has no memory, it is that HTTP refuses to be the one holding it, so someone else has to. Connection reuse does not undo it either: keeping a TCP connection open is a transport optimisation, and the server still remembers nothing between exchanges. So login state, a cart, or preferences have to be managed explicitly - a cookie holding a session ID that points at server-side data, a signed token such as a JWT carrying the claims in the request, or state on the client, which only works if it is signed, because anything the client holds unsigned is something the client can rewrite, starting with its own role. The payoff is that any instance can serve any request, provided the state really did leave the process: put sessions in one server's memory and you have taken it back, pinning that user to that machine. With state in a shared store or in the request, you can put ten servers behind a load balancer, restart one during a deploy, or add three during a surge without breaking an in-flight user. The cost is that the context is repaid on every request - credentials re-verified, the lookup done again - so statelessness buys elasticity and pays for it in repeated work.
+
+面試時可回答：HTTP 是無狀態的：每個請求都獨立，伺服器不會自動知道客戶端是誰、上一個請求發生了什麼。同一個瀏覽器相隔一秒送來的兩個請求，在協定眼中就像兩個毫無關係的陌生人。這是協定的性質，不是在說應用程式沒有狀態 —— 不是你的應用沒有記憶，而是 HTTP 拒絕當那個負責記住的人，所以得由別人來記。連線重用也不會改變這一點：把一條 TCP 連線開著是傳輸層的最佳化，伺服器在兩次交換之間仍然什麼都不記得。所以登入狀態、購物車、偏好設定都必須明確管理 —— 用一個裝著 session ID 的 cookie 指向伺服器端資料、用像 JWT 這樣的簽章 token 把 claim 帶在請求裡，或是把狀態完全放在客戶端（這只有在有簽章時才成立，因為客戶端手上任何沒簽章的東西，客戶端都能改寫，從它自己的角色開始改）。回報是：任何一台實例都能服務任何請求 —— 前提是狀態真的離開了行程。把 session 放進某一台伺服器的記憶體，就等於把它收了回來，那位使用者從此被釘在剛好服務他的那台機器上。狀態放在共用儲存或請求本身，你就能在 load balancer 後面放十台伺服器、在部署時重啟其中一台、或在流量高峰時再加三台，而不會弄壞任何一個進行中的使用者。代價是每個請求都要重付一次情境成本 —— 憑證重新驗證、查詢重做一次 —— 所以 statelessness 買到的是彈性，付出的是重複的工。
+
+The sentence to remember is: **It is not that your app has no memory - it is that HTTP refuses to hold it, so any instance can serve any request.**
+
+最值得記：**不是你的應用沒有記憶，而是 HTTP 拒絕替你記 —— 於是任何一台實例都能服務任何請求。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

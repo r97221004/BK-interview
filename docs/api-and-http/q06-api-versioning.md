@@ -49,6 +49,16 @@ The part that actually decides whether versioning works is operational. Version 
 | **Pros** | Clear, simple, easy to test/debug | Clean URLs, easier to evolve versions internally |
 | **Cons** | Can lead to many routes and code duplication | Less visible, requires backend logic for version handling |
 
+## Interview Version
+
+> Versioning is about changing an API without breaking existing clients, so the first question is always whether a new version is needed at all - adding an optional field, adding an endpoint, or accepting a new value are backwards compatible and need nothing. A version is for breaking changes: removing or renaming a field, tightening validation, or changing what a status code means. The first mechanism puts the version in the URL, /api/v1/users today and /api/v2/users once you need to break the contract. It is completely visible - you can see it in a log line, a browser bar, and a support ticket, and a gateway can route versions to different backends without reading the body. The cost is route sprawl and duplicated handlers, and it is the right default for public APIs with clients you do not control. The second puts it in a header such as api-version: 2, so the URL stays clean and one handler branches internally. It is easier to evolve because a client sets the header once in its shared HTTP layer, but the version becomes invisible while debugging and a client that forgets it silently gets the default - usually acceptable inside a system where you own both sides. In one line: URL versioning is what you show a stranger, header versioning is what you agree with a teammate. What actually decides whether versioning works is operational: version the contract as a whole rather than per endpoint, publish a deprecation window with a date, announce it in a response header, and track per-version traffic so you can prove the old one is unused before removing it. Without that last step you never retire anything.
+
+面試時可回答：版本控制的核心是「在不弄壞既有客戶端的前提下改變 API」，所以第一個問題永遠是：真的需要一個新版本嗎？加一個選填欄位、加一個 endpoint、接受一個新的值，這些都是向後相容的，什麼都不用做。版本是留給破壞性變更的：移除或改名欄位、收緊驗證，或改變某個狀態碼的意義。第一種機制是把版本放在 URL 裡，今天是 /api/v1/users，需要破壞合約時就變成 /api/v2/users。它完全可見 —— 你在日誌行、瀏覽器網址列、客服工單裡都看得到，而且 gateway 不必讀 body 就能把不同版本路由到不同後端。代價是路由膨脹和重複的 handler，而它是「客戶端不在你掌控中的公開 API」的正確預設。第二種是把版本放在標頭裡，例如 api-version: 2，這樣 URL 保持乾淨，由同一個 handler 在內部分岔。它比較好演進，因為客戶端只要在共用的 HTTP 層設定一次標頭；但版本在除錯時變得看不見，而忘了帶標頭的客戶端會無聲地拿到預設版本 —— 在兩邊都由你掌控的系統裡，這個取捨通常可以接受。一句話：URL 版本是你拿給陌生人看的，標頭版本是你和隊友之間的約定。真正決定版本控制成不成功的是維運面：以「整份合約」為單位訂版本，而不是每個 endpoint 各自一套；公布帶日期的淘汰期；用回應標頭宣告它，讓客戶端團隊在自己的日誌裡看到；並且追蹤各版本的流量，好在移除前證明舊版已經沒人用。少了最後這一步，你永遠淘汰不掉任何東西。
+
+The sentence to remember is: **Only break the contract when you must - and then version the whole contract, with a date and traffic you can prove is gone.**
+
+最值得記：**非不得已才破壞合約 —— 而破壞時，要對整份合約訂版本，配上一個日期，和一份你證明得了已歸零的流量。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

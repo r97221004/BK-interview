@@ -50,6 +50,16 @@ Comments explain **why**, never **what** - the code already says what it does.
 The standard to hold it to: can the next engineer to open this file - often you,
 six months from now, with no memory of the context - change it confidently?
 
+## Interview Version
+
+> The foundation is structure. I write modular code where each function or class has a single clear responsibility, so a reader can understand one piece without holding the rest in their head, and so changing one behaviour touches one place. That means keeping boundaries explicit - business logic separated from the HTTP layer and from the database layer - because when those blur, every change starts rippling and testing anything in isolation becomes impossible. On top of that come the conventions that make reading fast. I follow PEP 8 so formatting is never a discussion, use type hints so a signature says what it takes and returns without reading the body, and write docstrings for anything whose purpose is not obvious from the name. Comments I reserve for why rather than what - the code already says what it does, and a comment explaining a non-obvious decision or a workaround is worth far more than one narrating the next line. Enforcing the formatter and linter in CI matters more than the specific rules, because consistency is the actual benefit. The last part is what makes change safe: unit tests so a refactor is verified rather than hoped for, error handling and logging consistent across the system so a failure looks the same wherever it happens, and refactoring regularly in small steps instead of letting technical debt accumulate into a rewrite. The way I judge all of it is by asking whether the next engineer to open this file - often me in six months, with no memory of the context - can understand it and change it confidently.
+
+面試時可回答：基礎是結構。我寫模組化的程式碼，讓每個函式或類別只有一個清楚的職責，這樣讀的人不必把其他部分都裝在腦子裡就能理解其中一塊，而改變一個行為也只需要動一個地方。這意味著要讓邊界明確 —— 商業邏輯和 HTTP 層、和資料庫層分開 —— 因為一旦這些界線模糊了，每個改動都會開始擴散，而要單獨測試任何東西都變得不可能。在這之上是那些讓閱讀變快的慣例。我遵循 PEP 8，讓格式永遠不需要拿出來討論；使用型別註記，讓一個簽章不必讀函式本體就說清楚它收什麼、回什麼；並為那些光看名字看不出用途的東西寫 docstring。註解我留給「為什麼」而不是「做什麼」—— 程式碼已經說了它在做什麼，而一個解釋非顯而易見的決定或權宜之計的註解，價值遠高於一個複述下一行的註解。在 CI 裡強制執行格式化工具和 linter，比具體規則是什麼更重要，因為真正的好處是一致性。最後一部分是讓改動變安全的東西：單元測試，讓重構是被驗證過的而不是祈禱來的；整個系統一致的錯誤處理與日誌，讓失敗無論發生在哪裡看起來都一樣；以及定期以小步重構，而不是任由技術債累積成一次重寫。我判斷這一切的方式，是問下一個打開這個檔案的工程師 —— 通常是六個月後、對當時脈絡毫無記憶的我自己 —— 能不能理解它、並有信心地改動它。
+
+The sentence to remember is: **The test is whether the next person to open this file - often you in six months - can change it confidently.**
+
+最值得記：**檢驗標準是：下一個打開這個檔案的人 —— 通常是六個月後的你 —— 能不能有信心地改動它。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

@@ -28,6 +28,16 @@ The spoken version, complete and correct on its own. Use three or four short Eng
 
 Optional, and only when there is genuinely something to look up: a comparison table, a code sample, a set of headers. It sits after the spoken answer because a table is not something you say out loud, and it is exempt from the bilingual paragraph rules - `check.py` requires only that it contains a table or a fenced code block. Leave the section out entirely when the answer has nothing to tabulate.
 
+## Interview Version
+
+> The whole answer condensed into one English paragraph you could say end to end - the mechanism, one concrete example, and the practical consequence. This is what you reread on the way to the interview, so it must stand alone without the sections above.
+
+面試時可回答：意思相同的繁體中文一段，同樣是可以一口氣講完的完整回答。
+
+The sentence to remember is: **the one line that carries the whole answer - a slogan, an analogy, or the trade-off in a single clause.**
+
+最值得記：**同一句話的繁體中文版本。**
+
 ---
 
 <!-- Navigation footer - tools/build.py generates this in README importance order,

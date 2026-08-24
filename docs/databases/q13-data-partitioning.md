@@ -46,6 +46,16 @@ The whole thing lives or dies on the partition key, which has to match how you a
 | **Horizontal** | List Partitioning | Split rows on discrete values. | Partition by region: Asia, Europe, America | Categorized datasets |
 | **Horizontal, across servers** | Sharding | Horizontal partitioning taken across separate database servers instead of within one. | Users 1–1M on `db1`, users 1M–2M on `db2` | Write volume that has outgrown a single machine |
 
+## Interview Version
+
+> Partitioning is splitting a large dataset into smaller, more manageable pieces, and it buys two things: queries touch less data, because the planner can eliminate every partition that cannot contain a matching row, and the pieces can sit on different disks or servers, so load spreads instead of concentrating on one hot table. The first split is vertical - move columns into a separate table, so a wide row becomes two narrow ones, which helps when different columns are read on different paths. The other is horizontal, which divides rows, in three flavours. Range partitioning splits on value ranges, such as orders by quarter, and suits time-series data. Hash partitioning applies a hash to the key and takes the remainder, distributing evenly when keys have no natural ordering. List partitioning splits on discrete values such as region. Sharding is horizontal partitioning taken across separate database servers rather than within one, and it is the only way to scale writes beyond a single machine - partitioning inside one server is mostly a query-performance and maintenance tool, while sharding is a capacity decision with much larger consequences. The whole thing lives or dies on the partition key, which has to match how you actually query: partition orders by date and a monthly report reads one partition; partition them by customer and the same report reads all of them. A skewed key produces a hot partition that receives most of the traffic and undoes the benefit entirely. And be honest about the costs - cross-partition queries get slower, a unique constraint across all partitions is hard or impossible, cross-shard joins and transactions may not exist, and repartitioning later is a migration, not a setting.
+
+面試時可回答：分區是把一個大型資料集切成較小、較好管理的片段，它買到兩件事：查詢碰到的資料變少，因為查詢規劃器可以排除掉每一個不可能含有符合列的分區；而這些片段可以放在不同磁碟或不同伺服器上，於是負載被分散，而不是集中在一張很熱的表上。第一種切法是垂直的 —— 把欄位搬到另一張表，讓一列很寬的資料變成兩列窄的，這在不同欄位會被不同路徑讀取時很有用。另一種是水平的，切的是「列」，有三種形式。range 分區依值的範圍切，例如訂單按季分開，適合時間序列資料。hash 分區對鍵做雜湊再取餘數，在鍵沒有自然排序時能分布得很平均。list 分區則依離散的值切，例如地區。sharding 是把水平分區跨到不同的資料庫伺服器上，而不是在同一台裡面切，而且它是把寫入擴展到超越單一機器的唯一方法 —— 在單台伺服器內做分區，主要是查詢效能與維護的工具，sharding 則是一個後果大得多的容量決策。整件事的成敗全繫於分區鍵，而它必須符合你「實際上怎麼查」：把訂單按日期分區，一份月報只讀一個分區；改成按客戶分區，同一份報表就要讀遍所有分區。一個分布傾斜的鍵會造出一個接收大部分流量的熱分區，把好處完全抵銷掉。也要誠實面對成本 —— 跨分區的查詢會變慢、跨所有分區的唯一性約束很難甚至做不到、跨 shard 的 join 和交易可能根本不存在，而事後重新分區是一次資料遷移，不是改個設定。
+
+The sentence to remember is: **Pick the partition key wrong and you have not partitioned anything - every query still touches every piece.**
+
+最值得記：**分區鍵挑錯，你就等於什麼都沒分 —— 每個查詢還是碰到每一塊。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

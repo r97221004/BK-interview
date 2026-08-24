@@ -99,6 +99,16 @@ Presigned upload, four steps:
 
 Object storage · presigned URL · server-side validation · size limit · generated filename · authorization
 
+## Interview Version
+
+> I would split it into file size, validation, security, storage, and the flow for large files. The baseline is: the browser posts multipart form data over HTTPS, the backend validates it, the file goes into object storage such as S3, and the database keeps only metadata - the original filename, the storage key, content type, size, owner, and timestamp. I would not put the file in the database, because blobs make every backup and restore drag the full weight of every file with them, while object storage grows without you managing disks, serves a CDN directly, and applies lifecycle rules on its own. Validation is server-side, always, and the thing you especially cannot trust is the extension: an attacker renames malware.exe to photo.jpg and nothing about the file has changed, so I check size, allowlist the type, and read the magic bytes rather than believing the declared content type. I never store a file under the name the user gave me either - a filename of ../../etc/passwd meeting string concatenation is path traversal - so the storage key is a UUID I generate and the original name is metadata only. For anything large, the bytes should not pass through the backend at all: a 2 GB upload means receiving 2 GB and sending 2 GB, paid for twice, holding a worker throughout. Instead the backend issues a short-lived presigned URL and the browser uploads straight to storage, then reports back so the metadata is recorded. For very large files, multipart or resumable uploads mean a 5 GB file goes as parts, so a failure retries one part, not the whole thing. And on the way back down, a private file gets a signed URL that expires in minutes, never a permanently public bucket URL.
+
+面試時可回答：我會把它拆成檔案大小、驗證、安全性、儲存方式，以及大檔的流程。基本形狀是：瀏覽器透過 HTTPS 送出 multipart 表單資料，後端驗證，檔案進到像 S3 這樣的物件儲存，而資料庫只留中繼資料 —— 原始檔名、storage key、內容型別、大小、擁有者和時間戳。我不會把檔案放進資料庫，因為 blob 會讓每一次備份和還原都拖著所有檔案的全部重量走；物件儲存則是容量自己長、不用你管磁碟，能直接供給 CDN，也能自己套用生命週期規則。驗證一定在伺服器端，而最不能信的就是副檔名：攻擊者把 malware.exe 改名成 photo.jpg，這個檔案本身沒有任何改變，所以我會檢查大小、用白名單限制型別，並讀取 magic bytes，而不是相信宣告的內容型別。我也絕不會用使用者給的名稱存檔 —— 一個叫 ../../etc/passwd 的檔名碰上字串串接就是路徑穿越 —— 所以 storage key 是我自己產生的 UUID，原始檔名只當中繼資料。只要檔案夠大，位元組就根本不該經過後端：一個 2 GB 的上傳代表要收 2 GB 再送 2 GB，付兩次錢，而且整段期間佔住一個 worker。正確做法是後端簽發一個短效的 presigned URL，瀏覽器直接把檔案傳到儲存服務，傳完再回報，讓中繼資料被記下來。面對真正的大檔，multipart 或可續傳上傳讓 5 GB 是以多個 part 上去的，於是失敗時重試的是一個 part，而不是整個檔案。而在下載方向，私人檔案拿到的是一個幾分鐘後就過期的 signed URL，絕不是一個永久公開的 bucket 網址。
+
+The sentence to remember is: **The backend issues the passes and never carries the boxes - it decides who may upload and what is allowed, object storage moves the bytes.**
+
+最值得記：**後端只發通行證，永遠不扛箱子 —— 它決定誰可以上傳、可以上傳什麼，位元組交給物件儲存搬。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

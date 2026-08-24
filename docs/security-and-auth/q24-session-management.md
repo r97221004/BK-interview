@@ -36,6 +36,16 @@ In RESTful APIs the usual choice is a token instead, because REST is meant to be
 
 在 RESTful API 中通常改用 token，因為 REST 的設計就是無狀態的。客戶端不再依賴伺服器保存 session 資料，而是每個請求都帶著一個簽章 token，任何一台實例都能獨立驗證。這消除了對中央 session 儲存的依賴，也讓水平擴充更單純，代價是無法在 token 過期前撤銷它 —— 這正是 session 與 JWT 那一題所討論的取捨。
 
+## Interview Version
+
+> Session management is how the server keeps track of a user across multiple requests. At login the backend creates a session and generates a unique session ID for it, and the session record holds whatever the server needs to recognise them later - the user ID, their roles, when it was created, when it expires. That record is stored somewhere: in the application's memory, in a database, or in a fast shared store such as Redis. The ID is sent to the client, almost always in a cookie, which the browser saves and attaches automatically to every later request. On each request the server reads the ID, looks up the matching session, and now knows who is calling. Eventually the session ends - it times out, or it is deleted at logout, and the server discards the data. The detail that separates a textbook answer from a working one is where that record lives. Keeping sessions in the application process works until there are two processes: the load balancer sends the next request to the other instance, the lookup fails, and the user is logged out at random. The fixes are sticky sessions, which pin a user to one instance and lose that session whenever it restarts, or a shared store such as Redis, which is the normal answer because it keeps every instance interchangeable and survives a deploy. Alongside that, the cookie should be HttpOnly so scripts cannot read the ID, Secure so it only travels over HTTPS, and SameSite to blunt cross-site requests, and the ID should be regenerated on login so a pre-set ID cannot be fixated. In RESTful APIs the usual choice is a token instead, which removes the dependency on a central store at the cost of not being able to revoke it before it expires.
+
+面試時可回答：session 管理就是伺服器如何在多個請求之間持續認得同一個使用者。登入時後端建立一個 session 並為它產生一個唯一的 session ID，而那筆 session 紀錄裡放著伺服器之後認人所需要的東西 —— 使用者 ID、他的角色、建立時間、到期時間。那筆紀錄會被存在某個地方：應用程式的記憶體、資料庫，或像 Redis 這樣快速的共用儲存。ID 會被送到客戶端，幾乎總是放在 cookie 裡，瀏覽器把它存起來並自動附加到之後每一個請求上。每個請求進來時，伺服器讀出那個 ID、查出對應的 session，於是就知道是誰在呼叫。最後這個 session 會結束 —— 逾時，或在登出時被刪除，伺服器把資料丟棄。區分「教科書答案」和「能運作的答案」的細節在於那筆紀錄放在哪裡。把 session 放在應用程式行程裡，在只有一個行程時沒問題；一旦有兩個，load balancer 把下一個請求送到另一台實例、查不到、使用者就被隨機登出了。解法是黏著式 session（把使用者釘在某一台實例上，但那台重啟時該 session 就沒了），或是像 Redis 這樣的共用儲存 —— 後者是正常答案，因為它讓每台實例都可互換，也撐得過一次部署。除此之外，cookie 應該設 HttpOnly 讓腳本讀不到 ID、設 Secure 讓它只走 HTTPS、設 SameSite 來削弱跨站請求；而且 ID 應該在登入時重新產生，讓事先設定好的 ID 無法被固定利用。在 RESTful API 中通常改用 token，這移除了對中央儲存的依賴，代價是無法在它過期前撤銷。
+
+The sentence to remember is: **A session in one process's memory is a login that dies at the next deploy - put it in a shared store and every instance is interchangeable.**
+
+最值得記：**放在單一行程記憶體裡的 session，是一個下次部署就會死掉的登入 —— 放進共用儲存，每台實例才可以互換。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

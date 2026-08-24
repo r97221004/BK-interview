@@ -58,6 +58,16 @@ code and obvious in the query log. Then `EXPLAIN` the slow one to see whether it
 uses an index or scans, and check the database's own slow-query log to find what
 is really costing time rather than what you assumed was.
 
+## Interview Version
+
+> The method comes first. I try to reproduce the problem reliably, because a bug I cannot trigger on demand cannot be verified as fixed. Then I narrow it down - which component, which request, which layer: is this the application, the database, or a downstream dependency? A useful habit is to check what changed recently, since a deploy, a config change, or a data change explains a large share of problems that appear suddenly. Only once the surface is small do I start reading code. Locally I use the debugger built into the editor, setting breakpoints and stepping through the path in question, which is almost always faster than adding print statements and rerunning. In staging and production a debugger is not an option, so the answer is observability - being able to ask new questions of a running system without shipping code to answer them. Structured logging is the foundation, and the single thing that makes it work is a request or correlation ID attached to every line and propagated across services, so one user's failing request can be followed end to end instead of guessed at from interleaved output. On top of that, metrics and dashboards show error rates, latency percentiles, and saturation, which is how you tell a single broken request apart from a system-wide degradation. For database problems the approach is more specific: look at the actual SQL being issued, which for an ORM means logging the generated queries, because the N+1 problem is invisible in the application code and obvious in the query log. Then run EXPLAIN to see whether it uses an index or scans, and check the slow-query log to find which statements actually cost time rather than the ones you assumed. Once the cause is found, the last step is a test that reproduces it.
+
+面試時可回答：方法先於工具。我會試著穩定地重現問題，因為一個我無法隨時觸發的 bug，也無法驗證它被修好了。接著我把範圍收窄 —— 哪個元件、哪個請求、哪一層：這是應用程式、資料庫，還是某個下游依賴？一個有用的習慣是去看最近改了什麼，因為部署、設定變更或資料變更，解釋了很大一部分「突然出現」的問題。只有在範圍夠小之後，我才開始讀程式碼。在本機我用編輯器內建的除錯器，設中斷點、單步走過那條路徑，這幾乎總是比加 print 再重跑快。在測試環境和正式環境，除錯器不是選項，所以答案是可觀測性 —— 能夠對一個正在運行的系統提出新問題，而不必為了回答它而部署新程式碼。結構化日誌是基礎，而讓它真正有用的關鍵只有一件事：一個附加在每一行、並且跨服務傳遞的 request ID 或 correlation ID，這樣一個使用者失敗的請求就能被從頭到尾追下去，而不是從交錯的輸出裡用猜的。在這之上，指標和儀表板顯示錯誤率、延遲的百分位數和飽和度，那是你分辨「單一壞掉的請求」和「全系統降級」的方式。對資料庫相關的問題，做法更具體：去看實際發出的 SQL，對 ORM 來說就是把產生的查詢記錄下來，因為 N+1 問題在應用程式碼裡看不見、在查詢日誌裡卻一目了然。接著跑 EXPLAIN 看它用了索引還是在掃描，並檢查慢查詢日誌，找出真正花時間的語句，而不是你以為的那些。找到原因之後，最後一步是寫一個能重現它的測試。
+
+The sentence to remember is: **A bug you cannot trigger on demand cannot be verified as fixed - reproduce first, narrow second, read code last.**
+
+最值得記：**一個你無法隨時觸發的 bug，也無法驗證它修好了 —— 先重現、再收窄範圍，最後才讀程式碼。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

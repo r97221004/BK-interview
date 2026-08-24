@@ -52,6 +52,16 @@ Operationally, migrations live in version control alongside the code, run throug
 Steps 5 and 6 belong in separate deploys: once the old column is dropped, a
 rollback to step 4 has nothing to read.
 
+## Interview Version
+
+> The constraint that shapes everything is that a deploy is not atomic. While instances are being replaced, the old version and the new version are both serving traffic against the same database, so the schema has to satisfy both at once - any migration only valid for the new code breaks every request still handled by the old code, and a rollback puts you in the same situation from the other direction. That is why the pattern is expand and contract, in separate deploys. Renaming a column is the standard example and it is never one statement. First expand: add the new column, which is additive and safe because the old code ignores it. Then deploy code that writes to both and still reads the old one. Then backfill existing rows in batches. Then deploy code that reads the new column. Only once nothing references the old column, and you have waited long enough that a rollback would not need it, do you contract by dropping it. Four or five deploys to rename a column feels excessive until the first time you do it in one and take the site down. The other half is locking, which is what turns a migration into an incident. Adding a nullable column without a default is milliseconds on modern PostgreSQL and MySQL regardless of table size, but adding one with a default, changing a type, or adding a constraint can rewrite every row - so on a ten-million-row table that simple-looking ALTER TABLE holds an exclusive lock for ten minutes, and every query behind it queues for the same ten minutes. Build indexes concurrently, set a short lock timeout so a migration fails fast instead of blocking production, and backfill in batches with a pause rather than one enormous UPDATE.
+
+面試時可回答：形塑一切的限制是：部署不是原子的。在實例被逐一替換的期間，舊版本和新版本會同時對著同一個資料庫服務流量，所以 schema 必須同時滿足兩者 —— 任何只對新程式碼有效的遷移，都會弄壞每一個還由舊程式碼處理的請求；而回滾則會從另一個方向把你放回同樣的處境。這正是為什麼模式是「擴張與收縮」，而且分成不同次部署。改欄位名稱是標準例子，而它從來不是一道語句。先擴張：新增那個新欄位，這是加法的、對舊程式碼是安全的，因為舊程式碼會直接忽略它。接著部署一版「同時寫兩個欄位、但仍然讀舊的」的程式碼。然後分批回填既有的資料列。再部署一版「讀新欄位」的程式碼。只有在沒有任何東西再引用舊欄位、而且你已經等得夠久、久到回滾也不會需要它時，才收縮、把它刪掉。為了改一個欄位名稱要部署四、五次，聽起來很誇張 —— 直到你第一次用一次部署搞定它、然後把網站弄掛。另一半是鎖，那才是把一次遷移變成一起事故的東西。在現代 PostgreSQL 和 MySQL 上，新增一個沒有預設值的可空欄位是毫秒等級，跟表格大小無關；但新增一個帶預設值的欄位、改型別、或加上約束，可能會重寫每一列 —— 於是在一張一千萬列的表上，那個看起來很單純的 ALTER TABLE 會持有獨占鎖十分鐘，而排在它後面的每一個查詢，也就一起排隊十分鐘。用 concurrently 建索引、設定一個短的 lock timeout 讓遷移快速失敗而不是卡住正式環境，並且分批回填、中間留間隔，而不是跑一個巨大的 UPDATE。
+
+The sentence to remember is: **Never change a live column in place - add, dual-write, backfill, switch, then remove, each as its own deploy.**
+
+最值得記：**絕不原地改動一個上線中的欄位 —— 新增、雙寫、回填、切換、再移除，每一步各自一次部署。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

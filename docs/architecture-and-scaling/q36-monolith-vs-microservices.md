@@ -86,6 +86,16 @@ Extract one service along a domain boundary, when there is a reason
 
 Not: day one → twenty services → no traffic.
 
+## Interview Version
+
+> I would not choose microservices by default. What I would look at is system complexity, team size, deployment needs, and whether different parts genuinely need to scale independently. Take a new e-commerce system with user, order, payment, and product: with three to five engineers I would build that as one deployable unit - one repo, one pipeline, modules talking through function calls, a transaction across three tables that is still one commit, and a stack trace that answers what went wrong for free. Splitting early is where the cost shows up, because you have converted function calls into network calls. A function call is turning to the colleague at the next desk - you get an answer or an exception, and either way you know. A network call is posting a letter: it can get lost, arrive twice, or the reply can go missing after the work was already done, so you cannot tell whether it happened. Concretely, charging a card used to either return or raise; as an HTTP call it can time out after the card was already charged, and now your retry is a double charge unless you built idempotency keys. Across a system, splitting also adds service discovery, retries and timeouts everywhere, distributed tracing to replace the stack trace, a message queue, deployment coordination, and compensating actions because there is no cross-service rollback. Now change the picture: six services, three teams, and recommendation taking twenty times the traffic of payment. Now it pays for itself - order runs three replicas, payment five, recommendation fifty, and one team ships recommendation v2 this afternoon without redeploying anything anyone else owns. So my default is a modular monolith, and I extract a service along a domain boundary when there is a reason.
+
+面試時可回答：我不會預設選微服務。我會看的是系統複雜度、團隊規模、部署需求，以及不同部分是不是真的需要獨立擴展。以一個新的電商系統為例，有 user、order、payment、product：如果團隊只有三到五個人，我會把它做成一個可部署單位 —— 一個 repo、一條 pipeline、模組之間用函式呼叫溝通、跨三張表的交易仍然只是一次 commit，而且一份堆疊追蹤就免費回答了「哪裡出錯」。太早拆就是成本現形的地方，因為你把函式呼叫換成了網路呼叫。函式呼叫像轉頭問隔壁桌的同事 —— 你不是得到答案就是得到例外，無論哪種你都知道結果。網路呼叫則像寄一封信：可能寄丟、可能寄到兩份，也可能對方做完了但回信在路上不見了，於是你根本無從判斷到底做了沒。具體地說，刷一張卡原本不是回傳就是拋例外；一旦變成 HTTP 呼叫，它可能在卡片已經扣款之後才逾時，而這時你的重試就是重複扣款 —— 除非你已經做好 idempotency key。放大到整個系統，拆分還會帶來服務發現、到處都要的重試與逾時、用來取代堆疊追蹤的分散式追蹤、訊息佇列、部署協調，以及帶補償動作的流程，因為跨服務沒有 rollback。現在換個場景：六個服務、三個團隊，而 recommendation 的流量是 payment 的二十倍。這時它就回本了 —— order 跑三個 replica、payment 五個、recommendation 五十個，而某個團隊今天下午就能把 recommendation v2 上線，完全不必重新部署任何別人負責的東西。所以我的預設是模組化單體，並在有理由時沿著領域邊界抽出一個服務。
+
+The sentence to remember is: **Microservices buy team autonomy and independent scaling, and charge distributed-system complexity - so only buy when you can name who is paying for it.**
+
+最值得記：**微服務買到的是團隊自治和獨立擴展，收的是分散式系統複雜度 —— 所以只在你講得出「是誰在付這筆錢」的時候才買。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

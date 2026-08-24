@@ -36,6 +36,16 @@ Then decide what the user sees, because the point of all this is to stay partly 
 
 接著決定使用者看到什麼，因為做這一切的目的是「部分還活著」而不是「整個倒下」。不是每個相依服務都是關鍵的：如果推薦服務不可用，就提供沒有推薦區塊的頁面；如果快取掛了，就去讀資料庫、慢一點。把每個相依服務隔離在自己的連線池或 worker 上限之內 —— 也就是艙壁的概念 —— 可以避免單一個慢速串接吃光你所有的容量。並且讓降級是可見的：把它記錄下來、計數，並在熔斷器打開時告警，因為一個會靜默關掉某個功能的系統，就是那種一整週都沒人發現的系統。四個步驟濃縮成記憶口訣：逾時避免一次呼叫卡到天荒地老、帶退避的重試處理短暫的抖動、熔斷器阻止你一直往牆上撞、降級則讓網站在某個房間關燈時其餘地方還亮著。
 
+## Interview Version
+
+> Start with timeouts, because a missing timeout is the single most common cause of a cascading outage. A call with no deadline does not fail when the dependency is slow - it waits, holding a worker or a connection the whole time. Enough of those and the pool is exhausted, at which point your service is down even though nothing in it is broken. So every outbound call gets an explicit connect and read timeout, chosen from the dependency's real latency rather than left at the library default, which is very often infinite. Retries come next, with two conditions. The operation has to be safe to repeat, meaning idempotent, or a retry on a payment double-charges. And the retry has to back off exponentially with jitter, because synchronised retries from every client turn a struggling dependency into a dead one. Retries also have to be bounded across the whole call chain rather than per hop, since three services each retrying three times is twenty-seven requests for one user action. A circuit breaker is what stops you retrying into a wall: it watches the failure rate, and once that crosses a threshold it opens, so subsequent calls fail immediately without touching the network, which frees your workers and gives the failing service room to recover. Failing fast is better than failing slowly - it converts a timeout that costs a worker thirty seconds into an error you handle in a millisecond. Then decide what the user sees, because the point is to stay partly up rather than fully down: if recommendations are unavailable, serve the page without them; if a cache is down, go to the database and be slower. And make the degradation visible, because a system that silently drops a feature is one where nobody notices for a week.
+
+面試時可回答：從逾時開始，因為「沒有設逾時」是連鎖故障最常見的單一原因。一個沒有期限的呼叫，在依賴變慢時並不會失敗 —— 它會等，而且整段期間都佔著一個 worker 或一條連線。這種情況一多，池子就被榨乾，那一刻你的服務就掛了，儘管它裡面沒有任何東西壞掉。所以每一個對外呼叫都要有明確的連線逾時與讀取逾時，而且要根據那個依賴的真實延遲來訂，不要留在函式庫的預設值 —— 那個預設值往往是無限。接著是重試，附帶兩個條件。這個操作必須可以安全地重複，也就是冪等，否則對付款的一次重試就是重複扣款。而且重試必須採用帶抖動的指數退避，因為所有客戶端同步重試，會把一個苦撐中的依賴直接變成死的。重試也必須有上限，而且是「整條呼叫鏈」的上限而不是每一跳各算 —— 三個服務各重試三次，就是一個使用者動作變成二十七個請求。斷路器則是讓你停止對著一面牆重試的東西：它盯著失敗率，一旦超過門檻就打開，之後的呼叫立刻失敗、完全不碰網路，這釋放了你的 worker，也給那個故障中的服務恢復的空間。快速失敗優於緩慢失敗 —— 它把一個要花掉一個 worker 三十秒的逾時，換成一個你在一毫秒內就能處理的錯誤。然後決定使用者看到什麼，因為這一切的重點是「部分還活著」而不是「整個掛掉」：如果推薦服務不可用，就把頁面在沒有推薦的情況下送出；如果快取掛了，就去打資料庫、慢一點。並且讓降級是看得見的，因為一個會無聲丟掉某個功能的系統，是一個一週後才有人發現的系統。
+
+The sentence to remember is: **Timeout stops one call hanging forever, backoff handles a blip, the breaker stops you hammering a wall, and degradation keeps the site up while one room is closed.**
+
+最值得記：**逾時讓一個呼叫不會永遠掛著，退避處理短暫的抖動，斷路器讓你不再對牆猛捶，而降級讓網站在其中一個房間關閉時仍然開著。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

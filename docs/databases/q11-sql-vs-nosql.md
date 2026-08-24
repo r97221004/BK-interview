@@ -50,6 +50,16 @@ It is worth admitting that the line has blurred. PostgreSQL stores and indexes J
 
 The rows are ordered the way the answer is spoken, with relational first because it is the default you have to be pushed off, not one option among five.
 
+## Interview Version
+
+> SQL databases store data in tables with a predefined schema and explicit relationships, and they follow ACID - which is what lets you move money between two accounts and be certain that either both rows changed or neither did. They also give you a declarative query language with joins, so a question you did not anticipate at design time is still answerable without changing how the data is stored. NoSQL is not one thing; it is at least four families. Document stores such as MongoDB keep nested records and suit data read as one object. Key-value stores such as Redis reach every value through its key. Wide-column stores such as Cassandra are built for enormous write volume across many nodes. Graph databases make relationship traversal the cheap operation. What they share is a flexible or absent schema and a design that assumes scaling out rather than up - and the way they buy that scale is by giving up the two things that are expensive to coordinate across machines: joins, and transactions spanning several records. So the choice comes from the workload. If the data is relational, the access patterns are varied or not yet known, and correctness across rows matters - orders, payments, inventory - relational is the right default. If there is one dominant access pattern, a very high write rate, or records always read whole, a document or wide-column store fits. The trade-off to name out loud is consistency: once copies live on several nodes, a partition forces a choice between refusing the request and answering from a possibly stale replica. And the line has blurred - PostgreSQL indexes JSON well, MongoDB has had multi-document transactions for years - so the honest framing is a spectrum, with relational as the safer default until a requirement pushes you off it.
+
+面試時可回答：SQL 資料庫把資料存在有預先定義 schema、彼此有明確關聯的表格裡，並且遵循 ACID —— 這正是為什麼你可以在兩個帳戶之間轉錢，並確定「兩列都改了，或兩列都沒改」。它們也給你一套帶 join 的宣告式查詢語言，所以一個你在設計時沒預料到的問題，不必改變資料的儲存方式就還是答得出來。NoSQL 不是單一一種東西，它至少是四個家族。像 MongoDB 這樣的 document store 保存巢狀紀錄，適合會被當成一個物件整份讀取的資料。像 Redis 這樣的 key-value store 透過鍵直接取值。像 Cassandra 這樣的 wide-column store 是為了跨多節點的龐大寫入量而生。graph database 則讓關聯走訪變成便宜的操作。它們的共通點是 schema 有彈性或根本沒有，以及「假設向外擴展而不是向上擴展」的設計 —— 而它們買到這種擴展性的方式，是放棄兩件跨機器協調起來很貴的事：join，以及跨越多筆紀錄的交易。所以選擇來自工作負載。如果資料本身是關聯性的、存取模式多樣或還不確定、而且跨列的正確性很重要 —— 訂單、付款、庫存 —— 關聯式資料庫就是正確的預設。如果有一個主導性的存取模式、非常高的寫入速率，或紀錄總是被整份讀取，document 或 wide-column store 更合適。要講出口的取捨是一致性：一旦資料的副本住在好幾個節點上，網路分區就會逼你在「拒絕這個請求」和「用一個可能過期的副本回答」之間二選一。而且界線已經模糊了 —— PostgreSQL 能好好索引 JSON、MongoDB 支援多文件交易也已經好幾年 —— 所以誠實的說法是：這是一道光譜，而關聯式是比較安全的預設，直到某個具體需求把你推離它。
+
+The sentence to remember is: **If the data has to add up across tables, use SQL; if it is already one self-contained blob and you need write speed, NoSQL earns its keep.**
+
+最值得記：**如果資料必須跨表兜得起來，用 SQL；如果它本來就是一團自成一體的東西、而你要的是寫入速度，NoSQL 才划算。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

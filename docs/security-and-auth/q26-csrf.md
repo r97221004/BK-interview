@@ -95,6 +95,16 @@ because a script on your page can just read the token.
 
 The line to remember: CSRF tricks your browser into spending your login state on the attacker's behalf.
 
+## Interview Version
+
+> The mechanism starts with a browser behaviour, not a bug in your code. When any page causes a request to go to a domain, the browser automatically attaches the cookies it holds for that domain - it does not care which site initiated the request. That is convenient when the user navigates your own site, and it is exactly what the attacker uses. So the attack goes like this: the victim is logged into their bank and the session cookie is sitting in the browser. The attacker builds a page containing a hidden form or an image tag whose target is a state-changing endpoint on that bank. The victim visits the attacker's page, which submits the form automatically. The browser sends the request with the victim's session cookie attached, the bank sees a valid authenticated request, and it performs the transfer. Notice that the attacker never reads the response and never steals the cookie - they only need the action to happen. The one-line contrast with XSS is worth memorising because they are asked back to back: CSRF abuses the user's ambient authority, so the attacker cannot read your responses, only cause requests; XSS abuses your output handling, so the attacker gets code running inside your origin and can read everything. And note that XSS defeats every CSRF defence, because a script on your own page can simply read the token. The classic defence is a CSRF token the server issues and checks, which the attacker cannot read across origins. The modern default is the SameSite cookie attribute, which tells the browser not to attach the cookie to cross-site requests at all - Lax, now the default in major browsers, already blocks the cross-site POST this attack depends on. And none of it helps if an endpoint performs a state change in response to a GET.
+
+面試時可回答：這個機制的起點是一個瀏覽器行為，而不是你程式碼裡的錯誤。當任何頁面觸發一個往某網域的請求時，瀏覽器都會自動附上它為該網域保存的 cookie —— 它不在乎是哪個網站發起的。使用者在你自己網站上瀏覽時這很方便，而這也正是攻擊者利用的地方。所以攻擊是這樣進行的：受害者已登入他的銀行，session cookie 就放在瀏覽器裡。攻擊者做一個頁面，裡面有一個隱藏表單或 image 標籤，目標是那家銀行上會改變狀態的 endpoint。受害者造訪攻擊者的頁面，表單自動送出。瀏覽器把請求連同受害者的 session cookie 一起送到銀行，銀行看到的是一個有效且已認證的請求，於是執行了轉帳。請注意：攻擊者從頭到尾沒有讀到回應，也沒有偷到 cookie —— 他只需要那個動作發生。和 XSS 的一句話對照值得背下來，因為它們常被連著問：CSRF 濫用的是使用者的環境權限，所以攻擊者讀不到你的回應，只能促使請求發生；XSS 濫用的是你的輸出處理，所以攻擊者取得在你來源內執行的程式碼，什麼都讀得到。另外要注意：XSS 會擊破所有 CSRF 防禦，因為在你自己頁面上執行的腳本可以直接把 token 讀出來。經典的防禦是伺服器簽發並檢查的 CSRF token，攻擊者無法跨來源讀取它。現代的預設則是 SameSite cookie 屬性，它告訴瀏覽器根本不要把 cookie 附加到跨站請求上 —— 目前主流瀏覽器預設的 Lax，就已經擋住了這個攻擊所依賴的跨站 POST。而如果某個 endpoint 會因為一個 GET 就改變狀態，以上全部都救不了它。
+
+The sentence to remember is: **The attacker never reads your response and never steals the cookie - they only need the action to happen.**
+
+最值得記：**攻擊者從不讀你的回應，也不偷你的 cookie —— 他只需要那個動作真的發生。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

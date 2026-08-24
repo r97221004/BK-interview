@@ -71,6 +71,16 @@ Richardson's maturity model, the usual follow-up:
 | 2 | HTTP methods and status codes carry their standard meanings — where most real APIs sit |
 | 3 | Responses link to the next available actions (HATEOAS) |
 
+## Interview Version
+
+> REST is an architectural style for networked applications, not a protocol and not a data format - which is why returning JSON over HTTP does not by itself make an API RESTful. It is defined by six constraints, and three of them do most of the work. Client-server separation means the two sides share only a contract, so either can be rewritten independently. Statelessness means every request carries everything the server needs, so no request depends on what the same client sent earlier. The uniform interface means resources are nouns identified by URLs and the verbs come from HTTP itself with their standard meanings: GET /users/123 reads and changes nothing, PUT replaces, DELETE removes, and all three are idempotent, while POST and PATCH are not - which is why a retried POST can create a second order. The other constraints, a layered system and cacheability, are what let you insert a proxy or a CDN without either end noticing, because those components already understand the semantics: they are the protocol's, not yours. In practice most APIs called RESTful break at least one constraint, and the honest answer names which one. The one almost everyone skips is HATEOAS, so I would say where I knowingly bend the rules and why, rather than claim full compliance.
+
+面試時可回答：REST 是一種網路應用的架構風格，不是協定也不是資料格式 —— 這正是為什麼「用 HTTP 回 JSON」本身並不會讓一個 API 變成 RESTful。它由六個 constraint 定義，其中三個做了大部分的工作。client-server 分離代表兩邊只共享一份合約，所以任一邊都能獨立改寫。statelessness 代表每個請求都自帶伺服器需要的一切，沒有任何請求依賴同一個客戶端先前送過什麼。uniform interface 代表 resource 是用 URL 指名的名詞，而動詞來自 HTTP 本身、並帶著它們的標準語意：GET /users/123 是讀取、不改變任何東西，PUT 是取代，DELETE 是移除，這三個都是 idempotent，而 POST 和 PATCH 不是 —— 這也是為什麼重試一次 POST 可能會建立第二筆訂單。其餘的 constraint（layered system 與 cacheability）則讓你能插入 proxy 或 CDN 而兩端都不會察覺，因為那些元件本來就懂這套語意：那是協定的語意，不是你的。實務上大多數被稱為 RESTful 的 API 至少違反一條 constraint，誠實的答案是講出違反的是哪一條。幾乎所有人都跳過的是 HATEOAS，所以我會說明自己在哪裡刻意彎了規則、為什麼，而不是宣稱完全合規。
+
+The sentence to remember is: **REST is a set of constraints, not JSON over HTTP - the nouns live in the URL and the verbs belong to HTTP.**
+
+最值得記：**REST 是一組約束，不是「用 HTTP 回 JSON」—— 名詞放在 URL 裡，動詞交給 HTTP。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

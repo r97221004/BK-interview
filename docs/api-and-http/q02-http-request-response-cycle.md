@@ -75,6 +75,16 @@ The blank line is structural rather than cosmetic: it is the only thing marking 
 
 The middle three rows are the whole argument for connection pooling: open a connection per call and you pay the top three on every single request.
 
+## Interview Version
+
+> The client resolves the hostname through DNS and opens a TCP connection, conventionally port 80 for HTTP and 443 for HTTPS. On HTTPS there is then a TLS handshake that negotiates encryption and verifies the certificate before any HTTP bytes move, which is why the first request to a cold host is noticeably slower than the ones after it. The client then sends the request: a method, the URI, the protocol version, headers, and optionally a body. Host is the one header HTTP/1.1 makes mandatory, because the request line usually carries only a path and the server has to know which of its sites you meant. Headers are where most of the interesting behaviour lives - caching, authentication, and content negotiation are all decided there rather than in the path. The server routes the request to a handler, runs the logic, usually hits a database or other services, and builds a response that starts with a status code telling the client how to read everything after it: 2xx succeeded, 3xx go elsewhere, 4xx the request was wrong, 5xx the server failed. Finally the connection is kept open or closed. Since HTTP/1.1 persistent connections are the default, so the handshake is paid once instead of every time, but it is still one exchange at a time - the next request cannot start until the current response finishes, which is head-of-line blocking, and it is why browsers open around six connections per host and why HTTP/2 multiplexes.
+
+面試時可回答：客戶端先透過 DNS 解析主機名稱並開啟 TCP 連線，慣例上 HTTP 用 port 80、HTTPS 用 443。走 HTTPS 的話，在任何 HTTP 位元組移動之前還會有一次 TLS 握手，用來協商加密並驗證憑證 —— 這正是為什麼對一台冷的主機發出的第一個請求，明顯比後續的慢。接著客戶端送出請求：一個方法、URI、協定版本、一組標頭，以及選擇性的 body。Host 是 HTTP/1.1 唯一強制的標頭，因為請求行通常只帶路徑，伺服器必須知道你指的是它託管的哪一個站台。標頭是大部分有趣行為所在之處 —— 快取、認證、內容協商都在那裡決定，而不是在路徑上。伺服器把請求路由到 handler、執行邏輯、通常會打資料庫或其他服務，然後組出一個回應；回應以狀態碼開頭，告訴客戶端該怎麼解讀它後面的一切：2xx 成功、3xx 去別的地方、4xx 請求有問題、5xx 伺服器出錯。最後連線被保持或關閉。從 HTTP/1.1 起持久連線是預設，握手成本只付一次而不是每次都付；但它仍然一次只能進行一個交換 —— 下一個請求要等目前的回應結束才能開始，這就是 head-of-line blocking，也是為什麼瀏覽器對每個主機開大約六條連線、以及 HTTP/2 要做多工的原因。
+
+The sentence to remember is: **One round trip is resolve, connect, handshake, send, handle, respond - and then keep the connection for the next one.**
+
+最值得記：**一次來回就是：解析、連線、握手、送出、處理、回應 —— 然後把連線留給下一次。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

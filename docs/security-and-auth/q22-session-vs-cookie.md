@@ -81,6 +81,16 @@ The one-line link: the session is the state, the cookie is how its ID gets carri
 | `consent=analytics` | No |
 | `token=eyJhbGci...` (JWT) | No - the state is inside the token; see [Q21](q21-session-vs-jwt-authentication.md) |
 
+## Interview Version
+
+> The starting point is that HTTP is stateless, so the server does not automatically remember a user between requests. Both cookies and sessions exist to work around that, but they solve different halves: the cookie is how something gets carried back and forth, and the session is what is being remembered. The cloakroom is the analogy I would reach for. You hand your coat over and get a numbered tag - the tag is tiny, it means nothing to anyone without the matching rack, and you carry it in your pocket. That is the cookie. The coat stays behind the counter where only the staff can reach it, and that is the session. Mechanically, a cookie is a small piece of data stored client-side: the server sets it with a Set-Cookie header, the browser saves it and attaches it automatically to every request to that site - you never write code to send it. A session is state stored server-side, keyed by a session ID, in memory or in a shared store such as Redis. In a typical login the cookie holds nothing but that ID, and the server uses it to look up the real data. One login makes the relationship visible: the user posts credentials, the server creates a session record and answers with Set-Cookie: sid=8f3a; the browser stores that one line and sends it back unasked; the server looks up 8f3a and knows who is calling. On logout the server deletes the record - and that is where the distinction stops being academic, because deleting the session kills the login even though the cookie may still sit in the browser, while clearing the cookie only makes the browser forget the tag.
+
+面試時可回答：起點是 HTTP 無狀態，所以伺服器不會自動在兩次請求之間記得一個使用者。cookie 和 session 都是為了繞過這一點而存在，但它們解決的是不同的一半：cookie 負責「怎麼把東西帶來帶去」，session 負責「被記住的東西是什麼」。我會用寄物處來比喻。你把外套交出去，拿回一張號碼牌 —— 號碼牌很小，對沒有那排掛鉤的人來說毫無意義，而它就放在你口袋裡，那就是 cookie。外套留在櫃檯後面，只有工作人員拿得到，那就是 session。從機制上看，cookie 是存在客戶端的一小段資料：伺服器用 Set-Cookie 標頭設定它，瀏覽器把它存起來，並自動附加在對該網站的每個請求上 —— 你完全不用寫程式碼去送它。session 則是存在伺服器端的狀態，以 session ID 為鍵，放在記憶體或像 Redis 這樣的共用儲存裡。在典型的登入中，cookie 裡除了那個 ID 之外什麼都沒有，伺服器用它去查出真正的資料。一次登入就能把整個關係攤開來看：使用者送出帳密，伺服器建立一筆 session 紀錄並回覆 Set-Cookie: sid=8f3a；瀏覽器把這一行存起來，下次不用人叫就送回去；伺服器拿 8f3a 去查，就知道是誰在呼叫。登出時伺服器刪掉那筆紀錄 —— 而這正是這個區別不再只是紙上談兵的地方：刪掉 session 就終結了登入，即使 cookie 還躺在瀏覽器裡；反之清掉 cookie，只是讓瀏覽器忘了那張號碼牌而已。
+
+The sentence to remember is: **The cookie is the numbered tag in your pocket, the session is the coat behind the counter - one is the transport, the other is the state.**
+
+最值得記：**cookie 是你口袋裡的號碼牌，session 是櫃檯後面的外套 —— 一個是載體，另一個是狀態。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

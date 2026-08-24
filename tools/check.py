@@ -16,6 +16,10 @@ SECTIONS = ["In One Sentence", "Answer Shape", "Full Spoken Answer"]
 # samples - that would otherwise be read aloud badly. It is deliberately exempt
 # from the bilingual paragraph rules, which only govern the spoken sections.
 OPTIONAL_LAST = "Quick Reference"
+# Always the final section: the whole answer condensed into one paragraph you
+# could say end to end, plus the single sentence worth memorising. It is what
+# you reread on the way to the interview, so it sits after everything else.
+INTERVIEW = "Interview Version"
 STATUSES = ["Outline", "Draft", "Review", "Complete"]
 
 NAV = re.compile(r"^---\n\n\| ⬅ Previous", re.M)
@@ -71,10 +75,11 @@ sec = {n: sections(body[n]) for n in nums}
 names = {n: [s for s, _ in sec[n]] for n in nums}
 
 check("all required sections present",
-      [(n, s) for n in nums for s in SECTIONS if s not in names[n]],
+      [(n, s) for n in nums for s in SECTIONS + [INTERVIEW] if s not in names[n]],
       lambda x: "Q%02d missing %s" % x)
 check("sections appear in the expected order",
-      [n for n in nums if names[n] not in (SECTIONS, SECTIONS + [OPTIONAL_LAST])],
+      [n for n in nums if names[n] not in (SECTIONS + [INTERVIEW],
+                                           SECTIONS + [OPTIONAL_LAST, INTERVIEW])],
       lambda n: "Q%02d has %s" % (n, " / ".join(names[n])))
 check("Quick Reference carries a table or a code block",
       [n for n in nums if OPTIONAL_LAST in names[n] and
@@ -92,29 +97,35 @@ def has_cjk(text):
     return bool(re.search(r"[㐀-䶿一-鿿]", text))
 
 
-# The interview format is bilingual and intentionally compact: one English and
-# one Traditional Chinese paragraph for the short sections, then three or four
-# matching paragraph pairs for the complete spoken answer.
+# The interview format is bilingual: one English and one Traditional Chinese
+# paragraph for the short sections, three to seven matching pairs for the
+# complete spoken answer, and exactly two pairs for the Interview Version -
+# the condensed answer, then the sentence worth memorising.
 bad_one_sentence_shape = []
 bad_answer_shape = []
 bad_spoken_shape = []
+bad_interview_shape = []
 bad_language_order = []
 for n in nums:
     text = dict(sec[n])
     one = paragraphs(text.get("In One Sentence", ""))
     shape = paragraphs(text.get("Answer Shape", ""))
     spoken = paragraphs(text.get("Full Spoken Answer", ""))
+    interview = paragraphs(text.get(INTERVIEW, ""))
 
     if len(one) != 2:
         bad_one_sentence_shape.append((n, len(one)))
     if len(shape) != 2:
         bad_answer_shape.append((n, len(shape)))
-    if len(spoken) not in (6, 8):
+    if len(spoken) not in (6, 8, 10, 12, 14):
         bad_spoken_shape.append((n, len(spoken)))
+    if len(interview) != 4:
+        bad_interview_shape.append((n, len(interview)))
 
     for section_name, section_paras in (("In One Sentence", one),
                                         ("Answer Shape", shape),
-                                        ("Full Spoken Answer", spoken)):
+                                        ("Full Spoken Answer", spoken),
+                                        (INTERVIEW, interview)):
         for i, paragraph in enumerate(section_paras):
             expected_cjk = i % 2 == 1
             if has_cjk(paragraph) != expected_cjk:
@@ -124,8 +135,10 @@ check("In One Sentence has one bilingual paragraph pair",
       bad_one_sentence_shape, lambda x: "Q%02d has %d paragraphs" % x)
 check("Answer Shape has one bilingual paragraph pair", bad_answer_shape,
       lambda x: "Q%02d has %d paragraphs" % x)
-check("Full Spoken Answer has three or four bilingual paragraph pairs",
+check("Full Spoken Answer has three to seven bilingual paragraph pairs",
       bad_spoken_shape, lambda x: "Q%02d has %d paragraphs" % x)
+check("Interview Version is one condensed pair plus one memorable pair",
+      bad_interview_shape, lambda x: "Q%02d has %d paragraphs, expected 4" % x)
 check("bilingual paragraphs alternate English then Traditional Chinese",
       bad_language_order, lambda x: "Q%02d %s paragraph %d" % x)
 

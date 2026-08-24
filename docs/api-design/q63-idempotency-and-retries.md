@@ -36,6 +36,16 @@ The honest framing is that you are converting at-least-once delivery into effect
 
 誠實的說法是：你是在把「至少一次交付」轉換成「效果上只發生一次的處理」。在不可靠的網路上你拿不到「剛好一次交付」—— 客戶端永遠有能力把請求送兩次 —— 所以這個保證必須住在處理函式裡，而不是傳輸層裡。這也是為什麼每個佇列消費者都需要具備冪等性，因為佇列同樣是至少一次交付。一個好的收尾是：這是你逐一為每個 endpoint 設計進去的性質，而最需要它的，正是那些「重複一次就很貴」的操作：付款、建立訂單，以及任何會發送給客戶的東西。濃縮成一句：客戶端永遠沒辦法保證只問一次，所以伺服器得保證「問兩次也只算一次」。
 
+## Interview Version
+
+> The problem starts with an ambiguity the client cannot resolve. If a request times out, the client has no way to know whether the server never received it, received it and failed, or completed it successfully and the response was lost on the way back. From where it stands those look identical, so it retries - and if the request was a payment that actually succeeded, the customer is charged twice. You cannot design that retry away, so the endpoint has to be built to absorb it. Some of this comes free from HTTP: GET, PUT, and DELETE are defined as idempotent, because reading twice changes nothing, setting a resource to a given state twice leaves it in that state, and deleting an already-deleted resource still leaves it deleted. POST is the one that is not, because it means create another one - which is exactly why the double-charge problem belongs to POST. For POST, the standard mechanism is an idempotency key: the client generates a unique value, usually a UUID, and sends it in a header, generated once for the logical operation and reused across retries rather than regenerated each attempt. The server records the key before doing the work, and on seeing a key it has already completed it returns the stored original response instead of doing the work again. Two details make it correct rather than approximately correct: the key and the result must be written in the same transaction as the operation, otherwise a crash between them reopens the hole; and concurrent retries need a unique constraint or a lock on the key so the second one waits rather than racing through beside the first. The honest framing is that you are converting at-least-once delivery into effectively-once processing, because you cannot get exactly-once delivery over an unreliable network.
+
+面試時可回答：問題的起點是一個客戶端無法解決的模糊。如果一個請求逾時了，客戶端沒有辦法知道：伺服器根本沒收到、收到了但失敗了、還是成功完成了而回應在回程中弄丟了。從它的位置看，這三種一模一樣，所以它會重試 —— 而如果那個請求是一筆實際上已經成功的付款，客戶就被扣了兩次錢。你沒辦法把那次重試設計掉，所以 endpoint 必須被建造成能吸收它。其中一部分 HTTP 免費給了你：GET、PUT、DELETE 在定義上就是冪等的，因為讀兩次什麼都不會變、把資源設成某個狀態兩次它仍然在那個狀態、刪除一個已經被刪除的資源它仍然是被刪除的。POST 是那個不冪等的，因為它的意思是「再建立一個」—— 這正是為什麼重複扣款這個問題屬於 POST。對 POST 來說，標準機制是 idempotency key：客戶端產生一個唯一值（通常是 UUID）放在標頭裡送出，而且它必須為「那個邏輯操作」產生一次、在多次重試之間重複使用，而不是每次嘗試都重新產生。伺服器在動工之前先記下這個 key，而當它看到一個已經完成過的 key 時，會回傳先前存下來的那個原始回應，而不是再做一次。有兩個細節決定它是「正確」還是「大致正確」：key 和結果必須跟操作本身寫在同一個交易裡，否則在兩者之間當機就重新打開了那個洞；而並行的重試需要對 key 加上唯一性約束或鎖，讓第二個去等待，而不是跟第一個並排衝過去。誠實的說法是：你是在把「至少一次交付」轉換成「實質上恰好一次的處理」，因為在不可靠的網路上，你拿不到「恰好一次交付」。
+
+The sentence to remember is: **The client can never promise to ask only once, so the server has to promise that asking twice only counts once.**
+
+最值得記：**客戶端永遠無法保證只問一次，所以伺服器必須保證：問兩次只算一次。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

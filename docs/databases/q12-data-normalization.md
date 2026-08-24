@@ -43,6 +43,16 @@ In practice 3NF is where most designs stop, and denormalizing back is a legitima
 | **3NF (Third Normal Form)** | Must satisfy 2NF, and **non-key attributes** should **not depend on other non-key attributes** (no transitive dependency). | For example, if `City → ZipCode`, remove ZipCode to a separate table. |
 | **BCNF (Boyce–Codd Normal Form)** | A stronger version of 3NF — every **determinant** (attribute that determines another) must be a **candidate key**. | Used to handle rare edge cases not covered by 3NF. |
 
+## Interview Version
+
+> Normalisation is organising a database to reduce redundancy and improve consistency, by splitting large tables into smaller related ones connected with foreign keys. The reason it matters is anomalies: if a customer's address is copied into every one of their orders, updating the address means updating every row, and any row you miss now contradicts the others. Store each fact once and that entire class of bug disappears - normalisation is really just "do not write the same fact down twice", because two copies of one fact are two chances to disagree. First normal form requires every column to hold an atomic value, so storing a student's courses as the single string "Math, English" breaks it; each course belongs in its own row. Second normal form requires every non-key attribute to depend on the whole primary key - with a composite key of student and course, a student's name depends only on the student half, so it belongs in a separate table. Third normal form goes further: a non-key attribute must not depend on another non-key attribute, so if the city determines the postal code, the postal code moves to its own table. The distinction worth having ready is that 2NF removes partial dependencies on part of a composite key, while 3NF removes transitive dependencies through another non-key column. In practice 3NF is where most designs stop, and denormalising back is a legitimate decision rather than a failure - a read-heavy dashboard joining six tables per page load may be better served by one precomputed row. The rule is to normalise first so the model is correct, then denormalise specific paths where you have measured the cost, knowing you have taken on the job of keeping the copies in step.
+
+面試時可回答：正規化是把資料庫組織起來以減少冗餘、提升一致性，做法是把大表拆成較小的相關表，再用外鍵連起來。它之所以重要，是因為異常：如果客戶的地址被複製到他每一張訂單裡，那更新地址就代表要更新每一列，而任何一列漏掉，它就跟其他列互相矛盾了。把每個事實只存一次，這整類 bug 就消失了 —— 正規化其實就是「同一個事實不要寫兩次」，因為一個事實有兩份副本，就是兩次互相打架的機會。第一正規化要求每個欄位只放一個不可分割的值，所以把學生的課程存成 "Math, English" 這一個字串就違反了它；每一門課都該有自己的一列。第二正規化要求每個非鍵屬性都要依賴「整個」主鍵 —— 在「學生 + 課程」的複合鍵下，學生的名字只依賴學生那一半，所以它屬於另一張表。第三正規化再進一步：非鍵屬性不能依賴另一個非鍵屬性，所以如果城市決定了郵遞區號，郵遞區號就該搬到自己的表去。值得準備好的區分是：2NF 消除的是對複合鍵「部分」的依賴，3NF 消除的是透過另一個非鍵欄位的「遞移」依賴。實務上大多數設計停在 3NF，而反向去正規化是一個正當的決定，不是失敗 —— 一個每次載入都要 join 六張表的讀取密集儀表板，用一列預先算好的資料來服務可能更好。原則是：先正規化讓模型正確，再對你已經量測過成本的特定路徑去正規化，並且清楚你已經接下了「讓那些副本保持同步」這份工作。
+
+The sentence to remember is: **Normalisation is just: do not write the same fact down twice, because two copies are two chances to disagree.**
+
+最值得記：**正規化就是一句話：同一個事實不要寫兩次 —— 兩份副本，就是兩次互相打架的機會。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

@@ -117,6 +117,16 @@ psycopg2.errors.UniqueViolation at user_repository.py line 184
 <stack trace>
 ```
 
+## Interview Version
+
+> I would not return 200 for everything and put the outcome in the body. I sort what happened into kinds first - is the request malformed, is this an authentication problem, an authorisation problem, a conflict with the current state, or did my server break - and the kind picks the class. 4xx means the request was wrong, so retrying it unchanged will fail again; 5xx means the server failed, so the same request might succeed on a retry. That split is what actually drives client behaviour: a well-built client retries 5xx with backoff and does not retry 4xx at all. Two groups get asked almost every time. First, 401 versus 403, and the shortest way to hold it is as two questions: 401 is who are you, 403 is I know who you are but you cannot do this. No token or an expired one is 401; logged in but not an admin is 403. Second, 400 versus 422 versus 409, using one endpoint to stay concrete: POST /users with an email of "abc" is not valid, so that is 400, or 422 if your API reserves 400 for requests that will not even parse; POST /users with a perfectly well-formed address that is already registered is 409, because nothing about the request is wrong - it conflicts with the state the system is already in. For the body, what I care about most is that clients never have to read English to make a decision: a stable machine-readable code, a human-readable message, details naming the offending field, and a request_id. And internal errors never go out as they came in - outward a generic 500, inward the real exception in the logs, joined by that same request_id.
+
+面試時可回答：我不會什麼都回 200、再把結果塞在 body 裡。我會先把發生的事分類 —— 是請求格式錯誤、是認證問題、是授權問題、是與目前狀態衝突，還是我的伺服器爆了 —— 由分類決定 class。4xx 代表請求本身有問題，原封不動重試還是會失敗；5xx 代表伺服器出錯，所以同一個請求重試可能會成功。這個切分才是真正驅動客戶端行為的：一個寫得好的客戶端會對 5xx 帶退避重試，對 4xx 則完全不重試。有兩組幾乎每次都會被問。第一組是 401 對 403，記住它最短的方式是兩個問句：401 是「你是誰？」，403 是「我知道你是誰，但你不能做這件事」。沒有 token 或 token 過期，是 401；已登入但不是 admin，是 403。第二組是 400 對 422 對 409，用同一個 endpoint 保持具體：POST /users 帶著 "abc" 這個不合法的 email，那是 400 —— 如果你的 API 把 400 保留給「根本解析不了」的請求，那就用 422；POST /users 帶著一個格式完全正確、但已經註冊過的地址，那是 409，因為請求本身沒有任何問題 —— 它是跟系統已經處在的狀態衝突。至於 body，我最在意的是客戶端永遠不必讀英文才能做決定：一個穩定的、機器可讀的 code、一則人類看得懂的 message、指出問題欄位的 details，以及一個 request_id。而內部錯誤絕不原樣送出去 —— 對外是一個通用的 500，對內把真正的例外寫進日誌，兩邊用同一組 request_id 串起來。
+
+The sentence to remember is: **The status code answers whose fault it is and whether to retry; the body answers what exactly - and the client should never have to read a sentence to act on either.**
+
+最值得記：**狀態碼回答「這是誰的錯、要不要重試」，body 回答「具體是什麼」—— 而客戶端不必讀懂任何一句英文，就該能依這兩者行動。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

@@ -86,6 +86,16 @@ it and your server still runs it - only the reading of the response is withheld.
 
 The line to remember: CORS protects your users from other sites, never your server from attackers.
 
+## Interview Version
+
+> CORS stands for Cross-Origin Resource Sharing, and the thing to say first is that it is a browser mechanism, not a server one. Browsers enforce the same-origin policy: JavaScript running on one origin cannot read a response from a different origin. Without that rule, any page you happened to open could quietly call your bank's account endpoint in the background with your cookies attached and read the result. So the default is no, and CORS is how a server says these particular origins are fine - the same-origin policy is the locked door, and CORS is the guest list the server hands to the browser. An origin is scheme plus host plus port, all three, and if any one differs it is cross-origin: a subdomain is a different origin, which surprises people, and localhost:3000 versus :8080 is why almost everyone meets CORS for the first time running a dev server against a local API. Concretely, a front end at frontend.com calls api.backend.com. The browser sends the request, then checks the response for permission: if the API answers with Access-Control-Allow-Origin naming that front end, the browser hands the response to the JavaScript; if it is missing or names a different origin, the browser blocks the page from reading it. For requests that are not simple, the browser first sends an automatic OPTIONS preflight asking whether the real request is allowed. Then the point that matters most, and the fastest way to prove it is curl: call the same API from curl or Postman and it just works, no CORS error ever, because there is no browser in the loop. So CORS protects your users from other websites reading their data; it does not protect your server from anyone.
+
+面試時可回答：CORS 的全稱是 Cross-Origin Resource Sharing，而第一句該說的是：它是瀏覽器的機制，不是伺服器的機制。瀏覽器會執行同源政策：在某個來源上執行的 JavaScript，不能讀取另一個來源的回應。若沒有這條規則，你隨手打開的任何頁面都能在背景帶著你的 cookie 呼叫你銀行的帳戶 endpoint 並讀走結果。所以預設是「不行」，而 CORS 就是伺服器說「這幾個來源沒問題」的方式 —— 同源政策是那道上鎖的門，CORS 是伺服器交給瀏覽器的那份訪客名單。一個 origin 是 scheme 加 host 加 port，三者缺一不可，只要其中任何一個不同就是跨來源：子網域算不同來源，這點常讓人意外；而 localhost:3000 對 :8080，正是幾乎所有人第一次遇到 CORS 的場景 —— 用開發伺服器打本機 API 的時候。具體來說，位在 frontend.com 的前端呼叫 api.backend.com。瀏覽器把請求送出去，然後檢查回應裡有沒有許可：如果 API 回覆的 Access-Control-Allow-Origin 指名了那個前端，瀏覽器就把回應交給 JavaScript；如果那個標頭不存在、或指名的是別的來源，瀏覽器就擋住頁面去讀它。至於非簡單的請求，瀏覽器會先自動送一個 OPTIONS preflight 去問真正的請求是否被允許。接著是最重要的那一點，而證明它最快的方法就是 curl：用 curl 或 Postman 去打同一個 API，它就是會成功，永遠不會有 CORS 錯誤，因為這中間根本沒有瀏覽器。所以 CORS 保護的是你的使用者不被其他網站讀走資料；它完全不保護你的伺服器。
+
+The sentence to remember is: **CORS is a guest list the server hands the browser, and the bouncer only stands at the browser's door - which is why curl never sees a CORS error.**
+
+最值得記：**CORS 是伺服器交給瀏覽器的一份訪客名單，而保鏢只站在瀏覽器那道門口 —— 這正是為什麼 curl 永遠不會遇到 CORS 錯誤。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

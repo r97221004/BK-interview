@@ -36,6 +36,16 @@ The cost is that asynchronous work is harder to get right, and naming those cost
 
 代價是非同步工作更難做對，而把這些代價點名正是這題的重點。實務上的交付保證是至少一次，所以一個工作可能被執行兩次，每個處理函式都必須具備冪等性。一旦你跑超過一個 worker，順序就不再有保證。失敗不再直接呈現給使用者，所以你需要帶退避的重試、給持續失敗工作的死信佇列，以及對佇列深度與工作年齡的監控 —— 一個永遠消化不完的積壓在有人抱怨之前是看不見的。而且使用者體驗也改變了：請求在工作完成之前就回傳，所以客戶端需要一個管道知道後來怎麼了。
 
+## Interview Version
+
+> The test is whether the caller needs the result in order to get an answer. Sending a welcome email, generating a thumbnail, rebuilding a search index, calling a slow third-party API - in all of these the user only needs to know the request was accepted. So the endpoint validates the input, writes a job to the queue, and returns 202 immediately, while a worker picks the job up and does the work out of band. The second reason is absorbing bursts: a queue turns a spike into a backlog, so if traffic triples for ten minutes the queue grows and drains afterwards instead of every request timing out at once. That decouples the rate work arrives from the rate you can do it, and lets you scale workers independently of the web tier, which matters because the two usually need different CPU and memory. It also decouples services - the producer does not need the consumer to be up at the moment it publishes. The tools split along that line: RabbitMQ is a message broker built for task queues with routing and per-message acknowledgement, Kafka is a distributed log where consumers track their own offset and messages stay put, which suits event streams and replay far better than one-off jobs, and Redis lists or streams are a reasonable lightweight option when you already run Redis. The cost is that asynchronous work is harder to get right, and naming those costs is the point of the question. Delivery is at-least-once in practice, so a job can run twice and every handler must be idempotent. Ordering is not guaranteed once you run more than one worker. Failures no longer surface to the user, so you need retries with backoff, a dead-letter queue, and monitoring on queue depth and job age - a backlog that never drains is invisible until someone complains.
+
+面試時可回答：判準是：呼叫端是否需要那個結果才能得到答案。寄送歡迎信、產生縮圖、重建搜尋索引、呼叫一個很慢的第三方 API —— 這些情況裡，使用者只需要知道「請求被接受了」。所以 endpoint 驗證輸入、把一份工作寫進佇列，立刻回傳 202，而由一個 worker 把工作取走、在請求之外完成它。第二個理由是吸收突發：佇列把尖峰變成積壓，所以流量若在十分鐘內變成三倍，佇列會長大、之後再排空，而不是所有請求同時逾時。這把「工作抵達的速率」和「你能處理的速率」解耦，也讓你能獨立於 web 層去擴充 worker —— 這很重要，因為兩者需要的 CPU 和記憶體通常不同。它也讓服務之間解耦：生產者發布的當下，並不需要消費者是活著的。工具也沿著這條線分開：RabbitMQ 是為任務佇列而生的訊息中介，帶有路由與逐則訊息的確認；Kafka 是分散式日誌，消費者自己追蹤 offset、訊息留在原地，這比一次性工作更適合事件串流與重播；而當你本來就跑著 Redis、又不需要強交付保證時，Redis 的 list 或 stream 是合理的輕量選項。代價是非同步工作更難做對，而把這些代價講出來正是這題的重點。實務上交付是至少一次，所以一份工作可能跑兩次，每個處理器都必須是冪等的。一旦你跑超過一個 worker，順序就不再有保證。失敗不再浮現到使用者面前，所以你需要帶退避的重試、一個死信佇列，以及對佇列深度與工作年齡的監控 —— 一份永遠排不空的積壓，在有人抱怨之前是看不見的。
+
+The sentence to remember is: **If the answer to "does the user need to see this finish?" is no, it does not belong in the request.**
+
+最值得記：**如果「使用者需要看著這件事做完嗎」的答案是否，那它就不該待在請求裡。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |

@@ -47,6 +47,16 @@ Now the compression half: neither threads nor asyncio actually speeds that up, b
 | **Cost** | ~1MB stack + OS context-switch per thread | Near-zero switch cost, but one blocking call freezes everything | Heavy process startup; sharing data means serializing it |
 | **Failure mode** | Race conditions on shared memory; degrades past ~1,000s of threads | A forgotten `await` or sync call stalls the whole event loop | Serialization cost eats the parallelism gain on large shared data |
 
+## Interview Version
+
+> I would anchor it on one job: fetch 500 URLs, then compress the images you got back. Fetching is I/O-bound - your code spends nearly all its time waiting on the network. Compressing is CPU-bound - the CPU is genuinely busy the whole time. That split is the whole answer: threads or asyncio for the fetching, processes for the compressing. The reason Python needs three tools instead of one is CPython's Global Interpreter Lock: only one thread executes Python bytecode at a time. But the GIL is released while a thread waits on I/O, so threads that are all just waiting on the network genuinely overlap - the lock blocks parallel computation, not parallel waiting. With threads, each is a real OS thread and the operating system decides when to switch, so the code reads like normal synchronous code but shared state now needs locks, and each thread costs about a megabyte of stack - a few dozen is fine, a few thousand hurts. If it is fifty thousand URLs instead of five hundred, switch to asyncio: one thread, one event loop, each fetch handing control back with await, switching in user space for almost nothing and no shared-memory locking to get wrong. The catch is that the whole ecosystem has to play along, and a single blocking call freezes the entire event loop and every task waiting on it. Now the compression half: neither threads nor asyncio speeds that up, because only one thread computes at a time no matter how many you spawn. Multiprocessing sidesteps it with separate processes, each with its own interpreter and its own GIL - real parallelism across cores. The cost is heavier processes and having to serialise anything shared between them.
+
+面試時可回答：我會把它固定在一件工作上：抓 500 個網址，然後把抓回來的圖片壓縮。抓取是 I/O 密集的 —— 你的程式碼幾乎所有時間都在等網路。壓縮是 CPU 密集的 —— CPU 是真的整段都在忙。這個切分就是整個答案：抓取用 thread 或 asyncio，壓縮用 process。Python 之所以需要三種工具而不是一種，原因是 CPython 的全域直譯器鎖：同一時間只有一個執行緒能執行 Python bytecode。但執行緒在等待 I/O 時會釋放 GIL，所以一群都只是在等網路的執行緒是真的重疊在跑的 —— 這把鎖擋的是平行「計算」，不是平行「等待」。用 thread 時，每一個都是真正的 OS 執行緒，由作業系統決定何時切換，所以程式碼讀起來就像一般同步程式碼，但共用狀態現在需要鎖；而且每個執行緒大約要一 MB 的堆疊 —— 幾十個沒問題，幾千個就開始痛了。如果是五萬個網址而不是五百個，就換 asyncio：一個執行緒、一個事件迴圈，每次抓取都用 await 明確把控制權交回去，切換在使用者空間發生、幾乎不花成本，也沒有共用記憶體的鎖可以搞砸。代價是整個生態系都得配合，而任何一個阻塞呼叫都會凍住整個事件迴圈，以及所有在上面等待的任務。再看壓縮那一半：thread 和 asyncio 都無法讓它變快，因為不論你開多少個，同一時間只有一個在計算。multiprocessing 用獨立的行程繞過這一點，每個行程有自己的直譯器、自己的 GIL —— 那是真正跨核心的平行。代價是行程更重，而且任何要在行程之間共享的東西都必須序列化。
+
+The sentence to remember is: **Threads for waiting, processes for computing, asyncio when you need tens of thousands of waits in one thread.**
+
+最值得記：**要「等」就用 thread，要「算」就用 process，需要在單一執行緒裡等上幾萬件事時才用 asyncio。**
+
 ---
 
 | ⬅ Previous | Home | Next ➡ |
