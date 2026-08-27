@@ -2,7 +2,7 @@
 
 > Tests whether you understand that statelessness is a protocol property that pushes state management into your design, not a claim that applications have no state.
 
-**Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 9/10 | **Status:** Complete
 
 **New to these terms?** [cookie](../_glossary.md#cookie), [jwt](../_glossary.md#jwt), [cache](../_glossary.md#cache), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
 

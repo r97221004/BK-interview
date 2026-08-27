@@ -2,7 +2,7 @@
 
 > Tests whether you have shipped to production. The revealing part is what you do when the new version is bad, not how you get it out.
 
-**Part:** DevOps & Deployment | **Importance:** 7/10 | **Status:** Draft
+**Part:** DevOps & Deployment | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [resource](../_glossary.md#resource), [cache](../_glossary.md#cache), [load balancer](../_glossary.md#load-balancer), [message queue](../_glossary.md#message-queue), [schema migration](../_glossary.md#schema-migration)
 

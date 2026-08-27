@@ -2,7 +2,7 @@
 
 > Tests whether you know CORS is a browser rule that relaxes a restriction, not a server-side security control.
 
-**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting)
 

@@ -2,7 +2,7 @@
 
 > Tests whether you have a layered checklist rather than one favorite mechanism, and whether you can say what each layer does not cover.
 
-**Part:** API & HTTP | **Importance:** 9/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 9/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [resource](../_glossary.md#resource), [jwt](../_glossary.md#jwt), [prepared statement](../_glossary.md#prepared-statement)
 

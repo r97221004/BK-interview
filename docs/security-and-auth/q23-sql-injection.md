@@ -2,7 +2,7 @@
 
 > Tests whether you know that the fix is separating code from data, not filtering bad characters.
 
-**Part:** Security & Auth | **Importance:** 9/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 9/10 | **Status:** Complete
 
 **New to these terms?** [cursor pagination](../_glossary.md#cursor-pagination)
 

@@ -2,7 +2,7 @@
 
 > Tests whether you treat a network call as something that fails, and whether you know a naive retry turns a blip into an outage.
 
-**Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [idempotent](../_glossary.md#idempotent), [cache](../_glossary.md#cache)
 

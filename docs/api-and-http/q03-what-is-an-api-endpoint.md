@@ -2,7 +2,7 @@
 
 > Usually an opener. Tests whether you can define the term precisely and connect it to how a server routes work.
 
-**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [resource](../_glossary.md#resource)
 

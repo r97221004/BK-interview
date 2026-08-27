@@ -2,7 +2,7 @@
 
 > Tests whether you can trade revocation against statelessness, instead of declaring one of them modern and the other legacy.
 
-**Part:** Security & Auth | **Importance:** 10/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 10/10 | **Status:** Complete
 
 **New to these terms?** [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [xss](../_glossary.md#xss), [microservices](../_glossary.md#microservices)
 

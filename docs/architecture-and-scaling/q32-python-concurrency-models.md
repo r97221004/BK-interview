@@ -2,7 +2,7 @@
 
 > Tests whether you can pick a concurrency model from the workload, and whether you understand what the GIL does and does not block.
 
-**Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Complete
 
 **New to these terms?** [message queue](../_glossary.md#message-queue)
 

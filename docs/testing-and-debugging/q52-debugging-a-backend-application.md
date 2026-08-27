@@ -2,7 +2,7 @@
 
 > Tests whether you have a method rather than a tool list, and whether you can debug something you cannot attach a debugger to.
 
-**Part:** Testing & Debugging | **Importance:** 7/10 | **Status:** Draft
+**Part:** Testing & Debugging | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [orm](../_glossary.md#orm), [index](../_glossary.md#index), [query plan](../_glossary.md#query-plan), [n+1 query](../_glossary.md#n-1-query)
 

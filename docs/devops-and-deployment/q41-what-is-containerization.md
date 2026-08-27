@@ -2,7 +2,7 @@
 
 > Tests whether you can state what containers actually isolate, and what they do not solve.
 
-**Part:** DevOps & Deployment | **Importance:** 8/10 | **Status:** Draft
+**Part:** DevOps & Deployment | **Importance:** 8/10 | **Status:** Complete
 
 ## In One Sentence
 

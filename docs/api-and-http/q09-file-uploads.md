@@ -2,7 +2,7 @@
 
 > Tests whether you treat uploads as untrusted input and whether you know the scaling problem hidden in the naive implementation.
 
-**Part:** API & HTTP | **Importance:** 7/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [cdn](../_glossary.md#cdn), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting), [message queue](../_glossary.md#message-queue)
 

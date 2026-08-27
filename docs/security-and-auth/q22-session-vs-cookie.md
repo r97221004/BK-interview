@@ -2,7 +2,7 @@
 
 > Tests whether you can separate the transport mechanism from the state it points at - a common confusion in interviews.
 
-**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [jwt](../_glossary.md#jwt), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [xss](../_glossary.md#xss), [tls](../_glossary.md#tls)
 

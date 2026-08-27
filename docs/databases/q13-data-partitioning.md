@@ -2,7 +2,7 @@
 
 > Tests whether you can pick a partition key for a stated access pattern, and whether you know what partitioning makes harder.
 
-**Part:** Databases | **Importance:** 8/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [schema migration](../_glossary.md#schema-migration)
 

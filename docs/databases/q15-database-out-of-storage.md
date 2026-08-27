@@ -2,7 +2,7 @@
 
 > Tests whether you can separate the emergency response from the structural fix, and whether you monitor for this before it happens.
 
-**Part:** Databases | **Importance:** 6/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 6/10 | **Status:** Complete
 
 **New to these terms?** [session](../_glossary.md#session), [partitioning](../_glossary.md#partitioning), [sharding](../_glossary.md#sharding), [index](../_glossary.md#index)
 

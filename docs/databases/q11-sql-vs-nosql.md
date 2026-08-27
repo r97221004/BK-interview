@@ -2,7 +2,7 @@
 
 > Tests whether you can choose between them for a stated workload, rather than reciting 'SQL is structured, NoSQL is flexible'.
 
-**Part:** Databases | **Importance:** 10/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 10/10 | **Status:** Complete
 
 **New to these terms?** [acid](../_glossary.md#acid), [partitioning](../_glossary.md#partitioning), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling)
 

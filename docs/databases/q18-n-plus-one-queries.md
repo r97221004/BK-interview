@@ -2,7 +2,7 @@
 
 > Tests whether you can spot the most common performance bug in ORM-backed code, and whether you would have noticed it before production did.
 
-**Part:** Databases | **Importance:** 9/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 9/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [orm](../_glossary.md#orm)
 

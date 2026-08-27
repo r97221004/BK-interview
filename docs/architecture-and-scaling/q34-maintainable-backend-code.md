@@ -2,7 +2,7 @@
 
 > Tests whether you have habits that survive a growing team, rather than a list of style rules.
 
-**Part:** Architecture & Scaling | **Importance:** 6/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 6/10 | **Status:** Complete
 
 **New to these terms?** [unit test](../_glossary.md#unit-test)
 

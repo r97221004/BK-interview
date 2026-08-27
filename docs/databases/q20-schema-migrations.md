@@ -2,7 +2,7 @@
 
 > Tests whether you know a migration runs while the old code is still serving traffic, and whether you have been bitten by a lock on a large table.
 
-**Part:** Databases | **Importance:** 8/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [index](../_glossary.md#index), [message queue](../_glossary.md#message-queue), [timeout](../_glossary.md#timeout)
 

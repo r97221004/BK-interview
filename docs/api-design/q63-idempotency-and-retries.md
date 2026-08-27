@@ -2,7 +2,7 @@
 
 > Tests whether you have thought about what happens when a client times out and retries a payment - the classic double-charge.
 
-**Part:** API Design & Reliability | **Importance:** 7/10 | **Status:** Draft
+**Part:** API Design & Reliability | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [resource](../_glossary.md#resource), [message queue](../_glossary.md#message-queue)
 

@@ -2,7 +2,7 @@
 
 > Tests whether you can name the bottleneck before the remedy, and whether you know the database is usually the real limit.
 
-**Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Complete
 
 **New to these terms?** [statelessness](../_glossary.md#statelessness), [cache](../_glossary.md#cache), [redis](../_glossary.md#redis), [rate limiting](../_glossary.md#rate-limiting), [message queue](../_glossary.md#message-queue)
 

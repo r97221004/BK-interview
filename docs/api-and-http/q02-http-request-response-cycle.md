@@ -2,7 +2,7 @@
 
 > Tests whether you can follow a request end to end, including the TCP connection underneath and what persistent connections changed.
 
-**Part:** API & HTTP | **Importance:** 10/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 10/10 | **Status:** Complete
 
 **New to these terms?** [resource](../_glossary.md#resource), [status code](../_glossary.md#status-code), [cache](../_glossary.md#cache), [tls](../_glossary.md#tls)
 

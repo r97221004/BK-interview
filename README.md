@@ -146,66 +146,66 @@ Within a band the order is by question number and means nothing - the bands are 
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
-| [What is a RESTful API, and what are its core principles?](docs/api-and-http/q01-what-is-a-restful-api.md) | API & HTTP | The six constraints, and which ones actually change your design | Draft |
-| [Can you describe a typical HTTP request/response cycle?](docs/api-and-http/q02-http-request-response-cycle.md) | API & HTTP | Connection, request, processing, response, and connection reuse | Draft |
-| [Can you explain the difference between SQL and NoSQL databases?](docs/databases/q11-sql-vs-nosql.md) | Databases | Relational schema and ACID vs flexible models and horizontal scale | Draft |
-| [What is a database index, and how do you work out why a query is slow?](docs/databases/q16-indexes-and-slow-queries.md) | Databases | B-tree lookup, what an index costs, and reading a query plan | Draft |
-| [What is the difference between session-based and JWT-based authentication?](docs/security-and-auth/q21-session-vs-jwt-authentication.md) | Security & Auth | Server-side state vs a signed self-contained token | Draft |
+| [What is a RESTful API, and what are its core principles?](docs/api-and-http/q01-what-is-a-restful-api.md) | API & HTTP | The six constraints, and which ones actually change your design | Complete |
+| [Can you describe a typical HTTP request/response cycle?](docs/api-and-http/q02-http-request-response-cycle.md) | API & HTTP | Connection, request, processing, response, and connection reuse | Complete |
+| [Can you explain the difference between SQL and NoSQL databases?](docs/databases/q11-sql-vs-nosql.md) | Databases | Relational schema and ACID vs flexible models and horizontal scale | Complete |
+| [What is a database index, and how do you work out why a query is slow?](docs/databases/q16-indexes-and-slow-queries.md) | Databases | B-tree lookup, what an index costs, and reading a query plan | Complete |
+| [What is the difference between session-based and JWT-based authentication?](docs/security-and-auth/q21-session-vs-jwt-authentication.md) | Security & Auth | Server-side state vs a signed self-contained token | Complete |
 
 ### Importance 9/10 (7 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
-| [Explain statelessness in HTTP and how it impacts backend services.](docs/api-and-http/q04-http-statelessness.md) | API & HTTP | Independent requests, and where the state has to go instead | Draft |
-| [What measures would you take to secure a newly developed API?](docs/api-and-http/q07-securing-a-new-api.md) | API & HTTP | Identity, permission, input, protection, monitoring - as five layers | Draft |
-| [Explain database transactions and isolation levels.](docs/databases/q17-transactions-and-isolation-levels.md) | Databases | ACID in practice, the four levels, and the anomalies each prevents | Draft |
-| [What is the N+1 query problem, and how do you fix it?](docs/databases/q18-n-plus-one-queries.md) | Databases | One query per row, why an ORM hides it, and eager loading | Draft |
-| [How do you protect a server from SQL injection attacks?](docs/security-and-auth/q23-sql-injection.md) | Security & Auth | Parameterized queries, ORMs, and defense in depth | Draft |
-| [How would you scale a backend application during a traffic surge?](docs/architecture-and-scaling/q31-scaling-during-traffic-surge.md) | Architecture & Scaling | Horizontal scaling, statelessness, caching, and shedding load | Draft |
-| [Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](docs/architecture-and-scaling/q32-python-concurrency-models.md) | Architecture & Scaling | The GIL, and matching the model to I/O-bound or CPU-bound work | Draft |
+| [Explain statelessness in HTTP and how it impacts backend services.](docs/api-and-http/q04-http-statelessness.md) | API & HTTP | Independent requests, and where the state has to go instead | Complete |
+| [What measures would you take to secure a newly developed API?](docs/api-and-http/q07-securing-a-new-api.md) | API & HTTP | Identity, permission, input, protection, monitoring - as five layers | Complete |
+| [Explain database transactions and isolation levels.](docs/databases/q17-transactions-and-isolation-levels.md) | Databases | ACID in practice, the four levels, and the anomalies each prevents | Complete |
+| [What is the N+1 query problem, and how do you fix it?](docs/databases/q18-n-plus-one-queries.md) | Databases | One query per row, why an ORM hides it, and eager loading | Complete |
+| [How do you protect a server from SQL injection attacks?](docs/security-and-auth/q23-sql-injection.md) | Security & Auth | Parameterized queries, ORMs, and defense in depth | Complete |
+| [How would you scale a backend application during a traffic surge?](docs/architecture-and-scaling/q31-scaling-during-traffic-surge.md) | Architecture & Scaling | Horizontal scaling, statelessness, caching, and shedding load | Complete |
+| [Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](docs/architecture-and-scaling/q32-python-concurrency-models.md) | Architecture & Scaling | The GIL, and matching the model to I/O-bound or CPU-bound work | Complete |
 
 ### Importance 8/10 (17 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
-| [What is an API endpoint?](docs/api-and-http/q03-what-is-an-api-endpoint.md) | API & HTTP | A URL as the entry point to one resource or capability | Draft |
-| [What are the benefits and drawbacks of RESTful APIs?](docs/api-and-http/q05-rest-benefits-and-drawbacks.md) | API & HTTP | Scalability and standardization vs over-fetching and versioning cost | Draft |
-| [How do you approach API versioning in your projects?](docs/api-and-http/q06-api-versioning.md) | API & HTTP | URL vs header versioning, and when a version is needed at all | Draft |
-| [What is the difference between a REST API and a WebSocket?](docs/api-and-http/q08-rest-vs-websocket.md) | API & HTTP | Request-response vs a persistent bidirectional connection | Draft |
-| [What is data normalization?](docs/databases/q12-data-normalization.md) | Databases | 1NF to BCNF, the anomalies each form removes, and when to stop | Draft |
-| [What is data partitioning?](docs/databases/q13-data-partitioning.md) | Databases | Horizontal, vertical, range, hash, and list partitioning | Draft |
-| [What are the common application scenarios for Redis?](docs/databases/q14-redis-use-cases.md) | Databases | Cache, session store, rate limiter, queue, and leaderboard | Draft |
-| [How do you decide what to cache, and how do you invalidate it?](docs/databases/q19-caching-strategy-and-invalidation.md) | Databases | Cache-aside vs write-through, TTLs, stampedes, and staleness | Draft |
-| [How do you change a database schema without downtime?](docs/databases/q20-schema-migrations.md) | Databases | Expand and contract, backwards-compatible steps, and long locks | Draft |
-| [What is the difference between a session and a cookie?](docs/security-and-auth/q22-session-vs-cookie.md) | Security & Auth | Client-side storage vs server-side state, and how they connect | Draft |
-| [What is Cross-Site Scripting (XSS)?](docs/security-and-auth/q25-xss.md) | Security & Auth | Injected script running with the trusted site's privileges | Draft |
-| [What is CORS?](docs/security-and-auth/q27-cors.md) | Security & Auth | Same-origin policy, preflight, and what CORS does not protect | Draft |
-| [Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](docs/architecture-and-scaling/q33-python-builtin-data-structures.md) | Architecture & Scaling | Dynamic arrays and hash tables, and the complexity that follows | Draft |
-| [Monolith or microservices - how would you decide?](docs/architecture-and-scaling/q36-monolith-vs-microservices.md) | Architecture & Scaling | Deployment coupling, team boundaries, and the costs you inherit | Draft |
-| [What is containerization, and how does it benefit backend development?](docs/devops-and-deployment/q41-what-is-containerization.md) | DevOps & Deployment | Packaging the runtime with the app, and the boundary of that promise | Draft |
-| [What kind of tests would you write for a new API endpoint?](docs/testing-and-debugging/q51-testing-a-new-api-endpoint.md) | Testing & Debugging | Unit, integration, contract, and load tests, and what each proves | Draft |
-| [How do you choose HTTP status codes and design error responses?](docs/api-design/q61-status-codes-and-error-responses.md) | API Design & Reliability | Status classes, and an error body a client can act on | Draft |
+| [What is an API endpoint?](docs/api-and-http/q03-what-is-an-api-endpoint.md) | API & HTTP | A URL as the entry point to one resource or capability | Complete |
+| [What are the benefits and drawbacks of RESTful APIs?](docs/api-and-http/q05-rest-benefits-and-drawbacks.md) | API & HTTP | Scalability and standardization vs over-fetching and versioning cost | Complete |
+| [How do you approach API versioning in your projects?](docs/api-and-http/q06-api-versioning.md) | API & HTTP | URL vs header versioning, and when a version is needed at all | Complete |
+| [What is the difference between a REST API and a WebSocket?](docs/api-and-http/q08-rest-vs-websocket.md) | API & HTTP | Request-response vs a persistent bidirectional connection | Complete |
+| [What is data normalization?](docs/databases/q12-data-normalization.md) | Databases | 1NF to BCNF, the anomalies each form removes, and when to stop | Complete |
+| [What is data partitioning?](docs/databases/q13-data-partitioning.md) | Databases | Horizontal, vertical, range, hash, and list partitioning | Complete |
+| [What are the common application scenarios for Redis?](docs/databases/q14-redis-use-cases.md) | Databases | Cache, session store, rate limiter, queue, and leaderboard | Complete |
+| [How do you decide what to cache, and how do you invalidate it?](docs/databases/q19-caching-strategy-and-invalidation.md) | Databases | Cache-aside vs write-through, TTLs, stampedes, and staleness | Complete |
+| [How do you change a database schema without downtime?](docs/databases/q20-schema-migrations.md) | Databases | Expand and contract, backwards-compatible steps, and long locks | Complete |
+| [What is the difference between a session and a cookie?](docs/security-and-auth/q22-session-vs-cookie.md) | Security & Auth | Client-side storage vs server-side state, and how they connect | Complete |
+| [What is Cross-Site Scripting (XSS)?](docs/security-and-auth/q25-xss.md) | Security & Auth | Injected script running with the trusted site's privileges | Complete |
+| [What is CORS?](docs/security-and-auth/q27-cors.md) | Security & Auth | Same-origin policy, preflight, and what CORS does not protect | Complete |
+| [Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](docs/architecture-and-scaling/q33-python-builtin-data-structures.md) | Architecture & Scaling | Dynamic arrays and hash tables, and the complexity that follows | Complete |
+| [Monolith or microservices - how would you decide?](docs/architecture-and-scaling/q36-monolith-vs-microservices.md) | Architecture & Scaling | Deployment coupling, team boundaries, and the costs you inherit | Complete |
+| [What is containerization, and how does it benefit backend development?](docs/devops-and-deployment/q41-what-is-containerization.md) | DevOps & Deployment | Packaging the runtime with the app, and the boundary of that promise | Complete |
+| [What kind of tests would you write for a new API endpoint?](docs/testing-and-debugging/q51-testing-a-new-api-endpoint.md) | Testing & Debugging | Unit, integration, contract, and load tests, and what each proves | Complete |
+| [How do you choose HTTP status codes and design error responses?](docs/api-design/q61-status-codes-and-error-responses.md) | API Design & Reliability | Status classes, and an error body a client can act on | Complete |
 
 ### Importance 7/10 (9 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
-| [How would you handle file uploads in a web application?](docs/api-and-http/q09-file-uploads.md) | API & HTTP | Validation, naming, metadata, and keeping bytes out of the app server | Draft |
-| [Describe how session management works in web applications.](docs/security-and-auth/q24-session-management.md) | Security & Auth | Session lifecycle, storage, and scaling it across servers | Draft |
-| [What is Cross-Site Request Forgery (CSRF)?](docs/security-and-auth/q26-csrf.md) | Security & Auth | Riding the victim's ambient credentials, and how tokens stop it | Draft |
-| [When would you move work onto a message queue?](docs/architecture-and-scaling/q35-message-queues-and-async-work.md) | Architecture & Scaling | Decoupling, absorbing bursts, and what a queue makes harder | Draft |
-| [How do you stop one slow dependency from taking down your service?](docs/architecture-and-scaling/q37-timeouts-retries-and-failure.md) | Architecture & Scaling | Timeouts, bounded retries with backoff, and circuit breakers | Draft |
-| [How do you deploy a new version without dropping requests?](docs/devops-and-deployment/q43-zero-downtime-deploys.md) | DevOps & Deployment | Rolling, blue-green, and canary, plus health checks and rollback | Draft |
-| [What tools and techniques do you use for debugging a backend application?](docs/testing-and-debugging/q52-debugging-a-backend-application.md) | Testing & Debugging | Reproduce, narrow, then instrument - locally and in production | Draft |
-| [How would you paginate a large collection endpoint?](docs/api-design/q62-pagination.md) | API Design & Reliability | Offset vs cursor pagination, and why deep offsets get slow | Draft |
-| [How do you make an endpoint safe to retry?](docs/api-design/q63-idempotency-and-retries.md) | API Design & Reliability | Idempotent methods, idempotency keys, and exactly-once delivery | Draft |
+| [How would you handle file uploads in a web application?](docs/api-and-http/q09-file-uploads.md) | API & HTTP | Validation, naming, metadata, and keeping bytes out of the app server | Complete |
+| [Describe how session management works in web applications.](docs/security-and-auth/q24-session-management.md) | Security & Auth | Session lifecycle, storage, and scaling it across servers | Complete |
+| [What is Cross-Site Request Forgery (CSRF)?](docs/security-and-auth/q26-csrf.md) | Security & Auth | Riding the victim's ambient credentials, and how tokens stop it | Complete |
+| [When would you move work onto a message queue?](docs/architecture-and-scaling/q35-message-queues-and-async-work.md) | Architecture & Scaling | Decoupling, absorbing bursts, and what a queue makes harder | Complete |
+| [How do you stop one slow dependency from taking down your service?](docs/architecture-and-scaling/q37-timeouts-retries-and-failure.md) | Architecture & Scaling | Timeouts, bounded retries with backoff, and circuit breakers | Complete |
+| [How do you deploy a new version without dropping requests?](docs/devops-and-deployment/q43-zero-downtime-deploys.md) | DevOps & Deployment | Rolling, blue-green, and canary, plus health checks and rollback | Complete |
+| [What tools and techniques do you use for debugging a backend application?](docs/testing-and-debugging/q52-debugging-a-backend-application.md) | Testing & Debugging | Reproduce, narrow, then instrument - locally and in production | Complete |
+| [How would you paginate a large collection endpoint?](docs/api-design/q62-pagination.md) | API Design & Reliability | Offset vs cursor pagination, and why deep offsets get slow | Complete |
+| [How do you make an endpoint safe to retry?](docs/api-design/q63-idempotency-and-retries.md) | API Design & Reliability | Idempotent methods, idempotency keys, and exactly-once delivery | Complete |
 
 ### Importance 6/10 (2 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
-| [What strategies do you have when a database runs out of storage?](docs/databases/q15-database-out-of-storage.md) | Databases | Immediate relief, then reclaiming, growing, and splitting | Draft |
-| [How do you ensure your backend code is maintainable and easy to understand?](docs/architecture-and-scaling/q34-maintainable-backend-code.md) | Architecture & Scaling | Boundaries, conventions, tests, and consistent failure handling | Draft |
+| [What strategies do you have when a database runs out of storage?](docs/databases/q15-database-out-of-storage.md) | Databases | Immediate relief, then reclaiming, growing, and splitting | Complete |
+| [How do you ensure your backend code is maintainable and easy to understand?](docs/architecture-and-scaling/q34-maintainable-backend-code.md) | Architecture & Scaling | Boundaries, conventions, tests, and consistent failure handling | Complete |
 
 
 ## Progress Model

@@ -2,7 +2,7 @@
 
 > Tests whether you treat caching as a design with failure modes rather than as a switch, and whether you can say what happens on a miss.
 
-**Part:** Databases | **Importance:** 8/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [redis](../_glossary.md#redis)
 

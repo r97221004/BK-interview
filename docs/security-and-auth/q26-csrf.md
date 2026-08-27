@@ -2,7 +2,7 @@
 
 > Tests whether you can explain why the browser sends the cookie at all, and how CSRF differs from XSS.
 
-**Part:** Security & Auth | **Importance:** 7/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [cookie](../_glossary.md#cookie), [same-origin policy](../_glossary.md#same-origin-policy), [xss](../_glossary.md#xss), [content security policy](../_glossary.md#content-security-policy), [output encoding](../_glossary.md#output-encoding)
 

@@ -2,7 +2,7 @@
 
 > Tests whether you can derive the performance characteristics from the implementation instead of memorizing a complexity table.
 
-**Part:** Architecture & Scaling | **Importance:** 8/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [index](../_glossary.md#index)
 

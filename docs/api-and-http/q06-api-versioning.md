@@ -2,7 +2,7 @@
 
 > Tests whether you can change a live API without breaking clients, and whether you know versioning is a cost to be avoided when possible.
 
-**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [status code](../_glossary.md#status-code), [microservices](../_glossary.md#microservices)
 

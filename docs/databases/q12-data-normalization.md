@@ -2,7 +2,7 @@
 
 > Tests whether you can explain the normal forms in terms of the update anomalies they prevent, and whether you know when denormalizing is correct.
 
-**Part:** Databases | **Importance:** 8/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 8/10 | **Status:** Complete
 
 ## In One Sentence
 

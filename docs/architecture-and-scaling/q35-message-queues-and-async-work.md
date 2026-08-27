@@ -2,7 +2,7 @@
 
 > Tests whether you can name work that does not belong in a request cycle, and whether you know a queue introduces retries, ordering, and duplicate delivery.
 
-**Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [idempotent](../_glossary.md#idempotent), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [at-least-once delivery](../_glossary.md#at-least-once-delivery)
 

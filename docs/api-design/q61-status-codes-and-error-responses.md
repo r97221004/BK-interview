@@ -2,7 +2,7 @@
 
 > Tests whether you design errors for the caller rather than for yourself, and whether you know why returning 200 with an error body breaks clients and proxies.
 
-**Part:** API Design & Reliability | **Importance:** 8/10 | **Status:** Draft
+**Part:** API Design & Reliability | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [resource](../_glossary.md#resource), [cache](../_glossary.md#cache), [rate limiting](../_glossary.md#rate-limiting), [message queue](../_glossary.md#message-queue)
 

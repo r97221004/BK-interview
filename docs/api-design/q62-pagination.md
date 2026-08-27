@@ -2,7 +2,7 @@
 
 > Tests whether you know offset pagination degrades on large tables and skips rows when the data shifts underneath the reader.
 
-**Part:** API Design & Reliability | **Importance:** 7/10 | **Status:** Draft
+**Part:** API Design & Reliability | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [index](../_glossary.md#index)
 

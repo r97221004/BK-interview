@@ -2,7 +2,7 @@
 
 > Tests whether you know what your default isolation level actually allows, and whether you can recognise a deadlock and say what causes one.
 
-**Part:** Databases | **Importance:** 9/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 9/10 | **Status:** Complete
 
 ## In One Sentence
 

@@ -2,7 +2,7 @@
 
 > Tests whether you can criticize the style you use daily, and name the cases where REST is the wrong tool.
 
-**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [rest](../_glossary.md#rest), [status code](../_glossary.md#status-code), [websocket](../_glossary.md#websocket), [horizontal scaling](../_glossary.md#horizontal-scaling), [cdn](../_glossary.md#cdn)
 

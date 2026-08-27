@@ -2,7 +2,7 @@
 
 > Tests whether you can walk the full lifecycle and explain what breaks when a second application server appears.
 
-**Part:** Security & Auth | **Importance:** 7/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [rest](../_glossary.md#rest), [samesite](../_glossary.md#samesite), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer), [timeout](../_glossary.md#timeout)
 

@@ -2,7 +2,7 @@
 
 > Tests whether you can name REST's constraints and explain what each one buys you, instead of equating REST with 'JSON over HTTP'.
 
-**Part:** API & HTTP | **Importance:** 10/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 10/10 | **Status:** Complete
 
 **New to these terms?** [idempotent](../_glossary.md#idempotent), [statelessness](../_glossary.md#statelessness), [status code](../_glossary.md#status-code), [load balancer](../_glossary.md#load-balancer), [cdn](../_glossary.md#cdn)
 

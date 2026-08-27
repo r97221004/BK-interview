@@ -2,7 +2,7 @@
 
 > Tests whether you can argue for the boring choice. Reciting the benefits of microservices without naming the operational cost is the failure mode.
 
-**Part:** Architecture & Scaling | **Importance:** 8/10 | **Status:** Draft
+**Part:** Architecture & Scaling | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [idempotent](../_glossary.md#idempotent), [api versioning](../_glossary.md#api-versioning), [idempotency key](../_glossary.md#idempotency-key), [timeout](../_glossary.md#timeout), [health check](../_glossary.md#health-check)
 

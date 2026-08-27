@@ -2,7 +2,7 @@
 
 > Tests whether you can say what each layer is responsible for, instead of listing test types.
 
-**Part:** Testing & Debugging | **Importance:** 8/10 | **Status:** Draft
+**Part:** Testing & Debugging | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [idempotent](../_glossary.md#idempotent), [breaking change](../_glossary.md#breaking-change), [idempotency key](../_glossary.md#idempotency-key), [schema migration](../_glossary.md#schema-migration)
 

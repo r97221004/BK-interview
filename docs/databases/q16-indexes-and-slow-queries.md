@@ -2,7 +2,7 @@
 
 > The highest-value database question there is. Tests whether you can reason from the access path rather than guess, and whether you know an index is not free.
 
-**Part:** Databases | **Importance:** 10/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 10/10 | **Status:** Complete
 
 ## In One Sentence
 

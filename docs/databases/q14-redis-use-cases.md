@@ -2,7 +2,7 @@
 
 > Tests whether you know why an in-memory store is used for these jobs, and what you lose by putting data there.
 
-**Part:** Databases | **Importance:** 8/10 | **Status:** Draft
+**Part:** Databases | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [idempotent](../_glossary.md#idempotent), [rate limiting](../_glossary.md#rate-limiting), [cache-aside](../_glossary.md#cache-aside), [cache stampede](../_glossary.md#cache-stampede), [at-least-once delivery](../_glossary.md#at-least-once-delivery)
 

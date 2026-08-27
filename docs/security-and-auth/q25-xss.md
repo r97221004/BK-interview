@@ -2,7 +2,7 @@
 
 > Tests whether you know that the fix is context-correct output encoding, and whether you can name the three XSS variants.
 
-**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [cookie](../_glossary.md#cookie), [session](../_glossary.md#session), [jwt](../_glossary.md#jwt)
 

@@ -2,7 +2,7 @@
 
 > Tests whether you can name the cases that actually need server push, and what a long-lived connection costs the backend.
 
-**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [rest](../_glossary.md#rest), [statelessness](../_glossary.md#statelessness), [persistent connection](../_glossary.md#persistent-connection), [redis](../_glossary.md#redis)
 
