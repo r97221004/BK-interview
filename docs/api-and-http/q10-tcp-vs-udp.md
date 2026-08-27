@@ -2,7 +2,7 @@
 
 > Tests whether you can get past 'TCP is reliable, UDP is fast' to what the reliability actually costs - a round trip before any data moves, and one lost packet stalling everything behind it.
 
-**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Draft
+**Part:** API & HTTP | **Importance:** 8/10 | **Status:** Complete
 
 **New to these terms?** [redis](../_glossary.md#redis), [backpressure](../_glossary.md#backpressure), [tls](../_glossary.md#tls), [timeout](../_glossary.md#timeout)
 

@@ -172,7 +172,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [What are the benefits and drawbacks of RESTful APIs?](docs/api-and-http/q05-rest-benefits-and-drawbacks.md) | API & HTTP | Scalability and standardization vs over-fetching and versioning cost | Complete |
 | [How do you approach API versioning in your projects?](docs/api-and-http/q06-api-versioning.md) | API & HTTP | URL vs header versioning, and when a version is needed at all | Complete |
 | [What is the difference between a REST API and a WebSocket?](docs/api-and-http/q08-rest-vs-websocket.md) | API & HTTP | Request-response vs a persistent bidirectional connection | Complete |
-| [What is the difference between TCP and UDP?](docs/api-and-http/q10-tcp-vs-udp.md) | API & HTTP | A reliable ordered stream vs fire-and-forget datagrams, and what the guarantee costs | Draft |
+| [What is the difference between TCP and UDP?](docs/api-and-http/q10-tcp-vs-udp.md) | API & HTTP | A reliable ordered stream vs fire-and-forget datagrams, and what the guarantee costs | Complete |
 | [What is data normalization?](docs/databases/q12-data-normalization.md) | Databases | 1NF to BCNF, the anomalies each form removes, and when to stop | Complete |
 | [What is data partitioning?](docs/databases/q13-data-partitioning.md) | Databases | Horizontal, vertical, range, hash, and list partitioning | Complete |
 | [What are the common application scenarios for Redis?](docs/databases/q14-redis-use-cases.md) | Databases | Cache, session store, rate limiter, queue, and leaderboard | Complete |
@@ -194,7 +194,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [How would you handle file uploads in a web application?](docs/api-and-http/q09-file-uploads.md) | API & HTTP | Validation, naming, metadata, and keeping bytes out of the app server | Complete |
 | [Describe how session management works in web applications.](docs/security-and-auth/q24-session-management.md) | Security & Auth | Session lifecycle, storage, and scaling it across servers | Complete |
 | [What is Cross-Site Request Forgery (CSRF)?](docs/security-and-auth/q26-csrf.md) | Security & Auth | Riding the victim's ambient credentials, and how tokens stop it | Complete |
-| [What is the difference between HS256 and RS256 for signing a JWT?](docs/security-and-auth/q28-jwt-hs256-vs-rs256.md) | Security & Auth | A shared secret vs a key pair, and why the choice is about who has to verify | Draft |
+| [What is the difference between HS256 and RS256 for signing a JWT?](docs/security-and-auth/q28-jwt-hs256-vs-rs256.md) | Security & Auth | A shared secret vs a key pair, and why the choice is about who has to verify | Complete |
 | [When would you move work onto a message queue?](docs/architecture-and-scaling/q35-message-queues-and-async-work.md) | Architecture & Scaling | Decoupling, absorbing bursts, and what a queue makes harder | Complete |
 | [How do you stop one slow dependency from taking down your service?](docs/architecture-and-scaling/q37-timeouts-retries-and-failure.md) | Architecture & Scaling | Timeouts, bounded retries with backoff, and circuit breakers | Complete |
 | [How do you deploy a new version without dropping requests?](docs/devops-and-deployment/q43-zero-downtime-deploys.md) | DevOps & Deployment | Rolling, blue-green, and canary, plus health checks and rollback | Complete |

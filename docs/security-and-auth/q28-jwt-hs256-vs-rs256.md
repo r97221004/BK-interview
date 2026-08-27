@@ -2,7 +2,7 @@
 
 > Tests whether you pick a signing algorithm from who needs to verify the token rather than from a benchmark, and whether you can explain why an unpinned algorithm is exploitable.
 
-**Part:** Security & Auth | **Importance:** 7/10 | **Status:** Draft
+**Part:** Security & Auth | **Importance:** 7/10 | **Status:** Complete
 
 **New to these terms?** [endpoint](../_glossary.md#endpoint), [jwt](../_glossary.md#jwt)
 
