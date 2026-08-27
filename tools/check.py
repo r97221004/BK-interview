@@ -208,13 +208,14 @@ check("prev/next footers chain in README order", bad_nav)
 # a promise can rot silently: the anchor still resolves and the wording is
 # fine, but the reader who follows the link never meets the word again.
 sys.path.insert(0, os.path.join(ROOT, "tools"))
-from build import TERM_RE, HOME, path_of, DISPLAY  # noqa: E402
+from build import TERM_RE, HOME, path_of, DISPLAY, prose_of  # noqa: E402
 
 homeless = []
 for anchor, rx in TERM_RE.items():
     home = HOME[anchor]
-    prose = NAV.split(open(path_of(home)).read())[0]
-    prose = re.sub(r"\*\*New to these terms\?\*\* .*\n", "", prose)
+    # Same notion of prose the generator uses, so the two cannot drift: a term
+    # that only ever appears inside a code sample is not explained there.
+    prose = prose_of(open(path_of(home)).read())
     if not re.search(rx, prose, re.I):
         homeless.append((anchor, home))
 check("every glossary term appears in the question it is homed to", homeless,

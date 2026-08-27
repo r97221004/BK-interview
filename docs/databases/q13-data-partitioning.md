@@ -60,4 +60,4 @@ The sentence to remember is: **Pick the partition key wrong and you have not par
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q12: What is data normalization?](q12-data-normalization.md) | [All 41 questions](../../README.md) | [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) |
+| [Q12: What is data normalization?](q12-data-normalization.md) | [All 42 questions](../../README.md) | [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) |

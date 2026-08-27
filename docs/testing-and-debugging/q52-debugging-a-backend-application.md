@@ -72,4 +72,4 @@ The sentence to remember is: **A bug you cannot trigger on demand cannot be veri
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q43: How do you deploy a new version without dropping requests?](../devops-and-deployment/q43-zero-downtime-deploys.md) | [All 41 questions](../../README.md) | [Q62: How would you paginate a large collection endpoint?](../api-design/q62-pagination.md) |
+| [Q43: How do you deploy a new version without dropping requests?](../devops-and-deployment/q43-zero-downtime-deploys.md) | [All 42 questions](../../README.md) | [Q62: How would you paginate a large collection endpoint?](../api-design/q62-pagination.md) |

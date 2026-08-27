@@ -50,4 +50,4 @@ The sentence to remember is: **If the answer to "does the user need to see this 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q26: What is Cross-Site Request Forgery (CSRF)?](../security-and-auth/q26-csrf.md) | [All 41 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |
+| [Q28: What is the difference between HS256 and RS256 for signing a JWT?](../security-and-auth/q28-jwt-hs256-vs-rs256.md) | [All 42 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |

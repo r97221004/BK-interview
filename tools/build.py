@@ -29,7 +29,7 @@ IMPORTANCE = {
     4: 9, 7: 9, 17: 9, 18: 9, 23: 9, 31: 9, 32: 9,
     3: 8, 5: 8, 6: 8, 8: 8, 10: 8, 12: 8, 13: 8, 14: 8, 19: 8, 20: 8, 22: 8, 25: 8,
     27: 8, 33: 8, 36: 8, 41: 8, 51: 8, 61: 8,
-    9: 7, 24: 7, 26: 7, 35: 7, 37: 7, 43: 7, 52: 7, 62: 7, 63: 7,
+    9: 7, 24: 7, 26: 7, 28: 7, 35: 7, 37: 7, 43: 7, 52: 7, 62: 7, 63: 7,
     15: 6, 34: 6,
 }
 assert set(IMPORTANCE) == set(BY_NUM), "importance must cover every question"
@@ -48,7 +48,7 @@ TERM_RE = {
     "head-of-line-blocking": r"head-of-line blocking",
     "websocket": r"\bWebSockets?\b", "api-versioning": r"\bversioning\b",
     "breaking-change": r"breaking changes?", "presigned-url": r"presigned URLs?",
-    "cookie": r"\bcookies?\b", "session": r"\bsessions?\b", "jwt": r"\bJWTs?\b",
+    "cookie": r"\bcookies?\b", "session": r"\bsessions?\b", "jwt": r"\bJWTs?\b", "hmac": r"\bHMAC\b", "jwks": r"\bJWKS\b",
     "same-origin-policy": r"same-origin policy", "cors": r"\bCORS\b",
     "preflight": r"\bpreflight\b", "csrf": r"\bCSRF\b", "samesite": r"\bSameSite\b",
     "xss": r"\bXSS\b", "csp": r"Content Security Policy|\bCSP\b",
@@ -135,17 +135,27 @@ def nav_footer(num):
 MAX_TERMS = 5
 
 
-def terms_used(num, body):
-    """Glossary terms this question uses but does not itself define.
+def prose_of(body):
+    """The authored prose of a question, which is what term detection reads.
 
-    Only the prose counts, so two generated regions are stripped first. The
-    navigation footer quotes the titles of the neighbouring questions, which
-    would credit this question with every term those titles contain. And the
-    terms line itself is made of term names: leaving it in makes the previous
-    build's output an input to this one, which locks the line in place forever.
+    Two generated regions go first. The navigation footer quotes the titles of
+    the neighbouring questions, which would credit this question with every
+    term those titles contain. And the terms line itself is made of term names:
+    leaving it in makes the previous build's output an input to this one, which
+    locks the line in place forever.
+
+    Fenced code blocks go for a different reason - an identifier is not a
+    mention. A `cursor` in a SQL sample is not cursor pagination, and an
+    `https://` in an example URL does not make the question about TLS.
     """
-    prose = body.split("---\n\n| ⬅ Previous")[0]
-    prose = re.sub(r"\*\*New to these terms\?\*\* .*\n", "", prose)
+    text = body.split("---\n\n| ⬅ Previous")[0]
+    text = re.sub(r"\*\*New to these terms\?\*\* .*\n", "", text)
+    return re.sub(r"```.*?```", "", text, flags=re.S)
+
+
+def terms_used(num, body):
+    """Glossary terms this question uses but does not itself define."""
+    prose = prose_of(body)
     return {a for a, rx in TERM_RE.items()
             if HOME.get(a) not in (None, num) and re.search(rx, prose, re.I)}
 

@@ -170,6 +170,11 @@ q(27, "security-and-auth", "cors",
   "Same-origin policy, preflight, and what CORS does not protect",
   "Tests whether you know CORS is a browser rule that relaxes a restriction, not a server-side security control.")
 
+q(28, "security-and-auth", "jwt-hs256-vs-rs256",
+  "What is the difference between HS256 and RS256 for signing a JWT?",
+  "A shared secret vs a key pair, and why the choice is about who has to verify",
+  "Tests whether you pick a signing algorithm from who needs to verify the token rather than from a benchmark, and whether you can explain why an unpinned algorithm is exploitable.")
+
 # ------------------------------------------------- Architecture & Scaling
 q(31, "architecture-and-scaling", "scaling-during-traffic-surge",
   "How would you scale a backend application during a traffic surge?",

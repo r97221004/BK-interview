@@ -66,4 +66,4 @@ The sentence to remember is: **Never change a live column in place - add, dual-w
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q19: How do you decide what to cache, and how do you invalidate it?](q19-caching-strategy-and-invalidation.md) | [All 41 questions](../../README.md) | [Q22: What is the difference between a session and a cookie?](../security-and-auth/q22-session-vs-cookie.md) |
+| [Q19: How do you decide what to cache, and how do you invalidate it?](q19-caching-strategy-and-invalidation.md) | [All 42 questions](../../README.md) | [Q22: What is the difference between a session and a cookie?](../security-and-auth/q22-session-vs-cookie.md) |

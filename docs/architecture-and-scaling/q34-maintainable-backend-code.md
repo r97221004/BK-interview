@@ -64,4 +64,4 @@ The sentence to remember is: **The test is whether the next person to open this 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) | [All 41 questions](../../README.md) | *(last question)* |
+| [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) | [All 42 questions](../../README.md) | *(last question)* |

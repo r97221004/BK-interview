@@ -67,4 +67,4 @@ The sentence to remember is: **A cache is allowed to be wrong for a little while
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) | [All 41 questions](../../README.md) | [Q20: How do you change a database schema without downtime?](q20-schema-migrations.md) |
+| [Q14: What are the common application scenarios for Redis?](q14-redis-use-cases.md) | [All 42 questions](../../README.md) | [Q20: How do you change a database schema without downtime?](q20-schema-migrations.md) |

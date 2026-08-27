@@ -106,6 +106,18 @@ A JSON Web Token: a signed, self-describing token carrying claims such as user I
 
 Explained in full: [Q21](security-and-auth/q21-session-vs-jwt-authentication.md).
 
+### HMAC
+
+A keyed hash: a secret is mixed into the hash of the message, so only a holder of that secret can produce or check the result. The same key does both, which is why anyone who can verify an HMAC can also forge one.
+
+Explained in full: [Q28](security-and-auth/q28-jwt-hs256-vs-rs256.md).
+
+### JWKS
+
+A JSON Web Key Set: the document an issuer publishes its public keys at, each with a key ID that signed tokens name in their header. Verifiers fetch the key a token names, so rotating keys needs no redeploy.
+
+Explained in full: [Q28](security-and-auth/q28-jwt-hs256-vs-rs256.md).
+
 ### Same-origin policy
 
 The browser rule that scripts on one origin - scheme, host, and port together - cannot read responses from another origin. It is the restriction [CORS](#cors) selectively relaxes.
