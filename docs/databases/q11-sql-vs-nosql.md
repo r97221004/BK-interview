@@ -4,7 +4,7 @@
 
 **Part:** Databases | **Importance:** 10/10 | **Status:** Complete
 
-**New to these terms?** [acid](../_glossary.md#acid), [partitioning](../_glossary.md#partitioning), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [horizontal scaling](../_glossary.md#horizontal-scaling)
+**New to these terms?** [session](../_glossary.md#session), [acid](../_glossary.md#acid), [partitioning](../_glossary.md#partitioning), [index](../_glossary.md#index), [horizontal scaling](../_glossary.md#horizontal-scaling)
 
 ## In One Sentence
 
@@ -64,4 +64,4 @@ The sentence to remember is: **If the data has to add up across tables, use SQL;
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q02: Can you describe a typical HTTP request/response cycle?](../api-and-http/q02-http-request-response-cycle.md) | [All 40 questions](../../README.md) | [Q16: What is a database index, and how do you work out why a query is slow?](q16-indexes-and-slow-queries.md) |
+| [Q02: Can you describe a typical HTTP request/response cycle?](../api-and-http/q02-http-request-response-cycle.md) | [All 41 questions](../../README.md) | [Q16: What is a database index, and how do you work out why a query is slow?](q16-indexes-and-slow-queries.md) |

@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 8/10 | **Status:** Complete
 
-**New to these terms?** [rest](../_glossary.md#rest), [statelessness](../_glossary.md#statelessness), [persistent connection](../_glossary.md#persistent-connection), [redis](../_glossary.md#redis)
+**New to these terms?** [rest](../_glossary.md#rest), [statelessness](../_glossary.md#statelessness), [persistent connection](../_glossary.md#persistent-connection), [tcp](../_glossary.md#tcp), [redis](../_glossary.md#redis)
 
 ## In One Sentence
 
@@ -56,4 +56,4 @@ The sentence to remember is: **REST is you calling the server; a WebSocket is le
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) | [All 40 questions](../../README.md) | [Q12: What is data normalization?](../databases/q12-data-normalization.md) |
+| [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) | [All 41 questions](../../README.md) | [Q10: What is the difference between TCP and UDP?](q10-tcp-vs-udp.md) |

@@ -50,4 +50,4 @@ The sentence to remember is: **Find it, free it, buy time, fix it - and a DELETE
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q63: How do you make an endpoint safe to retry?](../api-design/q63-idempotency-and-retries.md) | [All 40 questions](../../README.md) | [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) |
+| [Q63: How do you make an endpoint safe to retry?](../api-design/q63-idempotency-and-retries.md) | [All 41 questions](../../README.md) | [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) |

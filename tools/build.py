@@ -27,7 +27,7 @@ BY_NUM = {q["num"]: q for q in Q}
 IMPORTANCE = {
     1: 10, 2: 10, 11: 10, 16: 10, 21: 10,
     4: 9, 7: 9, 17: 9, 18: 9, 23: 9, 31: 9, 32: 9,
-    3: 8, 5: 8, 6: 8, 8: 8, 12: 8, 13: 8, 14: 8, 19: 8, 20: 8, 22: 8, 25: 8,
+    3: 8, 5: 8, 6: 8, 8: 8, 10: 8, 12: 8, 13: 8, 14: 8, 19: 8, 20: 8, 22: 8, 25: 8,
     27: 8, 33: 8, 36: 8, 41: 8, 51: 8, 61: 8,
     9: 7, 24: 7, 26: 7, 35: 7, 37: 7, 43: 7, 52: 7, 62: 7, 63: 7,
     15: 6, 34: 6,
@@ -44,6 +44,8 @@ TERM_RE = {
     "endpoint": r"\bendpoints?\b", "rest": r"(?-i:\bREST(ful)?\b)", "resource": r"\bresources?\b",
     "idempotent": r"\bidempotenc?[ty]\b", "statelessness": r"stateless(ness)?",
     "status-code": r"status codes?", "persistent-connection": r"persistent connections?|keep-alive",
+    "tcp": r"\bTCP\b", "udp": r"\bUDP\b",
+    "head-of-line-blocking": r"head-of-line blocking",
     "websocket": r"\bWebSockets?\b", "api-versioning": r"\bversioning\b",
     "breaking-change": r"breaking changes?", "presigned-url": r"presigned URLs?",
     "cookie": r"\bcookies?\b", "session": r"\bsessions?\b", "jwt": r"\bJWTs?\b",

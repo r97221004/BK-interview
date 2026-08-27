@@ -78,6 +78,11 @@ q(9, "api-and-http", "file-uploads",
   "Validation, naming, metadata, and keeping bytes out of the app server",
   "Tests whether you treat uploads as untrusted input and whether you know the scaling problem hidden in the naive implementation.")
 
+q(10, "api-and-http", "tcp-vs-udp",
+  "What is the difference between TCP and UDP?",
+  "A reliable ordered stream vs fire-and-forget datagrams, and what the guarantee costs",
+  "Tests whether you can get past 'TCP is reliable, UDP is fast' to what the reliability actually costs - a round trip before any data moves, and one lost packet stalling everything behind it.")
+
 # ------------------------------------------------------------- Databases
 q(11, "databases", "sql-vs-nosql",
   "Can you explain the difference between SQL and NoSQL databases?",

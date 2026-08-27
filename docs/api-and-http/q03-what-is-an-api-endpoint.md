@@ -46,4 +46,4 @@ The sentence to remember is: **One endpoint is one door; the API is the whole bu
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](../architecture-and-scaling/q32-python-concurrency-models.md) | [All 40 questions](../../README.md) | [Q05: What are the benefits and drawbacks of RESTful APIs?](q05-rest-benefits-and-drawbacks.md) |
+| [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](../architecture-and-scaling/q32-python-concurrency-models.md) | [All 41 questions](../../README.md) | [Q05: What are the benefits and drawbacks of RESTful APIs?](q05-rest-benefits-and-drawbacks.md) |

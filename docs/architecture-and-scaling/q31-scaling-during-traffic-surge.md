@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 9/10 | **Status:** Complete
 
-**New to these terms?** [statelessness](../_glossary.md#statelessness), [cache](../_glossary.md#cache), [redis](../_glossary.md#redis), [rate limiting](../_glossary.md#rate-limiting), [message queue](../_glossary.md#message-queue)
+**New to these terms?** [statelessness](../_glossary.md#statelessness), [session](../_glossary.md#session), [cache](../_glossary.md#cache), [rate limiting](../_glossary.md#rate-limiting), [message queue](../_glossary.md#message-queue)
 
 ## In One Sentence
 
@@ -65,4 +65,4 @@ The sentence to remember is: **A system that deliberately gets slower survives a
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) | [All 40 questions](../../README.md) | [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](q32-python-concurrency-models.md) |
+| [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) | [All 41 questions](../../README.md) | [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](q32-python-concurrency-models.md) |

@@ -42,9 +42,27 @@ Explained in full: [Q61](api-design/q61-status-codes-and-error-responses.md).
 
 ### Persistent connection
 
-Reuse of one TCP connection for several request/response pairs, the default since HTTP/1.1. It removes a handshake per request, which is why connection pooling matters for service-to-service calls.
+Reuse of one [TCP](#tcp) connection for several request/response pairs, the default since HTTP/1.1. It removes a handshake per request, which is why connection pooling matters for service-to-service calls.
 
 Explained in full: [Q02](api-and-http/q02-http-request-response-cycle.md).
+
+### TCP
+
+The transport that turns IP's best-effort packets into a reliable, ordered byte stream: it opens a connection with a handshake, numbers every byte, retransmits whatever is not acknowledged, and slows itself down when the network is congested.
+
+Explained in full: [Q10](api-and-http/q10-tcp-vs-udp.md).
+
+### UDP
+
+The transport that adds almost nothing to IP - ports, a length, and a checksum, in eight bytes of header. Each datagram either arrives whole or not at all, with no connection, no retransmission, and no ordering, so recovering from loss is the application's job.
+
+Explained in full: [Q10](api-and-http/q10-tcp-vs-udp.md).
+
+### Head-of-line blocking
+
+One stalled item holding up everything queued behind it, even data that has already arrived. It happens at the HTTP layer when a response blocks the next request on the connection, and at the [TCP](#tcp) layer when one lost packet blocks every stream sharing that connection.
+
+Explained in full: [Q10](api-and-http/q10-tcp-vs-udp.md).
 
 ### WebSocket
 

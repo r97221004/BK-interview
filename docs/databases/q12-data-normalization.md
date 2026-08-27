@@ -57,4 +57,4 @@ The sentence to remember is: **Normalisation is just: do not write the same fact
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q08: What is the difference between a REST API and a WebSocket?](../api-and-http/q08-rest-vs-websocket.md) | [All 40 questions](../../README.md) | [Q13: What is data partitioning?](q13-data-partitioning.md) |
+| [Q10: What is the difference between TCP and UDP?](../api-and-http/q10-tcp-vs-udp.md) | [All 41 questions](../../README.md) | [Q13: What is data partitioning?](q13-data-partitioning.md) |
