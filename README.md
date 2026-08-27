@@ -108,17 +108,19 @@ Each question file follows the same structure:
 2. **Answer Shape** - a short speaking order that moves from the direct answer to an example and a practical consequence.
 3. **Full Spoken Answer** - the complete follow-up answer and a bank of details to select from, not a script to deliver in full.
 4. **Quick Reference** - on some questions only: the comparison table or code sample worth revising from, kept out of the spoken sections because a table is not something you say out loud.
-5. **Previous / Home / Next** - navigation through the interview-priority reading order.
+5. **Interview Version** - the whole answer condensed into one paragraph you could say end to end, plus the single sentence worth memorising. It sits last because it is what you reread on the way in.
+6. **Previous / Home / Next** - navigation through the interview-priority reading order.
 
 ### Which Layer to Answer With
 
-The three sections are the same answer at increasing depth, so you can match the room. The Full Spoken Answer is deliberately longer than a good opening: select the relevant paragraphs when the interviewer follows up instead of reciting all of it.
+The first three sections are the same answer at increasing depth, so you can match the room. The Full Spoken Answer is deliberately longer than a good opening: select the relevant paragraphs when the interviewer follows up instead of reciting all of it. The Interview Version is not a fourth depth - it is the same answer packed for revision, for the train ride rather than for the room.
 
 | Layer | Reach for it when | Spoken length |
 |---|---|---|
 | **In One Sentence** | They only want to know whether you know the concept at all | about 8 seconds |
 | **Answer Shape** | Your default opening. Follow the short speaking order, then stop | 30-50 seconds |
 | **Full Spoken Answer** | They followed up, or clearly want the detail | select relevant detail; do not recite all of it |
+| **Interview Version** | You are revising beforehand, not choosing a depth in the room | one paragraph, said end to end |
 
 The order is the point: lead with the answer, stop, and let the interviewer pull you deeper. A correct one-liner followed by silence beats a rambling explanation that never lands the answer.
 

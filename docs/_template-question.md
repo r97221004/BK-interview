@@ -20,13 +20,13 @@ Describe the spoken order in one short paragraph. Start with the direct answer, 
 
 ## Full Spoken Answer
 
-The spoken version, complete and correct on its own. Use three or four short English paragraphs, each followed by a natural Traditional Chinese counterpart. Prefer common backend scenarios over rare implementation details. Keep it prose - `check.py` counts paragraphs, so tables and code blocks belong in the glossary or in the question's prose, not as separate blocks here.
+The spoken version, complete and correct on its own. Use three to seven short English paragraphs - four is the usual length - each followed by a natural Traditional Chinese counterpart. Prefer common backend scenarios over rare implementation details. Keep it prose - `check.py` counts paragraphs, so tables and code blocks belong in the glossary or in the question's prose, not as separate blocks here.
 
-完整且可以獨立成立的口述回答。使用三到四個簡短英文段落，每段後面接自然的繁體中文對照。優先使用後端工程師常見的情境，不主動展開冷門的實作細節。內容維持散文形式，因為 check.py 會計算段落數，表格與程式碼區塊不適合單獨放在這裡。
+完整且可以獨立成立的口述回答。使用三到七個簡短英文段落（通常是四個），每段後面接自然的繁體中文對照。優先使用後端工程師常見的情境，不主動展開冷門的實作細節。內容維持散文形式，因為 check.py 會計算段落數，表格與程式碼區塊不適合單獨放在這裡。
 
 ## Quick Reference
 
-Optional, and only when there is genuinely something to look up: a comparison table, a code sample, a set of headers. It sits after the spoken answer because a table is not something you say out loud, and it is exempt from the bilingual paragraph rules - `check.py` requires only that it contains a table or a fenced code block. Leave the section out entirely when the answer has nothing to tabulate.
+Optional, and only when there is genuinely something to look up: a comparison table, a code sample, a set of headers. It sits after the spoken answer, before the Interview Version, because a table is not something you say out loud, and it is exempt from the bilingual paragraph rules - `check.py` requires only that it contains a table or a fenced code block. Leave the section out entirely when the answer has nothing to tabulate.
 
 ## Interview Version
 
@@ -41,6 +41,6 @@ The sentence to remember is: **the one line that carries the whole answer - a sl
 ---
 
 <!-- Navigation footer - tools/build.py generates this in README importance order,
-     as a three-column table: the previous question, "All 29 questions" pointing at
+     as a three-column table: the previous question, "All N questions" pointing at
      ../../README.md, and the next question. Do not hand-write it; run the generator,
      and tools/check.py verifies the whole chain. -->

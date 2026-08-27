@@ -3,7 +3,7 @@
 Generators and checks for the question set. The README, the glossary, and every
 navigation footer are generated - edit the data modules, not the output.
 
-- `questions.py` - the 29 questions: number, part, slug, title, focus, and what the question really tests
+- `questions.py` - the questions themselves: number, part, slug, title, focus, and what the question really tests
 - `glossary.py` - glossary terms and the question that owns each one
 - `build.py` - importance ratings, the README prose, and the generator for stubs, `docs/_glossary.md`, and `README.md`
 - `check.py` - verifies structure, links, numbering, bilingual paragraph shape, and README/file consistency
@@ -30,13 +30,19 @@ protects it automatically - there is no list to remember to update.
 ## Sections
 
 `check.py` enforces the section list and its order: **In One Sentence**,
-**Answer Shape**, **Full Spoken Answer**, and optionally **Quick Reference**.
+**Answer Shape**, **Full Spoken Answer**, optionally **Quick Reference**, and
+finally **Interview Version**.
 
 The first three are bilingual prose and are checked paragraph by paragraph -
-one English paragraph, then its Traditional Chinese counterpart, with three or
-four pairs in the spoken answer. Keep tables and code out of them, because the
+one English paragraph, then its Traditional Chinese counterpart, with three to
+seven pairs in the spoken answer. Keep tables and code out of them, because the
 paragraph count is what verifies the pairing.
 
-**Quick Reference** is where that material goes instead. It is optional, always
-last, exempt from the language rules, and must contain a table or a fenced code
+**Quick Reference** is where that material goes instead. It is optional,
+exempt from the language rules, and must contain a table or a fenced code
 block - if it is prose, it belongs in the answer.
+
+**Interview Version** is always the last section: the whole answer condensed
+into one paragraph you could say end to end, then the one sentence worth
+memorising - exactly two bilingual pairs, four paragraphs in all. It is the
+last-minute revision pass, so it has to stand alone without the sections above.
