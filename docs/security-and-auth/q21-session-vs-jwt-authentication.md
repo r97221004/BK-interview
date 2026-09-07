@@ -60,6 +60,20 @@ In practice most production systems run a hybrid, and saying so is the strongest
 
 Only the last row answers no twice, which is the whole reason it is the recommendation.
 
+### The three cookie attributes, and what each one is for
+
+`Set-Cookie: token=eyJhbGci...; HttpOnly; Secure; SameSite=Lax; Max-Age=900`
+
+| Attribute | What the browser does with it | What it stops | What it does not stop |
+|---|---|---|---|
+| `HttpOnly` | Hides the cookie from `document.cookie` and from every script on the page | An injected script reading the token and sending it somewhere else | That same script *using* the login by firing requests from the page itself |
+| `Secure` | Sends the cookie only over HTTPS, never over plain HTTP | The cookie being read off the wire, or leaked by one stray `http://` link | Anything once the connection is already HTTPS |
+| `SameSite=Lax` | Withholds the cookie on cross-site requests, but still sends it when the user clicks a link to your site | CSRF - another site's form or `fetch` riding your logged-in cookie | A request from your own origin, so XSS is untouched |
+| `SameSite=Strict` | Withholds it on every cross-site request, top-level navigations included | The same, slightly wider | Arriving from an external link looking logged out - the usual reason `Lax` wins |
+| `SameSite=None` | Sends it cross-site again; the browser rejects it unless `Secure` is set too | Nothing - this is the opt-out, set only for a deliberate cross-site API | CSRF, which is back on the table and now needs a token or a header check |
+
+The three answer to three different attackers, which is why you set all of them rather than picking one: `HttpOnly` is about scripts on your page, `Secure` is about the network in between, `SameSite` is about other websites. `Max-Age` is the fourth habit - it bounds how long a stolen cookie is still worth stealing.
+
 ### Pinning the algorithm
 
 The attack in the answer is a one-line difference, using PyJWT:
