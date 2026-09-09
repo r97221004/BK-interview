@@ -42,9 +42,9 @@ Then decide what the user sees, because the point of all this is to stay partly 
 
 面試時可回答：從逾時開始，因為「沒有設逾時」是連鎖故障最常見的單一原因。一個沒有期限的呼叫，在依賴變慢時並不會失敗 —— 它會等，而且整段期間都佔著一個 worker 或一條連線。這種情況一多，池子就被榨乾，那一刻你的服務就掛了，儘管它裡面沒有任何東西壞掉。所以每一個對外呼叫都要有明確的連線逾時與讀取逾時，而且要根據那個依賴的真實延遲來訂，不要留在函式庫的預設值 —— 那個預設值往往是無限。接著是重試，附帶兩個條件。這個操作必須可以安全地重複，也就是冪等，否則對付款的一次重試就是重複扣款。而且重試必須採用帶抖動的指數退避，因為所有客戶端同步重試，會把一個苦撐中的依賴直接變成死的。重試也必須有上限，而且是「整條呼叫鏈」的上限而不是每一跳各算 —— 三個服務各重試三次，就是一個使用者動作變成二十七個請求。斷路器則是讓你停止對著一面牆重試的東西：它盯著失敗率，一旦超過門檻就打開，之後的呼叫立刻失敗、完全不碰網路，這釋放了你的 worker，也給那個故障中的服務恢復的空間。快速失敗優於緩慢失敗 —— 它把一個要花掉一個 worker 三十秒的逾時，換成一個你在一毫秒內就能處理的錯誤。然後決定使用者看到什麼，因為這一切的重點是「部分還活著」而不是「整個掛掉」：如果推薦服務不可用，就把頁面在沒有推薦的情況下送出；如果快取掛了，就去打資料庫、慢一點。並且讓降級是看得見的，因為一個會無聲丟掉某個功能的系統，是一個一週後才有人發現的系統。
 
-The sentence to remember is: **Timeout stops one call hanging forever, backoff handles a blip, the breaker stops you hammering a wall, and degradation keeps the site up while one room is closed.**
+The sentence to remember is: **Do not wait too long; retry a temporary failure slowly; stop calling what is clearly down; and if you can keep serving with one feature missing, keep serving - timeout, backoff, breaker, degradation.**
 
-最值得記：**逾時讓一個呼叫不會永遠掛著，退避處理短暫的抖動，斷路器讓你不再對牆猛捶，而降級讓網站在其中一個房間關閉時仍然開著。**
+最值得記：**不要等太久；暫時失敗可以慢慢重試；確定掛了就先別打；能少一個功能繼續服務就繼續服務 —— 逾時、退避、斷路器、降級。**
 
 ---
 
