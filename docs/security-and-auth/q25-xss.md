@@ -32,9 +32,9 @@ There are three variants, and the only difference is where the payload waits bef
 
 它有三種類型，差別只在 payload 執行前待在哪裡。儲存型存在你的資料庫裡 —— 一則留言、一個使用者名稱 —— 對每個打開頁面的人都會觸發，所以最危險。反射型搭著網址進來，典型是 `/search?q=<script>...</script>`，又被直接回顯進回應，所以受害者必須點一條精心構造的連結。DOM 型則完全不經過伺服器：前端 JavaScript 從網址取值，然後做 `element.innerHTML = userInput`。
 
-The main fix is output encoding at the point of rendering: turn `<` and `>` into `&lt;` and `&gt;` so the browser shows `<script>` as visible text instead of executing it. It has to be context-aware, because escaping for an HTML body, an attribute, a JavaScript literal and a URL are four different rules - which is also why encoding belongs at output, not at input, since when the data arrives you do not yet know where it will end up. In practice, use a framework that escapes by default and audit the escape hatches - `innerHTML`, `dangerouslySetInnerHTML`, Jinja's `|safe`. When you genuinely must accept HTML, run it through a proven sanitizer such as DOMPurify rather than your own regex. Then add a Content Security Policy as an extra layer, and be honest that it is damage limitation for the injection you missed, not the primary defence. One line to remember: XSS is user input that should have been data being executed as code.
+The main fix is output encoding at the point of rendering: turn `<` and `>` into `&lt;` and `&gt;` so the browser shows `<script>` as visible text instead of executing it. It has to be context-aware, because escaping for an HTML body, an attribute, a JavaScript literal and a URL are four different rules - which is also why encoding belongs at output, not at input, since when the data arrives you do not yet know where it will end up. In practice, use a framework that escapes by default and never hand untrusted input to an API that parses HTML; audit the escape hatches - `innerHTML`, Vue's `v-html`, React's `dangerouslySetInnerHTML`, Jinja's `|safe`. When you genuinely must accept HTML, run it through a proven sanitizer such as DOMPurify rather than your own regex. Then add a Content Security Policy as an extra layer, and be honest that it is damage limitation for the injection you missed, not the primary defence. One line to remember: XSS is user input that should have been data being executed as code.
 
-主要修法是在「渲染的當下」做輸出編碼：把 `<` 和 `>` 變成 `&lt;` 和 `&gt;`，讓瀏覽器把 `<script>` 當成看得見的文字顯示，而不是執行它。而且必須依情境而定，因為 HTML 內文、屬性、JavaScript 字面值、URL 的跳脫規則各不相同 —— 這也正是編碼屬於輸出端而非輸入端的原因：資料剛進來時，你還不知道它最後會去哪裡。實務上，使用預設就會跳脫的框架，並且盯緊那些逃生口 —— `innerHTML`、`dangerouslySetInnerHTML`、Jinja 的 `|safe`。當你真的必須接受 HTML 時，用經過驗證的 sanitizer（例如 DOMPurify），而不是自己寫的正規表達式。接著加上 Content Security Policy 當額外一層，並且誠實看待它：它是「你漏掉的那次注入」的損害控制，不是主要防線。記住一句：XSS 就是本該當 data 的使用者輸入，被當成 code 執行了。
+主要修法是在「渲染的當下」做輸出編碼：把 `<` 和 `>` 變成 `&lt;` 和 `&gt;`，讓瀏覽器把 `<script>` 當成看得見的文字顯示，而不是執行它。而且必須依情境而定，因為 HTML 內文、屬性、JavaScript 字面值、URL 的跳脫規則各不相同 —— 這也正是編碼屬於輸出端而非輸入端的原因：資料剛進來時，你還不知道它最後會去哪裡。實務上，使用預設就會跳脫的框架，而且絕不要把不可信的輸入直接丟給會解析 HTML 的 API —— 盯緊那些逃生口：`innerHTML`、Vue 的 `v-html`、React 的 `dangerouslySetInnerHTML`、Jinja 的 `|safe`。當你真的必須接受 HTML 時，用經過驗證的 sanitizer（例如 DOMPurify），而不是自己寫的正規表達式。接著加上 Content Security Policy 當額外一層，並且誠實看待它：它是「你漏掉的那次注入」的損害控制，不是主要防線。記住一句：XSS 就是本該當 data 的使用者輸入，被當成 code 執行了。
 
 ## Quick Reference
 
@@ -65,7 +65,7 @@ Memory hook: stored sits in your database, reflected bounces off your server, DO
 | Layer | What it is | What it buys you |
 |---|---|---|
 | 1. Context-aware output encoding | Escape at render time, per destination | The real fix - the payload becomes visible text |
-| 2. Safe DOM APIs | `textContent` instead of `innerHTML` | Removes the most common front-end sink |
+| 2. Never insert raw HTML | `textContent` instead of `innerHTML`; no `v-html` / `dangerouslySetInnerHTML` on untrusted input | Removes the most common front-end sink |
 | 3. A sanitizer | DOMPurify, allowlist-based | Lets you accept real HTML safely |
 | 4. Content Security Policy | Restrict script sources, ban inline and `eval` | Damage limitation for the one you missed |
 
