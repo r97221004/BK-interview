@@ -96,9 +96,9 @@ def verify(token: str) -> dict:
 
 面試時可回答：兩者產出的都是同樣的三段式 token，只有第三段不同。HS256 是 HMAC 搭配 SHA-256：把一把密鑰混進標頭與 payload 的雜湊，驗證就是用同一把密鑰重算一次。RS256 是對 SHA-256 摘要做 RSA 簽章：發行者用私鑰簽，驗證端用對應的公鑰檢查，而公鑰自己簽不出任何東西。所以我真正會問的是：誰需要驗證？在 HS256 底下，驗證的鑰匙就是簽章的鑰匙，因此每個能檢查 token 的服務也都能簽發 token —— 如果簽發與驗證都在同一個服務裡，這沒問題，而且那裡本來就該選比較簡單的它；但只要有第二方要驗，你就把「替任何使用者簽出 token」的能力交了出去。RS256 消除這件事：私鑰留在發行者手上，公鑰公開，驗證端能檢查每一個 token 卻偽造不了任何一個。它也讓輪替變便宜，因為發行者把公鑰放在 JWKS endpoint 上、並在 token 標頭放 key ID，於是什麼都不必重新部署。要知道的攻擊是 algorithm confusion：如果驗證端從 token 標頭讀演算法，攻擊者就把 RS256 改寫成 HS256，並用伺服器的公鑰當 HMAC 密鑰去簽，而公鑰本來就是他能拿到的。修法只有一行 —— 由伺服器聲明它接受哪些演算法。所以我的預設是：只要有發行者以外的東西要驗證就用 RS256、需要小簽章時用 ES256，HS256 只留給單一服務，而且密鑰要用亂數產生，不是手打的。
 
-The sentence to remember is: **Under HS256 anyone who can check a token can also mint one - RS256 is what you reach for the moment that is not acceptable.**
+The sentence to remember is: **HS256 signs and verifies with the same secret, so anyone holding it to check a token can also mint one - RS256 splits the two, the private key signs and the public key can only verify, which is what you reach for the moment a verifier must not be an issuer.**
 
-最值得記：**在 HS256 底下，能驗 token 的人就能簽 token —— 一旦這件事不可接受，就換 RS256。**
+最值得記：**HS256 用同一把 secret 做簽章和驗證，所以任何持有它、能驗證 token 的服務，也能自己簽發 token —— RS256 把兩者拆開：私鑰負責簽章，公鑰只能驗證；當你不希望驗證方具有簽發能力時，就用它。**
 
 ---
 
