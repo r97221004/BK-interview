@@ -32,9 +32,9 @@ Repeatable read fixes that by pinning the row, so both reads say 1000. What it c
 
 repeatable read 的修法是把那一列釘住，所以兩次都讀到 1000。它傳統上釘不住的是「整組結果」。查詢 orders 裡金額大於 1000 的，得到 10 列；有人提交了第 11 列也符合條件的資料；同樣的查詢再跑一次，變成 11 列。這是**幻讀**，要記的一句是「同一個查詢回傳的列數不一樣了」—— 變的不是某一列的值，是那個集合變大了。serializable 連這個都消除，表現得就像一個交易完全跑完，另一個才開始。所以整個進程很單純：**每升一級，就比下一級多擋掉剛好一個異常。**
 
-Two practical notes are worth having ready. The default differs by engine - PostgreSQL and Oracle default to read committed, MySQL with InnoDB defaults to repeatable read - so the same application code can genuinely behave differently on the two, which is the kind of detail interviewers like. And the levels are defined by which anomalies they must prevent, not by how they are implemented, so real databases are often stricter than the standard requires: InnoDB's repeatable read blocks most phantoms through next-key locking, and PostgreSQL implements serializable optimistically, aborting a transaction at commit rather than blocking it along the way. It is also worth saying how repeatable read stays stable without blocking every reader - on both Postgres and InnoDB that is MVCC, not locking. Your transaction reads from a consistent snapshot taken when it started, so rows committed by anyone else afterwards are simply invisible to it.
+Two practical notes are worth having ready. The default differs by engine - PostgreSQL and Oracle default to read committed, MySQL with InnoDB defaults to repeatable read - so the same application code can genuinely behave differently on the two. And the levels are defined by which anomalies they must prevent, not by how they are implemented, so real databases are often stricter than the standard requires. Both Postgres and InnoDB get their stability from MVCC rather than from locking readers: a plain SELECT reads from a consistent snapshot, so rows committed by anyone else afterwards are simply invisible to it. Two details are worth getting right, because they are where the glib version is wrong. The snapshot is taken at the transaction's first statement rather than at BEGIN - and under read committed a fresh one is taken per statement, which is exactly why the same query can return different rows twice. InnoDB's next-key locking is what blocks phantoms for locking reads, meaning SELECT FOR UPDATE, UPDATE and DELETE; plain reads avoid them through the snapshot instead. PostgreSQL implements serializable optimistically with SSI, aborting a transaction rather than blocking it on the way.
 
-有兩點實務筆記值得先準備好。預設值因引擎而異 —— PostgreSQL 和 Oracle 預設 read committed，MySQL 搭 InnoDB 預設 repeatable read —— 所以同一份應用程式碼在兩者上的行為真的會不一樣，而這正是面試官喜歡的那種細節。而且這些級別是用「必須阻止哪些異常」定義的，不是用實作方式定義，所以真實的資料庫常常比標準更嚴格：InnoDB 的 repeatable read 用 next-key locking 擋掉大部分幻讀，而 PostgreSQL 的 serializable 是樂觀實作，會在提交時中止交易，而不是一路阻塞它。另外值得講的是 repeatable read 怎麼在不擋住每個讀者的情況下維持穩定 —— 在 Postgres 和 InnoDB 上靠的是 **MVCC 而不是鎖**。你的交易讀的是它開始時拍下的那份一致快照，所以之後任何人提交的資料列，對它來說根本不存在。
+有兩點實務筆記值得先準備好。預設值因引擎而異 —— PostgreSQL 和 Oracle 預設 read committed，MySQL 搭 InnoDB 預設 repeatable read —— 所以同一份應用程式碼在兩者上的行為真的會不一樣。而且這些級別是用「必須阻止哪些異常」定義的，不是用實作方式定義，所以真實的資料庫常常比標準更嚴格。Postgres 和 InnoDB 的穩定性都來自 **MVCC，而不是把讀者鎖住**：一個普通的 SELECT 讀的是一份一致快照，所以之後任何人提交的資料列對它來說根本不存在。有兩個細節值得講準確，因為含糊的版本就是錯在這裡。**快照是在交易的第一句敘述時拍的，不是在 BEGIN 的時候** —— 而在 read committed 之下，是每一句敘述各拍一張新的，這正是為什麼同一個查詢會回傳不同的結果。**InnoDB 的 next-key locking 擋的是「當前讀」的幻讀**，也就是 SELECT FOR UPDATE、UPDATE 和 DELETE；普通的讀取是靠快照避開幻讀，機制不一樣。PostgreSQL 的 serializable 則是用 SSI 做樂觀實作，做法是中止交易而不是一路阻塞它。
 
 The follow-up is almost always deadlocks, and the clearest way to answer is to show one rather than define it. Two transfers happen at the same moment: transaction one moves money from account A to account B, transaction two moves money from B to A. Transaction one updates A first, which locks row A. Transaction two updates B first, which locks row B. Now transaction one asks for B and waits, because transaction two is holding it - and transaction two asks for A and waits, because transaction one is holding it. Neither will ever release, because each is waiting to finish. The database detects the cycle, kills one of them, and what reaches your application is an error on a statement that was perfectly correct. That last part is why deadlocks confuse people: nothing in the failing query is wrong.
 
@@ -183,6 +183,20 @@ sequenceDiagram
 | **Serializable** | ❌ prevented | ❌ prevented | ❌ prevented | opt in when correctness demands it |
 
 ✅ = the anomaly can still occur at this level. Each level removes exactly one more than the one below it.
+
+**The gotcha inside repeatable read - snapshot read vs current read:**
+
+A plain `SELECT` reads the snapshot. A write reads the **latest committed** row, not your snapshot. So inside one repeatable-read transaction on InnoDB:
+
+| Statement | What it sees | Why |
+|---|---|---|
+| `SELECT balance` | 1000 - your snapshot | Snapshot read (MVCC), consistent for the whole transaction |
+| Someone else commits `balance = 500` | - | Invisible to your `SELECT` |
+| `SELECT balance` again | Still 1000 | Repeatable read is doing its job |
+| `UPDATE … SET balance = balance - 100` | Operates on **500**, not 1000 | Current read - a write must act on the row that exists now |
+| `SELECT balance` after that | 400 | You just wrote it, so you can see it |
+
+So reading a value and then writing based on it is **not** safe just because the isolation level is repeatable read. If the write depends on the value you read, take the lock when you read it - `SELECT … FOR UPDATE` - or use a single atomic statement.
 
 **A deadlock, and why the fix is what it is:**
 
