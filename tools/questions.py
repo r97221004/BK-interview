@@ -230,8 +230,8 @@ q(43, "devops-and-deployment", "zero-downtime-deploys",
 
 q(29, "security-and-auth", "how-https-works",
   "How does HTTPS actually encrypt a connection?",
-  "Asymmetric to agree a key, symmetric for the data, and a certificate for identity",
-  "Tests whether you can say why two kinds of encryption are needed rather than one, and whether you know the certificate is what stops you encrypting to an attacker.")
+  "A certificate for identity, ECDHE for the shared secret, symmetric for the data",
+  "Tests whether you separate authenticating the server from agreeing the key, rather than repeating the pre-TLS 1.3 story where a session key is encrypted with the server public key.")
 
 
 # ---------------------------------------------------- Testing & Debugging

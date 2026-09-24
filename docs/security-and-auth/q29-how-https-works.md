@@ -1,6 +1,6 @@
 # Q29: How does HTTPS actually encrypt a connection?
 
-> Tests whether you can say why two kinds of encryption are needed rather than one, and whether you know the certificate is what stops you encrypting to an attacker.
+> Tests whether you separate authenticating the server from agreeing the key, rather than repeating the pre-TLS 1.3 story where a session key is encrypted with the server public key.
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Complete
 
@@ -8,55 +8,49 @@
 
 ## In One Sentence
 
-HTTPS uses slow asymmetric encryption once, purely to agree on a shared key with a server it has never met, then uses that fast shared key to encrypt everything else - and the certificate is what proves the server you agreed it with is really the one you meant.
+HTTPS is HTTP with a TLS layer wrapped around it: the certificate proves which server you reached, ECDHE lets both sides work out a shared secret that is never sent, and the HTTP data itself travels under fast symmetric encryption.
 
-HTTPS 先用一次慢的非對稱加密，純粹為了跟一台素未謀面的伺服器**談出一把共用金鑰**，之後所有資料都用那把快的共用金鑰加密；而憑證的作用，是證明跟你談的那台伺服器真的是你要找的那一台。
+HTTPS 就是 HTTP 外面加上一層 TLS：憑證證明你連到的是哪一台伺服器，ECDHE 讓雙方各自算出一個從未被送出的 shared secret，而真正的 HTTP 資料則用快速的對稱式加密傳輸。
 
 ## Answer Shape
 
-Start from what plain HTTP leaks, because the three things TLS provides only make sense against what is missing without it. Then answer the real question - why two kinds of encryption instead of one - since that is what the interviewer is listening for. Walk the handshake in order. Finish on the certificate, because encryption without identity is encryption to whoever intercepted you.
+Say what HTTPS is in one line, then what plain HTTP does not do. Name the three things TLS provides, one clause each. Then answer the real question - how it encrypts - by separating the handshake into its two jobs: confirm who the server is, and agree a secret. Keep those two apart, because merging them is what produces the outdated answer. Finish with where TLS actually terminates in a real deployment.
 
-從「純 HTTP 會外洩什麼」開始，因為 TLS 提供的三件事，要對照「沒有它會缺什麼」才講得通。接著回答真正的問題 —— 為什麼需要兩種加密而不是一種 —— 因為那才是面試官在聽的。然後按順序走一遍握手。最後收在憑證，因為沒有身分的加密，等於加密給攔截你的人看。
+一句話說清楚 HTTPS 是什麼，然後說純 HTTP 少了什麼。把 TLS 提供的三件事點名，每個一句。接著回答真正的問題 —— 它怎麼加密 —— 方法是把 handshake 拆成兩個任務：確認 server 是誰，以及建立一個共同的祕密。這兩件事要分開講，因為把它們混在一起，就會講出那個過時的答案。最後收在真實部署裡 TLS 實際終止在哪裡。
 
 ## Full Spoken Answer
 
-Start with what plain HTTP actually leaks, because that is what makes the rest concrete. You are on cafe wifi and you log in over HTTP. Your password goes out as readable text, and so does the session cookie that comes back. Anyone else on that network can read both, and so can every router between you and the server, and your ISP. Worse than reading, they can change it - rewrite the response, inject a script, swap a bank account number - and neither side can tell. TLS is what turns that open line into a private one.
+HTTPS is just HTTP with a TLS layer wrapped around it. The reason it exists is that HTTP provides no transport encryption of its own, so as a request travels across the network, anything sensitive in it - a password, a session cookie, an account number - can be read by an attacker on the path or by an intermediate device, and can also be modified without either end noticing. TLS is the layer that closes that.
 
-先講純 HTTP 到底會外洩什麼，因為那會讓後面的東西變具體。你在咖啡廳的 wifi 上用 HTTP 登入。你的密碼是以可讀的文字送出去的，回傳的 session cookie 也是。同一個網路上的任何人都讀得到這兩樣，而你和伺服器之間的每一台路由器、還有你的 ISP，也都讀得到。比讀取更糟的是他們可以**改**它 —— 重寫回應、注入一段 script、換掉一個銀行帳號 —— 而且兩邊都察覺不到。TLS 就是把那條公開的線變成私密的東西。
+HTTPS 就是 HTTP 外面包一層 TLS。它之所以存在，是因為 HTTP 本身不提供傳輸加密，所以當一個 request 在網路上傳輸時，裡面任何敏感的東西 —— 密碼、session cookie、帳號 —— 都有機會被路徑上的攻擊者或中間設備讀取，而且可以在兩端都沒察覺的情況下被修改。TLS 就是把這個洞補起來的那一層。
 
-TLS gives you three things, and it is worth naming all three because most people only say the first. Encryption means nobody in the middle can read it. Integrity means nobody can modify it without being detected, because every record carries an authentication tag that fails if a single byte changes. Authentication means you know which server you are talking to. That third one is the one people forget, and it is the one that makes the other two worth anything - encrypting perfectly to an attacker who intercepted you is no better than plain text.
+TLS provides three things, and it is worth naming all three in one clause each. Encryption means someone in the middle cannot understand the content. Integrity means that if the data is modified, I can detect it. Authentication means I can confirm that the server I am talking to really is the one I meant to reach. People usually say the first and stop, but the third is what gives the other two their value, because encrypting flawlessly to a server that is not the one you wanted buys you nothing.
 
-TLS 給你三樣東西，而三樣都要點名，因為多數人只會講第一樣。**加密**代表中間的人讀不到。**完整性**代表沒有人能在不被發現的情況下改動它，因為每一筆記錄都帶著一個驗證標記，只要改動一個位元組就會驗不過。**身分驗證**代表你知道自己在跟哪一台伺服器說話。第三樣是最常被忘記的，而它正是讓前兩樣有價值的東西 —— 完美地加密給一個攔截你的攻擊者看，並不會比明文好到哪裡去。
+TLS 提供三件事，而且三件都值得各用一句話點名。**Encryption** 是讓中間的人看不懂內容。**Integrity** 是資料如果被修改，我可以發現。**Authentication** 則是確認我現在連到的，真的是我要找的那一台 server。大家通常講完第一個就停了，但第三個才是讓前兩個有價值的東西，因為對著一台「不是你要找的」伺服器完美加密，什麼也沒買到。
 
-The question underneath this one is why there are two kinds of encryption instead of one, and that is what the interviewer is really listening for. Symmetric encryption uses a single shared key for both directions and is fast enough to carry a whole connection. Its problem is that both sides must already hold that same key - and you have never met this server, so how do you agree on a secret over a wire that everybody can read? Asymmetric encryption solves exactly that: a key pair where what the public key locks only the private key opens, so a secret can be sent to someone you have never met. Its problem is that it is orders of magnitude slower. So TLS uses each for what it is good at - asymmetric once, only to agree on a key, then symmetric for every byte after that.
+Then the question that actually matters: how does TLS encrypt? Both asymmetric cryptography and symmetric encryption are involved, and the split between them is the whole answer. Symmetric encryption is fast, which makes it the right tool for the real HTTP requests and responses. Its one problem is that the client and the server must already hold the same key, securely - and they have never met. So before any data moves, the handshake has two jobs to finish.
 
-這題底下真正的問題是「為什麼是兩種加密而不是一種」，而那才是面試官真正在聽的。**對稱加密**兩個方向用同一把共用金鑰，快到足以承載整條連線。它的問題是雙方必須**事先就握有同一把鑰匙** —— 但你從沒見過這台伺服器，那要怎麼在一條所有人都看得到的線上談出一個祕密？**非對稱加密**解決的正是這件事：一組金鑰對，公鑰鎖起來的東西只有私鑰打得開，所以你可以把祕密送給一個素未謀面的人。它的問題是慢上好幾個數量級。所以 TLS 讓兩者各做各擅長的事 —— **非對稱只用一次，純粹為了談出一把金鑰；之後每一個位元組都走對稱。**
+接著是真正重要的問題：TLS 到底怎麼加密？這裡非對稱密碼學和對稱式加密都會用到，而它們之間的分工就是整個答案。**Symmetric Encryption 很快**，所以它才是拿來加密真正的 HTTP request 和 response 的正確工具。它唯一的問題是：client 和 server 必須事先就安全地擁有同一把 key —— 而它們素未謀面。所以在任何資料開始移動之前，handshake 有兩個任務要完成。
 
-The handshake in order is short enough to say out loud. The client sends a hello listing the TLS versions and cipher suites it supports, plus a random number. The server replies with the ones it picked, its own random number, and its certificate, which contains its public key and the domain it is for. The client verifies that certificate, and only then does the key exchange happen - in modern TLS that is ECDHE, where each side sends a public value and both independently compute the same shared secret, which is never transmitted at all. Combined with the two random numbers, that becomes the session key. Both sides switch to symmetric encryption and the HTTP request finally goes out. TLS 1.3 matters here because it cut the handshake from two round trips to one, which is a real latency win on a mobile connection.
+The first job is confirming who the server is. The server presents a certificate containing its public key, the domain it is for, and a signature from a certificate authority your client already trusts. The client checks that chain of signatures, checks the domain on the certificate matches the one it asked for, and checks the validity dates. Only once all three pass does the client believe that this public key really belongs to example.com. Note what that key is doing here - it is verifying a signature to establish identity, not encrypting anything for you.
 
-握手的順序短到可以直接講出來。客戶端送出一個 hello，列出它支援的 TLS 版本和加密套件，外加一個隨機數。伺服器回覆它選定的版本與套件、它自己的隨機數，以及它的**憑證** —— 憑證裡有它的公鑰和這張憑證對應的網域。客戶端先驗證那張憑證，驗過了才進行金鑰交換 —— 現代 TLS 用的是 ECDHE，雙方各自送出一個公開值，然後各自算出同一個共用祕密，而那個祕密**從頭到尾沒有在線路上傳輸過**。再結合那兩個隨機數，就得到 session key。雙方切換到對稱加密，這時候 HTTP 請求才真正送出去。TLS 1.3 在這裡很重要，因為它把握手從兩個往返縮成一個，在行動網路上是實實在在的延遲改善。
+**第一個任務是確認 server 是誰。** Server 會提供一張 Certificate，裡面包含它的 public key、這張憑證對應的 domain，以及一個由你的 client 本來就信任的 CA 所做的簽署。Client 會檢查那條簽章鏈、檢查憑證上的 domain 跟它要求的是否相符、並檢查有效期限。三項全過，client 才相信「這個 public key 確實屬於 example.com」。注意這把金鑰在這裡做的事 —— **它是在驗證簽章、確立身分，不是在幫你加密任何東西。**
 
-Then the certificate, which is the part that answers "but how do I know that public key is really the bank's". Anyone can generate a key pair and claim to be bank.com, so a certificate is that public key plus the domain name, signed by a certificate authority - an organisation your browser and operating system were shipped already trusting. Your client checks the signature chains up to one of those roots, that the domain on the certificate matches the one you typed, and that it has not expired or been revoked. Skip that check and a machine in the middle simply hands you its own key, decrypts everything, re-encrypts it to the real server, and reads the lot - which is exactly what a corporate proxy does deliberately.
+The second job is establishing the shared secret that the encryption will actually use. Modern TLS does this with ECDHE: the client and the server exchange public values, and from those each side independently computes the same shared secret - and that secret itself never travels over the network. Session keys are then derived from it. At that point the handshake is essentially done, and everything after it is ordinary HTTP protected by symmetric encryption, which is exactly what you want for bulk data.
 
-接著是憑證，它回答的是「那我怎麼知道那把公鑰真的是銀行的？」。任何人都能產生一組金鑰對並宣稱自己是 bank.com，所以**憑證就是「那把公鑰加上網域名稱，再由一個憑證頒發機構（CA）簽名」** —— CA 是那種你的瀏覽器和作業系統出廠時就已經信任的機構。你的客戶端會檢查簽章能不能一路串到那些內建的根憑證、憑證上的網域是不是你輸入的那個、以及它有沒有過期或被撤銷。跳過這個檢查，中間的一台機器就可以直接遞給你它自己的金鑰，把你的東西解密、再用真正伺服器的金鑰重新加密送過去，然後全程都讀得到 —— 而那正是企業代理伺服器刻意在做的事。
+**第二個任務是建立後面加密資料真正會用到的 shared secret。** 現代 TLS 用 ECDHE 來做這件事：client 和 server 交換公開資訊，然後各自算出同一個 shared secret —— 而那個 secret 本身從頭到尾沒有在網路上傳送過。接著再從它衍生出 session keys。到這裡 handshake 基本上就完成了，之後就是被對稱式加密保護的普通 HTTP，而那正是大量資料傳輸最適合的方式。
 
-Two practical points are worth having ready because they come up in real systems. The first is that TLS almost always terminates at the load balancer rather than at your application, so the application speaks plain HTTP and reads the original scheme from `X-Forwarded-Proto`. That is fine, but it means the hop from the load balancer to your service is unencrypted unless you arrange otherwise, which matters once that hop crosses a network you do not control. The second is that the most common TLS incident is not a broken cipher, it is an expired certificate taking the whole site down at once - so automate renewal with something like Let's Encrypt and alert on expiry well ahead of time. Add HSTS while you are there, since it tells the browser to refuse plain HTTP for your domain and closes the downgrade window on the very first request.
+It is worth being precise here, because the commonly repeated version is out of date. People often say TLS encrypts a session key with the server public key and sends it over. That was RSA key transport, and TLS 1.3 removed it entirely, leaving only ephemeral Diffie-Hellman. The reason is forward secrecy: with key transport, anyone who recorded your traffic and later obtained the server private key could decrypt all of it retroactively, whereas an ephemeral exchange leaves nothing to decrypt with. Saying it the accurate way costs no extra words - certificate for identity, ECDHE for the secret.
 
-有兩個實務重點值得先準備好，因為它們在真實系統裡一定會遇到。第一，**TLS 幾乎都是終止在 load balancer 而不是你的應用程式**，所以應用程式講的是純 HTTP，靠 `X-Forwarded-Proto` 讀出原本的協定。這沒問題，但它代表從 load balancer 到你的服務那一段是沒有加密的，除非你另外處理 —— 而一旦那一段跨越了你控制不了的網路，這件事就有影響。第二，**最常見的 TLS 事故不是加密演算法被破解，而是憑證過期，整個網站一次全倒** —— 所以要用 Let's Encrypt 這類工具自動續期，並且提早很多就對到期時間告警。順手把 HSTS 也加上，它會告訴瀏覽器對你的網域拒絕純 HTTP，把降級攻擊的空窗關在第一個請求之前。
+這裡值得講精確一點，因為最常被複述的版本已經過時了。很多人會說 TLS 用 server 的 public key 把 session key 加密後送過去。**那是 RSA key transport，而 TLS 1.3 已經把它整個移除，只留下 ephemeral Diffie-Hellman。** 原因是 forward secrecy：在 key transport 之下，任何人只要錄下你的流量、之後再取得伺服器的私鑰，就能把過去的通訊全部回溯解密；而 ephemeral 的交換根本沒有留下可以拿來解的東西。用精確的說法並不會多花你幾個字 —— **憑證管身分，ECDHE 管祕密。**
+
+One deployment detail is worth having ready, because it shows up in every Kubernetes or cloud setup. TLS usually terminates at the load balancer or ingress controller rather than at your application, so the path is client to load balancer over HTTPS, then load balancer to backend over HTTP or a separate TLS connection. If it terminates there, your backend receives plain HTTP and learns what the client originally used from `X-Forwarded-Proto`. That is fine inside a network you control, but it does mean that hop is unencrypted unless you arrange otherwise. And the most common TLS incident is not a broken cipher, it is an expired certificate taking the whole site down at once, so renewal should be automated and alerted on well in advance.
+
+有一個部署細節值得先準備好，因為它在每一個 Kubernetes 或雲端環境都會出現。**TLS 通常終止在 Load Balancer 或 Ingress Controller，而不是你的應用程式**，所以路徑是「client 到 load balancer 走 HTTPS，load balancer 到 backend 走 HTTP 或另一條 TLS 連線」。如果 TLS termination 在 load balancer，你的 backend 收到的就是純 HTTP，要靠 `X-Forwarded-Proto` 才知道 client 原本用的是 HTTPS。在你自己控制的網路裡這沒問題，但它確實代表那一段是沒有加密的，除非你另外處理。另外，最常見的 TLS 事故不是加密被破解，而是**憑證過期讓整個網站一次倒掉**，所以續期要自動化，並且提早很久就對到期時間告警。
 
 ## Quick Reference
 
-**Why two kinds of encryption:**
-
-| | Symmetric | Asymmetric |
-|---|---|---|
-| **Keys** | One shared key, both directions | A key pair - public locks, private opens |
-| **Speed** | Fast enough for the whole connection | Orders of magnitude slower |
-| **The problem it has** | Both sides must already hold the key | Too slow to carry traffic |
-| **The problem it solves** | Bulk data | Agreeing a secret with a stranger |
-| **Used in TLS for** | Every byte after the handshake | The handshake only |
-
-**The handshake:**
+**The mental picture:**
 
 ```mermaid
 ---
@@ -86,49 +80,93 @@ sequenceDiagram
     participant C as Client
     participant S as Server
 
-    C->>S: ClientHello：支援的 TLS 版本、cipher suites、隨機數
-    S-->>C: ServerHello：選定的套件、隨機數
-    S-->>C: 憑證：公鑰 + 網域，帶 CA 簽名
-    Note over C: 在本機驗證憑證，不需連線到 CA<br/>簽章鏈串得到內建根憑證嗎？<br/>網域相符？過期或被撤銷？<br/>任一項失敗就整個中止
+    C->>S: Client Hello
+    S-->>C: Server Hello
+    S-->>C: Certificate
+    Note over C: 驗證 Certificate，確認 Server 身分<br/>CA signature → domain → expiration
     C->>S: ECDHE 公開值
     S-->>C: ECDHE 公開值
-    Note over C,S: 雙方各自算出同一把 session key<br/>那把祕密從未經過線路
-    C->>S: GET /account　🔒 對稱加密
-    S-->>C: 200 OK　🔒 對稱加密
-    Note over C,S: TLS 1.3 把整段握手從 2 個 round trip 壓到 1 個
+    Note over C,S: 兩邊各自得到相同的 shared secret<br/>（secret 本身沒有被送出）<br/>↓<br/>衍生出 session keys
+    C->>S: HTTP Request　🔒 Symmetric Encryption
+    S-->>C: HTTP Response　🔒 Symmetric Encryption
 ```
 
-Asymmetric work happens once, in the middle. Everything above it is negotiation and everything below it is symmetric.
+**The three steps, and what each one is for:**
+
+| Step | Mechanism | What it establishes |
+|---|---|---|
+| **1** | Certificate, signed by a CA | 這台 server 是誰 — the public key really belongs to `example.com` |
+| **2** | ECDHE | 一個共同的祕密 — both sides compute it; it is never sent |
+| **3** | Session keys derived from that secret | 後面的 HTTP 資料用 symmetric encryption 傳輸 |
+
+> **先驗證你是誰 → 安全建立共同的祕密 → 後面的資料用對稱式加密傳輸。**
 
 **What TLS gives you, and what it does not:**
 
-| Property | What it means | Without it |
+| Property | In one clause | Without it |
 |---|---|---|
-| **Encryption** | Nobody in the middle can read it | Your password and session cookie are plain text on the wire |
-| **Integrity** | Nobody can modify it undetected | A router can inject a script or swap an account number |
-| **Authentication** | You know which server you reached | You may be perfectly encrypting to the attacker |
-| ~~Who the caller is~~ | Not TLS's job | Still needs a session or a token - see [Q21](q21-session-vs-jwt-authentication.md) |
+| **Encryption** | 別人看不懂內容 | A password or cookie is readable on the path |
+| **Integrity** | 資料被修改我會發現 | An intermediate device can alter the response undetected |
+| **Authentication** | 我連到的真的是我要找的 server | You may be encrypting flawlessly to the wrong server |
+| ~~Who the caller is~~ | Not TLS's job | Still needs a session or token - see [Q21](q21-session-vs-jwt-authentication.md) |
 
-**The certificate, in one line:** a public key plus a domain name, signed by a CA your browser already trusts - so it answers "is this public key really bank.com's?", which encryption alone cannot.
+**What the client checks on the certificate:**
 
-**Things that actually go wrong:**
+```
+CA signature  →  domain  →  expiration
+```
 
-| | What happens | What to do |
+All three must pass. Skip the check and an intermediate device can present its own certificate, decrypt everything, and re-encrypt to the real server - which is exactly what a corporate proxy does on purpose, by installing its own CA on the machine.
+
+**Why not "encrypt the session key with the server's public key":**
+
+| | RSA key transport (TLS 1.2 and earlier) | ECDHE (TLS 1.3 only allows this) |
 |---|---|---|
-| **Expired certificate** | The whole site goes down at once - the most common TLS incident by far | Automate renewal (Let's Encrypt), alert well before expiry |
-| **TLS terminated at the load balancer** | The hop to your service is plain HTTP; the app reads `X-Forwarded-Proto` | Fine inside a trusted network; encrypt that hop if it is not |
-| **First request on plain HTTP** | A downgrade window before the redirect | HSTS, so the browser refuses HTTP for the domain |
-| **Certificate check disabled "to make it work"** | Any machine in the middle can read everything | Never in production - this is what a corporate proxy exploits by design |
+| **How the key is shared** | Client encrypts it with the server public key and sends it | Both sides compute it; nothing carrying it is sent |
+| **Server private key leaks later** | Recorded traffic can be decrypted retroactively | Past sessions stay safe - forward secrecy |
+| **Certificate's public key is for** | Encrypting the session key | Verifying a signature, i.e. identity only |
+
+**Where TLS terminates in practice:**
+
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    c["Client"] -->|"HTTPS"| lb["Load Balancer / Ingress<br/><b>TLS termination</b>"]
+    lb -->|"HTTP 或另一條 TLS"| be["Backend<br/>靠 X-Forwarded-Proto<br/>知道原本是 HTTPS"]
+
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    class c edgeStyle
+    class lb svcStyle
+    class be dataStyle
+```
+
+| Thing that actually goes wrong | What to do |
+|---|---|
+| **Expired certificate** - the most common TLS incident by far, and it takes the site down all at once | Automate renewal, alert well before expiry |
+| That hop from the load balancer is plain HTTP | Fine inside a trusted network; terminate again or use mTLS if it is not |
+| First request arrives on plain HTTP before the redirect | HSTS, so the browser refuses HTTP for the domain |
 
 ## Interview Version
 
-> Over plain HTTP your password and session cookie travel as readable text, so anyone on the same wifi, every router in between, and your ISP can read them - and can modify the response without either side noticing. TLS gives three things: encryption so nobody in the middle can read it, integrity so nobody can change it undetected, and authentication so you know which server you reached. People forget the third, but it is what makes the other two worth anything, because encrypting perfectly to an attacker who intercepted you is no better than plain text. The real question is why there are two kinds of encryption. Symmetric uses one shared key and is fast enough for a whole connection, but both sides must already hold that key - and you have never met this server, so you cannot agree a secret over a wire everyone can read. Asymmetric solves exactly that, since what the public key locks only the private key opens, but it is orders of magnitude slower. So TLS uses asymmetric once, purely to agree a key, then symmetric for every byte after. The handshake is: client hello with supported ciphers and a random number, server hello with its choice and its certificate, the client verifies that certificate, then a key exchange - modern TLS uses ECDHE, where both sides compute the same secret without it ever crossing the wire - and both switch to symmetric. TLS 1.3 cut that from two round trips to one. The certificate answers "how do I know that public key is really the bank's": it is the public key plus the domain, signed by a CA the browser already trusts, and the client checks the chain, the domain match, and the expiry. Skip that and a machine in the middle hands you its own key and reads everything. In practice TLS usually terminates at the load balancer, so the app speaks HTTP and reads `X-Forwarded-Proto` - and the most common incident is not a broken cipher but an expired certificate taking the site down.
+> HTTPS is HTTP with a TLS layer around it. HTTP provides no transport encryption of its own, so a password or session cookie in a request can be read or modified by an attacker on the path or an intermediate device. TLS provides three things: encryption, so the content cannot be understood; integrity, so modification is detectable; and authentication, so I know the server I reached is the one I meant. The interesting part is how it encrypts, and that is a split between asymmetric cryptography and symmetric encryption. Symmetric is fast, so it is what carries the actual HTTP requests and responses, but it needs both sides to already hold the same key securely - and they have never met. So the handshake has two jobs. First, confirm who the server is: it presents a certificate with its public key, its domain, and a CA signature, and the client checks the signature chain, the domain match, and the expiry before believing that key belongs to example.com. Second, establish the shared secret, which modern TLS does with ECDHE - both sides exchange public values and independently compute the same secret, which is never sent over the network, and session keys are derived from it. After that it is ordinary HTTP under symmetric encryption. I would be careful not to say TLS encrypts a session key with the server's public key, because that is RSA key transport and TLS 1.3 removed it - the reason being forward secrecy, since recorded traffic plus a later private key leak would otherwise decrypt everything retroactively. In a Kubernetes or cloud setup TLS usually terminates at the load balancer or ingress, so the backend receives plain HTTP and reads `X-Forwarded-Proto` to know what the client used.
 
-面試時可回答：在純 HTTP 上，你的密碼和 session cookie 是以可讀的文字傳輸的，所以同一個 wifi 上的任何人、中間每一台路由器、還有你的 ISP 都讀得到 —— 而且可以在兩邊都沒察覺的情況下改掉回應。TLS 給三樣東西：加密，讓中間的人讀不到；完整性，讓別人改了會被發現；身分驗證，讓你知道自己連到的是哪一台伺服器。大家都會忘記第三樣，但它才是讓前兩樣有價值的東西，因為完美地加密給一個攔截你的攻擊者看，並不比明文好。真正的問題是「為什麼要兩種加密」。對稱加密用一把共用金鑰，快到可以承載整條連線，但雙方必須事先就握有那把鑰匙 —— 而你從沒見過這台伺服器，沒辦法在一條大家都看得到的線上談出祕密。非對稱加密解決的正是這件事，因為公鑰鎖起來的只有私鑰打得開，但它慢上好幾個數量級。所以 TLS 用非對稱一次，純粹為了談出一把金鑰，之後每一個位元組都走對稱。握手是：客戶端 hello 帶著支援的加密套件和一個隨機數，伺服器 hello 回覆它的選擇和它的憑證，客戶端驗證那張憑證，接著做金鑰交換 —— 現代 TLS 用 ECDHE，雙方算出同一個祕密而它從未經過線路 —— 然後兩邊切換到對稱加密。TLS 1.3 把這段從兩個往返縮成一個。憑證回答的是「我怎麼知道那把公鑰真的是銀行的」：它是公鑰加上網域，由一個瀏覽器本來就信任的 CA 簽名，而客戶端會檢查簽章鏈、網域是否相符、以及有沒有過期。跳過這步，中間的機器就直接遞它自己的金鑰給你，然後全部讀光。實務上 TLS 通常終止在 load balancer，所以應用程式講的是 HTTP，靠 `X-Forwarded-Proto` 判斷原本的協定 —— 而最常見的事故不是加密被破解，是憑證過期讓整個網站倒掉。
+面試時可回答：HTTPS 就是 HTTP 外面加上一層 TLS。HTTP 本身不提供傳輸加密，所以 request 裡的密碼或 session cookie，有機會被路徑上的攻擊者或中間設備讀取或修改。TLS 提供三件事：Encryption，讓別人看不懂內容；Integrity，資料被修改我可以發現；Authentication，讓我確認連到的真的是我要找的 server。有趣的部分是它怎麼加密，而那是非對稱密碼學和對稱式加密之間的分工。Symmetric 很快，所以它負責承載真正的 HTTP request 和 response，但它需要雙方事先就安全地擁有同一把 key —— 而它們素未謀面。所以 handshake 有兩個任務。第一，確認 server 是誰：它提供一張 Certificate，裡面有 public key、domain 和 CA 的簽署，client 會檢查簽章鏈、domain 是否相符、以及有效期限，全過了才相信那把 key 屬於 example.com。第二，建立 shared secret，現代 TLS 用 ECDHE 做 —— 雙方交換公開資訊，各自算出同一個 secret，而它從未在網路上傳送，接著再從它衍生出 session keys。之後就是被對稱式加密保護的普通 HTTP。我會避免說「TLS 用 server 的 public key 把 session key 加密送過去」，因為那是 RSA key transport，TLS 1.3 已經移除它了 —— 原因是 forward secrecy：否則只要錄下流量、之後再拿到私鑰，過去的通訊就能全部回溯解密。在 Kubernetes 或雲端環境，TLS 通常終止在 load balancer 或 ingress，所以 backend 收到的是純 HTTP，要靠 `X-Forwarded-Proto` 知道 client 原本用的是什麼。
 
-The sentence to remember is: **Asymmetric encryption is used once to agree a shared key, symmetric carries everything after it - and the certificate is what proves the key you agreed belongs to the site you meant, without which you are just encrypting neatly to an attacker.**
+The sentence to remember is: **The certificate proves who the server is, ECDHE establishes a shared secret that is never sent, and the HTTP data itself travels under symmetric encryption.**
 
-最值得記：**非對稱加密只用一次，為了談出一把共用金鑰；之後全部由對稱加密承載 —— 而憑證證明的是「你談定的那把金鑰真的屬於你要找的網站」，沒有它，你只是很工整地加密給攻擊者看。**
+最值得記：**Certificate 驗證身分，ECDHE 建立 shared secret，最後用 symmetric encryption 傳 HTTP 資料。**
 
 ---
 

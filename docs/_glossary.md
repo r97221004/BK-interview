@@ -328,9 +328,15 @@ One shared key both encrypts and decrypts, which is fast enough for a whole conn
 
 Explained in full: [Q29](security-and-auth/q29-how-https-works.md).
 
-### Asymmetric encryption
+### Asymmetric cryptography
 
-A key pair where anything encrypted with the public key can only be opened by the private one. It solves the problem of agreeing a secret with a stranger, but it is far too slow to carry the traffic itself.
+A key pair: the private key signs what the public key verifies, and what the public key encrypts only the private key opens. In modern [TLS](#tls) its job is authentication - proving the server owns the domain - while the shared secret is agreed separately by ECDHE.
+
+Explained in full: [Q29](security-and-auth/q29-how-https-works.md).
+
+### Forward secrecy
+
+The property that recording traffic today and stealing the server private key tomorrow still does not decrypt it, because the [session](#session) keys were derived from an ephemeral exchange rather than sent under that key. It is why [TLS](#tls) 1.3 removed RSA key transport.
 
 Explained in full: [Q29](security-and-auth/q29-how-https-works.md).
 

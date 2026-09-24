@@ -184,7 +184,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [What is the difference between a session and a cookie?](docs/security-and-auth/q22-session-vs-cookie.md) | Security & Auth | Client-side storage vs server-side state, and how they connect | Complete |
 | [What is Cross-Site Scripting (XSS)?](docs/security-and-auth/q25-xss.md) | Security & Auth | Injected script running with the trusted site's privileges | Complete |
 | [What is CORS?](docs/security-and-auth/q27-cors.md) | Security & Auth | Same-origin policy, preflight, and what CORS does not protect | Complete |
-| [How does HTTPS actually encrypt a connection?](docs/security-and-auth/q29-how-https-works.md) | Security & Auth | Asymmetric to agree a key, symmetric for the data, and a certificate for identity | Complete |
+| [How does HTTPS actually encrypt a connection?](docs/security-and-auth/q29-how-https-works.md) | Security & Auth | A certificate for identity, ECDHE for the shared secret, symmetric for the data | Complete |
 | [Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](docs/architecture-and-scaling/q33-python-builtin-data-structures.md) | Architecture & Scaling | Dynamic arrays and hash tables, and the complexity that follows | Complete |
 | [Monolith or microservices - how would you decide?](docs/architecture-and-scaling/q36-monolith-vs-microservices.md) | Architecture & Scaling | Deployment coupling, team boundaries, and the costs you inherit | Complete |
 | [What is containerization, and how does it benefit backend development?](docs/devops-and-deployment/q41-what-is-containerization.md) | DevOps & Deployment | Packaging the runtime with the app, and the boundary of that promise | Complete |

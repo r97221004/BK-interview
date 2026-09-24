@@ -69,9 +69,10 @@ TERM_RE = {
     "integration-test": r"integration tests?", "structured-logging": r"structured logging",
     "observability": r"observability", "tls": r"\bTLS\b|\bHTTPS\b",
     "symmetric-encryption": r"symmetric encryption|symmetric key",
-    "asymmetric-encryption": r"asymmetric encryption|asymmetric key|public-key cryptograph",
+    "asymmetric-crypto": r"asymmetric (encryption|cryptograph|key)|public-key cryptograph",
     # "CA" is case-sensitive so it cannot fire on an ordinary lowercase word.
     "certificate-authority": r"certificate authorit(y|ies)|(?-i:\bCA\b)",
+    "forward-secrecy": r"forward secrecy",
     "rate-limiting": r"rate limit(ing|s|ed)?", "oauth2": r"OAuth ?2(\.0)?",
     "query-plan": r"query plan|(?-i:EXPLAIN)", "deadlock": r"deadlocks?",
     "n-plus-one": r"N\+1", "cache-aside": r"cache-aside",
