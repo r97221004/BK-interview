@@ -77,4 +77,4 @@ The sentence to remember is: **Ready, shift, watch, roll back - shift rolling wh
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q38: What is a database connection pool, and how do you size it?](../architecture-and-scaling/q38-connection-pooling.md) | [All 48 questions](../../README.md) | [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) |
+| [Q38: What is a database connection pool, and how do you size it?](../architecture-and-scaling/q38-connection-pooling.md) | [All 51 questions](../../README.md) | [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) |

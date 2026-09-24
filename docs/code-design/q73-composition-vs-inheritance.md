@@ -98,4 +98,4 @@ The sentence to remember is: **Inheritance binds you to the parent's internals a
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q72: How do you decide what goes into an interface?](q72-designing-an-interface.md) | [All 48 questions](../../README.md) | [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) |
+| [Q72: How do you decide what goes into an interface?](q72-designing-an-interface.md) | [All 51 questions](../../README.md) | [Q83: How do you do code review?](../process-and-collaboration/q83-code-review.md) |

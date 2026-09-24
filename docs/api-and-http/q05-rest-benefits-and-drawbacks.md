@@ -50,4 +50,4 @@ The sentence to remember is: **REST buys you every HTTP tool for free, and charg
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q03: What is an API endpoint?](q03-what-is-an-api-endpoint.md) | [All 48 questions](../../README.md) | [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) |
+| [Q03: What is an API endpoint?](q03-what-is-an-api-endpoint.md) | [All 51 questions](../../README.md) | [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) |

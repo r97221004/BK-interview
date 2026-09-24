@@ -145,4 +145,4 @@ The sentence to remember is: **The backend issues the passes and never carries t
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q71: How do you make backend code testable?](../code-design/q71-making-code-testable.md) | [All 48 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |
+| [Q71: How do you make backend code testable?](../code-design/q71-making-code-testable.md) | [All 51 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |

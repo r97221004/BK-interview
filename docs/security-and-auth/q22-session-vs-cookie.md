@@ -95,4 +95,4 @@ The sentence to remember is: **The cookie is the numbered tag in your pocket, th
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q20: How do you change a database schema without downtime?](../databases/q20-schema-migrations.md) | [All 48 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |
+| [Q20: How do you change a database schema without downtime?](../databases/q20-schema-migrations.md) | [All 51 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |

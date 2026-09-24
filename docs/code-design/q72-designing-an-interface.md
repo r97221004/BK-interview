@@ -95,4 +95,4 @@ The sentence to remember is: **The interface belongs to the caller - grow it fro
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q63: How do you make an endpoint safe to retry?](../api-design/q63-idempotency-and-retries.md) | [All 48 questions](../../README.md) | [Q73: When would you use composition instead of inheritance?](q73-composition-vs-inheritance.md) |
+| [Q63: How do you make an endpoint safe to retry?](../api-design/q63-idempotency-and-retries.md) | [All 51 questions](../../README.md) | [Q73: When would you use composition instead of inheritance?](q73-composition-vs-inheritance.md) |

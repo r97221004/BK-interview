@@ -1,9 +1,9 @@
 # Python Backend Interview Questions
 
-> A focused set of 48 high-frequency backend interview questions, answered bilingually and from the mechanism up.
+> A focused set of 51 high-frequency backend interview questions, answered bilingually and from the mechanism up.
 
 ![Python](https://img.shields.io/badge/Python-Backend%20Interviews-3776AB)
-![Questions](https://img.shields.io/badge/Questions-48-2563EB)
+![Questions](https://img.shields.io/badge/Questions-51-2563EB)
 ![Format](https://img.shields.io/badge/Format-Q%26A-5D3FD3)
 ![Language](https://img.shields.io/badge/Language-EN%20%2B%20%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-D97706)
 
@@ -81,7 +81,8 @@ flowchart LR
     state["<b>2. Where state lives</b><br/>Databases<br/>Security &amp; Auth"]
     operate["<b>3. Running it</b><br/>Architecture &amp; Scaling<br/>DevOps &amp; Deployment<br/>Testing &amp; Debugging"]
     write["<b>4. Writing it well</b><br/>Code Design"]
-    protocol --> state --> operate --> write
+    team["<b>5. Working in a team</b><br/>Process &amp; Collaboration"]
+    protocol --> state --> operate --> write --> team
 
     classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
     classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
@@ -91,9 +92,10 @@ flowchart LR
     class state svcStyle
     class operate workerStyle
     class write writeStyle
+    class team svcStyle
 ```
 
-> **In plain language:** learn the conversation first, then where the data and the identity are kept, then how to keep the whole thing standing up - and then how to write it so the next person can change it.
+> **In plain language:** learn the conversation first, then where the data and the identity are kept, then how to keep the whole thing standing up, then how to write it so the next person can change it - and last, how the work actually gets planned and reviewed.
 
 **Open a topic:**
 
@@ -101,7 +103,7 @@ flowchart LR
 |---|---|---|
 | **1.** [API & HTTP](docs/api-and-http/) · 10 questions | **2.** [API Design & Reliability](docs/api-design/) · 3 questions | **3.** [Databases](docs/databases/) · 10 questions |
 | **4.** [Security & Auth](docs/security-and-auth/) · 9 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 8 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 2 questions |
-| **7.** [Testing & Debugging](docs/testing-and-debugging/) · 2 questions | **8.** [Code Design](docs/code-design/) · 4 questions |  |
+| **7.** [Testing & Debugging](docs/testing-and-debugging/) · 2 questions | **8.** [Code Design](docs/code-design/) · 4 questions | **9.** [Process & Collaboration](docs/process-and-collaboration/) · 3 questions |
 
 ## What Each Question Covers
 
@@ -137,7 +139,7 @@ Some interviewers combine several concepts into one question. These common wordi
 - **"What happens if the client retries?"** [Q63](docs/api-design/q63-idempotency-and-retries.md) is the direct answer, and it is the same property a queue consumer needs in [Q35](docs/architecture-and-scaling/q35-message-queues-and-async-work.md).
 - **"XSS or CSRF?"** they are frequently asked back to back and confused: [Q25](docs/security-and-auth/q25-xss.md) is about your output, [Q26](docs/security-and-auth/q26-csrf.md) is about the browser's credentials.
 
-## The 48 Questions
+## The 51 Questions
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
 
@@ -192,7 +194,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [How do you choose HTTP status codes and design error responses?](docs/api-design/q61-status-codes-and-error-responses.md) | API Design & Reliability | Status classes, and an error body a client can act on | Complete |
 | [How do you make backend code testable?](docs/code-design/q71-making-code-testable.md) | Code Design | Injecting a dependency instead of constructing it, and what that unlocks | Complete |
 
-### Importance 7/10 (13 questions)
+### Importance 7/10 (14 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
@@ -209,14 +211,17 @@ Within a band the order is by question number and means nothing - the bands are 
 | [How do you make an endpoint safe to retry?](docs/api-design/q63-idempotency-and-retries.md) | API Design & Reliability | Idempotent methods, idempotency keys, and exactly-once delivery | Complete |
 | [How do you decide what goes into an interface?](docs/code-design/q72-designing-an-interface.md) | Code Design | Designing from what the caller needs, not from what the implementation has | Complete |
 | [When would you use composition instead of inheritance?](docs/code-design/q73-composition-vs-inheritance.md) | Code Design | What inheritance actually couples you to, and why composition is the default | Complete |
+| [How do you do code review?](docs/process-and-collaboration/q83-code-review.md) | Process & Collaboration | PR size, what you look for, and what you deliberately leave to the linter | Complete |
 
-### Importance 6/10 (3 questions)
+### Importance 6/10 (5 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
 | [What strategies do you have when a database runs out of storage?](docs/databases/q15-database-out-of-storage.md) | Databases | Immediate relief, then reclaiming, growing, and splitting | Complete |
 | [How do you ensure your backend code is maintainable and easy to understand?](docs/architecture-and-scaling/q34-maintainable-backend-code.md) | Architecture & Scaling | Boundaries, conventions, tests, and consistent failure handling | Complete |
 | [Which design patterns do you actually use?](docs/code-design/q74-design-patterns-in-practice.md) | Code Design | Repository, Strategy, and Factory in real backend code - and when a pattern is a trap | Complete |
+| [How does your team run its development process?](docs/process-and-collaboration/q81-how-your-team-runs-development.md) | Process & Collaboration | Scrum's ceremonies, what each one prevents, and the tool that records them | Complete |
+| [What do you do when a requirement changes in the middle of a sprint?](docs/process-and-collaboration/q82-requirements-change-mid-sprint.md) | Process & Collaboration | Trading scope rather than accepting or refusing, and who decides which | Complete |
 
 
 ## Progress Model

@@ -75,4 +75,4 @@ The sentence to remember is: **Almost every Redis use case is just the right dat
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q13: What is data partitioning?](q13-data-partitioning.md) | [All 48 questions](../../README.md) | [Q19: How do you decide what to cache, and how do you invalidate it?](q19-caching-strategy-and-invalidation.md) |
+| [Q13: What is data partitioning?](q13-data-partitioning.md) | [All 51 questions](../../README.md) | [Q19: How do you decide what to cache, and how do you invalidate it?](q19-caching-strategy-and-invalidation.md) |

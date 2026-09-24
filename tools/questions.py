@@ -24,6 +24,7 @@ PARTS = [
     ("devops-and-deployment", "DevOps & Deployment"),
     ("testing-and-debugging", "Testing & Debugging"),
     ("code-design", "Code Design"),
+    ("process-and-collaboration", "Process & Collaboration"),
 ]
 
 Q = []
@@ -284,3 +285,22 @@ q(74, "code-design", "design-patterns-in-practice",
   "Which design patterns do you actually use?",
   "Repository, Strategy, and Factory in real backend code - and when a pattern is a trap",
   "Tests whether a pattern shows up because a problem demanded it, or because the question asked. Naming Singleton without its downside is the failure mode.")
+
+
+# ------------------------------------------------ Process & Collaboration
+# A fresh 81-90 block. These are process questions rather than mechanism
+# questions, so they sit in their own part instead of diluting Code Design.
+q(81, "process-and-collaboration", "how-your-team-runs-development",
+  "How does your team run its development process?",
+  "Scrum's ceremonies, what each one prevents, and the tool that records them",
+  "Usually asked as 'are you familiar with Scrum'. Listing the ceremonies is the floor; saying what breaks without each one is the answer.")
+
+q(82, "process-and-collaboration", "requirements-change-mid-sprint",
+  "What do you do when a requirement changes in the middle of a sprint?",
+  "Trading scope rather than accepting or refusing, and who decides which",
+  "Tests whether you have actually been in the situation. 'Agile embraces change' is the non-answer; naming what has to come out, and who chooses, is the answer.")
+
+q(83, "process-and-collaboration", "code-review",
+  "How do you do code review?",
+  "PR size, what you look for, and what you deliberately leave to the linter",
+  "Tests whether review is a real quality gate or a rubber stamp. The tell is whether you can say what you deliberately do not comment on.")

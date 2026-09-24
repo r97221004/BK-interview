@@ -140,4 +140,4 @@ The sentence to remember is: **CSRF is tricking your browser into sending a requ
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q24: Describe how session management works in web applications.](q24-session-management.md) | [All 48 questions](../../README.md) | [Q28: What is the difference between HS256 and RS256 for signing a JWT?](q28-jwt-hs256-vs-rs256.md) |
+| [Q24: Describe how session management works in web applications.](q24-session-management.md) | [All 51 questions](../../README.md) | [Q28: What is the difference between HS256 and RS256 for signing a JWT?](q28-jwt-hs256-vs-rs256.md) |

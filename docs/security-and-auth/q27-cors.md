@@ -100,4 +100,4 @@ The sentence to remember is: **CORS is a guest list the server hands the browser
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 48 questions](../../README.md) | [Q29: How does HTTPS actually encrypt a connection?](q29-how-https-works.md) |
+| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 51 questions](../../README.md) | [Q29: How does HTTPS actually encrypt a connection?](q29-how-https-works.md) |

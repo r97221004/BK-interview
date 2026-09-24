@@ -131,4 +131,4 @@ The sentence to remember is: **The status code answers whose fault it is and whe
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) | [All 48 questions](../../README.md) | [Q71: How do you make backend code testable?](../code-design/q71-making-code-testable.md) |
+| [Q51: What kind of tests would you write for a new API endpoint?](../testing-and-debugging/q51-testing-a-new-api-endpoint.md) | [All 51 questions](../../README.md) | [Q71: How do you make backend code testable?](../code-design/q71-making-code-testable.md) |
