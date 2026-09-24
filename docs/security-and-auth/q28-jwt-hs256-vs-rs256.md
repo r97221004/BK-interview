@@ -104,4 +104,4 @@ The sentence to remember is: **HS256 signs and verifies with the same secret, so
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) | [All 42 questions](../../README.md) | [Q35: When would you move work onto a message queue?](../architecture-and-scaling/q35-message-queues-and-async-work.md) |
+| [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) | [All 43 questions](../../README.md) | [Q35: When would you move work onto a message queue?](../architecture-and-scaling/q35-message-queues-and-async-work.md) |

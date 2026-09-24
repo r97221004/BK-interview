@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Complete
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [idempotent](../_glossary.md#idempotent), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [at-least-once delivery](../_glossary.md#at-least-once-delivery)
+**New to these terms?** [idempotent](../_glossary.md#idempotent), [index](../_glossary.md#index), [redis](../_glossary.md#redis), [at-least-once delivery](../_glossary.md#at-least-once-delivery), [timeout](../_glossary.md#timeout)
 
 ## In One Sentence
 
@@ -50,4 +50,4 @@ The sentence to remember is: **If the answer to "does the user need to see this 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q28: What is the difference between HS256 and RS256 for signing a JWT?](../security-and-auth/q28-jwt-hs256-vs-rs256.md) | [All 42 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |
+| [Q28: What is the difference between HS256 and RS256 for signing a JWT?](../security-and-auth/q28-jwt-hs256-vs-rs256.md) | [All 43 questions](../../README.md) | [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) |

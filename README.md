@@ -1,9 +1,9 @@
 # Python Backend Interview Questions
 
-> A focused set of 42 high-frequency backend interview questions, answered bilingually and from the mechanism up.
+> A focused set of 43 high-frequency backend interview questions, answered bilingually and from the mechanism up.
 
 ![Python](https://img.shields.io/badge/Python-Backend%20Interviews-3776AB)
-![Questions](https://img.shields.io/badge/Questions-42-2563EB)
+![Questions](https://img.shields.io/badge/Questions-43-2563EB)
 ![Format](https://img.shields.io/badge/Format-Q%26A-5D3FD3)
 ![Language](https://img.shields.io/badge/Language-EN%20%2B%20%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-D97706)
 
@@ -97,7 +97,7 @@ flowchart LR
 | | | |
 |---|---|---|
 | **1.** [API & HTTP](docs/api-and-http/) · 10 questions | **2.** [API Design & Reliability](docs/api-design/) · 3 questions | **3.** [Databases](docs/databases/) · 10 questions |
-| **4.** [Security & Auth](docs/security-and-auth/) · 8 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 7 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 2 questions |
+| **4.** [Security & Auth](docs/security-and-auth/) · 8 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 8 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 2 questions |
 | **7.** [Testing & Debugging](docs/testing-and-debugging/) · 2 questions |  |  |
 
 ## What Each Question Covers
@@ -134,7 +134,7 @@ Some interviewers combine several concepts into one question. These common wordi
 - **"What happens if the client retries?"** [Q63](docs/api-design/q63-idempotency-and-retries.md) is the direct answer, and it is the same property a queue consumer needs in [Q35](docs/architecture-and-scaling/q35-message-queues-and-async-work.md).
 - **"XSS or CSRF?"** they are frequently asked back to back and confused: [Q25](docs/security-and-auth/q25-xss.md) is about your output, [Q26](docs/security-and-auth/q26-csrf.md) is about the browser's credentials.
 
-## The 42 Questions
+## The 43 Questions
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
 
@@ -187,7 +187,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [What kind of tests would you write for a new API endpoint?](docs/testing-and-debugging/q51-testing-a-new-api-endpoint.md) | Testing & Debugging | Unit, integration, contract, and load tests, and what each proves | Complete |
 | [How do you choose HTTP status codes and design error responses?](docs/api-design/q61-status-codes-and-error-responses.md) | API Design & Reliability | Status classes, and an error body a client can act on | Complete |
 
-### Importance 7/10 (10 questions)
+### Importance 7/10 (11 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
@@ -197,6 +197,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [What is the difference between HS256 and RS256 for signing a JWT?](docs/security-and-auth/q28-jwt-hs256-vs-rs256.md) | Security & Auth | A shared secret vs a key pair, and why the choice is about who has to verify | Complete |
 | [When would you move work onto a message queue?](docs/architecture-and-scaling/q35-message-queues-and-async-work.md) | Architecture & Scaling | Decoupling, absorbing bursts, and what a queue makes harder | Complete |
 | [How do you stop one slow dependency from taking down your service?](docs/architecture-and-scaling/q37-timeouts-retries-and-failure.md) | Architecture & Scaling | Timeouts, bounded retries with backoff, and circuit breakers | Complete |
+| [What is a database connection pool, and how do you size it?](docs/architecture-and-scaling/q38-connection-pooling.md) | Architecture & Scaling | Reusing an expensive connection, and why a bigger pool is not a faster one | Complete |
 | [How do you deploy a new version without dropping requests?](docs/devops-and-deployment/q43-zero-downtime-deploys.md) | DevOps & Deployment | Rolling, blue-green, and canary, plus health checks and rollback | Complete |
 | [What tools and techniques do you use for debugging a backend application?](docs/testing-and-debugging/q52-debugging-a-backend-application.md) | Testing & Debugging | Reproduce, narrow, then instrument - locally and in production | Complete |
 | [How would you paginate a large collection endpoint?](docs/api-design/q62-pagination.md) | API Design & Reliability | Offset vs cursor pagination, and why deep offsets get slow | Complete |

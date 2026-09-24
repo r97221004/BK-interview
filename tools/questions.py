@@ -211,6 +211,11 @@ q(37, "architecture-and-scaling", "timeouts-retries-and-failure",
   "Timeouts, bounded retries with backoff, and circuit breakers",
   "Tests whether you treat a network call as something that fails, and whether you know a naive retry turns a blip into an outage.")
 
+q(38, "architecture-and-scaling", "connection-pooling",
+  "What is a database connection pool, and how do you size it?",
+  "Reusing an expensive connection, and why a bigger pool is not a faster one",
+  "Tests whether you know the pool is a limit as much as a reuse mechanism - that the database sets the ceiling, not the application, and that exhausting it looks like a total outage rather than a slow query.")
+
 # ---------------------------------------------------- DevOps & Deployment
 q(41, "devops-and-deployment", "what-is-containerization",
   "What is containerization, and how does it benefit backend development?",

@@ -143,6 +143,8 @@ TERMS = [
      "An architecture of many independently deployable services. It buys independent release and scaling, and charges for it by turning every internal call into a network call that can fail."),
     ("timeout", "Timeout", 37,
      "A deadline on an outbound call. Without one, a slow dependency does not fail - it holds your worker until the pool is empty, which is how one slow service takes down another."),
+    ("connection-pool", "Connection pool", 38,
+     "A fixed set of open database connections the application borrows from and returns to, instead of opening one per query. It exists as much to cap how many connections reach the database as to save the handshake, because the database, not the application, decides how many it can usefully serve."),
     ("circuit-breaker", "Circuit breaker", 37,
      "A guard that watches the failure rate of a dependency and, past a threshold, fails calls immediately without attempting them. It frees your workers and gives the failing service room to recover."),
     ("health-check", "Health check", 43,

@@ -85,4 +85,4 @@ The sentence to remember is: **REST is a set of constraints, not JSON over HTTP 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| *(first question)* | [All 42 questions](../../README.md) | [Q02: Can you describe a typical HTTP request/response cycle?](q02-http-request-response-cycle.md) |
+| *(first question)* | [All 43 questions](../../README.md) | [Q02: Can you describe a typical HTTP request/response cycle?](q02-http-request-response-cycle.md) |

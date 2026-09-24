@@ -50,4 +50,4 @@ The sentence to remember is: **The client can never promise to ask only once, so
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q62: How would you paginate a large collection endpoint?](q62-pagination.md) | [All 42 questions](../../README.md) | [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) |
+| [Q62: How would you paginate a large collection endpoint?](q62-pagination.md) | [All 43 questions](../../README.md) | [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) |

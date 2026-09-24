@@ -63,4 +63,4 @@ The sentence to remember is: **Only break the contract when you must - and then 
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q05: What are the benefits and drawbacks of RESTful APIs?](q05-rest-benefits-and-drawbacks.md) | [All 42 questions](../../README.md) | [Q08: What is the difference between a REST API and a WebSocket?](q08-rest-vs-websocket.md) |
+| [Q05: What are the benefits and drawbacks of RESTful APIs?](q05-rest-benefits-and-drawbacks.md) | [All 43 questions](../../README.md) | [Q08: What is the difference between a REST API and a WebSocket?](q08-rest-vs-websocket.md) |

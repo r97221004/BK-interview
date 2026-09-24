@@ -4,7 +4,7 @@
 
 **Part:** Architecture & Scaling | **Importance:** 7/10 | **Status:** Complete
 
-**New to these terms?** [idempotent](../_glossary.md#idempotent), [cache](../_glossary.md#cache)
+**New to these terms?** [idempotent](../_glossary.md#idempotent), [cache](../_glossary.md#cache), [connection pool](../_glossary.md#connection-pool)
 
 ## In One Sentence
 
@@ -50,4 +50,4 @@ The sentence to remember is: **Do not wait too long; retry a temporary failure s
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q35: When would you move work onto a message queue?](q35-message-queues-and-async-work.md) | [All 42 questions](../../README.md) | [Q43: How do you deploy a new version without dropping requests?](../devops-and-deployment/q43-zero-downtime-deploys.md) |
+| [Q35: When would you move work onto a message queue?](q35-message-queues-and-async-work.md) | [All 43 questions](../../README.md) | [Q38: What is a database connection pool, and how do you size it?](q38-connection-pooling.md) |

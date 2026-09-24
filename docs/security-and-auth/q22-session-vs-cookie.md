@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Complete
 
-**New to these terms?** [jwt](../_glossary.md#jwt), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [xss](../_glossary.md#xss), [tls](../_glossary.md#tls)
+**New to these terms?** [statelessness](../_glossary.md#statelessness), [jwt](../_glossary.md#jwt), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [xss](../_glossary.md#xss)
 
 ## In One Sentence
 
@@ -95,4 +95,4 @@ The sentence to remember is: **The cookie is the numbered tag in your pocket, th
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q20: How do you change a database schema without downtime?](../databases/q20-schema-migrations.md) | [All 42 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |
+| [Q20: How do you change a database schema without downtime?](../databases/q20-schema-migrations.md) | [All 43 questions](../../README.md) | [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) |

@@ -42,7 +42,7 @@ Explained in full: [Q61](api-design/q61-status-codes-and-error-responses.md).
 
 ### Persistent connection
 
-Reuse of one [TCP](#tcp) connection for several request/response pairs, the default since HTTP/1.1. It removes a handshake per request, which is why connection pooling matters for service-to-service calls.
+Reuse of one [TCP](#tcp) connection for several request/response pairs, the default since HTTP/1.1. It removes a handshake per request, which is why [connection pooling](#connection-pool) matters for service-to-service calls.
 
 Explained in full: [Q02](api-and-http/q02-http-request-response-cycle.md).
 
@@ -417,6 +417,12 @@ Explained in full: [Q36](architecture-and-scaling/q36-monolith-vs-microservices.
 A deadline on an outbound call. Without one, a slow dependency does not fail - it holds your worker until the pool is empty, which is how one slow service takes down another.
 
 Explained in full: [Q37](architecture-and-scaling/q37-timeouts-retries-and-failure.md).
+
+### Connection pool
+
+A fixed set of open database connections the application borrows from and returns to, instead of opening one per query. It exists as much to cap how many connections reach the database as to save the handshake, because the database, not the application, decides how many it can usefully serve.
+
+Explained in full: [Q38](architecture-and-scaling/q38-connection-pooling.md).
 
 ### Circuit breaker
 

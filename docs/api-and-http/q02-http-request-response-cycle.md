@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 10/10 | **Status:** Complete
 
-**New to these terms?** [resource](../_glossary.md#resource), [status code](../_glossary.md#status-code), [tcp](../_glossary.md#tcp), [head-of-line blocking](../_glossary.md#head-of-line-blocking), [tls](../_glossary.md#tls)
+**New to these terms?** [status code](../_glossary.md#status-code), [tcp](../_glossary.md#tcp), [head-of-line blocking](../_glossary.md#head-of-line-blocking), [tls](../_glossary.md#tls), [connection pool](../_glossary.md#connection-pool)
 
 ## In One Sentence
 
@@ -89,4 +89,4 @@ The sentence to remember is: **One round trip is resolve, connect, handshake, se
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q01: What is a RESTful API, and what are its core principles?](q01-what-is-a-restful-api.md) | [All 42 questions](../../README.md) | [Q11: Can you explain the difference between SQL and NoSQL databases?](../databases/q11-sql-vs-nosql.md) |
+| [Q01: What is a RESTful API, and what are its core principles?](q01-what-is-a-restful-api.md) | [All 43 questions](../../README.md) | [Q11: Can you explain the difference between SQL and NoSQL databases?](../databases/q11-sql-vs-nosql.md) |
