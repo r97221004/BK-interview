@@ -348,7 +348,7 @@ config:
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
 ---
 flowchart LR
-    protocol["<b>1. The contract</b><br/>API &amp; HTTP"]
+    protocol["<b>1. The contract</b><br/>API &amp; HTTP<br/>API Design &amp; Reliability"]
     state["<b>2. Where state lives</b><br/>Databases<br/>Security &amp; Auth"]
     operate["<b>3. Running it</b><br/>Architecture &amp; Scaling<br/>DevOps &amp; Deployment<br/>Testing &amp; Debugging"]
     write["<b>4. Writing it well</b><br/>Code Design"]
@@ -410,6 +410,24 @@ Within a band the order is by question number and means nothing - the bands are 
 
 **Importance** is a 1-10 estimate of how often the question is asked, across junior and senior interviews alike. Frequency is the dominant factor - a fundamental that opens almost every interview scores higher than a subtle question that impresses when it appears but usually does not. It is not a difficulty rating.
 """
+
+def _parts_missing_from_learning_order():
+    """Parts absent from the hand-written learning-order map.
+
+    topic_nav() is generated, so a new part appears there on its own. The
+    mermaid map above it is prose - which stage a part belongs to is an
+    editorial call, not something derivable from PARTS - so it is the one
+    place a new part can be added and silently missed. Failing the build is
+    the same guard IMPORTANCE uses for a new question.
+    """
+    diagram = README_HEAD.split("A Beginner's Learning Order")[1].split("```")[1]
+    return [name for _, name in PARTS if name.replace("&", "&amp;") not in diagram]
+
+
+assert not _parts_missing_from_learning_order(), (
+    "add these parts to the learning-order map in README_HEAD: %s"
+    % ", ".join(_parts_missing_from_learning_order()))
+
 
 README_TAIL = """
 ## Progress Model

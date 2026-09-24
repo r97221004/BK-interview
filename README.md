@@ -77,7 +77,7 @@ config:
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
 ---
 flowchart LR
-    protocol["<b>1. The contract</b><br/>API &amp; HTTP"]
+    protocol["<b>1. The contract</b><br/>API &amp; HTTP<br/>API Design &amp; Reliability"]
     state["<b>2. Where state lives</b><br/>Databases<br/>Security &amp; Auth"]
     operate["<b>3. Running it</b><br/>Architecture &amp; Scaling<br/>DevOps &amp; Deployment<br/>Testing &amp; Debugging"]
     write["<b>4. Writing it well</b><br/>Code Design"]

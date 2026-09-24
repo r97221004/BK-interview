@@ -27,6 +27,20 @@ protects it automatically - there is no list to remember to update.
 3. Run `python3 tools/build.py` to write the stub and regenerate the README.
 4. Write the answer, set `**Status:** Draft`, then run `python3 tools/check.py`.
 
+## Adding a part
+
+Parts are mostly generated - the topic grid, the README tables, and every
+navigation footer come from `PARTS` and `Q`. Two things do not:
+
+1. Take a fresh number block. Blocks run 1-10, 11-20, 21-30 and so on, and a
+   part that has filled its block starts a new one rather than pushing its
+   neighbours along, because numbers are permanent. "Code Design" numbers from
+   71 for exactly this reason.
+2. Add the part to the learning-order map in `README_HEAD`. That map is prose -
+   which of the four stages a part belongs to is an editorial call, not
+   something derivable from `PARTS` - so it is the one place a new part can be
+   missed. `build.py` asserts every part appears there and fails until it does.
+
 ## Sections
 
 `check.py` enforces the section list and its order: **In One Sentence**,
