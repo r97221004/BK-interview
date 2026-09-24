@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 7/10 | **Status:** Complete
 
-**New to these terms?** [rest](../_glossary.md#rest), [samesite](../_glossary.md#samesite), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer), [timeout](../_glossary.md#timeout)
+**New to these terms?** [rest](../_glossary.md#rest), [statelessness](../_glossary.md#statelessness), [samesite](../_glossary.md#samesite), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
 
 ## In One Sentence
 
