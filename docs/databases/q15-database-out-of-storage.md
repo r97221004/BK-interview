@@ -54,4 +54,4 @@ The sentence to remember is: **Find it, free it, buy time, fix it - and a DELETE
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q73: When would you use composition instead of inheritance?](../code-design/q73-composition-vs-inheritance.md) | [All 47 questions](../../README.md) | [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) |
+| [Q73: When would you use composition instead of inheritance?](../code-design/q73-composition-vs-inheritance.md) | [All 48 questions](../../README.md) | [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) |

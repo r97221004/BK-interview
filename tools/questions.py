@@ -228,6 +228,12 @@ q(43, "devops-and-deployment", "zero-downtime-deploys",
   "Rolling, blue-green, and canary, plus health checks and rollback",
   "Tests whether you have shipped to production. The revealing part is what you do when the new version is bad, not how you get it out.")
 
+q(29, "security-and-auth", "how-https-works",
+  "How does HTTPS actually encrypt a connection?",
+  "Asymmetric to agree a key, symmetric for the data, and a certificate for identity",
+  "Tests whether you can say why two kinds of encryption are needed rather than one, and whether you know the certificate is what stops you encrypting to an attacker.")
+
+
 # ---------------------------------------------------- Testing & Debugging
 q(51, "testing-and-debugging", "testing-a-new-api-endpoint",
   "What kind of tests would you write for a new API endpoint?",

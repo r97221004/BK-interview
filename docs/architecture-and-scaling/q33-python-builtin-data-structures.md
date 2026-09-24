@@ -78,4 +78,4 @@ The sentence to remember is: **Do not memorise the complexity table - know the t
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q27: What is CORS?](../security-and-auth/q27-cors.md) | [All 47 questions](../../README.md) | [Q36: Monolith or microservices - how would you decide?](q36-monolith-vs-microservices.md) |
+| [Q29: How does HTTPS actually encrypt a connection?](../security-and-auth/q29-how-https-works.md) | [All 48 questions](../../README.md) | [Q36: Monolith or microservices - how would you decide?](q36-monolith-vs-microservices.md) |

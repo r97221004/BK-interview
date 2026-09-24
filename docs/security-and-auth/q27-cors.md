@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 8/10 | **Status:** Complete
 
-**New to these terms?** [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [tls](../_glossary.md#tls), [rate limiting](../_glossary.md#rate-limiting)
+**New to these terms?** [resource](../_glossary.md#resource), [cookie](../_glossary.md#cookie), [csrf](../_glossary.md#csrf), [samesite](../_glossary.md#samesite), [rate limiting](../_glossary.md#rate-limiting)
 
 ## In One Sentence
 
@@ -100,4 +100,4 @@ The sentence to remember is: **CORS is a guest list the server hands the browser
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 47 questions](../../README.md) | [Q33: Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](../architecture-and-scaling/q33-python-builtin-data-structures.md) |
+| [Q25: What is Cross-Site Scripting (XSS)?](q25-xss.md) | [All 48 questions](../../README.md) | [Q29: How does HTTPS actually encrypt a connection?](q29-how-https-works.md) |

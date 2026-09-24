@@ -4,7 +4,7 @@
 
 **Part:** Security & Auth | **Importance:** 7/10 | **Status:** Complete
 
-**New to these terms?** [rest](../_glossary.md#rest), [cookie](../_glossary.md#cookie), [samesite](../_glossary.md#samesite), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer)
+**New to these terms?** [rest](../_glossary.md#rest), [samesite](../_glossary.md#samesite), [horizontal scaling](../_glossary.md#horizontal-scaling), [load balancer](../_glossary.md#load-balancer), [timeout](../_glossary.md#timeout)
 
 ## In One Sentence
 
@@ -50,4 +50,4 @@ The sentence to remember is: **A session in one process's memory is a login that
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) | [All 47 questions](../../README.md) | [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) |
+| [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) | [All 48 questions](../../README.md) | [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) |

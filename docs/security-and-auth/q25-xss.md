@@ -83,4 +83,4 @@ The sentence to remember is: **XSS is user input that should have stayed data be
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q22: What is the difference between a session and a cookie?](q22-session-vs-cookie.md) | [All 47 questions](../../README.md) | [Q27: What is CORS?](q27-cors.md) |
+| [Q22: What is the difference between a session and a cookie?](q22-session-vs-cookie.md) | [All 48 questions](../../README.md) | [Q27: What is CORS?](q27-cors.md) |

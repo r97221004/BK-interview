@@ -1,9 +1,9 @@
 # Python Backend Interview Questions
 
-> A focused set of 47 high-frequency backend interview questions, answered bilingually and from the mechanism up.
+> A focused set of 48 high-frequency backend interview questions, answered bilingually and from the mechanism up.
 
 ![Python](https://img.shields.io/badge/Python-Backend%20Interviews-3776AB)
-![Questions](https://img.shields.io/badge/Questions-47-2563EB)
+![Questions](https://img.shields.io/badge/Questions-48-2563EB)
 ![Format](https://img.shields.io/badge/Format-Q%26A-5D3FD3)
 ![Language](https://img.shields.io/badge/Language-EN%20%2B%20%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-D97706)
 
@@ -100,7 +100,7 @@ flowchart LR
 | | | |
 |---|---|---|
 | **1.** [API & HTTP](docs/api-and-http/) · 10 questions | **2.** [API Design & Reliability](docs/api-design/) · 3 questions | **3.** [Databases](docs/databases/) · 10 questions |
-| **4.** [Security & Auth](docs/security-and-auth/) · 8 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 8 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 2 questions |
+| **4.** [Security & Auth](docs/security-and-auth/) · 9 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 8 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 2 questions |
 | **7.** [Testing & Debugging](docs/testing-and-debugging/) · 2 questions | **8.** [Code Design](docs/code-design/) · 4 questions |  |
 
 ## What Each Question Covers
@@ -137,7 +137,7 @@ Some interviewers combine several concepts into one question. These common wordi
 - **"What happens if the client retries?"** [Q63](docs/api-design/q63-idempotency-and-retries.md) is the direct answer, and it is the same property a queue consumer needs in [Q35](docs/architecture-and-scaling/q35-message-queues-and-async-work.md).
 - **"XSS or CSRF?"** they are frequently asked back to back and confused: [Q25](docs/security-and-auth/q25-xss.md) is about your output, [Q26](docs/security-and-auth/q26-csrf.md) is about the browser's credentials.
 
-## The 47 Questions
+## The 48 Questions
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
 
@@ -167,7 +167,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [How would you scale a backend application during a traffic surge?](docs/architecture-and-scaling/q31-scaling-during-traffic-surge.md) | Architecture & Scaling | Horizontal scaling, statelessness, caching, and shedding load | Complete |
 | [Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](docs/architecture-and-scaling/q32-python-concurrency-models.md) | Architecture & Scaling | The GIL, and matching the model to I/O-bound or CPU-bound work | Complete |
 
-### Importance 8/10 (19 questions)
+### Importance 8/10 (20 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
@@ -184,6 +184,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [What is the difference between a session and a cookie?](docs/security-and-auth/q22-session-vs-cookie.md) | Security & Auth | Client-side storage vs server-side state, and how they connect | Complete |
 | [What is Cross-Site Scripting (XSS)?](docs/security-and-auth/q25-xss.md) | Security & Auth | Injected script running with the trusted site's privileges | Complete |
 | [What is CORS?](docs/security-and-auth/q27-cors.md) | Security & Auth | Same-origin policy, preflight, and what CORS does not protect | Complete |
+| [How does HTTPS actually encrypt a connection?](docs/security-and-auth/q29-how-https-works.md) | Security & Auth | Asymmetric to agree a key, symmetric for the data, and a certificate for identity | Complete |
 | [Explain the underlying data structures of lists, sets, tuples, and dictionaries in Python.](docs/architecture-and-scaling/q33-python-builtin-data-structures.md) | Architecture & Scaling | Dynamic arrays and hash tables, and the complexity that follows | Complete |
 | [Monolith or microservices - how would you decide?](docs/architecture-and-scaling/q36-monolith-vs-microservices.md) | Architecture & Scaling | Deployment coupling, team boundaries, and the costs you inherit | Complete |
 | [What is containerization, and how does it benefit backend development?](docs/devops-and-deployment/q41-what-is-containerization.md) | DevOps & Deployment | Packaging the runtime with the app, and the boundary of that promise | Complete |

@@ -318,9 +318,27 @@ Explained in full: [Q52](testing-and-debugging/q52-debugging-a-backend-applicati
 
 ### TLS
 
-The encryption layer under HTTPS. It protects data in transit from being read or modified, and authenticates the server. It says nothing about who the caller is.
+The encryption layer under HTTPS. It protects data in transit from being read or modified, and authenticates the server as the one that owns the domain. It says nothing about who the caller is.
 
-Explained in full: [Q07](api-and-http/q07-securing-a-new-api.md).
+Explained in full: [Q29](security-and-auth/q29-how-https-works.md).
+
+### Symmetric encryption
+
+One shared key both encrypts and decrypts, which is fast enough for a whole connection. The hard part is that both sides must already hold the same key, and you cannot send it over the line you are trying to protect.
+
+Explained in full: [Q29](security-and-auth/q29-how-https-works.md).
+
+### Asymmetric encryption
+
+A key pair where anything encrypted with the public key can only be opened by the private one. It solves the problem of agreeing a secret with a stranger, but it is far too slow to carry the traffic itself.
+
+Explained in full: [Q29](security-and-auth/q29-how-https-works.md).
+
+### Certificate authority
+
+An organisation browsers and operating systems are shipped to trust, which signs a certificate binding a public key to a domain name. Without that signature you would have no way to tell the site's public key from an attacker's.
+
+Explained in full: [Q29](security-and-auth/q29-how-https-works.md).
 
 ### Rate limiting
 

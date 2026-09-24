@@ -56,4 +56,4 @@ The sentence to remember is: **REST is you calling the server; a WebSocket is le
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) | [All 47 questions](../../README.md) | [Q10: What is the difference between TCP and UDP?](q10-tcp-vs-udp.md) |
+| [Q06: How do you approach API versioning in your projects?](q06-api-versioning.md) | [All 48 questions](../../README.md) | [Q10: What is the difference between TCP and UDP?](q10-tcp-vs-udp.md) |

@@ -71,4 +71,4 @@ The sentence to remember is: **It is not that your app has no memory - it is tha
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) | [All 47 questions](../../README.md) | [Q07: What measures would you take to secure a newly developed API?](q07-securing-a-new-api.md) |
+| [Q21: What is the difference between session-based and JWT-based authentication?](../security-and-auth/q21-session-vs-jwt-authentication.md) | [All 48 questions](../../README.md) | [Q07: What measures would you take to secure a newly developed API?](q07-securing-a-new-api.md) |

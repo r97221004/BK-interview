@@ -4,7 +4,7 @@
 
 **Part:** API & HTTP | **Importance:** 9/10 | **Status:** Complete
 
-**New to these terms?** [endpoint](../_glossary.md#endpoint), [resource](../_glossary.md#resource), [jwt](../_glossary.md#jwt), [prepared statement](../_glossary.md#prepared-statement)
+**New to these terms?** [endpoint](../_glossary.md#endpoint), [resource](../_glossary.md#resource), [jwt](../_glossary.md#jwt), [prepared statement](../_glossary.md#prepared-statement), [tls](../_glossary.md#tls)
 
 ## In One Sentence
 
@@ -67,4 +67,4 @@ The sentence to remember is: **A valid token says who you are, never what you ma
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) | [All 47 questions](../../README.md) | [Q17: Explain database transactions and isolation levels.](../databases/q17-transactions-and-isolation-levels.md) |
+| [Q04: Explain statelessness in HTTP and how it impacts backend services.](q04-http-statelessness.md) | [All 48 questions](../../README.md) | [Q17: Explain database transactions and isolation levels.](../databases/q17-transactions-and-isolation-levels.md) |
