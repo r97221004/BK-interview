@@ -59,14 +59,32 @@ def create_user():
 
 **The layers:**
 
-```
-    Controller / API     ← 只讀 request、回 response
-          ↓
-       Service           ← Business Logic（不寫 SQL）
-          ↓
-      Repository         ← Database（不放商業規則）
-          ↓
-       Database
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart TD
+    c["<b>Controller / API</b><br/>只讀 request、回 response"]
+    s["<b>Service</b><br/>Business Logic，不寫 SQL"]
+    r["<b>Repository</b><br/>Database，不放商業規則"]
+    d[("Database")]
+    c --> s --> r --> d
+
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class c edgeStyle
+    class s svcStyle
+    class r,d dataStyle
 ```
 
 ```python
@@ -82,9 +100,33 @@ class UserService:
 
 **Same service, different collaborator:**
 
-```
-Production   UserService ──→ PostgresUserRepository ──→ PostgreSQL
-Test         UserService ──→ FakeUserRepository      （dict，幾毫秒，不出 process）
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    subgraph P["Production"]
+        s1["UserService"] --> r1["PostgresUserRepository"] --> db[("PostgreSQL")]
+    end
+    subgraph T["Unit Test"]
+        s2["UserService"] --> r2["FakeUserRepository<br/>dict，幾毫秒，不出 process"]
+    end
+
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class s1,s2 svcStyle
+    class r1,db dataStyle
+    class r2 edgeStyle
 ```
 
 ```python

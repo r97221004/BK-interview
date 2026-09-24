@@ -52,46 +52,110 @@ The last thing I would say is that I do not look at code and ask which pattern t
 
 **Repository - SQL stops spreading:**
 
-```
-❌  UserService   ──→ 自己寫 SQL ──→ Database
-    OrderService ──→ 自己寫 SQL ──→ Database     三、四份差不多的 SQL
-    ReportService ─→ 自己寫 SQL ──→ Database     改了 A 忘了 B，其中一份少一個 WHERE
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    subgraph BAD["❌ 查詢散落各處"]
+        u1["UserService"] --> q1["自己寫 SQL"] --> d1[("Database")]
+        o1["OrderService"] --> q2["自己寫 SQL"] --> d1
+        r1["ReportService"] --> q3["自己寫 SQL"] --> d1
+    end
+    subgraph GOOD["✅ 收到一個地方：規則只有一份"]
+        s2["Service"] --> repo["<b>OrderRepository</b><br/>find_unpaid_orders(customer_id)"] --> d2[("Database")]
+    end
 
-✅  Service ──→ OrderRepository ──→ Database
-                find_unpaid_orders(customer_id)   規則只有一份
-
-    Production   Service ──→ PostgresOrderRepository ──→ PostgreSQL
-    Unit Test    Service ──→ FakeOrderRepository        （dict，不連 DB）
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class u1,o1,r1,s2 edgeStyle
+    class q1,q2,q3 badStyle
+    class repo svcStyle
+    class d1,d2 dataStyle
 ```
 
 **Strategy - the if/elif stops growing:**
 
+```python
+# ❌ 一開始只有 Webhook，然後一種一種加上去
+def send_notification(type, msg):
+    if   type == "webhook": ...     # 每加一種通知方式，
+    elif type == "wecom":   ...     # 就要去改「原本就能動」的程式
+    elif type == "email":   ...
+    elif type == "sms":     ...     # 六個月後兩百行，四個人同時在改
 ```
-❌  def send_notification(type, msg):
-        if   type == "webhook": ...      每加一種通知方式
-        elif type == "wecom":   ...      就要改「原本就能動」的程式
-        elif type == "email":   ...
-        elif type == "sms":     ...      六個月後兩百行，四個人同時在改
 
-✅          NotificationStrategy          共用 send()
-                    │
-        ┌───────────┼───────────┐
-   WebhookStrategy  │      EmailStrategy
-              WeComStrategy
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart TD
+    bl["<b>Business Logic</b><br/>只呼叫 send()"]
+    ns["<b>NotificationStrategy</b><br/>共用 send() 介面"]
+    w["WebhookStrategy"]
+    wc["WeComStrategy"]
+    e["EmailStrategy"]
+    sl["SlackStrategy<br/><i>新增一個檔案，<br/>不動原本的程式</i>"]
+    bl --> ns
+    ns --> w & wc & e & sl
 
-    多一個 Slack = 新增 SlackStrategy，不動原本的程式
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class bl edgeStyle
+    class ns svcStyle
+    class w,wc,e dataStyle
+    class sl edgeStyle
 ```
 
 **Factory - the next question after Strategy:**
 
-```
-    notification_type = "wecom"
-              ↓
-      NotificationFactory          建立的邏輯只有一份
-              ↓
-       WeComStrategy
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    cfg["notification_type = &quot;wecom&quot;<br/><i>設定</i>"]
+    f["<b>NotificationFactory</b><br/>建立的邏輯只有一份"]
+    s["WeComStrategy"]
+    bl["<b>Business Logic</b><br/>不需要知道它是怎麼建出來的"]
+    cfg --> f --> s --> bl
 
-    Business Logic 不需要知道它是怎麼建出來的
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class cfg edgeStyle
+    class f svcStyle
+    class s dataStyle
+    class bl edgeStyle
 ```
 
 **The three, in the plainest form:**

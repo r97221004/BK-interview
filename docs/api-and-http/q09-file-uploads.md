@@ -75,11 +75,43 @@ The same thinking applies on the way back down. A private document must not sit 
 
 Presigned upload, four steps:
 
-```
-1. Browser → Backend      "I want to upload file.pdf"
-2. Backend → Browser      short-lived presigned upload URL
-3. Browser ──────────────→ Object storage    (the bytes go here, directly)
-4. Browser → Backend      "done" → backend records the metadata
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+    actorBkg: '#0F172A'
+    actorBorder: '#2563EB'
+    actorTextColor: '#FFFFFF'
+    actorLineColor: '#94A3B8'
+    signalColor: '#FFFFFF'
+    signalTextColor: '#FFFFFF'
+    labelBoxBkgColor: '#D97706'
+    labelBoxBorderColor: '#92400E'
+    labelTextColor: '#FFFFFF'
+    noteBkgColor: '#334155'
+    noteBorderColor: '#94A3B8'
+    noteTextColor: '#FFFFFF'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+sequenceDiagram
+    participant B as Browser
+    participant API as Backend
+    participant S3 as Object storage
+
+    B->>API: 我要上傳 file.pdf
+    API->>API: 檢查權限、決定允不允許
+    API-->>B: 短效的 presigned 上傳網址
+    B->>S3: PUT file.pdf　← 那幾百 MB 直接走這條，不經過後端
+    S3-->>B: 200 OK
+    B->>API: 上傳完成了
+    API->>API: 記下 metadata
+    Note over API,S3: 後端是發通行證的櫃檯，物件儲存是卸貨區<br/>發通行證的人不該自己扛箱子
 ```
 
 ### Large files: parts, not one stream

@@ -54,20 +54,117 @@ Seeing it that way makes the fixes obvious rather than something to memorise. Th
 
 **Watching each one happen:**
 
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+    actorBkg: '#0F172A'
+    actorBorder: '#2563EB'
+    actorTextColor: '#FFFFFF'
+    actorLineColor: '#94A3B8'
+    signalColor: '#FFFFFF'
+    signalTextColor: '#FFFFFF'
+    labelBoxBkgColor: '#D97706'
+    labelBoxBorderColor: '#92400E'
+    labelTextColor: '#FFFFFF'
+    noteBkgColor: '#334155'
+    noteBorderColor: '#94A3B8'
+    noteTextColor: '#FFFFFF'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+sequenceDiagram
+    participant T1
+    participant DB as Database
+    participant T2
+
+    Note over T1,T2: ① 髒讀　read uncommitted
+    T1->>DB: BEGIN　UPDATE balance = 500　（還沒 COMMIT）
+    T2->>DB: SELECT balance
+    DB-->>T2: 500　← 讀到了還沒提交的值
+    T1->>DB: ROLLBACK
+    Note over T2: 那個 500 從來沒存在過，而 T2 已經拿它做了決定
 ```
-Dirty read  (read uncommitted)
-  T1  ──BEGIN──── UPDATE balance = 500 ─────────────── ROLLBACK
-  T2  ─────BEGIN──────────── SELECT → 500 ◄── 這個 500 從來沒存在過
 
-Non-repeatable read  (read committed)
-  T1  ─────────── BEGIN ── UPDATE balance = 500 ── COMMIT
-  T2  ─BEGIN─ SELECT → 1000 ──────────────────────────── SELECT → 500
-                                                          ▲ 同一列，值變了
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+    actorBkg: '#0F172A'
+    actorBorder: '#2563EB'
+    actorTextColor: '#FFFFFF'
+    actorLineColor: '#94A3B8'
+    signalColor: '#FFFFFF'
+    signalTextColor: '#FFFFFF'
+    labelBoxBkgColor: '#D97706'
+    labelBoxBorderColor: '#92400E'
+    labelTextColor: '#FFFFFF'
+    noteBkgColor: '#334155'
+    noteBorderColor: '#94A3B8'
+    noteTextColor: '#FFFFFF'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+sequenceDiagram
+    participant T1
+    participant DB as Database
+    participant T2
 
-Phantom read  (repeatable read, 標準定義下)
-  T1  ─────────────── BEGIN ── INSERT 第 11 筆 ── COMMIT
-  T2  ─BEGIN─ SELECT … amount>1000 → 10 列 ─────────────── 同一個查詢 → 11 列
-                                                            ▲ 列數變了
+    Note over T1,T2: ② 不可重複讀　read committed
+    T2->>DB: BEGIN　SELECT balance
+    DB-->>T2: 1000
+    T1->>DB: UPDATE balance = 500　COMMIT
+    T2->>DB: SELECT balance　（同一個交易裡，第二次讀）
+    DB-->>T2: 500
+    Note over T2: 同一列，兩次讀到不同的值
+```
+
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+    actorBkg: '#0F172A'
+    actorBorder: '#2563EB'
+    actorTextColor: '#FFFFFF'
+    actorLineColor: '#94A3B8'
+    signalColor: '#FFFFFF'
+    signalTextColor: '#FFFFFF'
+    labelBoxBkgColor: '#D97706'
+    labelBoxBorderColor: '#92400E'
+    labelTextColor: '#FFFFFF'
+    noteBkgColor: '#334155'
+    noteBorderColor: '#94A3B8'
+    noteTextColor: '#FFFFFF'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+sequenceDiagram
+    participant T1
+    participant DB as Database
+    participant T2
+
+    Note over T1,T2: ③ 幻讀　repeatable read（標準定義下）
+    T2->>DB: BEGIN　SELECT … WHERE amount > 1000
+    DB-->>T2: 10 列
+    T1->>DB: INSERT 第 11 筆符合條件的　COMMIT
+    T2->>DB: SELECT … WHERE amount > 1000　（同一個查詢）
+    DB-->>T2: 11 列
+    Note over T2: 變的不是某一列的值，是集合的大小
 ```
 
 **The dial:**
@@ -83,24 +180,83 @@ Phantom read  (repeatable read, 標準定義下)
 
 **A deadlock, and why the fix is what it is:**
 
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+    actorBkg: '#0F172A'
+    actorBorder: '#2563EB'
+    actorTextColor: '#FFFFFF'
+    actorLineColor: '#94A3B8'
+    signalColor: '#FFFFFF'
+    signalTextColor: '#FFFFFF'
+    labelBoxBkgColor: '#D97706'
+    labelBoxBorderColor: '#92400E'
+    labelTextColor: '#FFFFFF'
+    noteBkgColor: '#334155'
+    noteBorderColor: '#94A3B8'
+    noteTextColor: '#FFFFFF'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+sequenceDiagram
+    participant T1 as T1　A→B 轉帳
+    participant DB as Database
+    participant T2 as T2　B→A 轉帳
+
+    T1->>DB: UPDATE account A　→ 鎖住 A ✔
+    T2->>DB: UPDATE account B　→ 鎖住 B ✔
+    T1->>DB: UPDATE account B　⏳ 等 T2 放開
+    T2->>DB: UPDATE account A　⏳ 等 T1 放開
+    Note over T1,T2: 互相等待成環，而兩邊都在等著把事情做完，<br/>所以誰都不會放手
+    DB--)T2: 偵測到循環，中止其中一個<br/>deadlock detected
+    Note over T2: 傳到應用程式的，是一句<br/>本身完全正確的敘述句卻出錯了
 ```
-❌  兩條路徑用相反的順序拿鎖
 
-    T1 (A→B 轉帳)        T2 (B→A 轉帳)
-    ───────────────      ───────────────
-    LOCK A  ✔            LOCK B  ✔
-    LOCK B  ⏳ 等 T2      LOCK A  ⏳ 等 T1
-         └────────── 互相等，誰都不會放 → DB 殺掉其中一個
+The fix follows from the picture: take the locks in the same order every time, and the cycle cannot form.
 
-✅  一律先鎖 id 較小的那個
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+    actorBkg: '#0F172A'
+    actorBorder: '#2563EB'
+    actorTextColor: '#FFFFFF'
+    actorLineColor: '#94A3B8'
+    signalColor: '#FFFFFF'
+    signalTextColor: '#FFFFFF'
+    labelBoxBkgColor: '#D97706'
+    labelBoxBorderColor: '#92400E'
+    labelTextColor: '#FFFFFF'
+    noteBkgColor: '#334155'
+    noteBorderColor: '#94A3B8'
+    noteTextColor: '#FFFFFF'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+sequenceDiagram
+    participant T1 as T1　A→B 轉帳
+    participant DB as Database
+    participant T2 as T2　B→A 轉帳
 
-    T1                   T2
-    ───────────────      ───────────────
-    LOCK A  ✔            LOCK A  ⏳ 等 T1
-    LOCK B  ✔            （T1 commit 後）LOCK A ✔ → LOCK B ✔
-    COMMIT
-
-    等待會結束，死鎖不會。
+    Note over T1,T2: 規則：一律先鎖 id 較小的帳戶（A 在 B 之前）
+    T1->>DB: LOCK A ✔
+    T2->>DB: LOCK A　⏳ 只是等，沒有成環
+    T1->>DB: LOCK B ✔
+    T1->>DB: COMMIT　→ 放開 A 和 B
+    DB-->>T2: LOCK A ✔
+    T2->>DB: LOCK B ✔　→ COMMIT
+    Note over T1,T2: 等待會結束，死鎖不會
 ```
 
 | Deadlock fix | Why it works |

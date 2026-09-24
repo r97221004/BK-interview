@@ -40,13 +40,43 @@ For defenses I would name two and say which is the modern default. The classic i
 
 ### The attack, six steps
 
-```
-1. You log into bank.com        → browser stores  Cookie: session=abc123
-2. You never log out
-3. You open evil.com            → it holds a hidden form aimed at bank.com
-4. The form auto-submits        → POST bank.com/transfer  to=hacker&amount=10000
-5. The browser attaches         → Cookie: session=abc123   (nobody asked it to)
-6. bank.com sees a valid session, assumes it is you, and transfers the money
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+    actorBkg: '#0F172A'
+    actorBorder: '#2563EB'
+    actorTextColor: '#FFFFFF'
+    actorLineColor: '#94A3B8'
+    signalColor: '#FFFFFF'
+    signalTextColor: '#FFFFFF'
+    labelBoxBkgColor: '#D97706'
+    labelBoxBorderColor: '#92400E'
+    labelTextColor: '#FFFFFF'
+    noteBkgColor: '#334155'
+    noteBorderColor: '#94A3B8'
+    noteTextColor: '#FFFFFF'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+sequenceDiagram
+    participant U as 你的瀏覽器
+    participant B as bank.com
+    participant E as evil.com
+
+    U->>B: 登入
+    B-->>U: Set-Cookie: session=abc123
+    Note over U: 你沒有登出，cookie 還留著
+    U->>E: 開啟 evil.com
+    E-->>U: 一個指向 bank.com 的隱藏表單，自動送出
+    U->>B: POST /transfer　to=hacker&amount=10000<br/>Cookie: session=abc123　← 瀏覽器自己附上的
+    Note over U,B: 沒有人要求它帶，它就是會帶 —— 這就是 ambient credentials
+    B-->>U: 200 OK　bank.com 看到有效 session，以為是你本人
 ```
 
 The attacker is never in the loop after step 3 - and never sees the response. The

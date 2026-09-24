@@ -74,14 +74,32 @@ Read it as a tally, not a checklist: one row does not decide it, a lopsided colu
 
 ### The path to take
 
-```
-Start simple
-   ↓
-Modular monolith - one deploy, clear domain boundaries inside
-   ↓
-System and team grow; watch where the real boundaries appear
-   ↓
-Extract one service along a domain boundary, when there is a reason
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    a["<b>Start simple</b>"]
+    b["<b>Modular monolith</b><br/>一次部署<br/>內部有清楚的領域邊界"]
+    c["<b>系統和團隊長大</b><br/>觀察真正的邊界<br/>在哪裡浮現"]
+    d["<b>沿著領域邊界抽出一個服務</b><br/>而且要有理由才抽"]
+    a --> b --> c --> d
+
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class a,c edgeStyle
+    class b svcStyle
+    class d dataStyle
 ```
 
 Not: day one → twenty services → no traffic.

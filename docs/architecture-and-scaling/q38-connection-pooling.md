@@ -44,22 +44,62 @@ The failure mode worth naming is pool exhaustion, because it is what you get pag
 
 **Without a pool - setup cost on every request:**
 
-```
-Request ──→ 建立 connection ──→ Query ──→ 關閉 connection
-             (TCP + TLS + auth)
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    r["Request"] --> o["建立 connection<br/>TCP + TLS + auth<br/><b>幾毫秒</b>"] --> q["Query<br/><b>1 毫秒</b>"] --> c["關閉 connection"]
+
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class r edgeStyle
+    class o badStyle
+    class q svcStyle
+    class c dataStyle
 ```
 
 **With a pool - built once, borrowed and returned:**
 
-```
-                    Connection Pool
-    Request A ──→ [ Connection 1 ] ──→ DB
-    Request B ──→ [ Connection 2 ] ──→ DB
-    Request C ──→ [ Connection 3 ] ──→ DB
-    Request D ──→ [ Connection 4 ] ──→ DB
-                        ...
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    a["Request A"] --> p
+    b["Request B"] --> p
+    c["Request C"] --> p
+    d["Request D"] --> p
+    p["<b>Connection Pool</b><br/>Connection 1 … 4<br/>啟動時建好，一直開著"] --> db[("Database")]
+    p -. "全部借出中" .-> w["排隊等一條空出來<br/>等到 <b>pool_timeout</b> 就放棄"]
+    w -. "有人歸還" .-> p
 
-    拿 connection → 執行 SQL → 還給 Pool → 下一個 Request 繼續用
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class a,b,c,d edgeStyle
+    class p svcStyle
+    class db dataStyle
+    class w badStyle
 ```
 
 **The arithmetic:**
