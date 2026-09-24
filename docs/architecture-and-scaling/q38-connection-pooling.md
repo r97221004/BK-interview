@@ -102,4 +102,4 @@ The sentence to remember is: **Total connections is Pod count times pool size, b
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) | [All 43 questions](../../README.md) | [Q43: How do you deploy a new version without dropping requests?](../devops-and-deployment/q43-zero-downtime-deploys.md) |
+| [Q37: How do you stop one slow dependency from taking down your service?](q37-timeouts-retries-and-failure.md) | [All 47 questions](../../README.md) | [Q43: How do you deploy a new version without dropping requests?](../devops-and-deployment/q43-zero-downtime-deploys.md) |

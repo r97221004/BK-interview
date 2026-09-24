@@ -113,4 +113,4 @@ The sentence to remember is: **The backend issues the passes and never carries t
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) | [All 43 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |
+| [Q71: How do you make backend code testable?](../code-design/q71-making-code-testable.md) | [All 47 questions](../../README.md) | [Q24: Describe how session management works in web applications.](../security-and-auth/q24-session-management.md) |

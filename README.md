@@ -1,9 +1,9 @@
 # Python Backend Interview Questions
 
-> A focused set of 43 high-frequency backend interview questions, answered bilingually and from the mechanism up.
+> A focused set of 47 high-frequency backend interview questions, answered bilingually and from the mechanism up.
 
 ![Python](https://img.shields.io/badge/Python-Backend%20Interviews-3776AB)
-![Questions](https://img.shields.io/badge/Questions-43-2563EB)
+![Questions](https://img.shields.io/badge/Questions-47-2563EB)
 ![Format](https://img.shields.io/badge/Format-Q%26A-5D3FD3)
 ![Language](https://img.shields.io/badge/Language-EN%20%2B%20%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-D97706)
 
@@ -80,17 +80,20 @@ flowchart LR
     protocol["<b>1. The contract</b><br/>API &amp; HTTP"]
     state["<b>2. Where state lives</b><br/>Databases<br/>Security &amp; Auth"]
     operate["<b>3. Running it</b><br/>Architecture &amp; Scaling<br/>DevOps &amp; Deployment<br/>Testing &amp; Debugging"]
-    protocol --> state --> operate
+    write["<b>4. Writing it well</b><br/>Code Design"]
+    protocol --> state --> operate --> write
 
     classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
     classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
     classDef workerStyle fill:#334155,stroke:#94A3B8,stroke-width:2px,color:#FFFFFF
+    classDef writeStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
     class protocol edgeStyle
     class state svcStyle
     class operate workerStyle
+    class write writeStyle
 ```
 
-> **In plain language:** learn the conversation first, then where the data and the identity are kept, then how to keep the whole thing standing up.
+> **In plain language:** learn the conversation first, then where the data and the identity are kept, then how to keep the whole thing standing up - and then how to write it so the next person can change it.
 
 **Open a topic:**
 
@@ -98,7 +101,7 @@ flowchart LR
 |---|---|---|
 | **1.** [API & HTTP](docs/api-and-http/) · 10 questions | **2.** [API Design & Reliability](docs/api-design/) · 3 questions | **3.** [Databases](docs/databases/) · 10 questions |
 | **4.** [Security & Auth](docs/security-and-auth/) · 8 questions | **5.** [Architecture & Scaling](docs/architecture-and-scaling/) · 8 questions | **6.** [DevOps & Deployment](docs/devops-and-deployment/) · 2 questions |
-| **7.** [Testing & Debugging](docs/testing-and-debugging/) · 2 questions |  |  |
+| **7.** [Testing & Debugging](docs/testing-and-debugging/) · 2 questions | **8.** [Code Design](docs/code-design/) · 4 questions |  |
 
 ## What Each Question Covers
 
@@ -134,7 +137,7 @@ Some interviewers combine several concepts into one question. These common wordi
 - **"What happens if the client retries?"** [Q63](docs/api-design/q63-idempotency-and-retries.md) is the direct answer, and it is the same property a queue consumer needs in [Q35](docs/architecture-and-scaling/q35-message-queues-and-async-work.md).
 - **"XSS or CSRF?"** they are frequently asked back to back and confused: [Q25](docs/security-and-auth/q25-xss.md) is about your output, [Q26](docs/security-and-auth/q26-csrf.md) is about the browser's credentials.
 
-## The 43 Questions
+## The 47 Questions
 
 Ordered by importance, highest first. Read top to bottom and you cover the questions that actually decide interviews before the ones that rarely come up.
 
@@ -164,7 +167,7 @@ Within a band the order is by question number and means nothing - the bands are 
 | [How would you scale a backend application during a traffic surge?](docs/architecture-and-scaling/q31-scaling-during-traffic-surge.md) | Architecture & Scaling | Horizontal scaling, statelessness, caching, and shedding load | Complete |
 | [Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](docs/architecture-and-scaling/q32-python-concurrency-models.md) | Architecture & Scaling | The GIL, and matching the model to I/O-bound or CPU-bound work | Complete |
 
-### Importance 8/10 (18 questions)
+### Importance 8/10 (19 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
@@ -186,8 +189,9 @@ Within a band the order is by question number and means nothing - the bands are 
 | [What is containerization, and how does it benefit backend development?](docs/devops-and-deployment/q41-what-is-containerization.md) | DevOps & Deployment | Packaging the runtime with the app, and the boundary of that promise | Complete |
 | [What kind of tests would you write for a new API endpoint?](docs/testing-and-debugging/q51-testing-a-new-api-endpoint.md) | Testing & Debugging | Unit, integration, contract, and load tests, and what each proves | Complete |
 | [How do you choose HTTP status codes and design error responses?](docs/api-design/q61-status-codes-and-error-responses.md) | API Design & Reliability | Status classes, and an error body a client can act on | Complete |
+| [How do you make backend code testable?](docs/code-design/q71-making-code-testable.md) | Code Design | Injecting a dependency instead of constructing it, and what that unlocks | Complete |
 
-### Importance 7/10 (11 questions)
+### Importance 7/10 (13 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
@@ -202,13 +206,16 @@ Within a band the order is by question number and means nothing - the bands are 
 | [What tools and techniques do you use for debugging a backend application?](docs/testing-and-debugging/q52-debugging-a-backend-application.md) | Testing & Debugging | Reproduce, narrow, then instrument - locally and in production | Complete |
 | [How would you paginate a large collection endpoint?](docs/api-design/q62-pagination.md) | API Design & Reliability | Offset vs cursor pagination, and why deep offsets get slow | Complete |
 | [How do you make an endpoint safe to retry?](docs/api-design/q63-idempotency-and-retries.md) | API Design & Reliability | Idempotent methods, idempotency keys, and exactly-once delivery | Complete |
+| [How do you decide what goes into an interface?](docs/code-design/q72-designing-an-interface.md) | Code Design | Designing from what the caller needs, not from what the implementation has | Complete |
+| [When would you use composition instead of inheritance?](docs/code-design/q73-composition-vs-inheritance.md) | Code Design | What inheritance actually couples you to, and why composition is the default | Complete |
 
-### Importance 6/10 (2 questions)
+### Importance 6/10 (3 questions)
 
 | Question | Part | Focus | Status |
 |---|---|---|---|
 | [What strategies do you have when a database runs out of storage?](docs/databases/q15-database-out-of-storage.md) | Databases | Immediate relief, then reclaiming, growing, and splitting | Complete |
 | [How do you ensure your backend code is maintainable and easy to understand?](docs/architecture-and-scaling/q34-maintainable-backend-code.md) | Architecture & Scaling | Boundaries, conventions, tests, and consistent failure handling | Complete |
+| [Which design patterns do you actually use?](docs/code-design/q74-design-patterns-in-practice.md) | Code Design | Repository, Strategy, and Factory in real backend code - and when a pattern is a trap | Complete |
 
 
 ## Progress Model

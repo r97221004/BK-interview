@@ -101,4 +101,4 @@ The sentence to remember is: **Sessions are a phone number you can cancel; token
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q16: What is a database index, and how do you work out why a query is slow?](../databases/q16-indexes-and-slow-queries.md) | [All 43 questions](../../README.md) | [Q04: Explain statelessness in HTTP and how it impacts backend services.](../api-and-http/q04-http-statelessness.md) |
+| [Q16: What is a database index, and how do you work out why a query is slow?](../databases/q16-indexes-and-slow-queries.md) | [All 47 questions](../../README.md) | [Q04: Explain statelessness in HTTP and how it impacts backend services.](../api-and-http/q04-http-statelessness.md) |

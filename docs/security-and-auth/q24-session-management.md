@@ -50,4 +50,4 @@ The sentence to remember is: **A session in one process's memory is a login that
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) | [All 43 questions](../../README.md) | [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) |
+| [Q09: How would you handle file uploads in a web application?](../api-and-http/q09-file-uploads.md) | [All 47 questions](../../README.md) | [Q26: What is Cross-Site Request Forgery (CSRF)?](q26-csrf.md) |

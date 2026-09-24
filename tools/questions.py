@@ -23,6 +23,7 @@ PARTS = [
     ("architecture-and-scaling", "Architecture & Scaling"),
     ("devops-and-deployment", "DevOps & Deployment"),
     ("testing-and-debugging", "Testing & Debugging"),
+    ("code-design", "Code Design"),
 ]
 
 Q = []
@@ -254,3 +255,26 @@ q(63, "api-design", "idempotency-and-retries",
   "How do you make an endpoint safe to retry?",
   "Idempotent methods, idempotency keys, and exactly-once delivery",
   "Tests whether you have thought about what happens when a client times out and retries a payment - the classic double-charge.")
+
+# ------------------------------------------------------------- Code Design
+# A fresh block: 61-70 belongs to API Design & Reliability, and Architecture &
+# Scaling has only 39 and 40 left, which is not enough for a part of its own.
+q(71, "code-design", "making-code-testable",
+  "How do you make backend code testable?",
+  "Injecting a dependency instead of constructing it, and what that unlocks",
+  "Tests whether you can name what actually makes a unit untestable - a dependency built inside it - rather than reaching straight for a mocking library.")
+
+q(72, "code-design", "designing-an-interface",
+  "How do you decide what goes into an interface?",
+  "Designing from what the caller needs, not from what the implementation has",
+  "Tests whether you design an interface from the caller's needs or copy one out of an existing implementation. A wide interface is the tell.")
+
+q(73, "code-design", "composition-vs-inheritance",
+  "When would you use composition instead of inheritance?",
+  "What inheritance actually couples you to, and why composition is the default",
+  "Tests whether you can say what inheritance costs, rather than reciting the three pillars of OOP.")
+
+q(74, "code-design", "design-patterns-in-practice",
+  "Which design patterns do you actually use?",
+  "Repository, Strategy, and Factory in real backend code - and when a pattern is a trap",
+  "Tests whether a pattern shows up because a problem demanded it, or because the question asked. Naming Singleton without its downside is the failure mode.")

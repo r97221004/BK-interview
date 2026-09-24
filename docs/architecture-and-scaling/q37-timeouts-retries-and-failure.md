@@ -50,4 +50,4 @@ The sentence to remember is: **Do not wait too long; retry a temporary failure s
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q35: When would you move work onto a message queue?](q35-message-queues-and-async-work.md) | [All 43 questions](../../README.md) | [Q38: What is a database connection pool, and how do you size it?](q38-connection-pooling.md) |
+| [Q35: When would you move work onto a message queue?](q35-message-queues-and-async-work.md) | [All 47 questions](../../README.md) | [Q38: What is a database connection pool, and how do you size it?](q38-connection-pooling.md) |

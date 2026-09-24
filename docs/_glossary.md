@@ -448,6 +448,30 @@ Sending a small, increasing share of real traffic to the new version while compa
 
 Explained in full: [Q43](devops-and-deployment/q43-zero-downtime-deploys.md).
 
+### Dependency injection
+
+Passing a collaborator in from outside instead of constructing it inside the unit that uses it. It is what lets a test hand the unit a fake, and it is a one-line change to a constructor, not a framework.
+
+Explained in full: [Q71](code-design/q71-making-code-testable.md).
+
+### Duck typing
+
+Python accepting any object that has the methods being called, without it declaring that it implements anything. `typing.Protocol` is how you write that expectation down so a type checker can verify it, without forcing the implementation to inherit.
+
+Explained in full: [Q72](code-design/q72-designing-an-interface.md).
+
+### Composition over inheritance
+
+Giving an object a collaborator rather than making it a subclass. Inheritance couples you to the parent's internals and is checked once, at class definition; composition can be swapped per instance and per test.
+
+Explained in full: [Q73](code-design/q73-composition-vs-inheritance.md).
+
+### Repository pattern
+
+Putting every query for one kind of object behind a single class, so business logic asks for orders rather than writing SQL. It is the pattern that makes the data layer swappable and the business logic testable.
+
+Explained in full: [Q74](code-design/q74-design-patterns-in-practice.md).
+
 ### IDOR
 
 Insecure Direct Object Reference, also called broken object level authorization: the caller is authenticated, but the handler trusts the identifier in the request and returns or edits a record belonging to someone else. First in the OWASP API Security Top 10.

@@ -85,4 +85,4 @@ The sentence to remember is: **TCP guarantees your bytes arrive in order and mak
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q08: What is the difference between a REST API and a WebSocket?](q08-rest-vs-websocket.md) | [All 43 questions](../../README.md) | [Q12: What is data normalization?](../databases/q12-data-normalization.md) |
+| [Q08: What is the difference between a REST API and a WebSocket?](q08-rest-vs-websocket.md) | [All 47 questions](../../README.md) | [Q12: What is data normalization?](../databases/q12-data-normalization.md) |

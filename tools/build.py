@@ -28,9 +28,10 @@ IMPORTANCE = {
     1: 10, 2: 10, 11: 10, 16: 10, 21: 10,
     4: 9, 7: 9, 17: 9, 18: 9, 23: 9, 31: 9, 32: 9,
     3: 8, 5: 8, 6: 8, 8: 8, 10: 8, 12: 8, 13: 8, 14: 8, 19: 8, 20: 8, 22: 8, 25: 8,
-    27: 8, 33: 8, 36: 8, 41: 8, 51: 8, 61: 8,
+    27: 8, 33: 8, 36: 8, 41: 8, 51: 8, 61: 8, 71: 8,
     9: 7, 24: 7, 26: 7, 28: 7, 35: 7, 37: 7, 38: 7, 43: 7, 52: 7, 62: 7, 63: 7,
-    15: 6, 34: 6,
+    72: 7, 73: 7,
+    15: 6, 34: 6, 74: 6,
 }
 assert set(IMPORTANCE) == set(BY_NUM), "importance must cover every question"
 
@@ -76,7 +77,10 @@ TERM_RE = {
     "schema-migration": r"\bmigrations?\b", "expand-contract": r"expand and contract",
     "microservices": r"microservices?\b", "timeout": r"\btimeouts?\b",
     "circuit-breaker": r"circuit breakers?",
-    "connection-pool": r"connection pool(ing|s|ed)?", "health-check": r"health checks?|readiness|liveness",
+    "connection-pool": r"connection pool(ing|s|ed)?",
+    "dependency-injection": r"dependency injection", "duck-typing": r"duck typing",
+    "composition-over-inheritance": r"composition over inheritance",
+    "repository-pattern": r"repository pattern", "health-check": r"health checks?|readiness|liveness",
     "blue-green": r"blue-green", "canary": r"\bcanary\b",
     "idor": r"\bIDOR\b|broken object level", "mass-assignment": r"mass assignment",
 }
@@ -347,17 +351,20 @@ flowchart LR
     protocol["<b>1. The contract</b><br/>API &amp; HTTP"]
     state["<b>2. Where state lives</b><br/>Databases<br/>Security &amp; Auth"]
     operate["<b>3. Running it</b><br/>Architecture &amp; Scaling<br/>DevOps &amp; Deployment<br/>Testing &amp; Debugging"]
-    protocol --> state --> operate
+    write["<b>4. Writing it well</b><br/>Code Design"]
+    protocol --> state --> operate --> write
 
     classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
     classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
     classDef workerStyle fill:#334155,stroke:#94A3B8,stroke-width:2px,color:#FFFFFF
+    classDef writeStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
     class protocol edgeStyle
     class state svcStyle
     class operate workerStyle
+    class write writeStyle
 ```
 
-> **In plain language:** learn the conversation first, then where the data and the identity are kept, then how to keep the whole thing standing up.
+> **In plain language:** learn the conversation first, then where the data and the identity are kept, then how to keep the whole thing standing up - and then how to write it so the next person can change it.
 
 %s
 
