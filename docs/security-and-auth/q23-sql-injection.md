@@ -59,9 +59,9 @@ user = User.objects.get(username=username, password=password)
 
 面試時可回答：SQL injection 發生在攻擊者能夠透過注入輸入來操縱查詢，而資料庫把那段輸入當成指令的一部分來解析。精確的重點是：輸入改變的是「語句的結構」，不只是裡面的值，這正是攻擊者繞過登入檢查、或讀到他不該看見的資料表的方式。後面的一切，都來自「把那個結構移出攻擊者能觸及的範圍」。主要防禦是預備語句，也叫參數化查詢：你用佔位符寫 SQL，再把使用者輸入當成值分開傳入，於是資料庫在看到資料之前就已經解析並規劃好了那道語句。輸入被綁定為一個值，不論它含有什麼字元，都永遠不可能變成指令的一部分。這不是消毒，而是結構上的分離 —— 這正是為什麼它對每一種資料型別都有效，而你完全不必去推敲跳脫規則。使用 ORM 能得到同樣的保護，因為它在底層建構的就是參數化查詢，這移除了一整類人為錯誤；值得講明的但書是：每個 ORM 都有一個通往原始 SQL 的逃生口，而把使用者輸入用字串格式化塞進那個逃生口，一樣可以被注入。手動跳脫引號和分號是最後手段，也應該這樣稱呼它 —— 它隨資料庫和字元集而異，漏掉任何一條路徑就重新打開了那個洞。然後，假設終究會有一個漏過去，並限制它能做的事：給應用程式的資料庫使用者最小權限，讓它無法刪表或讀取其他 schema；在邊界做輸入驗證當作縱深防禦，但絕不當成替代品；並且刻意為它做測試、放進 pipeline，讓回歸由建置抓到，而不是由攻擊者抓到。
 
-The sentence to remember is: **Parameterisation is not sanitisation - it is structural separation: the query is parsed before the data is ever seen.**
+The sentence to remember is: **Parameterisation is not sanitisation - it is structural separation: the query is parsed before the data is ever seen. Four defences: parameterised queries keep SQL and input apart, an ORM saves you from building SQL strings (but raw SQL must still be parameterised), input validation rejects what is out of format, type, length or allowed values, and least privilege limits the damage if an injection gets through anyway.**
 
-最值得記：**參數化不是消毒，而是結構上的分離 —— 查詢在看到資料之前就已經被解析完了。**
+最值得記：**參數化不是消毒，而是結構上的分離 —— 查詢在看到資料之前就已經被解析完了。四道防線：參數化查詢讓 SQL 和輸入分開，輸入只會被當成資料；ORM 讓你不用自己拼 SQL 字串，但寫 Raw SQL 時仍要參數化；輸入驗證限制格式、型別、長度或允許值，拒絕不合理的輸入；最小權限讓 DB 帳號只有必要權限，就算注入成功也能降低傷害。**
 
 ---
 
