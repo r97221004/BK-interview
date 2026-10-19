@@ -54,4 +54,4 @@ The sentence to remember is: **Find it, free it, buy time, fix it - and a DELETE
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q83: How do you do code review?](../process-and-collaboration/q83-code-review.md) | [All 51 questions](../../README.md) | [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) |
+| [Q83: How do you do code review?](../process-and-collaboration/q83-code-review.md) | [All 52 questions](../../README.md) | [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) |

@@ -218,6 +218,11 @@ q(38, "architecture-and-scaling", "connection-pooling",
   "Reusing an expensive connection, and why a bigger pool is not a faster one",
   "Tests whether you know the pool is a limit as much as a reuse mechanism - that the database sets the ceiling, not the application, and that exhausting it looks like a total outage rather than a slow query.")
 
+q(39, "architecture-and-scaling", "kafka-vs-rabbitmq",
+  "What is the difference between Kafka and RabbitMQ, and when would you pick each?",
+  "A broker that deletes on ack vs a log that keeps messages and lets consumers replay",
+  "Tests whether you know the two are built on different models - a queue that hands each message out and forgets it, and a log that keeps every message and lets each reader track its own place - and can pick from the workload instead of from popularity.")
+
 # ---------------------------------------------------- DevOps & Deployment
 q(41, "devops-and-deployment", "what-is-containerization",
   "What is containerization, and how does it benefit backend development?",

@@ -136,4 +136,4 @@ The sentence to remember is: **Scrum is not about the meetings - it is about bre
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q74: Which design patterns do you actually use?](../code-design/q74-design-patterns-in-practice.md) | [All 51 questions](../../README.md) | [Q82: What do you do when a requirement changes in the middle of a sprint?](q82-requirements-change-mid-sprint.md) |
+| [Q74: Which design patterns do you actually use?](../code-design/q74-design-patterns-in-practice.md) | [All 52 questions](../../README.md) | [Q82: What do you do when a requirement changes in the middle of a sprint?](q82-requirements-change-mid-sprint.md) |

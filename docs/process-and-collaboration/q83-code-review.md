@@ -99,4 +99,4 @@ The sentence to remember is: **PR size decides review quality, the linter owns a
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q73: When would you use composition instead of inheritance?](../code-design/q73-composition-vs-inheritance.md) | [All 51 questions](../../README.md) | [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) |
+| [Q73: When would you use composition instead of inheritance?](../code-design/q73-composition-vs-inheritance.md) | [All 52 questions](../../README.md) | [Q15: What strategies do you have when a database runs out of storage?](../databases/q15-database-out-of-storage.md) |

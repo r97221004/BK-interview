@@ -46,4 +46,4 @@ The sentence to remember is: **Every time a loop touches a relationship field in
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q17: Explain database transactions and isolation levels.](q17-transactions-and-isolation-levels.md) | [All 51 questions](../../README.md) | [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) |
+| [Q17: Explain database transactions and isolation levels.](q17-transactions-and-isolation-levels.md) | [All 52 questions](../../README.md) | [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) |

@@ -193,4 +193,4 @@ The sentence to remember is: **Repository keeps SQL from spreading, Strategy spl
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) | [All 51 questions](../../README.md) | [Q81: How does your team run its development process?](../process-and-collaboration/q81-how-your-team-runs-development.md) |
+| [Q34: How do you ensure your backend code is maintainable and easy to understand?](../architecture-and-scaling/q34-maintainable-backend-code.md) | [All 52 questions](../../README.md) | [Q81: How does your team run its development process?](../process-and-collaboration/q81-how-your-team-runs-development.md) |

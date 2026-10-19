@@ -29,7 +29,7 @@ IMPORTANCE = {
     4: 9, 7: 9, 17: 9, 18: 9, 23: 9, 31: 9, 32: 9,
     3: 8, 5: 8, 6: 8, 8: 8, 10: 8, 12: 8, 13: 8, 14: 8, 19: 8, 20: 8, 22: 8, 25: 8,
     27: 8, 29: 8, 33: 8, 36: 8, 41: 8, 51: 8, 61: 8, 71: 8,
-    9: 7, 24: 7, 26: 7, 28: 7, 35: 7, 37: 7, 38: 7, 43: 7, 52: 7, 62: 7, 63: 7,
+    9: 7, 24: 7, 26: 7, 28: 7, 35: 7, 37: 7, 38: 7, 39: 7, 43: 7, 52: 7, 62: 7, 63: 7,
     72: 7, 73: 7, 83: 7,
     15: 6, 34: 6, 74: 6, 81: 6, 82: 6,
 }
@@ -79,6 +79,7 @@ TERM_RE = {
     "cache-stampede": r"stampede", "cursor-pagination": r"cursor pagination|\bcursors?\b",
     "idempotency-key": r"idempotency keys?", "at-least-once": r"at-least-once|at least once",
     "message-queue": r"message queues?|\bqueues?\b", "dead-letter-queue": r"dead-letter",
+    "consumer-group": r"consumer groups?",
     "schema-migration": r"\bmigrations?\b", "expand-contract": r"expand and contract",
     "microservices": r"microservices?\b", "timeout": r"\btimeouts?\b",
     "circuit-breaker": r"circuit breakers?",

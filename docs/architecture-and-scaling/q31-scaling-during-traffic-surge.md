@@ -65,4 +65,4 @@ The sentence to remember is: **A system that deliberately gets slower survives a
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) | [All 51 questions](../../README.md) | [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](q32-python-concurrency-models.md) |
+| [Q23: How do you protect a server from SQL injection attacks?](../security-and-auth/q23-sql-injection.md) | [All 52 questions](../../README.md) | [Q32: Discuss multiprocessing, multithreading, and asynchronous I/O in Python.](q32-python-concurrency-models.md) |

@@ -58,4 +58,4 @@ The sentence to remember is: **OFFSET does not skip work - it makes the database
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) | [All 51 questions](../../README.md) | [Q63: How do you make an endpoint safe to retry?](q63-idempotency-and-retries.md) |
+| [Q52: What tools and techniques do you use for debugging a backend application?](../testing-and-debugging/q52-debugging-a-backend-application.md) | [All 52 questions](../../README.md) | [Q63: How do you make an endpoint safe to retry?](q63-idempotency-and-retries.md) |

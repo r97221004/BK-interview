@@ -143,6 +143,8 @@ TERMS = [
      "A buffer between a producer and a worker, so slow work leaves the request cycle and a traffic spike becomes a backlog that drains instead of a wall of timeouts."),
     ("dead-letter-queue", "Dead-letter queue", 35,
      "Where a job goes after it has failed its retries, so it stops blocking the queue and can be inspected instead of silently disappearing."),
+    ("consumer-group", "Consumer group", 39,
+     "A set of Kafka consumers that share the work of reading a topic: each partition is assigned to exactly one member, so adding members spreads the load up to the partition count. A second group reads the same messages independently, from its own offsets."),
     ("schema-migration", "Schema migration", 20,
      "A versioned, reviewed change to the database structure, applied by a tool that tracks what has already run. It executes while the previous version of the application is still serving traffic."),
     ("expand-contract", "Expand and contract", 20,

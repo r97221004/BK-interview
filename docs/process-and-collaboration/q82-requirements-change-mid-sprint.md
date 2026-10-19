@@ -123,4 +123,4 @@ The sentence to remember is: **Sprint capacity is fixed, so a mid-sprint request
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q81: How does your team run its development process?](q81-how-your-team-runs-development.md) | [All 51 questions](../../README.md) | *(last question)* |
+| [Q81: How does your team run its development process?](q81-how-your-team-runs-development.md) | [All 52 questions](../../README.md) | *(last question)* |

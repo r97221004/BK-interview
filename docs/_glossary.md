@@ -418,6 +418,12 @@ Where a job goes after it has failed its retries, so it stops blocking the [queu
 
 Explained in full: [Q35](architecture-and-scaling/q35-message-queues-and-async-work.md).
 
+### Consumer group
+
+A set of Kafka consumers that share the work of reading a topic: each [partition](#partitioning) is assigned to exactly one member, so adding members spreads the load up to the partition count. A second group reads the same messages independently, from its own offsets.
+
+Explained in full: [Q39](architecture-and-scaling/q39-kafka-vs-rabbitmq.md).
+
 ### Schema migration
 
 A versioned, reviewed change to the database structure, applied by a tool that tracks what has already run. It executes while the previous version of the application is still serving traffic.

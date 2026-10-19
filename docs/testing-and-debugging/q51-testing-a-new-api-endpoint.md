@@ -79,4 +79,4 @@ The sentence to remember is: **Unit tests tell you where it broke; integration t
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) | [All 51 questions](../../README.md) | [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) |
+| [Q41: What is containerization, and how does it benefit backend development?](../devops-and-deployment/q41-what-is-containerization.md) | [All 52 questions](../../README.md) | [Q61: How do you choose HTTP status codes and design error responses?](../api-design/q61-status-codes-and-error-responses.md) |

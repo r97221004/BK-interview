@@ -50,4 +50,4 @@ The sentence to remember is: **The client can never promise to ask only once, so
 
 | ⬅ Previous | Home | Next ➡ |
 |---|---|---|
-| [Q62: How would you paginate a large collection endpoint?](q62-pagination.md) | [All 51 questions](../../README.md) | [Q72: How do you decide what goes into an interface?](../code-design/q72-designing-an-interface.md) |
+| [Q62: How would you paginate a large collection endpoint?](q62-pagination.md) | [All 52 questions](../../README.md) | [Q72: How do you decide what goes into an interface?](../code-design/q72-designing-an-interface.md) |
