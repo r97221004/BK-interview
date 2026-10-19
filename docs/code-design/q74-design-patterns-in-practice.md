@@ -50,7 +50,7 @@ The last thing I would say is that I do not look at code and ask which pattern t
 
 ## Quick Reference
 
-**Repository - SQL stops spreading:**
+**Repository - before: SQL spread across services:**
 
 ```mermaid
 ---
@@ -65,23 +65,43 @@ config:
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
 ---
 flowchart LR
-    subgraph BAD["❌ 查詢散落各處"]
-        u1["UserService"] --> q1["自己寫 SQL"] --> d1[("Database")]
-        o1["OrderService"] --> q2["自己寫 SQL"] --> d1
-        r1["ReportService"] --> q3["自己寫 SQL"] --> d1
-    end
-    subgraph GOOD["✅ 收到一個地方：規則只有一份"]
-        s2["Service"] --> repo["<b>OrderRepository</b><br/>find_unpaid_orders(customer_id)"] --> d2[("Database")]
-    end
+    u1["UserService"] --> q1["自己寫 SQL"] --> d1[("Database")]
+    o1["OrderService"] --> q2["自己寫 SQL"] --> d1
+    r1["ReportService"] --> q3["自己寫 SQL"] --> d1
 
     classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
     classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
     classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
     classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
-    class u1,o1,r1,s2 edgeStyle
+    class u1,o1,r1 edgeStyle
     class q1,q2,q3 badStyle
+    class d1 dataStyle
+```
+
+**Repository - after: one place owns the query:**
+
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    s2["Service"] --> repo["<b>OrderRepository</b><br/>find_unpaid_orders(customer_id)"] --> d2[("Database")]
+
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class s2 edgeStyle
     class repo svcStyle
-    class d1,d2 dataStyle
+    class d2 dataStyle
 ```
 
 **Strategy - the if/elif stops growing:**

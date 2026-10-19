@@ -48,7 +48,7 @@ One nuance is worth having ready, because it shows your knowledge is current: th
 
 Whether to queue the work at all is [Q35](q35-message-queues-and-async-work.md); this question is which tool once you have decided to.
 
-**The two models:**
+**RabbitMQ - the broker routes, ack deletes:**
 
 ```mermaid
 ---
@@ -63,31 +63,46 @@ config:
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
 ---
 flowchart LR
-    subgraph rabbit["RabbitMQ：ack 之後就刪掉"]
-        direction LR
-        p1["Producer"] -->|"routing key"| ex["Exchange"]
-        ex --> q1[("Queue: emails")]
-        ex --> q2[("Queue: audit")]
-        q1 -->|"push, one message<br/>to one worker"| w1["Worker A"]
-        q1 -->|"push"| w2["Worker B"]
-        q2 -->|"push"| w3["Audit worker"]
-    end
-
-    subgraph kafka["Kafka：訊息留著，消費者自己記 offset"]
-        direction LR
-        p2["Producer"] -->|"key = order id"| t["Topic: orders<br/>P0 · P1 · P2"]
-        t -->|"pull from offset 1042"| g1["Group: billing"]
-        t -->|"pull from offset 877"| g2["Group: search"]
-        t -.->|"reset offset → replay"| g3["Group: new-service"]
-    end
+    p["Producer"] -->|"routing key"| ex["Exchange"]
+    ex --> q1[("Queue: emails")]
+    ex --> q2[("Queue: audit")]
+    q1 -->|"push, one message<br/>to one worker"| w1["Worker A"]
+    q1 -->|"push"| w2["Worker B"]
+    q2 -->|"push"| w3["Audit worker"]
 
     classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
     classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
     classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
-    class p1,p2 edgeStyle
-    class ex,t svcStyle
+    class p,w1,w2,w3 edgeStyle
+    class ex svcStyle
     class q1,q2 dataStyle
-    class w1,w2,w3,g1,g2,g3 edgeStyle
+```
+
+**Kafka - the log keeps messages, each group tracks its own offset:**
+
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    p["Producer"] -->|"key = order id"| t[("Topic: orders<br/>P0 · P1 · P2")]
+    t -->|"pull from offset 1042"| g1["Group: billing"]
+    t -->|"pull from offset 877"| g2["Group: search"]
+    t -.->|"reset offset → replay"| g3["Group: new-service"]
+
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    class p,g1,g2,g3 edgeStyle
+    class t dataStyle
 ```
 
 **Side by side:**

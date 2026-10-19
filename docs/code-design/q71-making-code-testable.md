@@ -98,7 +98,7 @@ class UserService:
         return self.repository.create(name)
 ```
 
-**Same service, different collaborator:**
+**Same service in production - the real repository:**
 
 ```mermaid
 ---
@@ -113,19 +113,38 @@ config:
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
 ---
 flowchart LR
-    subgraph P["Production"]
-        s1["UserService"] --> r1["PostgresUserRepository"] --> db[("PostgreSQL")]
-    end
-    subgraph T["Unit Test"]
-        s2["UserService"] --> r2["FakeUserRepository<br/>dict，幾毫秒，不出 process"]
-    end
+    s1["UserService"] --> r1["PostgresUserRepository"] --> db[("PostgreSQL")]
 
     classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
     classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
     classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
     classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
-    class s1,s2 svcStyle
+    class s1 svcStyle
     class r1,db dataStyle
+```
+
+**Same service in a unit test - a fake collaborator:**
+
+```mermaid
+---
+config:
+  look: handDrawn
+  theme: default
+  themeVariables:
+    fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
+    lineColor: '#FFFFFF'
+    edgeLabelBackground: '#475569'
+  themeCSS: |
+    .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+---
+flowchart LR
+    s2["UserService"] --> r2["FakeUserRepository<br/>dict，幾毫秒，不出 process"]
+
+    classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
+    classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
+    classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
+    classDef badStyle fill:#7F1D1D,stroke:#EF4444,stroke-width:2px,color:#FFFFFF
+    class s2 svcStyle
     class r2 edgeStyle
 ```
 
