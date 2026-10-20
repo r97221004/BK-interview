@@ -61,14 +61,21 @@ config:
     edgeLabelBackground: '#475569'
   themeCSS: |
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+    .cluster-label, .cluster-label p, .cluster-label span { color: #FFFFFF !important; }
 ---
 flowchart LR
-    p["Producer"] -->|"routing key"| ex["Exchange"]
-    ex --> q1[("Queue: emails")]
-    ex --> q2[("Queue: audit")]
+    p["Producer"] -->|"routing key"| ex
+    subgraph broker["RabbitMQ broker: tracks every message"]
+        direction LR
+        ex["Exchange"] --> q1[("Queue: emails")]
+        ex --> q2[("Queue: audit")]
+    end
     q1 -->|"push, one message<br/>to one worker"| w1["Worker A"]
     q1 -->|"push"| w2["Worker B"]
     q2 -->|"push"| w3["Audit worker"]
+    w1 -.->|"ack → deleted"| q1
+
+    style broker fill:#1E293B,stroke:#D97706,stroke-width:2px,color:#FFFFFF
 
     classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
     classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
@@ -78,7 +85,7 @@ flowchart LR
     class q1,q2 dataStyle
 ```
 
-**Kafka - the log keeps messages, each group tracks its own offset:**
+**Kafka - the brokers keep the log, each group tracks its own offset:**
 
 ```mermaid
 ---
@@ -91,18 +98,27 @@ config:
     edgeLabelBackground: '#475569'
   themeCSS: |
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
+    .cluster-label, .cluster-label p, .cluster-label span { color: #FFFFFF !important; }
 ---
 flowchart LR
-    p["Producer"] -->|"key = order id"| t[("Topic: orders<br/>P0 · P1 · P2")]
-    t -->|"pull from offset 1042"| g1["Group: billing"]
-    t -->|"pull from offset 877"| g2["Group: search"]
-    t -.->|"reset offset → replay"| g3["Group: new-service"]
+    p["Producer"] -->|"key = order id<br/>picks the partition"| cluster
+    subgraph cluster["Kafka brokers: just store topic orders"]
+        direction TB
+        b1[("Broker 1<br/>P0")]
+        b2[("Broker 2<br/>P1")]
+        b3[("Broker 3<br/>P2")]
+    end
+    cluster -->|"pull from offset 1042"| g1["Group: billing"]
+    cluster -->|"pull from offset 877"| g2["Group: search"]
+    cluster -.->|"reset offset → replay"| g3["Group: new-service"]
+
+    style cluster fill:#1E293B,stroke:#D97706,stroke-width:2px,color:#FFFFFF
 
     classDef edgeStyle fill:#0F172A,stroke:#2563EB,stroke-width:2px,color:#FFFFFF
     classDef svcStyle fill:#D97706,stroke:#92400E,stroke-width:3px,color:#FFFFFF
     classDef dataStyle fill:#0F172A,stroke:#16A34A,stroke-width:2px,color:#FFFFFF
     class p,g1,g2,g3 edgeStyle
-    class t dataStyle
+    class b1,b2,b3 dataStyle
 ```
 
 **Side by side:**
