@@ -82,7 +82,7 @@ config:
   theme: default
   themeVariables:
     fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
-    lineColor: '#FFFFFF'
+    lineColor: '#94A3B8'
     edgeLabelBackground: '#475569'
     actorBkg: '#0F172A'
     actorBorder: '#2563EB'

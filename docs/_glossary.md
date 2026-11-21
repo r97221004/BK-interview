@@ -264,7 +264,7 @@ Explained in full: [Q31](architecture-and-scaling/q31-scaling-during-traffic-sur
 
 ### GIL
 
-CPython's Global Interpreter Lock: only one thread executes Python bytecode at a time. It blocks CPU-bound parallelism in threads, but is released during I/O, which is why threads still help there.
+CPython's Global Interpreter Lock: only one thread executes Python bytecode at a time. It blocks CPU-bound parallelism in threads, but is released during I/O and inside C extensions that drop it, which is why threads still help there. Since 3.13 CPython also ships a free-threaded build without it, officially supported from 3.14.
 
 Explained in full: [Q32](architecture-and-scaling/q32-python-concurrency-models.md).
 

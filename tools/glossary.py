@@ -92,7 +92,7 @@ TERMS = [
     ("backpressure", "Backpressure", 31,
      "Deliberately rejecting or queueing work when the system is saturated, so it degrades instead of collapsing. Rate limits, queue bounds, and load shedding are all forms of it."),
     ("gil", "GIL", 32,
-     "CPython's Global Interpreter Lock: only one thread executes Python bytecode at a time. It blocks CPU-bound parallelism in threads, but is released during I/O, which is why threads still help there."),
+     "CPython's Global Interpreter Lock: only one thread executes Python bytecode at a time. It blocks CPU-bound parallelism in threads, but is released during I/O and inside C extensions that drop it, which is why threads still help there. Since 3.13 CPython also ships a free-threaded build without it, officially supported from 3.14."),
     ("event-loop", "Event loop", 32,
      "The single-threaded scheduler behind `asyncio`. It runs a task until the task yields with `await`, then runs another, so one blocking call stalls everything."),
     ("hash-table", "Hash table", 33,

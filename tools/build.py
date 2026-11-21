@@ -273,12 +273,13 @@ def glossary_md():
     return "\n".join(out)
 
 
-BADGES = """![Python](https://img.shields.io/badge/Python-Backend%20Interviews-3776AB)
+BADGES = """![Backend](https://img.shields.io/badge/Backend-Interviews-3776AB)
+![Examples](https://img.shields.io/badge/Examples-Python-3776AB)
 ![Questions](https://img.shields.io/badge/Questions-{n}-2563EB)
 ![Format](https://img.shields.io/badge/Format-Q%26A-5D3FD3)
 ![Language](https://img.shields.io/badge/Language-EN%20%2B%20%E7%B9%81%E9%AB%94%E4%B8%AD%E6%96%87-D97706)"""
 
-README_HEAD = """# Python Backend Interview Questions
+README_HEAD = """# Backend Interview Questions
 
 > A focused set of {n} high-frequency backend interview questions, answered bilingually and from the mechanism up.
 
@@ -314,7 +315,7 @@ config:
   theme: default
   themeVariables:
     fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
-    lineColor: '#FFFFFF'
+    lineColor: '#94A3B8'
     edgeLabelBackground: '#475569'
   themeCSS: |
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
@@ -348,7 +349,7 @@ config:
   theme: default
   themeVariables:
     fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
-    lineColor: '#FFFFFF'
+    lineColor: '#94A3B8'
     edgeLabelBackground: '#475569'
   themeCSS: |
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }

@@ -59,7 +59,7 @@ config:
   theme: default
   themeVariables:
     fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
-    lineColor: '#FFFFFF'
+    lineColor: '#94A3B8'
     edgeLabelBackground: '#475569'
   themeCSS: |
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
@@ -87,7 +87,7 @@ config:
   theme: default
   themeVariables:
     fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
-    lineColor: '#FFFFFF'
+    lineColor: '#94A3B8'
     edgeLabelBackground: '#475569'
   themeCSS: |
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
@@ -122,7 +122,7 @@ config:
   theme: default
   themeVariables:
     fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
-    lineColor: '#FFFFFF'
+    lineColor: '#94A3B8'
     edgeLabelBackground: '#475569'
   themeCSS: |
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
@@ -156,7 +156,7 @@ config:
   theme: default
   themeVariables:
     fontFamily: '"Comic Sans MS", "Comic Sans", "Segoe Print", "Bradley Hand", cursive'
-    lineColor: '#FFFFFF'
+    lineColor: '#94A3B8'
     edgeLabelBackground: '#475569'
   themeCSS: |
     .edgeLabel, .edgeLabel p, .edgeLabel span { color: #FFFFFF !important; }
